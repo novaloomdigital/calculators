@@ -5,3 +5,109 @@ https://srds.com/calculator/grps-trps/
 https://www.themediaant.com/calculators/television/gross-rating-point-calculator
 https://www.bionic-ads.com/calculate/how-to-calculate-grps-gross-rating-points/
 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>grp-calculator</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+        *{
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin-top: 9rem;
+        }
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+              -webkit-appearance: none;
+               margin: 0;
+              }
+        label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin-bottom: 2rem;
+            font-size: 20px;
+            font-weight: 600;
+        }
+        input {
+            border: 1px solid #6314e6;
+            margin-top: 1rem;
+            outline: none;
+            border-radius: 4rem;
+            padding: 10px 35px;
+            font-size: 24px;
+            transition: all 0.3s ease-in-out;
+        }
+        input[type="submit"] {
+            border: none;
+            background-color: #6314e6;
+            color: white;
+            border-radius: 4rem;
+            padding: 10px 35px;
+            font-size: 24px;
+            transition: all 0.3s ease-in-out;
+        }
+        input[type="submit"]:hover {
+            cursor: pointer;
+            background-color: #4e0b9c;
+        }
+        p {
+            font-size: 24px;
+            font-weight: 600;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1">
+        <label for="TotalAudience">Total Audience: <input type="number" id="TotalAudience" name="TotalAudience"></label>
+        <label for="AudienceReached">Audience Reached: <input type="number" id="AudienceReached" name="AudienceReached"></label>
+        <input type="submit" value="Submit">
+        <p></p>
+    </form>
+    <form id="form2">
+        <label for="ReachPercent">Reach Percent: <input type="number" id="ReachPercent" name="ReachPercent" step="0.01"></label>
+        <label for="Frequency">Frequency: <input type="number" id="Frequency" name="Frequency"></label>
+        <input type="submit" value="Submit">
+        <p></p>
+    </form>
+    <script>
+        const form1 = document.querySelector('#form1');
+        form1.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const TotalAudience = parseInt(document.querySelector('#TotalAudience').value);
+            const AudienceReached = parseInt(document.querySelector('#AudienceReached').value);
+            let ReachPercent = (parseInt(document.querySelector('#AudienceReached').value) / parseInt(document.querySelector('#TotalAudience').value)) * 100;
+            ReachPercent = ReachPercent.toFixed(2);
+            let result1 = `Reach Percent: ${ReachPercent}%`;
+            document.querySelector('p').textContent = result1;
+        });
+
+        const form2 = document.querySelector('#form2');
+        form2.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const ReachPercentage = document.querySelector('#ReachPercent').value;
+            const Frequency = document.querySelector('#Frequency').value;
+            let GRP = (Frequency * ReachPercentage * 100);
+            let result2 = `GRP: ${GRP}`;
+            document.querySelector('p').textContent = result2;
+        });
+    </script>
+</body>
+</html>

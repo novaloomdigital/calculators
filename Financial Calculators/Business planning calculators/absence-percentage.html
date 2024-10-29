@@ -8,3 +8,91 @@ https://captaincalculator.com/financial/business/employee-absence-rate/
 https://www.attendance75.in/
 https://do-calculate.com/calculator/en/absence-percentage/
 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>absence-percentage</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+        *{
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin-top: 15rem;
+        }
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+              -webkit-appearance: none;
+               margin: 0;
+              }
+        label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin-bottom: 2rem;
+            font-size: 20px;
+            font-weight: 600;
+        }
+        input {
+            border: 1px solid #6314e6;
+            margin-top: 1rem;
+            outline: none;
+            border-radius: 4rem;
+            padding: 10px 35px;
+            font-size: 24px;
+            transition: all 0.3s ease-in-out;
+        }
+        input[type="submit"] {
+            border: none;
+            background-color: #6314e6;
+            color: white;
+            border-radius: 4rem;
+            padding: 10px 35px;
+            font-size: 24px;
+            transition: all 0.3s ease-in-out;
+        }
+        input[type="submit"]:hover {
+            cursor: pointer;
+            background-color: #4e0b9c;
+        }
+        p {
+            font-size: 24px;
+            font-weight: 600;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <form>
+        <label for="Total-employees">Total employees: <input type="number" id="Total-employees" name="Total-employees"></label>
+        <label for="Total-Workdays">Total Workdays: <input type="number" id="Total-Workdays" name="Total-Workdays"></label>
+        <label for="Absences">Absences: <input type="number" id="Absences" name="Absences"></label>
+        <input type="submit" value="Submit">
+        <p></p>
+    </form>
+    <script>
+        const form = document.querySelector('form');
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const TotalEmployees = parseInt(document.querySelector('#Total-employees').value);
+            const TotalWorkdays = parseInt(document.querySelector('#Total-Workdays').value);
+            const Absences = parseInt(document.querySelector('#Absences').value);
+            let Percentage = (Absences / (TotalEmployees * TotalWorkdays)) * 100;
+            Percentage = Percentage.toFixed(2);
+            let result = `Absence Rate: ${Percentage}%`;
+            document.querySelector('p').textContent = result;
+        console.log(result);
+        });
+    </script>
+</body>
+</html>

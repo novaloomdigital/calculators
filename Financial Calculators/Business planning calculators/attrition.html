@@ -1,19 +1,9 @@
-<!-- Competitors
-https://www.omnicalculator.com/finance/google-adsense
-https://snigel.com/blog/adsense-revenue-calculator
-https://smallseotools.com/adsense-calculator/
-https://www.adpushup.com/blog/adsense-revenue-calculator/
-https://www.prepostseo.com/calc/adsense-calculator
-https://www.internetmarketingninjas.com/tools/google-adsense-calculator/
-https://thewebsiteflip.com/tool/google-adsense-revenue-calculator/
-https://w3speedup.com/tools/adsense-revenue-calculator/
--->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>google-adsense</title>
+    <title>attrition-calculator-test</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
         *{
@@ -74,24 +64,23 @@ https://w3speedup.com/tools/adsense-revenue-calculator/
 </head>
 <body>
     <form>
-        <label for="PageViews">PageViews: <input type="number" id="PageViews" name="PageViews"></label>
-        <label for="Ads-Per-Page">Ads Per Page: <input type="number" id="Ads-Per-Page" name="Ads-Per-Page"></label>
-        <label for="CTR">CTR of Site: <input type="number" id="CTR" name="CTR" step="0.01"></label>
-        <label for="CPC">CPC of Site: <input type="number" id="CPC" name="CPC"></label>
+        <label for="Employees-At-Start">Employees At Start: <input type="number" id="Employees-At-Start" name="Employees-At-Start"></label>
+        <label for="Employees-At-End">Employees At End: <input type="number" id="Employees-At-End" name="Employees-At-End"></label>
+        <label for="Employees-That-Left">Employees That Left: <input type="number" id="Employees-That-Left" name="Employees-That-Left" step="0.01"></label>
         <input type="submit" value="Submit">
         <p></p>
     </form>
     <script>
         const form = document.querySelector('form');
         form.addEventListener('submit', (event) => {
+            let half = 1/2;
             event.preventDefault();
-            const pageViews = parseInt(document.querySelector('#PageViews').value);
-            const adsPerPage = parseInt(document.querySelector('#Ads-Per-Page').value);
-            const CTR = document.querySelector('#CTR').value;
-            const CPC = parseInt(document.querySelector('#CPC').value);
-            let Revenue = (pageViews * adsPerPage * CTR * CPC);
-            Revenue = Revenue.toFixed(2);
-            let result = `Revenue: ${Revenue}`;
+            const EmploysStart = parseInt(document.querySelector('#Employees-At-Start').value);
+            const EmploysEnd = parseInt(document.querySelector('#Employees-At-End').value);
+            const EmploysLeft = document.querySelector('#Employees-That-Left').value;
+            let Attrition = (EmploysLeft/(half*(EmploysStart + EmploysEnd))) * 100;
+            Attrition = Attrition.toFixed(2);
+            let result = `Attrition: ${Attrition}`;
             document.querySelector('p').textContent = result;
         console.log(result);
         });
