@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>attrition-calculator-test</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+        *{
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            display: flex;
+        }
+        h2{
+            margin-bottom: 1rem;
+        }
+        form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin-top: 9rem;
+        }
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+              -webkit-appearance: none;
+               margin: 0;
+              }
+        label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin-bottom: 2rem;
+            font-size: 20px;
+            font-weight: 600;
+        }
+        input {
+            border: 1px solid #6314e6;
+            margin-top: 1rem;
+            outline: none;
+            border-radius: 4rem;
+            padding: 10px 35px;
+            font-size: 24px;
+            transition: all 0.3s ease-in-out;
+        }
+        input[type="submit"] {
+            border: none;
+            background-color: #6314e6;
+            color: white;
+            border-radius: 4rem;
+            padding: 10px 35px;
+            font-size: 24px;
+            transition: all 0.3s ease-in-out;
+        }
+        input[type="submit"]:hover {
+            cursor: pointer;
+            background-color: #4e0b9c;
+        }
+        p {
+            font-size: 24px;
+            font-weight: 600;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1">
+        <h2>What is p% of x</h2>
+        <label for="What is p% ">What is p% : <input type="number" id="p" name="p"></label>
+        <label for="of ?">of ?: <input type="number" id="x" name="x"></label>
+        <input type="submit" value="Submit">
+        <p></p>
+    </form>
+    <form id="form2">
+        <h2>x is what % of y</h2>
+        <label for="x is what of y ">What is x : <input type="number" id="x1" name="x1"></label>
+        <label for="of y">of y: <input type="number" id="y1" name="y1"></label>
+        <input type="submit" value="Submit">
+        <p></p>
+    </form>
+    <form id="form3">
+        <h2>x is y% of what</h2>
+        <label for="x is y% of ">x is : <input type="number" id="x2" name="x2"></label>
+        <label for="of y">% of what: <input type="number" id="y2" name="y2"></label>
+        <input type="submit" value="Submit">
+        <p></p>
+    </form>
+    <form id="form4">
+        <h2>what is x increased by y%?</h2>
+        <label for="x is y% of ">what is : <input type="number" id="x3" name="x3"></label>
+        <label for="by %">by %: <input type="number" id="y3" name="y3"></label>
+        <input type="submit" value="Submit">
+        <p></p>
+    </form>
+    <form id="form5">
+        <h2>what is x decreased by y%?</h2>
+        <label for="x is y% of ">what is : <input type="number" id="x4" name="x4"></label>
+        <label for="by %">by %: <input type="number" id="y4" name="y4"></label>
+        <input type="submit" value="Submit">
+        <p></p>
+    </form>
+    <script>
+        const form1 = document.querySelector('#form1');
+        form1.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const P = parseInt(document.querySelector('#p').value);
+            const x = parseInt(document.querySelector('#x').value);
+            let y = (x * P) / 100;
+            let result = `y is: ${y}`;
+            document.querySelector('p').textContent = result;
+        console.log(result);
+        });
+        const form2 = document.querySelector('#form2');
+        form2.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const x1 = parseInt(document.querySelector('#x1').value);
+            const y1 = parseInt(document.querySelector('#y1').value);
+            let p1 = (x1 * 100) / y1;
+            let result = `p is: ${p1}`;
+            document.querySelector('p').textContent = result;
+        console.log(result);
+        });
+        const form3 = document.querySelector('#form3');
+        form3.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const x2 = parseInt(document.querySelector('#x2').value);
+            const y2 = parseInt(document.querySelector('#y2').value);
+            let p2 = (x2 * 100) / y2;
+            let result = `p is: ${p2}`;
+            document.querySelector('p').textContent = result;
+        console.log(result);
+        });
+        const form4 = document.querySelector('#form4');
+        form4.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const x3 = parseInt(document.querySelector('#x3').value);
+            const y3 = parseInt(document.querySelector('#y3').value);
+            let p3 = (x3) * ((100 + y3) / 100);
+            let result = `p is: ${p3}`;
+            document.querySelector('p').textContent = result;
+        console.log(result);
+        });
+        const form5 = document.querySelector('#form5');
+        form5.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const x4 = parseInt(document.querySelector('#x4').value);
+            const y4 = parseInt(document.querySelector('#y4').value);
+            let p4 = (-x4) * ((100 + y4) / 100);
+            let result = `p is: ${p4}`;
+            document.querySelector('p').textContent = result;
+        console.log(result);
+        });
+    </script>
+</body>
+</html>
