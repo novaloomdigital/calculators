@@ -68,7 +68,7 @@
 <body>
     <form id="form1">
         <h2>Decimal to Percent</h2>
-        <label for="Decimal">decimal : <input type="number" id="p" name="p"step="0.1"></label>
+        <label for="Decimal">decimal : <input type="number" id="p" name="p" step="0.01"></label>
         <input type="submit" value="Submit">
         <p></p>
     </form>
@@ -77,10 +77,14 @@
         form1.addEventListener('submit', (event) => {
             event.preventDefault();
             const P = document.querySelector('#p').value;
-            let y = 100 * P;
-            let result = `y is: ${y}`;
-            document.querySelector('p').textContent = result;
-        console.log(result);
+            if (P !== '') {
+                let y = 100 * P;
+                let result = `${y}%`;
+                document.querySelector('p').textContent = result;
+                console.log(result);
+            } else {
+                document.querySelector('p').textContent = "Please enter a decimal value.";
+            }
         });
     </script>
 </body>
