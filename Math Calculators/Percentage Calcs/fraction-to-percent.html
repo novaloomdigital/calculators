@@ -77,13 +77,19 @@
         const form1 = document.querySelector('#form1');
         form1.addEventListener('submit', (event) => {
             event.preventDefault();
-            const p = document.querySelector('#p').value;
-            const z = document.querySelector('#z').value;
-            let y = 1/Math.log2(1 + p/z);
-            y = y.toFixed(5);
+            const p = parseFloat(document.querySelector('#p').value);
+            const z = parseFloat(document.querySelector('#z').value);
+
+            if (isNaN(p) || isNaN(z) || z === 0) {
+                document.querySelector('p').textContent = "Please enter valid numbers.";
+                return;
+            }
+
+            let y = z * (1 + p / 100); // Corrected formula
+            y = y.toFixed(2);
             let result = `y is: ${y}`;
             document.querySelector('p').textContent = result;
-        console.log(result);
+            console.log(result);
         });
     </script>
 </body>

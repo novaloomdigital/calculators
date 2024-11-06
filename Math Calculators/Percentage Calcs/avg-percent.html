@@ -74,9 +74,9 @@
         const form = document.querySelector('form');
         form.addEventListener('submit', (event) => {
             event.preventDefault();
-            const Entry1 = document.querySelector('#Entry1').value;
-            const Entry2 = document.querySelector('#Entry2').value;
-            const Entry3 = document.querySelector('#Entry3').value;
+            const Entry1 = parseFloat(document.querySelector('#Entry1').value) || 0;
+            const Entry2 = parseFloat(document.querySelector('#Entry2').value) || 0;
+            const Entry3 = parseFloat(document.querySelector('#Entry3').value) || 0;
             let Avg = (Entry1 + Entry2 + Entry3) /3;
             let result = `Avg: ${Avg}`;
             document.querySelector('p').textContent = result;
