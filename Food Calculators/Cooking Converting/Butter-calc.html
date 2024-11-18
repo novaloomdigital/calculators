@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Butter Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .calculator {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            margin-bottom: 15px;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            width: 100%;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h2>Butter Calculator</h2>
+
+        <input type="number" id="tablespoons" placeholder="Tablespoons" step="0.1">
+        <input type="number" id="grams" placeholder="Grams" step="0.1">
+        <input type="number" id="sticks" placeholder="Sticks" step="0.1">
+
+        <button onclick="calculateButter()">Calculate</button>
+
+        <div id="result"></div>
+    </div>
+    <script>
+        function calculateButter() {
+            const tablespoons = parseFloat(document.getElementById('tablespoons').value) || 0;
+            const grams = parseFloat(document.getElementById('grams').value) || 0;
+            const sticks = parseFloat(document.getElementById('sticks').value) || 0;
+
+            // Conversion constants
+            const gramsPerTablespoon = 14.2; // 1 tablespoon = 14.2 grams
+            const gramsPerStick = 113.4; // 1 stick = 113.4 grams
+
+            // Calculate the total grams based on the inputs
+            const totalGrams = (tablespoons * gramsPerTablespoon) + (grams) + (sticks * gramsPerStick);
+
+            // Prepare result
+            const totalTablespoons = totalGrams / gramsPerTablespoon;
+            const totalSticks = totalGrams / gramsPerStick;
+
+            document.getElementById('result').textContent = `
+                Total Grams: ${totalGrams.toFixed(2)}g,
+                Equivalent in Tablespoons: ${totalTablespoons.toFixed(2)} tbsp,
+                Equivalent in Sticks: ${totalSticks.toFixed(2)} sticks
+            `;
+        }
+    </script>
+</body>
+</html>

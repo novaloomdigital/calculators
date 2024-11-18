@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grams to Milliliters Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .calculator {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            margin-bottom: 15px;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            width: 100%;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h2>Grams to Milliliters Calculator</h2>
+
+        <input type="number" id="grams" placeholder="Grams" step="0.1">
+        <input type="number" id="milliliters" placeholder="Milliliters" step="0.1">
+
+        <button onclick="calculate()">Calculate</button>
+
+        <div id="result"></div>
+
+        <div>
+            <label>
+                <input type="radio" name="ingredient" value="water" checked> Water
+            </label>
+            <label>
+                <input type="radio" name="ingredient" value="milk"> Milk
+            </label>
+            <label>
+                <input type="radio" name="ingredient" value="honey"> Honey
+            </label>
+        </div>
+    </div>
+    <script>
+        const conversionRates = {
+            "water": 1.0,   // 1 ml of water ≈ 1 gram
+            "milk": 1.03,   // 1 ml of milk ≈ 1.03 grams
+            "honey": 1.42   // 1 ml of honey ≈ 1.42 grams
+        };
+
+        function calculate() {
+            const grams = parseFloat(document.getElementById('grams').value) || 0;
+            const milliliters = parseFloat(document.getElementById('milliliters').value) || 0;
+
+            // Getting the selected ingredient
+            const ingredient = document.querySelector('input[name="ingredient"]:checked') ? document.querySelector('input[name="ingredient"]:checked').value : null;
+
+            let resultText = '';
+
+            if (ingredient) {
+                if (grams > 0) {
+                    const mlFromGrams = grams / conversionRates[ingredient]; // Convert grams to milliliters
+                    resultText = `${grams} grams of ${ingredient} is approximately ${mlFromGrams.toFixed(2)} ml.`;
+                } else if (milliliters > 0) {
+                    const gramsFromMl = milliliters * conversionRates[ingredient]; // Convert milliliters to grams
+                    resultText = `${milliliters} ml of ${ingredient} is approximately ${gramsFromMl.toFixed(2)} grams.`;
+                }
+            } else {
+                resultText = 'Please select an ingredient.';
+            }
+
+            document.getElementById('result').textContent = resultText;
+        }
+    </script>
+</body>
+</html>

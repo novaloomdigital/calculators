@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dry to Cooked Pasta Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .converter {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            margin-bottom: 15px;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            width: 100%;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="converter">
+        <h2>Dry to Cooked Pasta Converter</h2>
+
+        <input type="number" id="dryPasta" placeholder="Dry Pasta (grams)" step="0.1">
+        <input type="number" id="cookedPasta" placeholder="Cooked Pasta (grams)" step="0.1">
+
+        <button onclick="calculate()">Convert</button>
+
+        <div id="result"></div>
+    </div>
+    <script>
+        function calculate() {
+            const dryPasta = parseFloat(document.getElementById('dryPasta').value) || 0;
+            const cookedPasta = parseFloat(document.getElementById('cookedPasta').value) || 0;
+
+            let resultText = '';
+
+            if (dryPasta > 0) {
+                // Roughly, 100 grams of dry pasta yields about 200-250 grams of cooked pasta
+                const cookedEquivalent = dryPasta * 2.5; // Using 2.5 as a conversion factor
+                resultText = `${dryPasta} grams of dry pasta is approximately ${cookedEquivalent.toFixed(2)} grams of cooked pasta.`;
+            } else if (cookedPasta > 0) {
+                // Reverse calculation for cooked to dry
+                const dryEquivalent = cookedPasta / 2.5; // Reverse calculation
+                resultText = `${cookedPasta} grams of cooked pasta is approximately ${dryEquivalent.toFixed(2)} grams of dry pasta.`;
+            } else {
+                resultText = 'Please enter a value for either dry pasta or cooked pasta.';
+            }
+
+            document.getElementById('result').textContent = resultText;
+        }
+    </script>
+</body>
+</html>

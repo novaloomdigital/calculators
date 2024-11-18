@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .converter {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            margin-bottom: 15px;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            width: 100%;
+        }
+
+        select {
+            margin-bottom: 15px;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            width: 100%;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="converter">
+        <h2>Cookie Converter</h2>
+
+        <input type="number" id="quantity" placeholder="Quantity" step="0.1">
+        
+        <select id="ingredient">
+            <option value="flour">Flour (grams)</option>
+            <option value="sugar">Sugar (grams)</option>
+            <option value="butter">Butter (grams)</option>
+        </select>
+
+        <select id="unit">
+            <option value="grams">Grams</option>
+            <option value="cups">Cups</option>
+            <option value="tablespoons">Tablespoons</option>
+        </select>
+
+        <button onclick="convert()">Convert</button>
+
+        <div id="result"></div>
+    </div>
+    <script>
+        const conversionRates = {
+            "flour": {
+                "grams": 120,        // 1 cup of flour ≈ 120 grams
+                "cups": 1 / 120,     // 1 gram of flour ≈ 0.00833 cups
+                "tablespoons": 120 / 15 // 1 tablespoon ≈ 15 grams
+            },
+            "sugar": {
+                "grams": 200,        // 1 cup of sugar ≈ 200 grams
+                "cups": 1 / 200,     // 1 gram of sugar ≈ 0.005 cups
+                "tablespoons": 200 / 15 // 1 tablespoon ≈ 15 grams
+            },
+            "butter": {
+                "grams": 227,        // 1 cup of butter ≈ 227 grams
+                "cups": 1 / 227,     // 1 gram of butter ≈ 0.0044 cups
+                "tablespoons": 227 / 15 // 1 tablespoon ≈ 15 grams
+            }
+        };
+
+        function convert() {
+            const quantity = parseFloat(document.getElementById('quantity').value) || 0;
+            const ingredient = document.getElementById('ingredient').value;
+            const unit = document.getElementById('unit').value;
+
+            let resultText = '';
+
+            if (quantity > 0) {
+                const grams = quantity * conversionRates[ingredient][unit]; // Convert to grams
+                resultText = `${quantity} ${unit} of ${ingredient} is approximately ${grams.toFixed(2)} grams.`;
+            } else {
+                resultText = 'Please enter a quantity.';
+            }
+
+            document.getElementById('result').textContent = resultText;
+        }
+    </script>
+</body>
+</html>

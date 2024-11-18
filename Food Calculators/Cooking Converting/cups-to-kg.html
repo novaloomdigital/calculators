@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cups to Kilograms Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .calculator {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            margin-bottom: 15px;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            width: 100%;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h2>Cups to Kilograms Calculator</h2>
+
+        <input type="number" id="cups" placeholder="Cups" step="0.1">
+        <input type="number" id="kilograms" placeholder="Kilograms" step="0.1">
+
+        <button onclick="calculate()">Calculate</button>
+
+        <div id="result"></div>
+
+        <div>
+            <label>
+                <input type="radio" name="ingredient" value="flour" checked> Flour
+            </label>
+            <label>
+                <input type="radio" name="ingredient" value="sugar"> Sugar
+            </label>
+            <label>
+                <input type="radio" name="ingredient" value="butter"> Butter
+            </label>
+        </div>
+    </div>
+    <script>
+        const conversionRates = {
+            "flour": 0.125, // 1 cup of all-purpose flour ≈ 0.125 kg (125 grams)
+            "sugar": 0.200, // 1 cup of granulated sugar ≈ 0.200 kg (200 grams)
+            "butter": 0.227 // 1 cup of butter ≈ 0.227 kg (227 grams)
+        };
+
+        function calculate() {
+            const cups = parseFloat(document.getElementById('cups').value) || 0;
+            const kilograms = parseFloat(document.getElementById('kilograms').value) || 0;
+
+            // Getting the selected ingredient
+            const ingredient = document.querySelector('input[name="ingredient"]:checked') ? document.querySelector('input[name="ingredient"]:checked').value : null;
+
+            let resultText = '';
+
+            if (ingredient) {
+                if (cups > 0) {
+                    const kgFromCups = cups * conversionRates[ingredient]; // Convert cups to kilograms
+                    resultText = `${cups} cups of ${ingredient} is approximately ${kgFromCups.toFixed(2)} kg.`;
+                } else if (kilograms > 0) {
+                    const cupsFromKg = kilograms / conversionRates[ingredient]; // Convert kilograms to cups
+                    resultText = `${kilograms} kg of ${ingredient} is approximately ${cupsFromKg.toFixed(2)} cups.`;
+                }
+            } else {
+                resultText = 'Please select an ingredient.';
+            }
+
+            document.getElementById('result').textContent = resultText;
+        }
+    </script>
+</body>
+</html>

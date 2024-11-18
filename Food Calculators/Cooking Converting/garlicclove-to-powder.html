@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garlic Clove to Powder Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .converter {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            margin-bottom: 15px;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            width: 100%;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="converter">
+        <h2>Garlic Clove to Powder Converter</h2>
+
+        <input type="number" id="garlicCloves" placeholder="Garlic Cloves" step="0.1">
+        <input type="number" id="garlicPowder" placeholder="Garlic Powder (teaspoons)" step="0.1">
+
+        <button onclick="calculate()">Convert</button>
+
+        <div id="result"></div>
+    </div>
+    <script>
+        function calculate() {
+            const garlicCloves = parseFloat(document.getElementById('garlicCloves').value) || 0;
+            const garlicPowder = parseFloat(document.getElementById('garlicPowder').value) || 0;
+
+            let resultText = '';
+
+            if (garlicCloves > 0) {
+                // Roughly, 1 garlic clove = 1/8 tsp garlic powder
+                const powderEquivalent = garlicCloves * 0.125; // 1 clove ≈ 1/8 tsp
+                resultText = `${garlicCloves} garlic clove(s) is approximately ${powderEquivalent.toFixed(2)} teaspoons of garlic powder.`;
+            } else if (garlicPowder > 0) {
+                // Reverse calculation for garlic powder to cloves
+                const clovesEquivalent = garlicPowder / 0.125; // 1/8 tsp ≈ 1 clove
+                resultText = `${garlicPowder} teaspoons of garlic powder is approximately ${clovesEquivalent.toFixed(2)} garlic clove(s).`;
+            } else {
+                resultText = 'Please enter a value for either garlic cloves or garlic powder.';
+            }
+
+            document.getElementById('result').textContent = resultText;
+        }
+    </script>
+</body>
+</html>
