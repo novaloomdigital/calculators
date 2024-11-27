@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfect Square Trinomial Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .calculator {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 400px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 14px;
+            text-align: left;
+            white-space: pre-wrap; /* Preserve whitespace and line breaks */
+            background-color: #f8f8f8;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h2>Perfect Square Trinomial Calculator</h2>
+        <input type="number" id="a" placeholder="Coefficient a" step="any">
+        <input type="number" id="b" placeholder="Coefficient b" step="any">
+        <input type="number" id="c" placeholder="Coefficient c" step="any">
+        <button onclick="checkPerfectSquare()">Check Perfect Square</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function checkPerfectSquare() {
+            const a = parseFloat(document.getElementById('a').value);
+            const b = parseFloat(document.getElementById('b').value);
+            const c = parseFloat(document.getElementById('c').value);
+            const resultDiv = document.getElementById('result');
+
+            // Clear previous result
+            resultDiv.textContent = '';
+
+            // Validate input
+            if (isNaN(a) || isNaN(b) || isNaN(c)) {
+                resultDiv.textContent = 'Please enter valid coefficients.';
+                resultDiv.classList.add('error');
+                return;
+            }
+
+            // Check for perfect square trinomial
+            const isPerfectSquare = (b * b) === (4 * a * c);
+
+            if (isPerfectSquare) {
+                const p = Math.sqrt(a);
+                const q = b / (2 * p);
+                resultDiv.textContent = `Perfect Square Trinomial:\n(${p}x + ${q})²`;
+            } else {
+                resultDiv.textContent = 'Not a perfect square trinomial.';
+            }
+            resultDiv.classList.remove('error');
+        }
+    </script>
+</body>
+</html>

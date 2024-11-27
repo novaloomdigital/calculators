@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Union and Intersection Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .calculator {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 400px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 14px;
+            text-align: left;
+            white-space: pre-wrap; /* Preserve whitespace and line breaks */
+            background-color: #f8f8f8;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h2>Union and Intersection Calculator</h2>
+        <input type="text" id="set1" placeholder="Enter Set 1 (e.g., 1, 2, 3)">
+        <input type="text" id="set2" placeholder="Enter Set 2 (e.g., 2, 3, 4)">
+        <button onclick="calculateSets()">Calculate Union and Intersection</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calculateSets() {
+            const set1Input = document.getElementById('set1').value.trim();
+            const set2Input = document.getElementById('set2').value.trim();
+            const resultDiv = document.getElementById('result');
+            resultDiv.textContent = '';
+
+            // Convert input strings to arrays of numbers
+            const set1 = new Set(set1Input.split(',').map(num => num.trim()).filter(num => num).map(Number));
+            const set2 = new Set(set2Input.split(',').map(num => num.trim()).filter(num => num).map(Number));
+
+            // Calculate union
+            const union = new Set([...set1, ...set2]);
+
+            // Calculate intersection
+            const intersection = new Set([...set1].filter(num => set2.has(num)));
+
+            resultDiv.textContent = `Union: {${[...union].join(', ')}}\nIntersection: {${[...intersection].join(', ')}}`;
+        }
+    </script>
+</body>
+</html>

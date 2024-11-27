@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complex Number Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .calculator {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 400px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 14px;
+            text-align: left;
+            white-space: pre-wrap; /* Preserve whitespace and line breaks */
+            background-color: #f8f8f8;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h2>Complex Number Calculator</h2>
+        
+        <input type="text" id="complex1" placeholder="First Complex Number (a + bi)">
+        <input type="text" id="complex2" placeholder="Second Complex Number (c + di)">
+        
+        <select id="operation">
+            <option value="add">Add</option>
+            <option value="subtract">Subtract</option>
+            <option value="multiply">Multiply</option>
+            <option value="divide">Divide</option>
+        </select>
+
+        <button onclick="calculateComplex()">Calculate</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function parseComplex(complexStr) {
+            const regex = /^([-+]?\d*\.?\d*)\s*([-+]\s*\d*\.?\d*)i$/;
+            const match = complexStr.replace(/\s+/g, '').match(regex);
+            if (match) {
+                const realPart = parseFloat(match[1]);
+                const imaginaryPart = parseFloat(match[2].replace('i', ''));
+                return { real: realPart, imaginary: imaginaryPart };
+            }
+            return null;
+        }
+
+        function calculateComplex() {
+            const complex1 = document.getElementById('complex1').value.trim();
+            const complex2 = document.getElementById('complex2').value.trim();
+            const operation = document.getElementById('operation').value;
+            const resultDiv = document.getElementById('result');
+
+            resultDiv.textContent = '';
+
+            const num1 = parseComplex(complex1);
+            const num2 = parseComplex(complex2);
+
+            if (!num1 || !num2) {
+                resultDiv.textContent = 'Invalid complex number format. Please use "a + bi".';
+                resultDiv.classList.add('error');
+                return;
+            }
+
+            let result;
+
+            switch (operation) {
+                case 'add':
+                    result = {
+                        real: num1.real + num2.real,
+                        imaginary: num1.imaginary + num2.imaginary
+                    };
+                    break;
+                case 'subtract':
+                    result = {
+                        real: num1.real - num2.real,
+                        imaginary: num1.imaginary - num2.imaginary
+                    };
+                    break;
+                case 'multiply':
+                    result = {
+                        real: num1.real * num2.real - num1.imaginary * num2.imaginary,
+                        imaginary: num1.real * num2.imaginary + num1.imaginary * num2.real
+                    };
+                    break;
+                case 'divide':
+                    const denominator = num2.real * num2.real + num2.imaginary * num2.imaginary;
+                    if (denominator === 0) {
+                        resultDiv.textContent = 'Cannot divide by zero.';
+                        resultDiv.classList.add('error');
+                        return;
+                    }
+                    result = {
+                        real: (num1.real * num2.real + num1.imaginary * num2.imaginary) / denominator,
+                        imaginary: (num1.imaginary * num2.real - num1.real * num2.imaginary) / denominator
+                    };
+                    break;
+                default:
+                    resultDiv.textContent = 'Invalid operation.';
+                    resultDiv.classList.add('error');
+                    return;
+            }
+
+            resultDiv.textContent = `Result: ${result.real} ${result.imaginary >= 0 ? '+' : ''} ${result.imaginary}i`;
+            resultDiv.classList.remove('error');
+        }
+    </script>
+</body>
+</html>

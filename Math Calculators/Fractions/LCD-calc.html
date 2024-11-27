@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Least Common Denominator Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .calculator {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 400px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 14px;
+            text-align: left;
+            white-space: pre-wrap; /* Preserve whitespace and line breaks */
+            background-color: #f8f8f8;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h2>Least Common Denominator Calculator</h2>
+        <input type="text" id="denominators" placeholder="Enter denominators (e.g., 4, 6, 8)">
+        <button onclick="calculateLCD()">Calculate LCD</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function gcd(a, b) {
+            return b === 0 ? Math.abs(a) : gcd(b, a % b);
+        }
+
+        function lcm(a, b) {
+            return (a * b) / gcd(a, b);
+        }
+
+        function calculateLCD() {
+            const denominatorsInput = document.getElementById('denominators').value.trim();
+            const denominators = denominatorsInput.split(',').map(num => parseInt(num.trim()));
+            const resultDiv = document.getElementById('result');
+
+            // Clear previous result
+            resultDiv.textContent = '';
+
+            // Validate input
+            if (denominators.some(isNaN) || denominators.length < 2) {
+                resultDiv.textContent = 'Please enter valid denominators, separated by commas.';
+                resultDiv.classList.add('error');
+                return;
+            }
+
+            // Calculate the least common denominator
+            let lcd = denominators[0];
+            for (let i = 1; i < denominators.length; i++) {
+                lcd = lcm(lcd, denominators[i]);
+            }
+
+            resultDiv.textContent = `Least Common Denominator: ${lcd}`;
+            resultDiv.classList.remove('error');
+        }
+    </script>
+</body>
+</html>

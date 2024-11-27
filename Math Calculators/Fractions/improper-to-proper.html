@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Improper to Proper Fraction Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .calculator {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 400px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 14px;
+            text-align: left;
+            white-space: pre-wrap; /* Preserve whitespace and line breaks */
+            background-color: #f8f8f8;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h2>Improper to Proper Fraction Calculator</h2>
+        <input type="number" id="numerator" placeholder="Enter numerator" step="any">
+        <input type="number" id="denominator" placeholder="Enter denominator (non-zero)" step="any">
+        <button onclick="convertToProperFraction()">Convert to Proper Fraction</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function convertToProperFraction() {
+            const numerator = parseInt(document.getElementById('numerator').value);
+            const denominator = parseInt(document.getElementById('denominator').value);
+            const resultDiv = document.getElementById('result');
+
+            // Clear previous result
+            resultDiv.textContent = '';
+
+            // Validate input
+            if (isNaN(numerator) || isNaN(denominator) || denominator === 0) {
+                resultDiv.textContent = 'Please enter valid numbers for numerator and a non-zero denominator.';
+                resultDiv.classList.add('error');
+                return;
+            }
+
+            // If the fraction is proper
+            if (Math.abs(numerator) < Math.abs(denominator)) {
+                resultDiv.textContent = `The fraction ${numerator}/${denominator} is already a proper fraction.`;
+                resultDiv.classList.remove('error');
+                return;
+            }
+
+            // Convert to mixed number
+            const wholePart = Math.floor(numerator / denominator);
+            const newNumerator = Math.abs(numerator % denominator);
+
+            // Display result
+            if (newNumerator === 0) {
+                resultDiv.textContent = `Proper Fraction: ${wholePart}`;
+            } else {
+                resultDiv.textContent = `Proper Fraction: ${wholePart} ${newNumerator}/${Math.abs(denominator)}`;
+            }
+            resultDiv.classList.remove('error');
+        }
+    </script>
+</body>
+</html>

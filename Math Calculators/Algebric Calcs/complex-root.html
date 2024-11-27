@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complex Root Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .calculator {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 400px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 14px;
+            text-align: left;
+            white-space: pre-wrap; /* Preserve whitespace and line breaks */
+            background-color: #f8f8f8;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h2>Complex Root Calculator</h2>
+        <input type="text" id="complexNumber" placeholder="Enter complex number (a + bi)">
+        <button onclick="calculateRoots()">Calculate Roots</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function parseComplex(complexStr) {
+            const regex = /^([-+]?\d*\.?\d*)\s*([-+]\s*\d*\.?\d*)i$/;
+            const match = complexStr.trim().replace(/\s+/g, '').match(regex);
+            if (match) {
+                const realPart = parseFloat(match[1]);
+                const imaginaryPart = parseFloat(match[2].replace('i', ''));
+                return { real: realPart, imaginary: imaginaryPart };
+            }
+            return null;
+        }
+
+        function calculateRoots() {
+            const input = document.getElementById('complexNumber').value.trim();
+            const resultDiv = document.getElementById('result');
+
+            resultDiv.textContent = '';
+
+            const number = parseComplex(input);
+
+            if (!number) {
+                resultDiv.textContent = 'Invalid format. Please enter in the form a + bi.';
+                resultDiv.classList.add('error');
+                return;
+            }
+
+            const a = number.real;
+            const b = number.imaginary;
+
+            // Calculate magnitude and angle
+            const r = Math.sqrt(a * a + b * b);
+            const theta = Math.atan2(b, a);
+
+            // Calculate square roots
+            const sqrtR = Math.sqrt(r);
+            const root1Real = sqrtR * Math.cos(theta / 2);
+            const root1Imaginary = sqrtR * Math.sin(theta / 2);
+            const root2Real = sqrtR * Math.cos((theta + Math.PI) / 2);
+            const root2Imaginary = sqrtR * Math.sin((theta + Math.PI) / 2);
+
+            resultDiv.textContent = `Roots:\n1: ${root1Real.toFixed(2)} + ${root1Imaginary.toFixed(2)}i\n2: ${root2Real.toFixed(2)} + ${root2Imaginary.toFixed(2)}i`;
+            resultDiv.classList.remove('error');
+        }
+    </script>
+</body>
+</html>

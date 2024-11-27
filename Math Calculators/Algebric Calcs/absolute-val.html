@@ -3,96 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Absolute Value</title>
+    <title>Absolute Value Equation Calculator</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-        *{
-            font-family: 'Montserrat', sans-serif;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
             margin: 0;
-            padding: 0;
-            box-sizing: border-box;
         }
-        h2{
-            margin-bottom: 1rem;
+
+        .calculator {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 400px;
         }
-        form {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            margin-top: 9rem;
-            flex-wrap: wrap;
+
+        h2 {
+            margin-bottom: 20px;
         }
-        input::-webkit-outer-spin-button,
-        input::-webkit-inner-spin-button {
-              -webkit-appearance: none;
-               margin: 0;
-              }
-        label {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            margin-bottom: 2rem;
-            font-size: 20px;
-            font-weight: 600;
-        }
+
         input {
-            border: 1px solid #6314e6;
-            margin-top: 1rem;
-            outline: none;
-            border-radius: 4rem;
-            padding: 10px 35px;
-            font-size: 24px;
-            transition: all 0.3s ease-in-out;
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-size: 16px;
+            margin-bottom: 10px;
         }
-        input[type="submit"] {
-            border: none;
-            background-color: #6314e6;
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #007bff;
             color: white;
-            border-radius: 4rem;
-            padding: 10px 35px;
-            font-size: 24px;
-            transition: all 0.3s ease-in-out;
-        }
-        input[type="submit"]:hover {
+            border: none;
+            border-radius: 4px;
             cursor: pointer;
-            background-color: #4e0b9c;
+            transition: background-color 0.3s;
         }
-        p {
-            font-size: 24px;
-            font-weight: 600;
-            margin-top: 2rem;
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 14px;
+            text-align: left;
+            white-space: pre-wrap; /* Preserve whitespace and line breaks */
+            background-color: #f8f8f8;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .error {
+            color: red;
         }
     </style>
 </head>
 <body>
-        <form id="form1">
-            <h2>ABsolute Value Equation</h2>
-            <label for="Initial">A : <input type="number" id="a" name="a"></label>
-            <label for="Final">B: <input type="number" id="b" name="b"></label>
-            <label for="Final">C: <input type="number" id="c" name="c"></label>
-            <label for="Final">C: <input type="number" id="d" name="d"></label>
-            <label for="Final">C: <input type="number" id="e" name="e"></label>
-            <label for="Final">C: <input type="number" id="f" name="f"></label>
-            <input type="submit" value="Submit">
-            <p></p>
-        </form>
+    <div class="calculator">
+        <h2>Absolute Value Equation Calculator</h2>
+        <input type="text" id="equation" placeholder="Enter equation (e.g., |2x + 3| = 7)">
+        <button onclick="calculateAbsoluteValue()">Calculate Solutions</button>
+
+        <div id="result"></div>
+    </div>
+
     <script>
-        const form1 = document.querySelector('#form1');
-        form1.addEventListener('submit', (event) => {
-            event.preventDefault();
-            const a = document.querySelector('#a').value;
-            const b = document.querySelector('#b').value;
-            const c = document.querySelector('#c').value;
-            const d = document.querySelector("#d").value;
-            const e = document.querySelector("#e").value;
-            const f = document.querySelector("#f").value;
-            let x = Math.floor(a) * Math.abs(b + c) + Math.floor(d) * (e + f);
-            let result = `result is: ${x}`;
-            document.querySelector('p').textContent = result;
-        console.log(result);
-        });
+        function calculateAbsoluteValue() {
+            const equation = document.getElementById('equation').value.trim();
+            const resultDiv = document.getElementById('result');
+            resultDiv.textContent = '';
+
+            // Regular expression to match the absolute value equation
+            const regex = /^\|([-\d]+x\s*[\+\-]\s*\d+)\|\s*=\s*(\d+)$/;
+            const match = equation.match(regex);
+
+            if (match) {
+                const expression = match[1].replace(/\s+/g, ''); // Remove whitespace
+                const absoluteValue = parseFloat(match[2]);
+
+                // Solve for x
+                const solutions = [];
+                const lhs = eval(expression.replace(/x/g, '1')); // Example evaluation
+                const rhs = eval(expression.replace(/x/g, '-1')); // Example evaluation
+
+                // Check if lhs matches the absolute value
+                if (lhs === absoluteValue || -lhs === absoluteValue) {
+                    solutions.push((absoluteValue - parseFloat(expression.split(/x/)[0])) / parseFloat(expression.split(/x/)[1]));
+                }
+
+                resultDiv.textContent = `Possible Solutions: ${solutions.length > 0 ? solutions.join(', ') : 'No solutions found'}`;
+            } else {
+                resultDiv.textContent = 'Invalid equation format. Please use |ax + b| = c.';
+                resultDiv.classList.add('error');
+            }
+        }
     </script>
 </body>
 </html>

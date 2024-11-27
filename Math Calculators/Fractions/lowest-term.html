@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lowest Terms Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .calculator {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 400px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 14px;
+            text-align: left;
+            white-space: pre-wrap; /* Preserve whitespace and line breaks */
+            background-color: #f8f8f8;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h2>Lowest Terms Calculator</h2>
+        <input type="number" id="numerator" placeholder="Enter numerator" step="any">
+        <input type="number" id="denominator" placeholder="Enter denominator" step="any">
+        <button onclick="calculateLowestTerms()">Simplify Fraction</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function gcd(a, b) {
+            return b === 0 ? Math.abs(a) : gcd(b, a % b);
+        }
+
+        function calculateLowestTerms() {
+            const numerator = parseInt(document.getElementById('numerator').value);
+            const denominator = parseInt(document.getElementById('denominator').value);
+            const resultDiv = document.getElementById('result');
+
+            // Clear previous result
+            resultDiv.textContent = '';
+
+            // Validate input
+            if (isNaN(numerator) || isNaN(denominator) || denominator === 0) {
+                resultDiv.textContent = 'Please enter valid numerator and non-zero denominator.';
+                resultDiv.classList.add('error');
+                return;
+            }
+
+            // Calculate GCD
+            const divisor = gcd(numerator, denominator);
+
+            // Simplify the fraction
+            const simplifiedNumerator = numerator / divisor;
+            const simplifiedDenominator = denominator / divisor;
+
+            resultDiv.textContent = `Simplified Fraction: ${simplifiedNumerator}/${simplifiedDenominator}`;
+            resultDiv.classList.remove('error');
+        }
+    </script>
+</body>
+</html>
