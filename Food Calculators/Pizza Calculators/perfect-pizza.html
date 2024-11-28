@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfect Pizza Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h1>Perfect Pizza Calculator</h1>
+    <label for="pizzaDiameter">Enter pizza diameter (inches):</label>
+    <input type="number" id="pizzaDiameter" placeholder="Diameter in inches" min="1" required>
+    
+    <label for="thickness">Select dough thickness:</label>
+    <select id="thickness">
+        <option value="thin">Thin Crust</option>
+        <option value="regular">Regular Crust</option>
+        <option value="thick">Thick Crust</option>
+    </select>
+
+    <button onclick="calculateIngredients()">Calculate Ingredients</button>
+    
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateIngredients() {
+        const diameter = parseFloat(document.getElementById('pizzaDiameter').value);
+        const thickness = document.getElementById('thickness').value;
+
+        // Dough recipe ratios based on thickness
+        let flourPerInch, waterPerInch, yeastPerPizza, saltPerPizza;
+
+        switch (thickness) {
+            case 'thin':
+                flourPerInch = 25; // grams of flour per inch
+                waterPerInch = 15; // grams of water per inch
+                yeastPerPizza = 5;  // grams of yeast per pizza
+                saltPerPizza = 5;   // grams of salt per pizza
+                break;
+            case 'regular':
+                flourPerInch = 30; // grams of flour per inch
+                waterPerInch = 20; // grams of water per inch
+                yeastPerPizza = 6;  // grams of yeast per pizza
+                saltPerPizza = 6;   // grams of salt per pizza
+                break;
+            case 'thick':
+                flourPerInch = 35; // grams of flour per inch
+                waterPerInch = 25; // grams of water per inch
+                yeastPerPizza = 8;  // grams of yeast per pizza
+                saltPerPizza = 8;   // grams of salt per pizza
+                break;
+            default:
+                flourPerInch = 0;
+                waterPerInch = 0;
+                yeastPerPizza = 0;
+                saltPerPizza = 0;
+        }
+
+        if (isNaN(diameter) || diameter <= 0) {
+            alert("Please enter a valid pizza diameter.");
+            return;
+        }
+
+        const totalFlour = flourPerInch * diameter;
+        const totalWater = waterPerInch * diameter;
+        const totalYeast = yeastPerPizza;
+        const totalSalt = saltPerPizza;
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `
+            <p>To make a <strong>${diameter}-inch ${thickness} crust</strong> pizza, you will need:</p>
+            <p><strong>${totalFlour} grams</strong> of flour</p>
+            <p><strong>${totalWater} grams</strong> of water</p>
+            <p><strong>${totalYeast} grams</strong> of yeast</p>
+            <p><strong>${totalSalt} grams</strong> of salt</p>
+        `;
+    }
+</script>
+
+</body>
+</html>

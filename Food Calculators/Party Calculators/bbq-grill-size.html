@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BBQ Grill Size Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h1>BBQ Grill Size Calculator</h1>
+    <label for="numberOfGuests">Enter number of guests:</label>
+    <input type="number" id="numberOfGuests" placeholder="Number of guests" min="1" required>
+
+    <label for="foodType">Select type of food:</label>
+    <select id="foodType">
+        <option value="burgers">Burgers (approximately 40 sq in per burger)</option>
+        <option value="hotdogs">Hot Dogs (approximately 20 sq in per hot dog)</option>
+        <option value="steaks">Steaks (approximately 60 sq in per steak)</option>
+        <option value="mixed">Mixed grill (avg 50 sq in per serving)</option>
+    </select>
+
+    <button onclick="calculateGrillSize()">Calculate Grill Size</button>
+    
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateGrillSize() {
+        const numberOfGuests = parseInt(document.getElementById('numberOfGuests').value);
+        const foodType = document.getElementById('foodType').value;
+
+        if (isNaN(numberOfGuests) || numberOfGuests < 1) {
+            alert("Please enter a valid number of guests.");
+            return;
+        }
+
+        let areaPerGuest;
+
+        switch (foodType) {
+            case 'burgers':
+                areaPerGuest = 40; // sq in per burger
+                break;
+            case 'hotdogs':
+                areaPerGuest = 20; // sq in per hot dog
+                break;
+            case 'steaks':
+                areaPerGuest = 60; // sq in per steak
+                break;
+            case 'mixed':
+                areaPerGuest = 50; // avg sq in per serving for mixed grill
+                break;
+            default:
+                areaPerGuest = 0;
+        }
+
+        const totalAreaNeeded = areaPerGuest * numberOfGuests; // total area in square inches
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `
+            <p>For <strong>${numberOfGuests}</strong> guests, you will need a grill with at least:</p>
+            <p><strong>${totalAreaNeeded}</strong> square inches of cooking space.</p>
+        `;
+    }
+</script>
+
+</body>
+</html>

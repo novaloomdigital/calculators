@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bake Percentage Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h1>Bake Percentage Calculator</h1>
+    <label for="flourWeight">Enter weight of flour (grams):</label>
+    <input type="number" id="flourWeight" placeholder="Flour in grams" min="1" required>
+    
+    <label for="ingredient1Weight">Enter weight of Ingredient 1 (grams):</label>
+    <input type="number" id="ingredient1Weight" placeholder="Ingredient 1 in grams" min="0">
+
+    <label for="ingredient2Weight">Enter weight of Ingredient 2 (grams):</label>
+    <input type="number" id="ingredient2Weight" placeholder="Ingredient 2 in grams" min="0">
+
+    <button onclick="calculateBakersPercentages()">Calculate Percentages</button>
+    
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateBakersPercentages() {
+        const flourWeight = parseFloat(document.getElementById('flourWeight').value);
+        const ingredient1Weight = parseFloat(document.getElementById('ingredient1Weight').value) || 0;
+        const ingredient2Weight = parseFloat(document.getElementById('ingredient2Weight').value) || 0;
+
+        if (isNaN(flourWeight) || flourWeight <= 0) {
+            alert("Please enter a valid weight of flour.");
+            return;
+        }
+
+        const ingredient1Percentage = (ingredient1Weight / flourWeight) * 100;
+        const ingredient2Percentage = (ingredient2Weight / flourWeight) * 100;
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `
+            <p>Ingredient 1: <strong>${ingredient1Percentage.toFixed(2)}%</strong></p>
+            <p>Ingredient 2: <strong>${ingredient2Percentage.toFixed(2)}%</strong></p>
+        `;
+    }
+</script>
+
+</body>
+</html>

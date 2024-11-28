@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Self-Rising Flour Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h1>Self-Rising Flour Calculator</h1>
+    <label for="flourAmount">Enter amount of all-purpose flour (grams):</label>
+    <input type="number" id="flourAmount" placeholder="Flour in grams" min="1" required>
+    
+    <button onclick="calculateSelfRising()">Calculate Ingredients</button>
+    
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateSelfRising() {
+        const flourAmount = parseFloat(document.getElementById('flourAmount').value);
+        
+        // Standard ratios for self-rising flour
+        const bakingPowderPer100g = 10; // grams of baking powder per 100g flour
+        const saltPer100g = 1.5; // grams of salt per 100g flour
+
+        if (isNaN(flourAmount) || flourAmount <= 0) {
+            alert("Please enter a valid amount of flour.");
+            return;
+        }
+
+        const bakingPowderAmount = (bakingPowderPer100g / 100) * flourAmount;
+        const saltAmount = (saltPer100g / 100) * flourAmount;
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `
+            <p>To make self-rising flour from <strong>${flourAmount} grams</strong> of all-purpose flour, you will need:</p>
+            <p><strong>${bakingPowderAmount.toFixed(2)} grams</strong> of baking powder</p>
+            <p><strong>${saltAmount.toFixed(2)} grams</strong> of salt</p>
+        `;
+    }
+</script>
+
+</body>
+</html>

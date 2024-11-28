@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfect Ice Cream Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h1>Perfect Ice Cream Calculator</h1>
+    <label for="iceCreamYield">Enter desired yield of ice cream (liters):</label>
+    <input type="number" id="iceCreamYield" placeholder="Yield in liters" min="0.1" step="0.1" required>
+
+    <button onclick="calculateIngredients()">Calculate Ingredients</button>
+    
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateIngredients() {
+        const yield = parseFloat(document.getElementById('iceCreamYield').value);
+        
+        // Standard ingredients for 1 liter of ice cream (approximate)
+        const creamPerLiter = 500; // grams of heavy cream
+        const milkPerLiter = 250;   // grams of whole milk
+        const sugarPerLiter = 100;  // grams of sugar
+        const eggYolkPerLiter = 3;  // number of egg yolks
+
+        if (isNaN(yield) || yield <= 0) {
+            alert("Please enter a valid yield.");
+            return;
+        }
+
+        const totalCream = creamPerLiter * yield;
+        const totalMilk = milkPerLiter * yield;
+        const totalSugar = sugarPerLiter * yield;
+        const totalEggYolks = eggYolkPerLiter * yield;
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `
+            <p>To make <strong>${yield} liters</strong> of ice cream, you will need:</p>
+            <p><strong>${totalCream} grams</strong> of heavy cream</p>
+            <p><strong>${totalMilk} grams</strong> of whole milk</p>
+            <p><strong>${totalSugar} grams</strong> of sugar</p>
+            <p><strong>${totalEggYolks} egg yolks</strong></p>
+        `;
+    }
+</script>
+
+</body>
+</html>

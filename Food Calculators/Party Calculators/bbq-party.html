@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BBQ Party Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h1>BBQ Party Calculator</h1>
+    <label for="numberOfGuests">Enter number of guests:</label>
+    <input type="number" id="numberOfGuests" placeholder="Number of guests" min="1" required>
+
+    <label for="meatType">Select type of meat:</label>
+    <select id="meatType">
+        <option value="burgers">Burgers</option>
+        <option value="hotdogs">Hot Dogs</option>
+        <option value="steaks">Steaks</option>
+    </select>
+
+    <label for="sides">Select number of sides:</label>
+    <input type="number" id="sides" placeholder="Number of sides (e.g. potato salad)" min="0" value="0">
+
+    <button onclick="calculateFood()">Calculate Food Needed</button>
+    
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateFood() {
+        const numberOfGuests = parseInt(document.getElementById('numberOfGuests').value);
+        const meatType = document.getElementById('meatType').value;
+        const sides = parseInt(document.getElementById('sides').value);
+
+        if (isNaN(numberOfGuests) || numberOfGuests < 1) {
+            alert("Please enter a valid number of guests.");
+            return;
+        }
+
+        // Standard serving sizes
+        let servingsPerGuest;
+        switch (meatType) {
+            case 'burgers':
+                servingsPerGuest = 1; // 1 burger per guest
+                break;
+            case 'hotdogs':
+                servingsPerGuest = 1; // 1 hot dog per guest
+                break;
+            case 'steaks':
+                servingsPerGuest = 0.5; // 0.5 steaks per guest (1 for every 2 guests)
+                break;
+            default:
+                servingsPerGuest = 0;
+        }
+
+        const totalMeatNeeded = Math.ceil(servingsPerGuest * numberOfGuests); // Total meat needed
+        const totalSidesNeeded = sides; // Total sides provided by user
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `
+            <p>For <strong>${numberOfGuests}</strong> guests, you will need:</p>
+            <p><strong>${totalMeatNeeded}</strong> servings of ${meatType}</p>
+            <p><strong>${totalSidesNeeded}</strong> sides</p>
+        `;
+    }
+</script>
+
+</body>
+</html>

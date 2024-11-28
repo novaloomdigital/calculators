@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Size Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h1>Pizza Size Calculator</h1>
+    <label for="pizzaDiameter">Enter pizza diameter (inches):</label>
+    <input type="number" id="pizzaDiameter" placeholder="Diameter in inches" min="1" required>
+    
+    <button onclick="calculatePizzaSize()">Calculate Size</button>
+    
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculatePizzaSize() {
+        const diameter = parseFloat(document.getElementById('pizzaDiameter').value);
+        
+        if (isNaN(diameter) || diameter <= 0) {
+            alert("Please enter a valid diameter.");
+            return;
+        }
+
+        // Calculate the area of the pizza (Area = π * r²)
+        const radius = diameter / 2;
+        const area = Math.PI * Math.pow(radius, 2); // area in square inches
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `
+            <p>The area of a <strong>${diameter}-inch</strong> pizza is approximately:</p>
+            <p><strong>${area.toFixed(2)} square inches</strong></p>
+        `;
+    }
+</script>
+
+</body>
+</html>

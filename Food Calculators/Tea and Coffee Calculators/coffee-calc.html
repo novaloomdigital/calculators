@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h1>Coffee Calculator</h1>
+    <label for="cups">Enter number of cups:</label>
+    <input type="number" id="cups" placeholder="Number of cups" min="1" required>
+    
+    <button onclick="calculateCoffee()">Calculate</button>
+    
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateCoffee() {
+        const cups = parseInt(document.getElementById('cups').value);
+        
+        // Standard coffee to water ratio
+        const coffeePerCup = 2; // tablespoons of coffee per cup
+        const waterPerCup = 6; // ounces of water per cup
+        
+        if (isNaN(cups) || cups < 1) {
+            alert("Please enter a valid number of cups.");
+            return;
+        }
+
+        const totalCoffee = coffeePerCup * cups;
+        const totalWater = waterPerCup * cups;
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `
+            <p>For ${cups} cup(s) of coffee, you need:</p>
+            <p><strong>${totalCoffee} tablespoons</strong> of ground coffee</p>
+            <p><strong>${totalWater} ounces</strong> of water</p>
+        `;
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sourdough Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h1>Sourdough Calculator</h1>
+    <label for="numberOfLoaves">Enter number of loaves:</label>
+    <input type="number" id="numberOfLoaves" placeholder="Number of loaves" min="1" required>
+    
+    <button onclick="calculateIngredients()">Calculate Ingredients</button>
+    
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateIngredients() {
+        const numberOfLoaves = parseInt(document.getElementById('numberOfLoaves').value);
+        
+        // Standard ingredient ratios for 1 loaf of sourdough (approximate)
+        const flourPerLoaf = 500; // grams of flour per loaf
+        const waterPerLoaf = 350;  // grams of water per loaf
+        const saltPerLoaf = 10;     // grams of salt per loaf
+        const starterPerLoaf = 150; // grams of sourdough starter per loaf
+
+        if (isNaN(numberOfLoaves) || numberOfLoaves < 1) {
+            alert("Please enter a valid number of loaves.");
+            return;
+        }
+
+        const totalFlour = flourPerLoaf * numberOfLoaves;
+        const totalWater = waterPerLoaf * numberOfLoaves;
+        const totalSalt = saltPerLoaf * numberOfLoaves;
+        const totalStarter = starterPerLoaf * numberOfLoaves;
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `
+            <p>To make <strong>${numberOfLoaves}</strong> loaves of sourdough, you will need:</p>
+            <p><strong>${totalFlour} grams</strong> of flour</p>
+            <p><strong>${totalWater} grams</strong> of water</p>
+            <p><strong>${totalSalt} grams</strong> of salt</p>
+            <p><strong>${totalStarter} grams</strong> of sourdough starter</p>
+        `;
+    }
+</script>
+
+</body>
+</html>

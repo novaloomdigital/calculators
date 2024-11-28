@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donut Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h1>Donut Calculator</h1>
+    <label for="numberOfDonuts">Enter number of donuts:</label>
+    <input type="number" id="numberOfDonuts" placeholder="Number of donuts" min="1" required>
+    
+    <button onclick="calculateIngredients()">Calculate Ingredients</button>
+    
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateIngredients() {
+        const numberOfDonuts = parseInt(document.getElementById('numberOfDonuts').value);
+        
+        // Standard recipe ratios for 12 donuts (example)
+        const flourPerDonut = 30; // grams of flour per donut
+        const sugarPerDonut = 10; // grams of sugar per donut
+        const butterPerDonut = 15; // grams of butter per donut
+        const eggPerDonut = 0.083; // 1 egg for 12 donuts (~50g) = 4.16g per donut
+        const milkPerDonut = 20; // grams of milk per donut
+
+        if (isNaN(numberOfDonuts) || numberOfDonuts < 1) {
+            alert("Please enter a valid number of donuts.");
+            return;
+        }
+
+        const totalFlour = flourPerDonut * numberOfDonuts;
+        const totalSugar = sugarPerDonut * numberOfDonuts;
+        const totalButter = butterPerDonut * numberOfDonuts;
+        const totalEggs = (eggPerDonut * numberOfDonuts) / 50; // Convert to number of eggs
+        const totalMilk = milkPerDonut * numberOfDonuts;
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `
+            <p>To make <strong>${numberOfDonuts}</strong> donuts, you will need:</p>
+            <p><strong>${totalFlour} grams</strong> of flour</p>
+            <p><strong>${totalSugar} grams</strong> of sugar</p>
+            <p><strong>${totalButter} grams</strong> of butter</p>
+            <p><strong>${(totalEggs).toFixed(2)} eggs</strong> (approximately ${Math.ceil(totalEggs)} eggs)</p>
+            <p><strong>${totalMilk} grams</strong> of milk</p>
+        `;
+    }
+</script>
+
+</body>
+</html>

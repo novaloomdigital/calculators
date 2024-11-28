@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Party Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h1>Pizza Party Calculator</h1>
+    <label for="numberOfGuests">Enter number of guests:</label>
+    <input type="number" id="numberOfGuests" placeholder="Number of guests" min="1" required>
+
+    <label for="slicesPerGuest">Enter slices per guest:</label>
+    <input type="number" id="slicesPerGuest" placeholder="Slices per guest" min="1" required>
+
+    <label for="slicesPerPizza">Select slices per pizza:</label>
+    <select id="slicesPerPizza">
+        <option value="8">8 slices</option>
+        <option value="10">10 slices</option>
+        <option value="12">12 slices</option>
+    </select>
+
+    <button onclick="calculatePizzas()">Calculate Pizzas Needed</button>
+    
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculatePizzas() {
+        const numberOfGuests = parseInt(document.getElementById('numberOfGuests').value);
+        const slicesPerGuest = parseInt(document.getElementById('slicesPerGuest').value);
+        const slicesPerPizza = parseInt(document.getElementById('slicesPerPizza').value);
+
+        if (isNaN(numberOfGuests) || numberOfGuests < 1 || 
+            isNaN(slicesPerGuest) || slicesPerGuest < 1 || 
+            isNaN(slicesPerPizza) || slicesPerPizza < 1) {
+            alert("Please enter valid numbers.");
+            return;
+        }
+
+        // Total slices needed
+        const totalSlicesNeeded = numberOfGuests * slicesPerGuest;
+
+        // Calculate number of pizzas needed (using Math.ceil to round up)
+        const pizzasNeeded = Math.ceil(totalSlicesNeeded / slicesPerPizza);
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `
+            <p>For <strong>${numberOfGuests}</strong> guests, you need approximately <strong>${pizzasNeeded}</strong> pizzas.</p>
+        `;
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tea Brewing Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h1>Tea Brewing Calculator</h1>
+    <label for="teaType">Select tea type:</label>
+    <select id="teaType">
+        <option value="black">Black Tea</option>
+        <option value="green">Green Tea</option>
+        <option value="oolong">Oolong Tea</option>
+        <option value="herbal">Herbal Tea</option>
+    </select>
+
+    <label for="teaWeight">Enter amount of tea (grams):</label>
+    <input type="number" id="teaWeight" placeholder="Tea in grams" min="1" required>
+    
+    <button onclick="calculateBrewing()">Calculate Brewing</button>
+    
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateBrewing() {
+        const teaType = document.getElementById('teaType').value;
+        const teaWeight = parseFloat(document.getElementById('teaWeight').value);
+        
+        // Recommended ratios and steeping times
+        const brewingInfo = {
+            black: { ratio: 200, steepingTime: 3 },  // 200ml water per gram, steep for 3 minutes
+            green: { ratio: 150, steepingTime: 2 },  // 150ml water per gram, steep for 2 minutes
+            oolong: { ratio: 180, steepingTime: 3 },  // 180ml water per gram, steep for 3 minutes
+            herbal: { ratio: 250, steepingTime: 5 }   // 250ml water per gram, steep for 5 minutes
+        };
+
+        if (isNaN(teaWeight) || teaWeight < 1) {
+            alert("Please enter a valid weight of tea.");
+            return;
+        }
+
+        const { ratio, steepingTime } = brewingInfo[teaType];
+        const waterNeeded = teaWeight * ratio; // Calculate water needed in milliliters
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `
+            <p>For ${teaWeight} grams of ${teaType} tea, you need approximately <strong>${waterNeeded} ml</strong> of water.</p>
+            <p>Recommended steeping time: <strong>${steepingTime} minutes</strong></p>
+        `;
+    }
+</script>
+
+</body>
+</html>

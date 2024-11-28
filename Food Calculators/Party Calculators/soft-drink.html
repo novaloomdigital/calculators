@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soft Drink Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h1>Soft Drink Calculator</h1>
+    <label for="numberOfGuests">Enter number of guests:</label>
+    <input type="number" id="numberOfGuests" placeholder="Number of guests" min="1" required>
+
+    <label for="servingsPerGuest">Enter servings per guest:</label>
+    <input type="number" id="servingsPerGuest" placeholder="Servings per guest" min="1" value="1" required>
+
+    <label for="containerSize">Select container size:</label>
+    <select id="containerSize">
+        <option value="0.355">355 ml (can)</option>
+        <option value="0.5">500 ml (bottle)</option>
+        <option value="1.0">1 L (bottle)</option>
+        <option value="2.0">2 L (bottle)</option>
+    </select>
+
+    <button onclick="calculateSoftDrink()">Calculate Soft Drink Needed</button>
+    
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateSoftDrink() {
+        const numberOfGuests = parseInt(document.getElementById('numberOfGuests').value);
+        const servingsPerGuest = parseInt(document.getElementById('servingsPerGuest').value);
+        const containerSize = parseFloat(document.getElementById('containerSize').value);
+
+        if (isNaN(numberOfGuests) || numberOfGuests < 1 || 
+            isNaN(servingsPerGuest) || servingsPerGuest < 1) {
+            alert("Please enter valid numbers.");
+            return;
+        }
+
+        // Total servings needed
+        const totalServings = numberOfGuests * servingsPerGuest;
+
+        // Total volume needed in liters
+        const totalVolumeLiters = totalServings * containerSize / 1000; // Convert ml to liters
+
+        // Calculate number of containers needed
+        const totalContainers = Math.ceil(totalVolumeLiters / containerSize);
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `
+            <p>For <strong>${numberOfGuests}</strong> guests with <strong>${servingsPerGuest}</strong> servings each, you will need:</p>
+            <p><strong>${totalVolumeLiters.toFixed(2)} liters</strong> of soft drink</p>
+            <p>Approximately <strong>${totalContainers}</strong> containers of size <strong>${containerSize} liters</strong>.</p>
+        `;
+    }
+</script>
+
+</body>
+</html>

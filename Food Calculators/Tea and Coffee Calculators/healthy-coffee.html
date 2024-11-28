@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthy Coffee Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h1>Healthy Coffee Calculator</h1>
+    <label for="coffeeType">Select coffee type:</label>
+    <select id="coffeeType">
+        <option value="espresso">Espresso</option>
+        <option value="drip">Drip Coffee</option>
+        <option value="french">French Press</option>
+        <option value="coldbrew">Cold Brew</option>
+        <option value="latte">Latte</option>
+    </select>
+
+    <label for="amount">Enter amount (oz):</label>
+    <input type="number" id="amount" placeholder="Amount in ounces" min="1" required>
+    
+    <button onclick="calculateCaffeine()">Calculate Caffeine Intake</button>
+    
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateCaffeine() {
+        const coffeeType = document.getElementById('coffeeType').value;
+        const amount = parseFloat(document.getElementById('amount').value);
+        
+        // Average caffeine content per ounce
+        const caffeineContent = {
+            espresso: 64, // mg per ounce
+            drip: 12,     // mg per ounce
+            french: 14,   // mg per ounce
+            coldbrew: 15, // mg per ounce
+            latte: 63     // mg per ounce (includes espresso)
+        };
+
+        if (isNaN(amount) || amount < 1) {
+            alert("Please enter a valid amount.");
+            return;
+        }
+
+        const totalCaffeine = caffeineContent[coffeeType] * amount;
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `
+            <p>You consumed approximately <strong>${totalCaffeine.toFixed(2)} mg</strong> of caffeine.</p>
+            <p>Moderate coffee consumption has been linked to:</p>
+            <ul>
+                <li>Improved cognitive function</li>
+                <li>Reduced risk of certain diseases, such as Parkinson's and Alzheimer's</li>
+                <li>Enhanced athletic performance</li>
+                <li>Antioxidant properties</li>
+                <li>Potential mood enhancement</li>
+            </ul>
+        `;
+    }
+</script>
+
+</body>
+</html>
