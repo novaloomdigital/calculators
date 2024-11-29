@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pediatric Epworth Sleepiness Scale Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .question {
+            margin: 10px 0;
+        }
+        label {
+            display: block;
+            margin: 5px 0;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pediatric Epworth Sleepiness Scale Calculator</h1>
+        <form id="pediatricEpworthForm">
+            <div class="question">
+                <label>1. Sitting and reading</label>
+                <input type="radio" name="q1" value="0"> 0
+                <input type="radio" name="q1" value="1"> 1
+                <input type="radio" name="q1" value="2"> 2
+                <input type="radio" name="q1" value="3"> 3
+            </div>
+            <div class="question">
+                <label>2. Watching TV</label>
+                <input type="radio" name="q2" value="0"> 0
+                <input type="radio" name="q2" value="1"> 1
+                <input type="radio" name="q2" value="2"> 2
+                <input type="radio" name="q2" value="3"> 3
+            </div>
+            <div class="question">
+                <label>3. Sitting quietly in class</label>
+                <input type="radio" name="q3" value="0"> 0
+                <input type="radio" name="q3" value="1"> 1
+                <input type="radio" name="q3" value="2"> 2
+                <input type="radio" name="q3" value="3"> 3
+            </div>
+            <div class="question">
+                <label>4. Playing quietly</label>
+                <input type="radio" name="q4" value="0"> 0
+                <input type="radio" name="q4" value="1"> 1
+                <input type="radio" name="q4" value="2"> 2
+                <input type="radio" name="q4" value="3"> 3
+            </div>
+            <div class="question">
+                <label>5. Lying down to rest in the afternoon when possible</label>
+                <input type="radio" name="q5" value="0"> 0
+                <input type="radio" name="q5" value="1"> 1
+                <input type="radio" name="q5" value="2"> 2
+                <input type="radio" name="q5" value="3"> 3
+            </div>
+            <div class="question">
+                <label>6. Sitting and talking to someone</label>
+                <input type="radio" name="q6" value="0"> 0
+                <input type="radio" name="q6" value="1"> 1
+                <input type="radio" name="q6" value="2"> 2
+                <input type="radio" name="q6" value="3"> 3
+            </div>
+            <div class="question">
+                <label>7. In a car, while stopped for a few minutes in traffic</label>
+                <input type="radio" name="q7" value="0"> 0
+                <input type="radio" name="q7" value="1"> 1
+                <input type="radio" name="q7" value="2"> 2
+                <input type="radio" name="q7" value="3"> 3
+            </div>
+            <div class="question">
+                <label>8. Doing homework or studying</label>
+                <input type="radio" name="q8" value="0"> 0
+                <input type="radio" name="q8" value="1"> 1
+                <input type="radio" name="q8" value="2"> 2
+                <input type="radio" name="q8" value="3"> 3
+            </div>
+            <button type="button" onclick="calculateScore()">Calculate Score</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calculateScore() {
+            let score = 0;
+            for (let i = 1; i <= 8; i++) {
+                const radios = document.getElementsByName(`q${i}`);
+                for (const radio of radios) {
+                    if (radio.checked) {
+                        score += parseInt(radio.value);
+                    }
+                }
+            }
+            let resultText = `Your Pediatric Epworth Sleepiness Scale score is: ${score}. `;
+            if (score <= 8) {
+                resultText += "The child has a normal level of daytime sleepiness.";
+            } else if (score <= 12) {
+                resultText += "The child may be slightly excessively sleepy.";
+            } else if (score <= 16) {
+                resultText += "The child has moderate excessive sleepiness.";
+            } else {
+                resultText += "The child has severe excessive sleepiness.";
+            }
+            document.getElementById("result").innerText = resultText;
+        }
+    </script>
+</body>
+</html>

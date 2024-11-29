@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator for Weight Loss</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"], input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h1>BMI Calculator for Weight Loss</h1>
+    <label for="weight">Enter weight (in kg):</label>
+    <input type="number" id="weight" placeholder="Weight in kilograms" min="1" required>
+
+    <label for="height">Enter height (in cm):</label>
+    <input type="number" id="height" placeholder="Height in centimeters" min="30" required>
+
+    <button onclick="calculateBMI()">Calculate BMI</button>
+    
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateBMI() {
+        const weight = parseFloat(document.getElementById('weight').value);
+        const height = parseFloat(document.getElementById('height').value) / 100; // Convert height to meters
+
+        if (isNaN(weight) || weight <= 0 || isNaN(height) || height <= 0) {
+            alert("Please enter valid weight and height.");
+            return;
+        }
+
+        // Calculate BMI
+        const bmi = (weight / (height * height)).toFixed(2);
+
+        // Categorize BMI and suggest target weight
+        let category = '';
+        let targetWeight = 0;
+
+        if (bmi < 18.5) {
+            category = 'Underweight';
+            targetWeight = 18.5 * (height * height);
+        } else if (bmi < 24.9) {
+            category = 'Normal weight';
+            targetWeight = weight; // Current weight is already in normal range
+        } else if (bmi < 29.9) {
+            category = 'Overweight';
+            targetWeight = 24.9 * (height * height);
+        } else {
+            category = 'Obesity';
+            targetWeight = 24.9 * (height * height);
+        }
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `
+            Your BMI is <strong>${bmi}</strong>, which falls into the category: <strong>${category}</strong>.<br>
+            ${category === 'Normal weight' ? '' : `To achieve a normal weight, your target weight should be around <strong>${targetWeight.toFixed(2)} kg</strong>.`}
+        `;
+    }
+</script>
+
+</body>
+</html>

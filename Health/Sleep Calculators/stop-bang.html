@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STOP-BANG Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        #results {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>STOP-BANG Calculator</h1>
+        <form id="stopBangForm">
+            <div>
+                <label>1. Do you snore loudly?</label>
+                <input type="radio" name="snoring" value="1"> Yes
+                <input type="radio" name="snoring" value="0"> No
+            </div>
+            <div>
+                <label>2. Do you often feel tired, fatigued, or sleepy during the daytime?</label>
+                <input type="radio" name="tiredness" value="1"> Yes
+                <input type="radio" name="tiredness" value="0"> No
+            </div>
+            <div>
+                <label>3. Has anyone observed you stop breathing during your sleep?</label>
+                <input type="radio" name="observedApnea" value="1"> Yes
+                <input type="radio" name="observedApnea" value="0"> No
+            </div>
+            <div>
+                <label>4. Do you have or are you being treated for high blood pressure?</label>
+                <input type="radio" name="bloodPressure" value="1"> Yes
+                <input type="radio" name="bloodPressure" value="0"> No
+            </div>
+            <div>
+                <label>5. Are you over 50 years old?</label>
+                <input type="radio" name="age" value="1"> Yes
+                <input type="radio" name="age" value="0"> No
+            </div>
+            <div>
+                <label>6. Is your neck circumference greater than 17 inches (43 cm) for men or 16 inches (41 cm) for women?</label>
+                <input type="radio" name="neckCircumference" value="1"> Yes
+                <input type="radio" name="neckCircumference" value="0"> No
+            </div>
+            <div>
+                <label>7. Are you male?</label>
+                <input type="radio" name="gender" value="1"> Yes
+                <input type="radio" name="gender" value="0"> No
+            </div>
+            <button type="button" onclick="calculateScore()">Calculate Score</button>
+        </form>
+        <div id="results"></div>
+    </div>
+
+    <script>
+        function calculateScore() {
+            let score = 0;
+            const questions = ['snoring', 'tiredness', 'observedApnea', 'bloodPressure', 'age', 'neckCircumference', 'gender'];
+            for (const question of questions) {
+                const radios = document.getElementsByName(question);
+                for (const radio of radios) {
+                    if (radio.checked) {
+                        score += parseInt(radio.value);
+                    }
+                }
+            }
+
+            let resultText = `Your STOP-BANG score is: ${score}. `;
+            if (score >= 3) {
+                resultText += "You are at high risk for obstructive sleep apnea.";
+            } else {
+                resultText += "You are at low risk for obstructive sleep apnea.";
+            }
+            document.getElementById("results").innerText = resultText;
+        }
+    </script>
+</body>
+</html>

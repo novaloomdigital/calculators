@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleep Debt Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        #results {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sleep Debt Calculator</h1>
+        <label for="requiredSleep">Required Sleep (in hours):</label>
+        <input type="number" id="requiredSleep" min="1" max="24" value="8">
+
+        <label for="actualSleep">Actual Sleep (in hours):</label>
+        <input type="number" id="actualSleep" min="0" max="24" value="6">
+
+        <label for="days">Number of Days:</label>
+        <input type="number" id="days" min="1" value="7">
+
+        <button onclick="calculateSleepDebt()">Calculate Sleep Debt</button>
+        
+        <div id="results"></div>
+    </div>
+
+    <script>
+        function calculateSleepDebt() {
+            const requiredSleep = parseFloat(document.getElementById("requiredSleep").value);
+            const actualSleep = parseFloat(document.getElementById("actualSleep").value);
+            const days = parseInt(document.getElementById("days").value);
+
+            if (isNaN(requiredSleep) || isNaN(actualSleep) || isNaN(days)) {
+                document.getElementById("results").innerText = "Please fill in all fields.";
+                return;
+            }
+
+            const sleepDebtPerDay = requiredSleep - actualSleep;
+            const totalSleepDebt = sleepDebtPerDay * days;
+
+            let resultText = `Your total sleep debt over ${days} days is: ${totalSleepDebt.toFixed(2)} hours.`;
+            if (totalSleepDebt > 0) {
+                resultText += " You need to catch up on sleep!";
+            } else {
+                resultText += " You're on track with your sleep!";
+            }
+
+            document.getElementById("results").innerText = resultText;
+        }
+    </script>
+</body>
+</html>

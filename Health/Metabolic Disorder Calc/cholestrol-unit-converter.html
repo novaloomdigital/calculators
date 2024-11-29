@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cholesterol Unit Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .converter {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="converter">
+    <h1>Cholesterol Unit Converter</h1>
+    
+    <label for="cholesterolValue">Enter Cholesterol Value:</label>
+    <input type="number" id="cholesterolValue" placeholder="Value" min="0" required>
+
+    <label for="unit">Select Unit:</label>
+    <select id="unit">
+        <option value="mg/dL">mg/dL (milligrams per deciliter)</option>
+        <option value="mmol/L">mmol/L (millimoles per liter)</option>
+    </select>
+
+    <button onclick="convertCholesterol()">Convert</button>
+    
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function convertCholesterol() {
+        const value = parseFloat(document.getElementById('cholesterolValue').value);
+        const unit = document.getElementById('unit').value;
+
+        if (isNaN(value) || value < 0) {
+            alert("Please enter a valid cholesterol value.");
+            return;
+        }
+
+        let convertedValue;
+
+        if (unit === 'mg/dL') {
+            // Convert mg/dL to mmol/L
+            convertedValue = (value / 38.67).toFixed(2); // 1 mg/dL = 0.02586 mmol/L
+            resultText = `${value} mg/dL is approximately ${convertedValue} mmol/L.`;
+        } else {
+            // Convert mmol/L to mg/dL
+            convertedValue = (value * 38.67).toFixed(2); // 1 mmol/L = 38.67 mg/dL
+            resultText = `${value} mmol/L is approximately ${convertedValue} mg/dL.`;
+        }
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = resultText;
+    }
+</script>
+
+</body>
+</html>

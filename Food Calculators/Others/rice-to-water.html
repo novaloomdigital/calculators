@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rice to Water Ratio Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h1>Rice to Water Ratio Calculator</h1>
+    <label for="riceAmount">Enter amount of rice (in cups):</label>
+    <input type="number" id="riceAmount" placeholder="Rice in cups" min="1" required>
+
+    <label for="riceType">Select type of rice:</label>
+    <select id="riceType">
+        <option value="white">White Rice</option>
+        <option value="brown">Brown Rice</option>
+        <option value="jasmine">Jasmine Rice</option>
+        <option value="basmati">Basmati Rice</option>
+    </select>
+
+    <button onclick="calculateWater()">Calculate Water Needed</button>
+    
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateWater() {
+        const riceAmount = parseFloat(document.getElementById('riceAmount').value);
+        const riceType = document.getElementById('riceType').value;
+
+        if (isNaN(riceAmount) || riceAmount < 1) {
+            alert("Please enter a valid amount of rice.");
+            return;
+        }
+
+        let waterRatio;
+
+        // Set water ratio based on rice type
+        switch (riceType) {
+            case 'white':
+                waterRatio = 2; // 2 cups of water for 1 cup of white rice
+                break;
+            case 'brown':
+                waterRatio = 2.5; // 2.5 cups of water for 1 cup of brown rice
+                break;
+            case 'jasmine':
+                waterRatio = 1.5; // 1.5 cups of water for 1 cup of jasmine rice
+                break;
+            case 'basmati':
+                waterRatio = 1.75; // 1.75 cups of water for 1 cup of basmati rice
+                break;
+            default:
+                waterRatio = 0;
+        }
+
+        const totalWaterNeeded = (riceAmount * waterRatio).toFixed(2); // Total water needed in cups
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `
+            To cook <strong>${riceAmount}</strong> cup(s) of <strong>${riceType}</strong>, you will need:
+            <strong>${totalWaterNeeded}</strong> cup(s) of water.
+        `;
+    }
+</script>
+
+</body>
+</html>

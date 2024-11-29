@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AHI Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h1>AHI Calculator</h1>
+    
+    <label for="apneas">Enter Number of Apneas:</label>
+    <input type="number" id="apneas" placeholder="Number of Apneas" min="0" required>
+
+    <label for="hypopneas">Enter Number of Hypopneas:</label>
+    <input type="number" id="hypopneas" placeholder="Number of Hypopneas" min="0" required>
+
+    <label for="totalSleepTime">Enter Total Sleep Time (in hours):</label>
+    <input type="number" id="totalSleepTime" placeholder="Total Sleep Time in hours" min="0.1" step="0.1" required>
+
+    <button onclick="calculateAHI()">Calculate AHI</button>
+    
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateAHI() {
+        const apneas = parseInt(document.getElementById('apneas').value);
+        const hypopneas = parseInt(document.getElementById('hypopneas').value);
+        const totalSleepTime = parseFloat(document.getElementById('totalSleepTime').value);
+
+        if (isNaN(apneas) || apneas < 0 || 
+            isNaN(hypopneas) || hypopneas < 0 || 
+            isNaN(totalSleepTime) || totalSleepTime <= 0) {
+            alert("Please enter valid values.");
+            return;
+        }
+
+        // Calculate AHI
+        const ahi = (apneas + hypopneas) / totalSleepTime;
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `Your AHI is <strong>${ahi.toFixed(2)}</strong>.`;
+
+        // Provide interpretation
+        let interpretation = '';
+        if (ahi < 5) {
+            interpretation = 'Normal';
+        } else if (ahi >= 5 && ahi < 15) {
+            interpretation = 'Mild Sleep Apnea';
+        } else if (ahi >= 15 && ahi < 30) {
+            interpretation = 'Moderate Sleep Apnea';
+        } else {
+            interpretation = 'Severe Sleep Apnea';
+        }
+
+        resultDiv.innerHTML += `<br/> This indicates: <strong>${interpretation}</strong>.`;
+    }
+</script>
+
+</body>
+</html>

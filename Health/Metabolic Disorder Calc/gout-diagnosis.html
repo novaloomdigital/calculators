@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gout Diagnosis Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h1>Gout Diagnosis Calculator</h1>
+    
+    <p>Please answer the following questions:</p>
+
+    <label><input type="checkbox" id="recentAttack"> Have you had a recent attack of joint pain (especially in the big toe)?</label><br>
+    <label><input type="checkbox" id="swelling"> Is there swelling or redness in your joints?</label><br>
+    <label><input type="checkbox" id="familyHistory"> Do you have a family history of gout?</label><br>
+    <label><input type="checkbox" id="highUricAcid"> Have you been told that you have high uric acid levels?</label><br>
+    <label><input type="checkbox" id="diet"> Do you consume a diet high in purines (red meat, seafood, alcohol)?</label><br>
+
+    <button onclick="calculateRisk()">Check Risk of Gout</button>
+    
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateRisk() {
+        const recentAttack = document.getElementById('recentAttack').checked;
+        const swelling = document.getElementById('swelling').checked;
+        const familyHistory = document.getElementById('familyHistory').checked;
+        const highUricAcid = document.getElementById('highUricAcid').checked;
+        const diet = document.getElementById('diet').checked;
+
+        let riskScore = 0;
+
+        if (recentAttack) riskScore++;
+        if (swelling) riskScore++;
+        if (familyHistory) riskScore++;
+        if (highUricAcid) riskScore++;
+        if (diet) riskScore++;
+
+        let resultText = '';
+
+        if (riskScore >= 4) {
+            resultText = 'High risk of gout. It is advisable to consult a healthcare professional for further evaluation.';
+        } else if (riskScore === 3) {
+            resultText = 'Moderate risk of gout. Consider discussing your symptoms and risk factors with a healthcare professional.';
+        } else if (riskScore === 2) {
+            resultText = 'Low risk of gout. Monitor symptoms and maintain a healthy lifestyle.';
+        } else {
+            resultText = 'Very low risk of gout. Continue to maintain a healthy lifestyle.';
+        }
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = resultText;
+    }
+</script>
+
+</body>
+</html>

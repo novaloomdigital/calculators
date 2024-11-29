@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steak Cook Time Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h1>Steak Cook Time Calculator</h1>
+    <label for="steakThickness">Enter steak thickness (inches):</label>
+    <input type="number" id="steakThickness" placeholder="Thickness in inches" min="0.5" required>
+
+    <label for="doneness">Select doneness:</label>
+    <select id="doneness">
+        <option value="rare">Rare (125°F)</option>
+        <option value="mediumRare">Medium Rare (135°F)</option>
+        <option value="medium">Medium (145°F)</option>
+        <option value="mediumWell">Medium Well (150°F)</option>
+        <option value="wellDone">Well Done (160°F)</option>
+    </select>
+
+    <label for="cookingMethod">Select cooking method:</label>
+    <select id="cookingMethod">
+        <option value="grilling">Grilling</option>
+        <option value="panSearing">Pan Searing</option>
+        <option value="broiling">Broiling</option>
+    </select>
+
+    <button onclick="calculateCookingTime()">Calculate Cooking Time</button>
+    
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateCookingTime() {
+        const thickness = parseFloat(document.getElementById('steakThickness').value);
+        const doneness = document.getElementById('doneness').value;
+        const method = document.getElementById('cookingMethod').value;
+
+        if (isNaN(thickness) || thickness <= 0) {
+            alert("Please enter a valid steak thickness.");
+            return;
+        }
+
+        let timePerInch;
+        
+        if (method === 'grilling') {
+            if (doneness === 'rare') timePerInch = 2; // 2 minutes per inch
+            else if (doneness === 'mediumRare') timePerInch = 3; // 3 minutes per inch
+            else if (doneness === 'medium') timePerInch = 4; // 4 minutes per inch
+            else if (doneness === 'mediumWell') timePerInch = 5; // 5 minutes per inch
+            else if (doneness === 'wellDone') timePerInch = 6; // 6 minutes per inch
+        } else if (method === 'panSearing') {
+            if (doneness === 'rare') timePerInch = 2.5; // 2.5 minutes per inch
+            else if (doneness === 'mediumRare') timePerInch = 3.5; // 3.5 minutes per inch
+            else if (doneness === 'medium') timePerInch = 4.5; // 4.5 minutes per inch
+            else if (doneness === 'mediumWell') timePerInch = 5.5; // 5.5 minutes per inch
+            else if (doneness === 'wellDone') timePerInch = 6.5; // 6.5 minutes per inch
+        } else if (method === 'broiling') {
+            if (doneness === 'rare') timePerInch = 3; // 3 minutes per inch
+            else if (doneness === 'mediumRare') timePerInch = 4; // 4 minutes per inch
+            else if (doneness === 'medium') timePerInch = 5; // 5 minutes per inch
+            else if (doneness === 'mediumWell') timePerInch = 6; // 6 minutes per inch
+            else if (doneness === 'wellDone') timePerInch = 7; // 7 minutes per inch
+        }
+
+        const totalTime = thickness * timePerInch; // Total cooking time in minutes
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `
+            For a <strong>${thickness} inch</strong> steak cooked <strong>${doneness}</strong> by <strong>${method}</strong>, 
+            the cooking time is approximately:
+            <strong>${totalTime} minutes</strong>.
+        `;
+    }
+</script>
+
+</body>
+</html>

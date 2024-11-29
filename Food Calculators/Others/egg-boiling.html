@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Egg Boiling Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h1>Egg Boiling Calculator</h1>
+    <label for="eggSize">Select egg size:</label>
+    <select id="eggSize">
+        <option value="large">Large</option>
+        <option value="medium">Medium</option>
+        <option value="small">Small</option>
+    </select>
+
+    <label for="doneness">Select doneness:</label>
+    <select id="doneness">
+        <option value="soft">Soft</option>
+        <option value="medium">Medium</option>
+        <option value="hard">Hard</option>
+    </select>
+
+    <button onclick="calculateBoilingTime()">Calculate Boiling Time</button>
+    
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateBoilingTime() {
+        const eggSize = document.getElementById('eggSize').value;
+        const doneness = document.getElementById('doneness').value;
+
+        let boilingTime;
+
+        // Set boiling times based on egg size and doneness
+        if (eggSize === 'large') {
+            if (doneness === 'soft') {
+                boilingTime = 6; // 6 minutes
+            } else if (doneness === 'medium') {
+                boilingTime = 9; // 9 minutes
+            } else {
+                boilingTime = 12; // 12 minutes
+            }
+        } else if (eggSize === 'medium') {
+            if (doneness === 'soft') {
+                boilingTime = 5; // 5 minutes
+            } else if (doneness === 'medium') {
+                boilingTime = 8; // 8 minutes
+            } else {
+                boilingTime = 11; // 11 minutes
+            }
+        } else if (eggSize === 'small') {
+            if (doneness === 'soft') {
+                boilingTime = 4; // 4 minutes
+            } else if (doneness === 'medium') {
+                boilingTime = 7; // 7 minutes
+            } else {
+                boilingTime = 10; // 10 minutes
+            }
+        }
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `
+            <p>To boil a <strong>${eggSize}</strong> egg to a <strong>${doneness}</strong> doneness, boil for approximately:</p>
+            <p><strong>${boilingTime} minutes</strong></p>
+        `;
+    }
+</script>
+
+</body>
+</html>

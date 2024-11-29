@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Butter Chicken Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h1>Butter Chicken Calculator</h1>
+    <label for="numberOfServings">Enter number of servings:</label>
+    <input type="number" id="numberOfServings" placeholder="Number of servings" min="1" required>
+
+    <button onclick="calculateIngredients()">Calculate Ingredients</button>
+    
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateIngredients() {
+        const servings = parseInt(document.getElementById('numberOfServings').value);
+        
+        if (isNaN(servings) || servings < 1) {
+            alert("Please enter a valid number of servings.");
+            return;
+        }
+
+        // Standard ingredient amounts per serving
+        const chickenPerServing = 0.25; // 0.25 kg (250g) of chicken per serving
+        const butterPerServing = 0.02; // 20g of butter per serving
+        const creamPerServing = 0.05; // 50ml of cream per serving
+        const tomatoPureePerServing = 0.05; // 50g of tomato puree per serving
+        const spicesPerServing = 0.01; // 10g of spices per serving (cumin, coriander, etc.)
+        
+        // Calculate total ingredients needed
+        const totalChicken = (chickenPerServing * servings).toFixed(2); // in kg
+        const totalButter = (butterPerServing * servings).toFixed(2); // in grams
+        const totalCream = (creamPerServing * servings).toFixed(2); // in ml
+        const totalTomatoPuree = (tomatoPureePerServing * servings).toFixed(2); // in grams
+        const totalSpices = (spicesPerServing * servings).toFixed(2); // in grams
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `
+            For <strong>${servings}</strong> servings of Butter Chicken, you will need:
+            <p><strong>${totalChicken} kg</strong> of chicken</p>
+            <p><strong>${totalButter} g</strong> of butter</p>
+            <p><strong>${totalCream} ml</strong> of cream</p>
+            <p><strong>${totalTomatoPuree} g</strong> of tomato puree</p>
+            <p><strong>${totalSpices} g</strong> of spices</p>
+        `;
+    }
+</script>
+
+</body>
+</html>

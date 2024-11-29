@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Cooling Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"], input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h1>Water Cooling Calculator</h1>
+    <label for="volume">Enter volume to cool (in liters):</label>
+    <input type="number" id="volume" placeholder="Volume in liters" min="1" required>
+
+    <label for="tempDrop">Enter desired temperature drop (in °C):</label>
+    <input type="number" id="tempDrop" placeholder="Temperature drop in °C" required>
+
+    <button onclick="calculateWaterNeeded()">Calculate Water Needed</button>
+    
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateWaterNeeded() {
+        const volume = parseFloat(document.getElementById('volume').value);
+        const tempDrop = parseFloat(document.getElementById('tempDrop').value);
+
+        if (isNaN(volume) || volume <= 0 || isNaN(tempDrop) || tempDrop < 0) {
+            alert("Please enter valid numbers.");
+            return;
+        }
+
+        const specificHeatCapacity = 4.186; // kJ/kg°C for water
+        const densityOfWater = 1; // kg/L for water
+        
+        // Calculate the energy required to cool the volume of water
+        const energyRequired = volume * densityOfWater * specificHeatCapacity * tempDrop; // in kJ
+
+        // Convert energy to liters of water, assuming the same temperature drop applies
+        const waterNeeded = energyRequired / (specificHeatCapacity * tempDrop); // in liters
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `
+            To cool <strong>${volume}</strong> liters of water by <strong>${tempDrop}</strong> °C, you will need approximately:
+            <strong>${waterNeeded.toFixed(2)} liters</strong> of cooling water.
+        `;
+    }
+</script>
+
+</body>
+</html>

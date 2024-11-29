@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biryani Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h1>Biryani Calculator</h1>
+    <label for="numberOfServings">Enter number of servings:</label>
+    <input type="number" id="numberOfServings" placeholder="Number of servings" min="1" required>
+
+    <button onclick="calculateIngredients()">Calculate Ingredients</button>
+    
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateIngredients() {
+        const servings = parseInt(document.getElementById('numberOfServings').value);
+        
+        if (isNaN(servings) || servings < 1) {
+            alert("Please enter a valid number of servings.");
+            return;
+        }
+
+        // Standard ingredient amounts per serving
+        const ricePerServing = 0.5; // 0.5 kg (500g) of rice per serving
+        const meatPerServing = 0.25; // 0.25 kg (250g) of meat per serving
+        const yogurtPerServing = 0.1; // 100g of yogurt per serving
+        const onionPerServing = 0.05; // 50g of onion per serving
+        const spicesPerServing = 0.02; // 20g of spices per serving (biryani spices)
+
+        // Calculate total ingredients needed
+        const totalRice = (ricePerServing * servings).toFixed(2); // in kg
+        const totalMeat = (meatPerServing * servings).toFixed(2); // in kg
+        const totalYogurt = (yogurtPerServing * servings).toFixed(2); // in kg
+        const totalOnion = (onionPerServing * servings).toFixed(2); // in kg
+        const totalSpices = (spicesPerServing * servings).toFixed(2); // in kg
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `
+            For <strong>${servings}</strong> servings of Biryani, you will need:
+            <p><strong>${totalRice} kg</strong> of rice</p>
+            <p><strong>${totalMeat} kg</strong> of meat</p>
+            <p><strong>${totalYogurt} kg</strong> of yogurt</p>
+            <p><strong>${totalOnion} kg</strong> of onions</p>
+            <p><strong>${totalSpices} kg</strong> of spices</p>
+        `;
+    }
+</script>
+
+</body>
+</html>

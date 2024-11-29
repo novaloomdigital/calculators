@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quarantine Food Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h1>Quarantine Food Calculator</h1>
+    <label for="numberOfPeople">Enter number of people:</label>
+    <input type="number" id="numberOfPeople" placeholder="Number of people" min="1" required>
+
+    <label for="numberOfDays">Enter number of days:</label>
+    <input type="number" id="numberOfDays" placeholder="Number of days" min="1" required>
+
+    <button onclick="calculateFood()">Calculate Food Needed</button>
+    
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateFood() {
+        const numberOfPeople = parseInt(document.getElementById('numberOfPeople').value);
+        const numberOfDays = parseInt(document.getElementById('numberOfDays').value);
+
+        if (isNaN(numberOfPeople) || numberOfPeople < 1 || 
+            isNaN(numberOfDays) || numberOfDays < 1) {
+            alert("Please enter valid numbers.");
+            return;
+        }
+
+        // Food estimations (per person, per day)
+        const dailyCalories = 2000; // Average daily calorie intake per person
+        const dailyGrains = 6; // servings of grains (e.g. bread, rice)
+        const dailyVegetables = 2.5; // servings of vegetables
+        const dailyFruits = 2; // servings of fruits
+        const dailyDairy = 3; // servings of dairy
+        const dailyProtein = 5.5; // servings of protein
+
+        // Calculate total needed for the quarantine period
+        const totalCalories = dailyCalories * numberOfPeople * numberOfDays;
+        const totalGrains = dailyGrains * numberOfPeople * numberOfDays;
+        const totalVegetables = dailyVegetables * numberOfPeople * numberOfDays;
+        const totalFruits = dailyFruits * numberOfPeople * numberOfDays;
+        const totalDairy = dailyDairy * numberOfPeople * numberOfDays;
+        const totalProtein = dailyProtein * numberOfPeople * numberOfDays;
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `
+            For <strong>${numberOfPeople}</strong> people over <strong>${numberOfDays}</strong> days, you will need approximately:
+            <p><strong>${totalCalories} calories</strong></p>
+            <p><strong>${totalGrains} servings</strong> of grains</p>
+            <p><strong>${totalVegetables} servings</strong> of vegetables</p>
+            <p><strong>${totalFruits} servings</strong> of fruits</p>
+            <p><strong>${totalDairy} servings</strong> of dairy</p>
+            <p><strong>${totalProtein} servings</strong> of protein</p>
+        `;
+    }
+</script>
+
+</body>
+</html>

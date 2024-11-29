@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mashed Potato Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h1>Mashed Potato Calculator</h1>
+    <label for="numberOfGuests">Enter number of guests:</label>
+    <input type="number" id="numberOfGuests" placeholder="Number of guests" min="1" required>
+
+    <label for="potatoesPerPerson">Enter amount of mashed potato per person (in cups):</label>
+    <input type="number" id="potatoesPerPerson" placeholder="Cups per person" min="0.5" value="1" required>
+
+    <button onclick="calculateMashedPotatoes()">Calculate Mashed Potatoes Needed</button>
+    
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateMashedPotatoes() {
+        const numberOfGuests = parseInt(document.getElementById('numberOfGuests').value);
+        const potatoesPerPerson = parseFloat(document.getElementById('potatoesPerPerson').value);
+
+        if (isNaN(numberOfGuests) || numberOfGuests < 1 || 
+            isNaN(potatoesPerPerson) || potatoesPerPerson < 0.5) {
+            alert("Please enter valid numbers.");
+            return;
+        }
+
+        // Calculate total mashed potatoes needed
+        const totalPotatoesNeeded = numberOfGuests * potatoesPerPerson; // in cups
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `
+            For <strong>${numberOfGuests}</strong> guests, you will need approximately:
+            <strong>${totalPotatoesNeeded.toFixed(2)} cups</strong> of mashed potatoes.
+        `;
+    }
+</script>
+
+</body>
+</html>

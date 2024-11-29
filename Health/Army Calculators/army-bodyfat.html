@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Army Body Fat Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h1>Army Body Fat Calculator</h1>
+    
+    <label for="gender">Select Gender:</label>
+    <select id="gender">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+    </select>
+
+    <label for="waist">Enter Waist Measurement (in inches):</label>
+    <input type="number" id="waist" placeholder="Waist in inches" min="1" required>
+
+    <label for="neck">Enter Neck Measurement (in inches):</label>
+    <input type="number" id="neck" placeholder="Neck in inches" min="1" required>
+
+    <label for="hips" id="hipsLabel" style="display:none;">Enter Hip Measurement (in inches):</label>
+    <input type="number" id="hips" placeholder="Hips in inches" min="1" style="display:none;">
+
+    <button onclick="calculateBodyFat()">Calculate Body Fat</button>
+    
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    document.getElementById('gender').addEventListener('change', function() {
+        const gender = this.value;
+        const hipsLabel = document.getElementById('hipsLabel');
+        const hipsInput = document.getElementById('hips');
+
+        if (gender === 'female') {
+            hipsLabel.style.display = 'block';
+            hipsInput.style.display = 'block';
+        } else {
+            hipsLabel.style.display = 'none';
+            hipsInput.style.display = 'none';
+        }
+    });
+
+    function calculateBodyFat() {
+        const gender = document.getElementById('gender').value;
+        const waist = parseFloat(document.getElementById('waist').value);
+        const neck = parseFloat(document.getElementById('neck').value);
+        const hips = gender === 'female' ? parseFloat(document.getElementById('hips').value) : 0;
+
+        if (isNaN(waist) || waist <= 0 || isNaN(neck) || neck <= 0 || (gender === 'female' && (isNaN(hips) || hips <= 0))) {
+            alert("Please enter valid measurements.");
+            return;
+        }
+
+        let bodyFatPercentage;
+
+        if (gender === 'male') {
+            bodyFatPercentage = (86.010 * Math.log10(waist - neck)) - (70.041 * Math.log10(height)) + 36.76;
+        } else {
+            bodyFatPercentage = (163.205 * Math.log10(waist + hips - neck)) - 97.684;
+        }
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `Your estimated body fat percentage is <strong>${bodyFatPercentage.toFixed(2)}%</strong>.`;
+    }
+</script>
+
+</body>
+</html>

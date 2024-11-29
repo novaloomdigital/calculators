@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salad Calories Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h1>Salad Calories Calculator</h1>
+    <label for="ingredient">Select ingredient:</label>
+    <select id="ingredient">
+        <option value="lettuce">Lettuce (5 calories per cup)</option>
+        <option value="tomato">Tomato (22 calories per medium)</option>
+        <option value="cucumber">Cucumber (16 calories per medium)</option>
+        <option value="carrot">Carrot (41 calories per medium)</option>
+        <option value="oliveOil">Olive Oil (119 calories per tablespoon)</option>
+        <option value="cheese">Cheese (113 calories per ounce)</option>
+        <option value="croutons">Croutons (122 calories per ounce)</option>
+    </select>
+
+    <label for="quantity">Enter quantity:</label>
+    <input type="number" id="quantity" placeholder="Quantity" min="1" required>
+
+    <button onclick="calculateCalories()">Calculate Total Calories</button>
+    
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateCalories() {
+        const ingredient = document.getElementById('ingredient').value;
+        const quantity = parseFloat(document.getElementById('quantity').value);
+        
+        let caloriesPerUnit;
+
+        // Set calorie values based on ingredient
+        switch (ingredient) {
+            case 'lettuce':
+                caloriesPerUnit = 5; // calories per cup
+                break;
+            case 'tomato':
+                caloriesPerUnit = 22; // calories per medium tomato
+                break;
+            case 'cucumber':
+                caloriesPerUnit = 16; // calories per medium cucumber
+                break;
+            case 'carrot':
+                caloriesPerUnit = 41; // calories per medium carrot
+                break;
+            case 'oliveOil':
+                caloriesPerUnit = 119; // calories per tablespoon
+                break;
+            case 'cheese':
+                caloriesPerUnit = 113; // calories per ounce
+                break;
+            case 'croutons':
+                caloriesPerUnit = 122; // calories per ounce
+                break;
+            default:
+                caloriesPerUnit = 0;
+        }
+
+        const totalCalories = caloriesPerUnit * quantity;
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `
+            For <strong>${quantity}</strong> of <strong>${ingredient}</strong>, you will consume:
+            <strong>${totalCalories} calories</strong>.
+        `;
+    }
+</script>
+
+</body>
+</html>
