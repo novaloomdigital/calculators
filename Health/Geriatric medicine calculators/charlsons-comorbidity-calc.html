@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charlson Comorbidity Index Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: white;
+        }
+        h1 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 15px;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Charlson Comorbidity Index Calculator</h1>
+    <div class="form-group">
+        <label><input type="checkbox" id="myocardialInfarction"> Myocardial Infarction (1 point)</label>
+        <label><input type="checkbox" id="congestiveHeartFailure"> Congestive Heart Failure (1 point)</label>
+        <label><input type="checkbox" id="peripheralVascularDisease"> Peripheral Vascular Disease (1 point)</label>
+        <label><input type="checkbox" id="cerebrovascularDisease"> Cerebrovascular Disease (1 point)</label>
+        <label><input type="checkbox" id="dementia"> Dementia (1 point)</label>
+        <label><input type="checkbox" id="chronicPulmonaryDisease"> Chronic Pulmonary Disease (1 point)</label>
+        <label><input type="checkbox" id="connectiveTissueDisease"> Connective Tissue Disease (1 point)</label>
+        <label><input type="checkbox" id="ulcer"> Ulcer (1 point)</label>
+        <label><input type="checkbox" id="liverDisease"> Liver Disease (1 point)</label>
+        <label><input type="checkbox" id="diabetes"> Diabetes without Chronic Complications (1 point)</label>
+        <label><input type="checkbox" id="diabetesWithComplications"> Diabetes with Chronic Complications (2 points)</label>
+        <label><input type="checkbox" id="chronicRenalFailure"> Chronic Renal Failure (2 points)</label>
+        <label><input type="checkbox" id="cancer"> Cancer (2 points)</label>
+        <label><input type="checkbox" id="metastaticCancer"> Metastatic Cancer (6 points)</label>
+        <label><input type="checkbox" id="aids"> AIDS/HIV (6 points)</label>
+    </div>
+    <button onclick="calculateCCI()">Calculate Charlson Comorbidity Index</button>
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateCCI() {
+            let score = 0;
+            const resultDiv = document.getElementById('result');
+
+            if (document.getElementById('myocardialInfarction').checked) score += 1;
+            if (document.getElementById('congestiveHeartFailure').checked) score += 1;
+            if (document.getElementById('peripheralVascularDisease').checked) score += 1;
+            if (document.getElementById('cerebrovascularDisease').checked) score += 1;
+            if (document.getElementById('dementia').checked) score += 1;
+            if (document.getElementById('chronicPulmonaryDisease').checked) score += 1;
+            if (document.getElementById('connectiveTissueDisease').checked) score += 1;
+            if (document.getElementById('ulcer').checked) score += 1;
+            if (document.getElementById('liverDisease').checked) score += 1;
+            if (document.getElementById('diabetes').checked) score += 1;
+            if (document.getElementById('diabetesWithComplications').checked) score += 2;
+            if (document.getElementById('chronicRenalFailure').checked) score += 2;
+            if (document.getElementById('cancer').checked) score += 2;
+            if (document.getElementById('metastaticCancer').checked) score += 6;
+            if (document.getElementById('aids').checked) score += 6;
+
+            resultDiv.innerHTML = `Charlson Comorbidity Index Score: ${score}`;
+        }
+    </script>
+
+</body>
+</html>

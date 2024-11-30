@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Radiation Dose Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            max-width: 400px;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: white;
+        }
+        h1 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 15px;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Medical Radiation Dose Calculator</h1>
+    <div class="form-group">
+        <label for="procedure">Type of Procedure:</label>
+        <select id="procedure">
+            <option value="CT">CT Scan</option>
+            <option value="X-ray">X-ray</option>
+            <option value="MRI">MRI</option>
+            <option value="Fluoroscopy">Fluoroscopy</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="dose">Radiation Dose (mGy):</label>
+        <input type="number" id="dose" required>
+    </div>
+    <div class="form-group">
+        <label for="area">Area of Exposure (cm²):</label>
+        <input type="number" id="area" required>
+    </div>
+    <button onclick="calculateDose()">Calculate Equivalent Dose</button>
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateDose() {
+            const procedure = document.getElementById('procedure').value;
+            const dose = parseFloat(document.getElementById('dose').value);
+            const area = parseFloat(document.getElementById('area').value);
+            const resultDiv = document.getElementById('result');
+
+            if (!isNaN(dose) && !isNaN(area) && area > 0) {
+                let doseFactor;
+
+                // Assign dose factors based on the procedure type
+                switch (procedure) {
+                    case 'CT':
+                        doseFactor = 0.1; // Example factor
+                        break;
+                    case 'X-ray':
+                        doseFactor = 0.05; // Example factor
+                        break;
+                    case 'MRI':
+                        doseFactor = 0.01; // Example factor (MRI is usually non-radiation)
+                        break;
+                    case 'Fluoroscopy':
+                        doseFactor = 0.15; // Example factor
+                        break;
+                    default:
+                        doseFactor = 1.0;
+                }
+
+                const equivalentDose = dose * doseFactor / area;
+                resultDiv.innerHTML = `Equivalent Dose: ${equivalentDose.toFixed(2)} mGy/cm²`;
+            } else {
+                resultDiv.innerHTML = 'Please enter valid numbers!';
+            }
+        }
+    </script>
+
+</body>
+</html>

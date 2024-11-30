@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morse Fall Scale Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: white;
+        }
+        h1 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 15px;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Morse Fall Scale Calculator</h1>
+    <div class="form-group">
+        <label><input type="checkbox" id="historyOfFalls"> History of Falls (Previous fall = 15 points)</label>
+        <label><input type="checkbox" id="secondaryDiagnosis"> Secondary Diagnosis (More than one = 15 points)</label>
+        <label><input type="checkbox" id="ambulatoryAids"> Ambulatory Aids (Use aids = 15 points)</label>
+        <label><input type="checkbox" id="ivTherapy"> IV Therapy (Currently on IV = 20 points)</label>
+        <label><input type="checkbox" id="gait"> Gait (Weak gait = 10 points)</label>
+        <label><input type="checkbox" id="mentalStatus"> Mental Status (Confused = 15 points)</label>
+    </div>
+    <button onclick="calculateMorseFallScore()">Calculate Morse Fall Score</button>
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateMorseFallScore() {
+            let score = 0;
+            const resultDiv = document.getElementById('result');
+
+            if (document.getElementById('historyOfFalls').checked) score += 15;
+            if (document.getElementById('secondaryDiagnosis').checked) score += 15;
+            if (document.getElementById('ambulatoryAids').checked) score += 15;
+            if (document.getElementById('ivTherapy').checked) score += 20;
+            if (document.getElementById('gait').checked) score += 10;
+            if (document.getElementById('mentalStatus').checked) score += 15;
+
+            resultDiv.innerHTML = `Morse Fall Score: ${score}<br>${getFallRiskLevel(score)}`;
+        }
+
+        function getFallRiskLevel(score) {
+            if (score <= 24) {
+                return "Low Risk of Falling";
+            } else if (score >= 25 && score <= 44) {
+                return "Moderate Risk of Falling";
+            } else {
+                return "High Risk of Falling";
+            }
+        }
+    </script>
+
+</body>
+</html>

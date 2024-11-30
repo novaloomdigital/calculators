@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paracetamol Dosage Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Paracetamol Dosage Calculator</h1>
+        <label for="weight">Child's Weight (kg):</label>
+        <input type="number" id="weight" min="1" placeholder="Enter weight in kg">
+
+        <button onclick="calculateDosage()">Calculate Dosage</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateDosage() {
+            const weight = parseFloat(document.getElementById('weight').value);
+
+            if (!weight || weight <= 0) {
+                alert("Please enter a valid weight.");
+                return;
+            }
+
+            // Calculate the recommended dosage
+            const singleDoseLow = weight * 10;  // 10 mg/kg
+            const singleDoseHigh = weight * 15; // 15 mg/kg
+            const maxDailyDose = weight * 60;   // 60 mg/kg
+
+            // Display the results
+            document.getElementById('result').innerText = 
+                `Single Dose: ${singleDoseLow.toFixed(2)} mg (minimum)\n` +
+                `Single Dose: ${singleDoseHigh.toFixed(2)} mg (maximum)\n` +
+                `Maximum Daily Dose: ${maxDailyDose.toFixed(2)} mg`;
+        }
+    </script>
+
+</body>
+</html>

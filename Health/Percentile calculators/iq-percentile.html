@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IQ Percentile Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>IQ Percentile Calculator</h1>
+        <label for="iqScore">IQ Score:</label>
+        <input type="number" id="iqScore" min="0" placeholder="Enter IQ score">
+
+        <button onclick="calculatePercentile()">Calculate Percentile</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculatePercentile() {
+            const iqScore = parseFloat(document.getElementById('iqScore').value);
+
+            if (isNaN(iqScore) || iqScore < 0) {
+                alert("Please enter a valid IQ score.");
+                return;
+            }
+
+            // Mean and standard deviation for IQ scores
+            const mean = 100;
+            const stdDev = 15;
+
+            // Calculate the z-score
+            const zScore = (iqScore - mean) / stdDev;
+
+            // Use the cumulative distribution function (CDF) for the normal distribution
+            const percentile = (0.5 * (1 + (zScore / Math.sqrt(2))));
+
+            // Convert the percentile to a percentage
+            const percentileRank = Math.round(percentile * 100);
+
+            document.getElementById('result').innerText = `Estimated IQ Percentile: ${percentileRank}th percentile`;
+        }
+    </script>
+
+</body>
+</html>

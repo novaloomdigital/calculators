@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIB-4 Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            max-width: 500px;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: white;
+        }
+        h1 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 15px;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>FIB-4 Calculator</h1>
+    
+    <div class="form-group">
+        <label for="age">Age (years):</label>
+        <input type="number" id="age" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="ast">AST Level (U/L):</label>
+        <input type="number" id="ast" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="alt">ALT Level (U/L):</label>
+        <input type="number" id="alt" required>
+    </div>
+
+    <div class="form-group">
+        <label for="platelet">Platelet Count (10^9/L):</label>
+        <input type="number" id="platelet" required>
+    </div>
+
+    <button onclick="calculateFIB4()">Calculate FIB-4 Score</button>
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateFIB4() {
+            const age = parseInt(document.getElementById('age').value);
+            const ast = parseFloat(document.getElementById('ast').value);
+            const alt = parseFloat(document.getElementById('alt').value);
+            const platelet = parseFloat(document.getElementById('platelet').value);
+            const resultDiv = document.getElementById('result');
+
+            // Validate inputs
+            if (isNaN(age) || age <= 0 || isNaN(ast) || isNaN(alt) || isNaN(platelet) || platelet <= 0) {
+                resultDiv.innerHTML = 'Please enter valid values!';
+                return;
+            }
+
+            // Calculate FIB-4 score
+            const fib4Score = (age * ast) / (platelet * Math.sqrt(alt));
+
+            resultDiv.innerHTML = `FIB-4 Score: ${fib4Score.toFixed(2)}<br>${getRiskLevel(fib4Score)}`;
+        }
+
+        function getRiskLevel(score) {
+            if (score < 1.45) {
+                return "Low Risk of Significant Fibrosis";
+            } else if (score >= 1.45 && score < 3.25) {
+                return "Intermediate Risk of Significant Fibrosis";
+            } else {
+                return "High Risk of Significant Fibrosis";
+            }
+        }
+    </script>
+
+</body>
+</html>

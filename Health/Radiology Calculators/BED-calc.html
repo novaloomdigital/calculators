@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BED Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            max-width: 400px;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: white;
+        }
+        h1 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 15px;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>BED Calculator</h1>
+    <div class="form-group">
+        <label for="fractions">Number of Fractions (n):</label>
+        <input type="number" id="fractions" required>
+    </div>
+    <div class="form-group">
+        <label for="dose">Dose per Fraction (d in Gy):</label>
+        <input type="number" id="dose" required>
+    </div>
+    <div class="form-group">
+        <label for="alphaBeta">α/β Ratio:</label>
+        <input type="number" id="alphaBeta" required>
+    </div>
+    <button onclick="calculateBED()">Calculate BED</button>
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateBED() {
+            const n = parseFloat(document.getElementById('fractions').value);
+            const d = parseFloat(document.getElementById('dose').value);
+            const alphaBeta = parseFloat(document.getElementById('alphaBeta').value);
+            const resultDiv = document.getElementById('result');
+
+            if (!isNaN(n) && !isNaN(d) && !isNaN(alphaBeta) && alphaBeta > 0) {
+                const BED = n * d * (1 + (d / alphaBeta));
+                resultDiv.innerHTML = `BED: ${BED.toFixed(2)} Gy`;
+            } else {
+                resultDiv.innerHTML = 'Please enter valid numbers!';
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Percentile Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>BMI Percentile Calculator</h1>
+        <label for="weight">Weight (kg):</label>
+        <input type="number" id="weight" min="1" placeholder="Enter weight in kg">
+
+        <label for="height">Height (cm):</label>
+        <input type="number" id="height" min="1" placeholder="Enter height in cm">
+
+        <label for="age">Age (years):</label>
+        <input type="number" id="age" min="0" placeholder="Enter age in years">
+
+        <label for="sex">Sex:</label>
+        <select id="sex">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+
+        <button onclick="calculateBMIAndPercentile()">Calculate BMI and Percentile</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateBMIAndPercentile() {
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value) / 100; // Convert cm to m
+            const age = parseFloat(document.getElementById('age').value);
+            const sex = document.getElementById('sex').value;
+
+            if (!weight || !height || !age) {
+                alert("Please enter valid values for weight, height, and age.");
+                return;
+            }
+
+            // Calculate BMI
+            const bmi = weight / (height * height);
+            let percentile;
+
+            // Simplified logic to determine BMI percentile (not based on actual growth charts)
+            if (sex === "male") {
+                if (bmi < 14) {
+                    percentile = 5; // Underweight
+                } else if (bmi < 18) {
+                    percentile = 25; // Healthy
+                } else if (bmi < 22) {
+                    percentile = 50; // Healthy
+                } else if (bmi < 26) {
+                    percentile = 75; // Overweight
+                } else {
+                    percentile = 95; // Obese
+                }
+            } else { // female
+                if (bmi < 13) {
+                    percentile = 5; // Underweight
+                } else if (bmi < 17) {
+                    percentile = 25; // Healthy
+                } else if (bmi < 21) {
+                    percentile = 50; // Healthy
+                } else if (bmi < 25) {
+                    percentile = 75; // Overweight
+                } else {
+                    percentile = 95; // Obese
+                }
+            }
+
+            document.getElementById('result').innerText = 
+                `BMI: ${bmi.toFixed(2)}\n` +
+                `Estimated BMI Percentile: ${percentile}th percentile`;
+        }
+    </script>
+
+</body>
+</html>

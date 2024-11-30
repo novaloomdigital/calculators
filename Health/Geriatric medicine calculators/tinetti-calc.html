@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tinetti Assessment Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: white;
+        }
+        h1 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 15px;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Tinetti Assessment Calculator</h1>
+    <div class="form-group">
+        <label for="balanceScore">Balance Score (0-16):</label>
+        <input type="number" id="balanceScore" min="0" max="16" required>
+    </div>
+    <div class="form-group">
+        <label for="gaitScore">Gait Score (0-12):</label>
+        <input type="number" id="gaitScore" min="0" max="12" required>
+    </div>
+    <button onclick="calculateTinettiScore()">Calculate Tinetti Score</button>
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateTinettiScore() {
+            const balanceScore = parseInt(document.getElementById('balanceScore').value);
+            const gaitScore = parseInt(document.getElementById('gaitScore').value);
+            const resultDiv = document.getElementById('result');
+
+            // Validate inputs
+            if (isNaN(balanceScore) || isNaN(gaitScore)) {
+                resultDiv.innerHTML = 'Please enter valid scores!';
+                return;
+            }
+
+            const totalScore = balanceScore + gaitScore;
+            resultDiv.innerHTML = `Total Tinetti Score: ${totalScore}<br>${getRiskLevel(totalScore)}`;
+        }
+
+        function getRiskLevel(score) {
+            if (score >= 19) {
+                return "Low Risk of Falling";
+            } else if (score >= 15 && score <= 18) {
+                return "Moderate Risk of Falling";
+            } else {
+                return "High Risk of Falling";
+            }
+        }
+    </script>
+
+</body>
+</html>

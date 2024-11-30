@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Head Circumference Percentile Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Head Circumference Percentile Calculator</h1>
+        <label for="age">Age (months):</label>
+        <input type="number" id="age" min="0" placeholder="Enter age in months">
+
+        <label for="headCircumference">Head Circumference (cm):</label>
+        <input type="number" id="headCircumference" min="0" placeholder="Enter head circumference in cm">
+
+        <label for="sex">Sex:</label>
+        <select id="sex">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+
+        <button onclick="calculatePercentile()">Calculate Percentile</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculatePercentile() {
+            const age = parseFloat(document.getElementById('age').value);
+            const headCircumference = parseFloat(document.getElementById('headCircumference').value);
+            const sex = document.getElementById('sex').value;
+
+            if (!age || !headCircumference) {
+                alert("Please enter valid values for age and head circumference.");
+                return;
+            }
+
+            let percentile;
+
+            // Simplified logic based on typical head circumference for age and sex
+            if (sex === "male") {
+                if (age < 12) {
+                    if (headCircumference < 40) percentile = 5;
+                    else if (headCircumference < 42) percentile = 25;
+                    else if (headCircumference < 44) percentile = 50;
+                    else if (headCircumference < 46) percentile = 75;
+                    else percentile = 95;
+                } else {
+                    if (headCircumference < 46) percentile = 5;
+                    else if (headCircumference < 48) percentile = 25;
+                    else if (headCircumference < 50) percentile = 50;
+                    else if (headCircumference < 52) percentile = 75;
+                    else percentile = 95;
+                }
+            } else { // female
+                if (age < 12) {
+                    if (headCircumference < 39) percentile = 5;
+                    else if (headCircumference < 41) percentile = 25;
+                    else if (headCircumference < 43) percentile = 50;
+                    else if (headCircumference < 45) percentile = 75;
+                    else percentile = 95;
+                } else {
+                    if (headCircumference < 45) percentile = 5;
+                    else if (headCircumference < 47) percentile = 25;
+                    else if (headCircumference < 49) percentile = 50;
+                    else if (headCircumference < 51) percentile = 75;
+                    else percentile = 95;
+                }
+            }
+
+            document.getElementById('result').innerText = `Estimated Head Circumference Percentile: ${percentile}th percentile`;
+        }
+    </script>
+
+</body>
+</html>

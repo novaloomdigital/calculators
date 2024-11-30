@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frailty Index Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: white;
+        }
+        h1 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 15px;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Frailty Index Calculator</h1>
+    <div class="form-group">
+        <label><input type="checkbox" id="fatigue"> Fatigue or low energy</label>
+        <label><input type="checkbox" id="weightLoss"> Unintentional weight loss</label>
+        <label><input type="checkbox" id="weakness"> Weakness (based on grip strength)</label>
+        <label><input type="checkbox" id="poorMobility"> Poor mobility</label>
+        <label><input type="checkbox" id="lowActivity"> Low physical activity</label>
+        <label><input type="checkbox" id="depression"> Depression or mood disorders</label>
+    </div>
+    <button onclick="calculateFrailtyIndex()">Calculate Frailty Index</button>
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateFrailtyIndex() {
+            let totalDeficits = 0;
+            const totalCriteria = 6; // Total number of criteria used in this example
+            const resultDiv = document.getElementById('result');
+
+            if (document.getElementById('fatigue').checked) totalDeficits += 1;
+            if (document.getElementById('weightLoss').checked) totalDeficits += 1;
+            if (document.getElementById('weakness').checked) totalDeficits += 1;
+            if (document.getElementById('poorMobility').checked) totalDeficits += 1;
+            if (document.getElementById('lowActivity').checked) totalDeficits += 1;
+            if (document.getElementById('depression').checked) totalDeficits += 1;
+
+            // Calculate Frailty Index
+            const frailtyIndex = totalDeficits / totalCriteria;
+            resultDiv.innerHTML = `Frailty Index: ${frailtyIndex.toFixed(2)}<br>${getFrailtyCategory(frailtyIndex)}`;
+        }
+
+        function getFrailtyCategory(index) {
+            if (index < 0.2) {
+                return "Robust";
+            } else if (index >= 0.2 && index < 0.4) {
+                return "Pre-frail";
+            } else {
+                return "Frail";
+            }
+        }
+    </script>
+
+</body>
+</html>

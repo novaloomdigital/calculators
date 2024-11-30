@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TI-RADS Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            max-width: 400px;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: white;
+        }
+        h1 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 15px;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>TI-RADS Calculator</h1>
+    <div class="form-group">
+        <label>Characteristics of the Nodule:</label>
+        <label><input type="checkbox" id="hypoechoic"> Hypoechoic</label>
+        <label><input type="checkbox" id="solid"> Solid</label>
+        <label><input type="checkbox" id="irregularMargins"> Irregular Margins</label>
+        <label><input type="checkbox" id="microCalcifications"> Microcalcifications</label>
+        <label><input type="checkbox" id="tallerThanWide"> Taller than Wide</label>
+    </div>
+    <button onclick="calculateTIRADS()">Calculate TI-RADS Score</button>
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateTIRADS() {
+            let score = 2; // Start with a benign score
+            const resultDiv = document.getElementById('result');
+
+            // Check characteristics and adjust the score
+            if (document.getElementById('hypoechoic').checked) score += 2;
+            if (document.getElementById('solid').checked) score += 2;
+            if (document.getElementById('irregularMargins').checked) score += 3;
+            if (document.getElementById('microCalcifications').checked) score += 3;
+            if (document.getElementById('tallerThanWide').checked) score += 3;
+
+            // Determine TI-RADS category based on the score
+            let category;
+            if (score <= 4) {
+                category = 'TI-RADS 1 (Benign)';
+            } else if (score <= 6) {
+                category = 'TI-RADS 2 (Probably Benign)';
+            } else if (score <= 8) {
+                category = 'TI-RADS 3 (Intermediate)';
+            } else if (score <= 10) {
+                category = 'TI-RADS 4 (Suspicious)';
+            } else {
+                category = 'TI-RADS 5 (Highly Suspicious)';
+            }
+
+            resultDiv.innerHTML = `TI-RADS Score: ${score}<br>Category: ${category}`;
+        }
+    </script>
+
+</body>
+</html>

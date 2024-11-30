@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Child-Pugh Score Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            max-width: 500px;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: white;
+        }
+        h1 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 15px;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Child-Pugh Score Calculator</h1>
+    
+    <div class="form-group">
+        <label for="bilirubin">Total Bilirubin Level (mg/dL):</label>
+        <select id="bilirubin">
+            <option value="1">< 2.0</option>
+            <option value="2">2.0 - 3.0</option>
+            <option value="3">> 3.0</option>
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label for="albumin">Serum Albumin Level (g/dL):</label>
+        <select id="albumin">
+            <option value="1">≥ 3.5</option>
+            <option value="2">2.8 - 3.5</option>
+            <option value="3">< 2.8</option>
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label for="ascites">Ascites:</label>
+        <select id="ascites">
+            <option value="1">None</option>
+            <option value="2">Mild</option>
+            <option value="3">Moderate to Severe</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="encephalopathy">Encephalopathy:</label>
+        <select id="encephalopathy">
+            <option value="1">None</option>
+            <option value="2">Grade I-II</option>
+            <option value="3">Grade III-IV</option>
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label for="prothrombin">Prothrombin Time (seconds):</label>
+        <select id="prothrombin">
+            <option value="1">< 4 seconds prolonged</option>
+            <option value="2">4 - 6 seconds prolonged</option>
+            <option value="3">> 6 seconds prolonged</option>
+        </select>
+    </div>
+    
+    <button onclick="calculateChildPughScore()">Calculate Child-Pugh Score</button>
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateChildPughScore() {
+            let totalScore = 0;
+            const resultDiv = document.getElementById('result');
+
+            // Sum scores for each category
+            totalScore += parseInt(document.getElementById('bilirubin').value);
+            totalScore += parseInt(document.getElementById('albumin').value);
+            totalScore += parseInt(document.getElementById('ascites').value);
+            totalScore += parseInt(document.getElementById('encephalopathy').value);
+            totalScore += parseInt(document.getElementById('prothrombin').value);
+
+            resultDiv.innerHTML = `Child-Pugh Score: ${totalScore}<br>${getClassification(totalScore)}`;
+        }
+
+        function getClassification(score) {
+            if (score >= 5 && score <= 6) {
+                return "Class A (Well Compensated)";
+            } else if (score >= 7 && score <= 9) {
+                return "Class B (Significant Liver Disease)";
+            } else if (score >= 10) {
+                return "Class C (Decompensated Liver Disease)";
+            } else {
+                return "Invalid Score!";
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pediatric Dose Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Pediatric Dose Calculator</h1>
+        <label for="weight">Child's Weight (kg):</label>
+        <input type="number" id="weight" min="1" placeholder="Enter weight in kg">
+
+        <label for="medication">Select Medication:</label>
+        <select id="medication">
+            <option value="ibuprofen">Ibuprofen</option>
+            <option value="acetaminophen">Acetaminophen</option>
+            <option value="amoxicillin">Amoxicillin</option>
+        </select>
+
+        <button onclick="calculateDosage()">Calculate Dosage</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateDosage() {
+            const weight = parseFloat(document.getElementById('weight').value);
+            const medication = document.getElementById('medication').value;
+
+            if (!weight || weight <= 0) {
+                alert("Please enter a valid weight.");
+                return;
+            }
+
+            let dosageInfo = '';
+
+            switch (medication) {
+                case 'ibuprofen':
+                    const ibuprofenSingleDose = weight * 10; // 10 mg/kg
+                    const ibuprofenMaxDailyDose = weight * 40; // 40 mg/kg
+                    dosageInfo = `Ibuprofen:\nSingle Dose: ${ibuprofenSingleDose.toFixed(2)} mg (every 6-8 hours)\nMaximum Daily Dose: ${ibuprofenMaxDailyDose.toFixed(2)} mg`;
+                    break;
+
+                case 'acetaminophen':
+                    const acetaminophenLow = weight * 10;  // 10 mg/kg
+                    const acetaminophenHigh = weight * 15; // 15 mg/kg
+                    const acetaminophenMax = weight * 60;   // 60 mg/kg
+                    dosageInfo = `Acetaminophen:\nSingle Dose: ${acetaminophenLow.toFixed(2)} mg (minimum)\nSingle Dose: ${acetaminophenHigh.toFixed(2)} mg (maximum)\nMaximum Daily Dose: ${acetaminophenMax.toFixed(2)} mg`;
+                    break;
+
+                case 'amoxicillin':
+                    const amoxicillinLow = weight * 20;  // 20 mg/kg
+                    const amoxicillinHigh = weight * 40; // 40 mg/kg
+                    dosageInfo = `Amoxicillin:\nSingle Dose: ${amoxicillinLow.toFixed(2)} mg (minimum)\nSingle Dose: ${amoxicillinHigh.toFixed(2)} mg (maximum)`;
+                    break;
+            }
+
+            document.getElementById('result').innerText = dosageInfo;
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetal Weight Percentile Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Fetal Weight Percentile Calculator</h1>
+        <label for="gestationalAge">Gestational Age (weeks):</label>
+        <input type="number" id="gestationalAge" min="20" max="42" placeholder="Enter gestational age in weeks">
+
+        <label for="fetalWeight">Estimated Fetal Weight (grams):</label>
+        <input type="number" id="fetalWeight" min="100" placeholder="Enter fetal weight in grams">
+
+        <button onclick="calculatePercentile()">Calculate Percentile</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculatePercentile() {
+            const gestationalAge = parseInt(document.getElementById('gestationalAge').value);
+            const fetalWeight = parseFloat(document.getElementById('fetalWeight').value);
+
+            if (!gestationalAge || !fetalWeight) {
+                alert("Please enter valid values for gestational age and fetal weight.");
+                return;
+            }
+
+            let percentile;
+
+            // Simplified logic based on typical fetal weight for gestational age
+            if (gestationalAge < 28) {
+                percentile = fetalWeight < 1000 ? 5 : fetalWeight < 1200 ? 25 : 50; // Example ranges
+            } else if (gestationalAge < 32) {
+                percentile = fetalWeight < 1500 ? 5 : fetalWeight < 2000 ? 25 : 50; // Example ranges
+            } else if (gestationalAge < 36) {
+                percentile = fetalWeight < 2000 ? 5 : fetalWeight < 2500 ? 25 : 50; // Example ranges
+            } else {
+                percentile = fetalWeight < 2500 ? 5 : fetalWeight < 3000 ? 25 : 50; // Example ranges
+            }
+
+            document.getElementById('result').innerText = `Estimated Fetal Weight Percentile: ${percentile}th percentile`;
+        }
+    </script>
+
+</body>
+</html>

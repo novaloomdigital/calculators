@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happiness Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input[type="number"] {
+            width: 50px;
+            padding: 5px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Happiness Calculator</h1>
+        <label>Rate your happiness in the following areas (1-10):</label>
+
+        <label>1. Personal Relationships:</label>
+        <input type="number" id="relationships" min="1" max="10" placeholder="1-10">
+
+        <label>2. Work/Career Satisfaction:</label>
+        <input type="number" id="work" min="1" max="10" placeholder="1-10">
+
+        <label>3. Physical Health:</label>
+        <input type="number" id="health" min="1" max="10" placeholder="1-10">
+
+        <label>4. Mental Well-being:</label>
+        <input type="number" id="mental" min="1" max="10" placeholder="1-10">
+
+        <label>5. Leisure Activities:</label>
+        <input type="number" id="leisure" min="1" max="10" placeholder="1-10">
+
+        <button onclick="calculateHappinessScore()">Calculate Happiness Score</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateHappinessScore() {
+            const relationships = parseInt(document.getElementById('relationships').value) || 0;
+            const work = parseInt(document.getElementById('work').value) || 0;
+            const health = parseInt(document.getElementById('health').value) || 0;
+            const mental = parseInt(document.getElementById('mental').value) || 0;
+            const leisure = parseInt(document.getElementById('leisure').value) || 0;
+
+            const totalScore = relationships + work + health + mental + leisure;
+            const averageScore = totalScore / 5;
+
+            document.getElementById('result').innerText = `Your Happiness Score: ${totalScore} (Average: ${averageScore.toFixed(2)})`;
+        }
+    </script>
+
+</body>
+</html>

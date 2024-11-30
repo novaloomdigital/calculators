@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CDAI Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: white;
+        }
+        h1 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 15px;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>CDAI Calculator</h1>
+    
+    <div class="form-group">
+        <label for="numberOfDiarrhea">Number of Diarrhea Episodes per Day:</label>
+        <input type="number" id="numberOfDiarrhea" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="abdominalPain">Abdominal Pain (0-3):</label>
+        <input type="number" id="abdominalPain" min="0" max="3" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="generalWellBeing">General Well-Being (0-3):</label>
+        <input type="number" id="generalWellBeing" min="0" max="3" required>
+    </div>
+
+    <div class="form-group">
+        <label for="extraintestinalManifestations">Presence of Extraintestinal Manifestations (0-1):</label>
+        <input type="number" id="extraintestinalManifestations" min="0" max="1" required>
+    </div>
+
+    <div class="form-group">
+        <label for="hemoglobin">Hemoglobin Level (g/dL):</label>
+        <input type="number" id="hemoglobin" required>
+    </div>
+
+    <div class="form-group">
+        <label for="hematocrit">Hematocrit Level (%):</label>
+        <input type="number" id="hematocrit" required>
+    </div>
+
+    <div class="form-group">
+        <label for="weight">Weight (lbs):</label>
+        <input type="number" id="weight" required>
+    </div>
+
+    <button onclick="calculateCDAI()">Calculate CDAI Score</button>
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateCDAI() {
+            const numberOfDiarrhea = parseInt(document.getElementById('numberOfDiarrhea').value);
+            const abdominalPain = parseInt(document.getElementById('abdominalPain').value);
+            const generalWellBeing = parseInt(document.getElementById('generalWellBeing').value);
+            const extraintestinalManifestations = parseInt(document.getElementById('extraintestinalManifestations').value);
+            const hemoglobin = parseFloat(document.getElementById('hemoglobin').value);
+            const hematocrit = parseFloat(document.getElementById('hematocrit').value);
+            const weight = parseFloat(document.getElementById('weight').value);
+            const resultDiv = document.getElementById('result');
+
+            // Calculate CDAI components
+            let score = 0;
+
+            score += (numberOfDiarrhea * 5); // Diarrhea episodes
+            score += (abdominalPain * 10);   // Abdominal pain
+            score += (generalWellBeing * 7); // General well-being
+            score += (extraintestinalManifestations * 20); // Extraintestinal manifestations
+
+            // Hemoglobin scoring
+            if (hemoglobin < 12) score += 5; // Mild anemia
+            if (hemoglobin < 10) score += 10; // Moderate anemia
+            if (hemoglobin < 8) score += 15; // Severe anemia
+
+            // Hematocrit scoring
+            if (hematocrit < 36) score += 5; // Mild anemia
+            if (hematocrit < 30) score += 10; // Moderate anemia
+            if (hematocrit < 24) score += 15; // Severe anemia
+
+            // Weight scoring
+            if (weight < 100) score += 5; // Weight loss
+            if (weight < 90) score += 10; // Significant weight loss
+            if (weight < 80) score += 15; // Severe weight loss
+
+            resultDiv.innerHTML = `CDAI Score: ${score}<br>${getDiseaseActivity(score)}`;
+        }
+
+        function getDiseaseActivity(score) {
+            if (score < 150) {
+                return "Remission";
+            } else if (score >= 150 && score <= 220) {
+                return "Mild activity";
+            } else if (score > 220 && score <= 450) {
+                return "Moderate activity";
+            } else {
+                return "Severe activity";
+            }
+        }
+    </script>
+
+</body>
+</html>

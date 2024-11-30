@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barthel Index Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            max-width: 500px;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: white;
+        }
+        h1 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 15px;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Barthel Index Calculator</h1>
+    <div class="form-group">
+        <label for="feeding">Feeding:</label>
+        <select id="feeding">
+            <option value="0">Dependent</option>
+            <option value="5">Needs assistance</option>
+            <option value="10">Independent</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="bathing">Bathing:</label>
+        <select id="bathing">
+            <option value="0">Dependent</option>
+            <option value="5">Needs assistance</option>
+            <option value="10">Independent</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="grooming">Grooming:</label>
+        <select id="grooming">
+            <option value="0">Dependent</option>
+            <option value="5">Needs assistance</option>
+            <option value="10">Independent</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="dressing">Dressing:</label>
+        <select id="dressing">
+            <option value="0">Dependent</option>
+            <option value="5">Needs assistance</option>
+            <option value="10">Independent</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="bowel">Bowel Control:</label>
+        <select id="bowel">
+            <option value="0">Dependent</option>
+            <option value="5">Occasional accidents</option>
+            <option value="10">Independent</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="bladder">Bladder Control:</label>
+        <select id="bladder">
+            <option value="0">Dependent</option>
+            <option value="5">Occasional accidents</option>
+            <option value="10">Independent</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="toilet">Toilet Use:</label>
+        <select id="toilet">
+            <option value="0">Dependent</option>
+            <option value="5">Needs assistance</option>
+            <option value="10">Independent</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="transfers">Transfers (e.g., bed to chair):</label>
+        <select id="transfers">
+            <option value="0">Dependent</option>
+            <option value="5">Needs assistance</option>
+            <option value="10">Independent</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="mobility">Mobility (on level surfaces):</label>
+        <select id="mobility">
+            <option value="0">Dependent</option>
+            <option value="5">Needs assistance</option>
+            <option value="10">Independent</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="stairs">Stairs:</label>
+        <select id="stairs">
+            <option value="0">Dependent</option>
+            <option value="5">Needs assistance</option>
+            <option value="10">Independent</option>
+        </select>
+    </div>
+    <button onclick="calculateBarthelIndex()">Calculate Barthel Index</button>
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateBarthelIndex() {
+            const feeding = parseInt(document.getElementById('feeding').value);
+            const bathing = parseInt(document.getElementById('bathing').value);
+            const grooming = parseInt(document.getElementById('grooming').value);
+            const dressing = parseInt(document.getElementById('dressing').value);
+            const bowel = parseInt(document.getElementById('bowel').value);
+            const bladder = parseInt(document.getElementById('bladder').value);
+            const toilet = parseInt(document.getElementById('toilet').value);
+            const transfers = parseInt(document.getElementById('transfers').value);
+            const mobility = parseInt(document.getElementById('mobility').value);
+            const stairs = parseInt(document.getElementById('stairs').value);
+            
+            const totalScore = feeding + bathing + grooming + dressing + bowel + bladder + toilet + transfers + mobility + stairs;
+            const resultDiv = document.getElementById('result');
+
+            resultDiv.innerHTML = `Barthel Index Score: ${totalScore}<br>${getAssessment(totalScore)}`;
+        }
+
+        function getAssessment(score) {
+            if (score >= 100) {
+                return "Patient is fully independent.";
+            } else if (score >= 61) {
+                return "Patient is moderately dependent.";
+            } else if (score >= 41) {
+                return "Patient is severely dependent.";
+            } else {
+                return "Patient is totally dependent.";
+            }
+        }
+    </script>
+
+</body>
+</html>

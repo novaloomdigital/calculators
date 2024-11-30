@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Braden Score Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            max-width: 500px;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: white;
+        }
+        h1 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 15px;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Braden Score Calculator</h1>
+    <div class="form-group">
+        <label for="sensory">Sensory Perception:</label>
+        <select id="sensory">
+            <option value="1">Completely Limited (1)</option>
+            <option value="2">Very Limited (2)</option>
+            <option value="3">Slightly Limited (3)</option>
+            <option value="4">No Impairment (4)</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="moisture">Moisture:</label>
+        <select id="moisture">
+            <option value="1">Constantly Moist (1)</option>
+            <option value="2">Very Moist (2)</option>
+            <option value="3">Occasionally Moist (3)</option>
+            <option value="4">Rarely Moist (4)</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="activity">Activity Level:</label>
+        <select id="activity">
+            <option value="1">Bedfast (1)</option>
+            <option value="2">Chairfast (2)</option>
+            <option value="3">Walking (3)</option>
+            <option value="4">Very Active (4)</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="mobility">Mobility:</label>
+        <select id="mobility">
+            <option value="1">Completely Immobile (1)</option>
+            <option value="2">Very Limited (2)</option>
+            <option value="3">Slightly Limited (3)</option>
+            <option value="4">No Limitations (4)</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="nutrition">Nutrition:</label>
+        <select id="nutrition">
+            <option value="1">Very Poor (1)</option>
+            <option value="2">Probably Inadequate (2)</option>
+            <option value="3">Adequate (3)</option>
+            <option value="4">Excellent (4)</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="friction">Friction and Shear:</label>
+        <select id="friction">
+            <option value="1">Problem (1)</option>
+            <option value="2">Potential Problem (2)</option>
+            <option value="3">No Apparent Problem (3)</option>
+        </select>
+    </div>
+    <button onclick="calculateBradenScore()">Calculate Braden Score</button>
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateBradenScore() {
+            const sensory = parseInt(document.getElementById('sensory').value);
+            const moisture = parseInt(document.getElementById('moisture').value);
+            const activity = parseInt(document.getElementById('activity').value);
+            const mobility = parseInt(document.getElementById('mobility').value);
+            const nutrition = parseInt(document.getElementById('nutrition').value);
+            const friction = parseInt(document.getElementById('friction').value);
+            
+            const totalScore = sensory + moisture + activity + mobility + nutrition + friction;
+            const resultDiv = document.getElementById('result');
+
+            resultDiv.innerHTML = `Braden Score: ${totalScore}<br>${getRiskLevel(totalScore)}`;
+        }
+
+        function getRiskLevel(score) {
+            if (score >= 19) {
+                return "No Risk";
+            } else if (score >= 15 && score <= 18) {
+                return "Mild Risk";
+            } else if (score >= 13 && score <= 14) {
+                return "Moderate Risk";
+            } else if (score >= 10 && score <= 12) {
+                return "High Risk";
+            } else {
+                return "Very High Risk";
+            }
+        }
+    </script>
+
+</body>
+</html>

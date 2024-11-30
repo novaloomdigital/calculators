@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIMS Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            max-width: 500px;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: white;
+        }
+        h1 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 15px;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>BIMS Calculator</h1>
+    <div class="form-group">
+        <label for="orientation">Orientation Questions:</label>
+        <label>1. What is your name?</label>
+        <input type="text" id="name" placeholder="Enter your name" required>
+        <label>2. What month is it?</label>
+        <input type="text" id="month" placeholder="Enter the month" required>
+        <label>3. What year is it?</label>
+        <input type="text" id="year" placeholder="Enter the year" required>
+        <label>4. Where are you right now?</label>
+        <input type="text" id="location" placeholder="Enter the location" required>
+    </div>
+    <div class="form-group">
+        <label for="memory">Memory Questions:</label>
+        <label>What were you doing 5 minutes ago?</label>
+        <input type="text" id="activity" placeholder="Enter your activity" required>
+    </div>
+    <button onclick="calculateBIMS()">Calculate BIMS Score</button>
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateBIMS() {
+            let score = 0;
+            const resultDiv = document.getElementById('result');
+
+            // Orientation Questions
+            const name = document.getElementById('name').value.trim();
+            const month = document.getElementById('month').value.trim().toLowerCase();
+            const year = document.getElementById('year').value.trim();
+            const location = document.getElementById('location').value.trim().toLowerCase();
+
+            // Check answers and assign points
+            if (name.length > 0) score += 1; // 1 point if name is provided
+            if (month === 'january' || month === 'february' || month === 'march' ||
+                month === 'april' || month === 'may' || month === 'june' ||
+                month === 'july' || month === 'august' || month === 'september' ||
+                month === 'october' || month === 'november' || month === 'december') {
+                score += 1; // 1 point if valid month
+            }
+            if (!isNaN(year) && year.length === 4) score += 1; // 1 point for valid year
+            if (location.length > 0) score += 1; // 1 point if location is provided
+            
+            // Memory Questions
+            const activity = document.getElementById('activity').value.trim();
+            if (activity.length > 0) score += 1; // 1 point if activity is provided
+
+            resultDiv.innerHTML = `BIMS Score: ${score}<br>${getAssessment(score)}`;
+        }
+
+        function getAssessment(score) {
+            if (score >= 4) {
+                return "Cognitive function is largely intact.";
+            } else if (score === 3) {
+                return "Mild cognitive impairment.";
+            } else {
+                return "Significant cognitive impairment.";
+            }
+        }
+    </script>
+
+</body>
+</html>
