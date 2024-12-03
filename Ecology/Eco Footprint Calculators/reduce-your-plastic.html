@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reduce Your Plastic Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e1f5fe;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #1e88e5;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #1e88e5;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #1e88e5;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1976d2;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Reduce Your Plastic Calculator</h1>
+        
+        <label for="waterBottles">Number of Water Bottles Used Per Week:</label>
+        <input type="number" id="waterBottles" placeholder="Enter number of water bottles" required>
+
+        <label for="coffeeCups">Number of Coffee Cups Used Per Week:</label>
+        <input type="number" id="coffeeCups" placeholder="Enter number of coffee cups" required>
+
+        <label for="plasticBags">Number of Plastic Bags Used Per Week:</label>
+        <input type="number" id="plasticBags" placeholder="Enter number of plastic bags" required>
+
+        <button onclick="calculateReduction()">Calculate Reduction</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateReduction() {
+            const waterBottles = parseInt(document.getElementById('waterBottles').value);
+            const coffeeCups = parseInt(document.getElementById('coffeeCups').value);
+            const plasticBags = parseInt(document.getElementById('plasticBags').value);
+
+            // Reduction amounts per week
+            const reduction = {
+                waterBottles: 0.5, // kg CO2
+                coffeeCups: 0.25, // kg CO2
+                plasticBags: 0.1 // kg CO2
+            };
+
+            if (isNaN(waterBottles) || isNaN(coffeeCups) || isNaN(plasticBags) || 
+                waterBottles < 0 || coffeeCups < 0 || plasticBags < 0) {
+                document.getElementById('result').innerText = "Please enter valid numbers.";
+                return;
+            }
+
+            // Calculate total reduction in kg CO2 per week
+            const totalReduction = waterBottles * reduction.waterBottles + 
+                                   coffeeCups * reduction.coffeeCups + 
+                                   plasticBags * reduction.plasticBags;
+
+            document.getElementById('result').innerText = `Total Reduction: ${totalReduction.toFixed(2)} kg CO2 per week`;
+        }
+    </script>
+</body>
+</html>

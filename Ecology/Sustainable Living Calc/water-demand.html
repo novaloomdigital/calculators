@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Demand Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e1f5fe;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #1976d2;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #1976d2;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #1976d2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1565c0;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Water Demand Calculator</h1>
+        
+        <label for="drinking">Water for Drinking (liters/day):</label>
+        <input type="number" id="drinking" placeholder="Enter drinking water in liters" required>
+
+        <label for="bathing">Water for Bathing (liters/day):</label>
+        <input type="number" id="bathing" placeholder="Enter bathing water in liters" required>
+
+        <label for="cooking">Water for Cooking (liters/day):</label>
+        <input type="number" id="cooking" placeholder="Enter cooking water in liters" required>
+
+        <label for="watering">Water for Plants (liters/day):</label>
+        <input type="number" id="watering" placeholder="Enter watering water in liters" required>
+
+        <button onclick="calculateWaterDemand()">Calculate Total Water Demand</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateWaterDemand() {
+            const drinking = parseFloat(document.getElementById('drinking').value);
+            const bathing = parseFloat(document.getElementById('bathing').value);
+            const cooking = parseFloat(document.getElementById('cooking').value);
+            const watering = parseFloat(document.getElementById('watering').value);
+
+            if (isNaN(drinking) || drinking < 0 || 
+                isNaN(bathing) || bathing < 0 || 
+                isNaN(cooking) || cooking < 0 || 
+                isNaN(watering) || watering < 0) {
+                document.getElementById('result').innerText = "Please enter valid positive numbers.";
+                return;
+            }
+
+            // Calculate total water demand
+            const totalWaterDemand = drinking + bathing + cooking + watering;
+
+            document.getElementById('result').innerText = `Total Daily Water Demand: ${totalWaterDemand.toFixed(2)} liters`;
+        }
+    </script>
+</body>
+</html>

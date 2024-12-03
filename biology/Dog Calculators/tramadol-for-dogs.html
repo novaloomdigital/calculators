@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tramadol Dosage Calculator for Dogs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type=number] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            text-align: center;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Tramadol Dosage Calculator for Dogs</h1>
+    <label for="weight">Dog's Weight (lbs):</label>
+    <input type="number" id="weight" min="1" required>
+
+    <button onclick="calculateTramadolDosage()">Calculate Tramadol Dosage</button>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateTramadolDosage() {
+        const weightLbs = parseFloat(document.getElementById('weight').value);
+        
+        if (weightLbs <= 0) {
+            document.getElementById('result').innerText = "Please enter a valid weight.";
+            return;
+        }
+
+        // Convert weight from lbs to kg
+        const weightKg = weightLbs / 2.2;
+
+        // Recommended dose range: 1 to 5 mg/kg
+        const minDose = 1 * weightKg; // Minimum dose
+        const maxDose = 5 * weightKg; // Maximum dose
+
+        document.getElementById('result').innerText = `
+            Recommended Tramadol Dosage: ${minDose.toFixed(2)} mg to ${maxDose.toFixed(2)} mg
+        `;
+    }
+</script>
+
+</body>
+</html>

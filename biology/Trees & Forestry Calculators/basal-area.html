@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basal Area Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input[type="number"] {
+            width: 100px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Basal Area Calculator</h1>
+    <p>Enter the diameter at breast height (DBH) of trees (in inches):</p>
+    
+    <label for="dbh">DBH (inches): </label>
+    <input type="number" id="dbh" step="any" required>
+    
+    <button onclick="addDBH()">Add DBH</button>
+    <button onclick="calculateTotalBasalArea()">Calculate Total Basal Area</button>
+    
+    <div class="result" id="result"></div>
+
+    <script>
+        const dbhList = [];
+
+        function addDBH() {
+            const dbh = parseFloat(document.getElementById('dbh').value);
+            if (isNaN(dbh) || dbh <= 0) {
+                alert('Please enter a valid positive number for DBH.');
+                return;
+            }
+            dbhList.push(dbh);
+            document.getElementById('dbh').value = ''; // Clear input
+            alert(`DBH of ${dbh} inches added.`);
+        }
+
+        function calculateTotalBasalArea() {
+            if (dbhList.length === 0) {
+                alert('Please add at least one DBH value.');
+                return;
+            }
+            let totalBasalArea = 0;
+            dbhList.forEach(dbh => {
+                // Calculate basal area for each tree
+                const basalArea = (Math.PI * Math.pow(dbh / 2, 2)) / 144;
+                totalBasalArea += basalArea;
+            });
+            document.getElementById('result').innerHTML = `Total Basal Area: ${totalBasalArea.toFixed(2)} square feet`;
+        }
+    </script>
+
+</body>
+</html>

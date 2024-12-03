@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dihybrid Cross Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input[type="text"] {
+            width: 50px;
+            margin-right: 10px;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 5px;
+            text-align: center;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Dihybrid Cross Calculator - Punnett Square</h1>
+    <p>Enter the alleles for each parent (e.g., AaBb):</p>
+    <label for="parent1">Parent 1: </label>
+    <input type="text" id="parent1" maxlength="4" placeholder="AaBb">
+    <label for="parent2">Parent 2: </label>
+    <input type="text" id="parent2" maxlength="4" placeholder="AaBb">
+    <button onclick="calculatePunnettSquare()">Calculate</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function getCombinations(alleles) {
+            return [
+                alleles[0] + alleles[2],
+                alleles[0] + alleles[3],
+                alleles[1] + alleles[2],
+                alleles[1] + alleles[3]
+            ];
+        }
+
+        function calculatePunnettSquare() {
+            const parent1Alleles = document.getElementById('parent1').value;
+            const parent2Alleles = document.getElementById('parent2').value;
+            if (parent1Alleles.length !== 4 || parent2Alleles.length !== 4) {
+                alert('Please enter valid allele combinations for both parents.');
+                return;
+            }
+
+            const parent1Comb = getCombinations(parent1Alleles);
+            const parent2Comb = getCombinations(parent2Alleles);
+
+            let table = '<table><tr><th></th>';
+            parent1Comb.forEach(comb => table += `<th>${comb}</th>`);
+            table += '</tr>';
+
+            parent2Comb.forEach(parent2 => {
+                table += `<tr><th>${parent2}</th>`;
+                parent1Comb.forEach(parent1 => {
+                    table += `<td>${parent1 + parent2}</td>`;
+                });
+                table += '</tr>';
+            });
+            table += '</table>';
+
+            document.getElementById('result').innerHTML = table;
+        }
+    </script>
+
+</body>
+</html>

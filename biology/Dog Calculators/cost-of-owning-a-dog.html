@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cost of Owning a Dog Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        input[type="number"] {
+            width: 120px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Cost of Owning a Dog Calculator</h1>
+    <p>Estimate your annual cost of owning a dog based on various factors.</p>
+    
+    <label for="foodCost">Annual Food Cost ($): </label>
+    <input type="number" id="foodCost" required>
+    
+    <label for="vetCost">Annual Veterinary Care Cost ($): </label>
+    <input type="number" id="vetCost" required>
+    
+    <label for="groomingCost">Annual Grooming Cost ($): </label>
+    <input type="number" id="groomingCost" required>
+    
+    <label for="trainingCost">Annual Training Cost ($): </label>
+    <input type="number" id="trainingCost" required>
+    
+    <label for="otherCost">Other Annual Expenses ($): </label>
+    <input type="number" id="otherCost" required>
+    
+    <button onclick="calculateTotalCost()">Calculate Total Annual Cost</button>
+    
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateTotalCost() {
+            const foodCost = parseFloat(document.getElementById('foodCost').value);
+            const vetCost = parseFloat(document.getElementById('vetCost').value);
+            const groomingCost = parseFloat(document.getElementById('groomingCost').value);
+            const trainingCost = parseFloat(document.getElementById('trainingCost').value);
+            const otherCost = parseFloat(document.getElementById('otherCost').value);
+
+            // Validate inputs
+            if (isNaN(foodCost) || isNaN(vetCost) || isNaN(groomingCost) || 
+                isNaN(trainingCost) || isNaN(otherCost) || 
+                foodCost < 0 || vetCost < 0 || groomingCost < 0 || 
+                trainingCost < 0 || otherCost < 0) {
+                alert('Please enter valid non-negative numbers for all costs.');
+                return;
+            }
+
+            // Calculate total annual cost
+            const totalCost = foodCost + vetCost + groomingCost + trainingCost + otherCost;
+
+            // Display the result
+            document.getElementById('result').innerHTML = `Estimated Total Annual Cost of Owning a Dog: $${totalCost.toFixed(2)}`;
+        }
+    </script>
+
+</body>
+</html>

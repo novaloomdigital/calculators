@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DNA Copy Number Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input[type="number"] {
+            width: 100px;
+            margin-right: 10px;
+        }
+        button {
+            margin-top: 10px;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>DNA Copy Number Calculator</h1>
+    <p>Enter the DNA concentration (ng/µL) and the volume (µL):</p>
+    <label for="concentration">Concentration (ng/µL): </label>
+    <input type="number" id="concentration" step="any" required>
+    
+    <label for="volume">Volume (µL): </label>
+    <input type="number" id="volume" step="any" required>
+    
+    <button onclick="calculateCopyNumber()">Calculate Copy Number</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateCopyNumber() {
+            const concentration = parseFloat(document.getElementById('concentration').value);
+            const volume = parseFloat(document.getElementById('volume').value);
+            
+            if (isNaN(concentration) || isNaN(volume) || concentration <= 0 || volume <= 0) {
+                alert('Please enter valid positive numbers for both concentration and volume.');
+                return;
+            }
+            
+            const dnaMolecularWeight = 650; // Average molecular weight of a base pair in daltons
+            const basePairsPerNg = 1 / (dnaMolecularWeight * 1e-9); // Convert ng to molecules
+            const totalCopyNumber = concentration * volume * basePairsPerNg;
+
+            document.getElementById('result').innerHTML = `Total DNA Copy Number: ${totalCopyNumber.toFixed(2)} copies`;
+        }
+    </script>
+
+</body>
+</html>

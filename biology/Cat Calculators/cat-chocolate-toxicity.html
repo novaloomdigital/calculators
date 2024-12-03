@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat Chocolate Toxicity Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        input[type="number"], select {
+            width: 120px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .warning {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Cat Chocolate Toxicity Calculator</h1>
+    <p>Estimate the risk level of chocolate toxicity based on the amount of chocolate consumed and the weight of your cat.</p>
+    
+    <label for="catWeight">Cat Weight (kg): </label>
+    <input type="number" id="catWeight" required>
+    
+    <label for="chocolateType">Type of Chocolate: </label>
+    <select id="chocolateType">
+        <option value="white">White Chocolate</option>
+        <option value="milk">Milk Chocolate</option>
+        <option value="dark">Dark Chocolate</option>
+        <option value="baking">Baking Chocolate</option>
+    </select>
+    
+    <label for="chocolateAmount">Amount Consumed (g): </label>
+    <input type="number" id="chocolateAmount" required>
+    
+    <button onclick="calculateRisk()">Calculate Toxicity Risk</button>
+    
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateRisk() {
+            const catWeight = parseFloat(document.getElementById('catWeight').value);
+            const chocolateType = document.getElementById('chocolateType').value;
+            const chocolateAmount = parseFloat(document.getElementById('chocolateAmount').value);
+
+            // Validate input
+            if (isNaN(catWeight) || catWeight <= 0 || isNaN(chocolateAmount) || chocolateAmount < 0) {
+                alert('Please enter valid positive numbers for Cat Weight and Amount of Chocolate.');
+                return;
+            }
+
+            // Determine theobromine content based on chocolate type
+            let theobrominePerGram;
+            switch(chocolateType) {
+                case "white":
+                    theobrominePerGram = 0.1; // negligible
+                    break;
+                case "milk":
+                    theobrominePerGram = 2; // average
+                    break;
+                case "dark":
+                    theobrominePerGram = 10; // average
+                    break;
+                case "baking":
+                    theobrominePerGram = 20; // average
+                    break;
+            }
+
+            // Calculate total theobromine ingested
+            const totalTheobromine = chocolateAmount * theobrominePerGram; // in mg
+
+            // Calculate the toxicity level
+            const toxicityRisk = totalTheobromine / catWeight; // in mg/kg
+
+            // Display results
+            let riskMessage;
+            if (toxicityRisk < 20) {
+                riskMessage = "Low Risk. Keep monitoring your cat.";
+            } else if (toxicityRisk >= 20 && toxicityRisk < 100) {
+                riskMessage = "Moderate Risk. Contact your veterinarian.";
+            } else {
+                riskMessage = "High Risk. Seek immediate veterinary assistance!";
+            }
+
+            const formattedTheobromine = totalTheobromine.toFixed(2);
+            const formattedToxicityRisk = toxicityRisk.toFixed(2);
+            document.getElementById('result').innerHTML = `Total Theobromine Ingested: ${formattedTheobromine} mg<br> Toxicity Risk Level: ${formattedToxicityRisk} mg/kg<br><span class="warning">${riskMessage}</span>`;
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COVID-19 Waste Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3e5f5;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #6a1b9a;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #6a1b9a;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #6a1b9a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #4a148c;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>COVID-19 Waste Calculator</h1>
+        
+        <label for="masksPerDay">Number of Masks Used Per Day:</label>
+        <input type="number" id="masksPerDay" placeholder="Enter masks used" required>
+
+        <label for="glovesPerDay">Number of Gloves Used Per Day:</label>
+        <input type="number" id="glovesPerDay" placeholder="Enter gloves used" required>
+
+        <label for="days">Duration of Use (days):</label>
+        <input type="number" id="days" placeholder="Enter duration" required>
+
+        <button onclick="calculateWaste()">Calculate Waste</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateWaste() {
+            const masksPerDay = parseInt(document.getElementById('masksPerDay').value);
+            const glovesPerDay = parseInt(document.getElementById('glovesPerDay').value);
+            const days = parseInt(document.getElementById('days').value);
+
+            if (isNaN(masksPerDay) || isNaN(glovesPerDay) || isNaN(days) || masksPerDay < 0 || glovesPerDay < 0 || days <= 0) {
+                document.getElementById('result').innerText = "Please enter valid positive numbers.";
+                return;
+            }
+
+            // Calculate total waste generated
+            const totalMasksWaste = masksPerDay * days;
+            const totalGlovesWaste = glovesPerDay * days;
+            const totalWaste = totalMasksWaste + totalGlovesWaste;
+
+            document.getElementById('result').innerText = `Total Waste Generated:\nMasks: ${totalMasksWaste} items\nGloves: ${totalGlovesWaste} items\nTotal: ${totalWaste} items`;
+        }
+    </script>
+</body>
+</html>

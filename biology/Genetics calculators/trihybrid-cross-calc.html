@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trihybrid Cross Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        input[type="text"] {
+            width: 80px;
+            padding: 5px;
+            margin: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result-container {
+            margin-top: 20px;
+            overflow-x: auto;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 12px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 6px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .phenotype-ratio {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .instructions {
+            margin-bottom: 20px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Trihybrid Cross Calculator</h1>
+        
+        <div class="instructions">
+            <p>Enter the genotypes for each parent (e.g., AaBbCc)</p>
+            <p>Use capital letters for dominant alleles and lowercase for recessive alleles.</p>
+        </div>
+
+        <div>
+            <label for="parent1">Parent 1: </label>
+            <input type="text" id="parent1" placeholder="AaBbCc" maxlength="6">
+            
+            <label for="parent2">Parent 2: </label>
+            <input type="text" id="parent2" placeholder="AaBbCc" maxlength="6">
+            
+            <button onclick="calculateTrihybrid()">Calculate</button>
+        </div>
+
+        <div class="result-container" id="result"></div>
+        <div class="phenotype-ratio" id="phenotypeRatio"></div>
+    </div>
+
+    <script>
+        function getGametes(genotype) {
+            if (genotype.length !== 6) return null;
+            
+            const gametes = [];
+            const A1 = genotype[0];
+            const a1 = genotype[1];
+            const B1 = genotype[2];
+            const b1 = genotype[3];
+            const C1 = genotype[4];
+            const c1 = genotype[5];
+
+            // Generate all possible combinations (8 combinations for trihybrid)
+            gametes.push(A1 + B1 + C1);
+            gametes.push(A1 + B1 + c1);
+            gametes.push(A1 + b1 + C1);
+            gametes.push(A1 + b1 + c1);
+            gametes.push(a1 + B1 + C1);
+            gametes.push(a1 + B1 + c1);
+            gametes.push(a1 + b1 + C1);
+            gametes.push(a1 + b1 + c1);
+
+            return gametes;
+        }
+
+        function calculatePhenotypeRatio(results) {
+            const phenotypes = {};
+            
+            results.forEach(row => {
+                row.forEach(genotype => {
+                    const phenotype = getPhenotype(genotype);
+                    phenotypes[phenotype] = (phenotypes[phenotype] || 0) + 1;
+                });
+            });
+
+            return phenotypes;
+        }
+
+        function getPhenotype(genotype) {
+            let phenotype = '';
+            // Check for dominant traits (if capital letter exists, trait is dominant)
+            phenotype += (genotype.includes('A') ? 'A-' : 'aa ');
+            phenotype += (genotype.includes('B') ? 'B-' : 'bb ');
+            phenotype += (genotype.includes('C') ? 'C-' : 'cc');
+            return phenotype;
+        }
+
+        function calculateTrihybrid() {
+            const parent1 = document.getElementById('parent1').value;
+            const parent2 = document.getElementById('parent2').value;
+
+            if (parent1.length !== 6 || parent2.length !== 6) {
+                alert('Please enter valid genotypes (e.g., AaBbCc) for both parents');
+                return;
+            }
+
+            const gametes1 = getGametes(parent1);
+            const gametes2 = getGametes(parent2);
+
+            if (!gametes1 || !gametes2) {
+                alert('Invalid genotype format');
+                return;
+            }
+
+            // Create the Punnett square
+            let table = '<table><tr><th></th>';
+            gametes1.forEach(g => table += `<th>${g}</th>`);
+            table += '</tr>';
+
+            const results = [];
+            gametes2.forEach(g2 => {
+                const row = [];
+                table += `<tr><th>${g2}</th>`;
+                gametes1.forEach(g1 => {
+                    const offspring = combineGametes(g1, g2);
+                    row.push(offspring);
+                    table += `<td>${offspring}</td>`;
+                });
+                results.push(row);
+                table += '</tr>';
+            });
+            table += '</table>';
+
+            // Calculate and display phenotype ratios
+            const phenotypes = calculatePhenotypeRatio(results);
+            let ratioText = '<h3>Phenotype Ratios:</h3>';
+            const total = Object.values(phenotypes).reduce((a, b) => a + b, 0);
+            
+            for (const [phenotype, count] of Object.entries(phenotypes)) {
+                ratioText += `${phenotype}: ${count}/${total} (${((count/total)*100).toFixed(2)}%)<br>`;
+            }
+
+            document.getElementById('result').innerHTML = table;
+            document.getElementById('phenotypeRatio').innerHTML = ratioText;
+        }
+
+        function combineGametes(gamete1, gamete2) {
+            let offspring = '';
+            for (let i = 0; i < 3; i++) {
+                // Sort the alleles so capital letters come first
+                offspring += [gamete1[i], gamete2[i]].sort().join('');
+            }
+            return offspring;
+        }
+    </script>
+</body>
+</html>

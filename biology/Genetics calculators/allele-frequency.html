@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allele Frequency Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e1f5fe;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #1976d2;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #1976d2;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #1976d2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1565c0;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Allele Frequency Calculator</h1>
+        
+        <label for="homozygousAA">Homozygous AA Count:</label>
+        <input type="number" id="homozygousAA" placeholder="Count of Homozygous AA" required>
+
+        <label for="homozygousaa">Homozygous aa Count:</label>
+        <input type="number" id="homozygousaa" placeholder="Count of Homozygous aa" required>
+
+        <label for="heterozygousAa">Heterozygous Aa Count:</label>
+        <input type="number" id="heterozygousAa" placeholder="Count of Heterozygous Aa" required>
+
+        <button onclick="calculateAlleleFrequency()">Calculate Allele Frequency</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateAlleleFrequency() {
+            const homozygousAA = parseInt(document.getElementById('homozygousAA').value);
+            const homozygousaa = parseInt(document.getElementById('homozygousaa').value);
+            const heterozygousAa = parseInt(document.getElementById('heterozygousAa').value);
+
+            if (isNaN(homozygousAA) || homozygousAA < 0 || 
+                isNaN(homozygousaa) || homozygousaa < 0 || 
+                isNaN(heterozygousAa) || heterozygousAa < 0) {
+                document.getElementById('result').innerText = "Please enter valid non-negative numbers.";
+                return;
+            }
+
+            // Calculate total individuals
+            const totalIndividuals = homozygousAA + homozygousaa + heterozygousAa;
+
+            // Calculate allele frequencies
+            const frequencyA = (2 * homozygousAA + heterozygousAa) / (2 * totalIndividuals); // Frequency of allele A
+            const frequencya = (2 * homozygousaa + heterozygousAa) / (2 * totalIndividuals); // Frequency of allele a
+
+            document.getElementById('result').innerText = `Frequency of Allele A: ${frequencyA.toFixed(4)}\nFrequency of Allele a: ${frequencya.toFixed(4)}`;
+        }
+    </script>
+</body>
+</html>

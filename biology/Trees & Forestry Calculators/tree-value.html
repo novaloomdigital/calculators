@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tree Value Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        input[type="number"], input[type="text"] {
+            width: 120px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Tree Value Calculator</h1>
+    <p>Estimate the monetary value of a tree based on its diameter and species.</p>
+    
+    <label for="dbh">DBH (inches): </label>
+    <input type="number" id="dbh" step="any" required>
+    
+    <label for="species">Value Factor ($/inch): </label>
+    <input type="number" id="valueFactor" step="any" required>
+    
+    <button onclick="calculateTreeValue()">Calculate Tree Value</button>
+    
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateTreeValue() {
+            const dbh = parseFloat(document.getElementById('dbh').value);
+            const valueFactor = parseFloat(document.getElementById('valueFactor').value);
+            
+            // Validate input
+            if (isNaN(dbh) || dbh <= 0 || isNaN(valueFactor) || valueFactor < 0) {
+                alert('Please enter valid positive numbers for DBH and Value Factor.');
+                return;
+            }
+
+            // Calculate tree value
+            const treeValue = dbh * valueFactor;
+
+            document.getElementById('result').innerHTML = `Estimated Tree Value: $${treeValue.toFixed(2)}`;
+        }
+    </script>
+
+</body>
+</html>

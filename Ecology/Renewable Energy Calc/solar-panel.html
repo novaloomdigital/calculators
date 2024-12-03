@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar Panel Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fffde7;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #f57f20;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #f57f20;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #f57f20;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #ef6c00;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Solar Panel Calculator</h1>
+        <label for="energy">Daily Energy Consumption (kWh):</label>
+        <input type="number" id="energy" placeholder="Enter energy consumption" required>
+
+        <label for="panelWattage">Solar Panel Wattage (W):</label>
+        <input type="number" id="panelWattage" placeholder="Enter panel wattage" required>
+
+        <label for="sunHours">Average Sun Hours per Day:</label>
+        <input type="number" id="sunHours" placeholder="Enter sun hours" required>
+
+        <button onclick="calculatePanels()">Calculate Panels</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculatePanels() {
+            const energyConsumption = parseFloat(document.getElementById('energy').value);
+            const panelWattage = parseFloat(document.getElementById('panelWattage').value);
+            const sunHours = parseFloat(document.getElementById('sunHours').value);
+
+            if (isNaN(energyConsumption) || isNaN(panelWattage) || isNaN(sunHours) || energyConsumption <= 0 || panelWattage <= 0 || sunHours <= 0) {
+                document.getElementById('result').innerText = "Please enter valid positive numbers.";
+                return;
+            }
+
+            // Calculate the total wattage needed
+            const dailyWattHoursNeeded = energyConsumption * 1000; // Convert kWh to Wh
+            const panelOutputPerDay = panelWattage * sunHours; // Total output of one panel per day in Wh
+
+            // Calculate the number of panels needed
+            const numberOfPanels = Math.ceil(dailyWattHoursNeeded / panelOutputPerDay);
+
+            document.getElementById('result').innerText = `Number of Panels Needed: ${numberOfPanels}`;
+        }
+    </script>
+</body>
+</html>

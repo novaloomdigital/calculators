@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Reduction Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e3f2fd;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #1976d2;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #1976d2;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #1976d2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1565c0;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Log Reduction Calculator</h1>
+        
+        <label for="initialCount">Initial Microbial Count:</label>
+        <input type="number" id="initialCount" placeholder="Enter initial count" required>
+
+        <label for="finalCount">Final Microbial Count:</label>
+        <input type="number" id="finalCount" placeholder="Enter final count" required>
+
+        <button onclick="calculateLogReduction()">Calculate Log Reduction</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateLogReduction() {
+            const initialCount = parseFloat(document.getElementById('initialCount').value);
+            const finalCount = parseFloat(document.getElementById('finalCount').value);
+
+            if (isNaN(initialCount) || initialCount <= 0 || 
+                isNaN(finalCount) || finalCount <= 0 || 
+                finalCount > initialCount) {
+                document.getElementById('result').innerText = "Please enter valid counts. Final count must be less than initial count.";
+                return;
+            }
+
+            // Calculate log reduction
+            const logReduction = Math.log10(initialCount / finalCount);
+
+            document.getElementById('result').innerText = `Estimated Log Reduction: ${logReduction.toFixed(2)} log units`;
+        }
+    </script>
+</body>
+</html>

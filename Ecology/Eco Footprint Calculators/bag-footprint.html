@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bag Footprint Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e8f5e9;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #43a047;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #43a047;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #43a047;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #388e3c;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Bag Footprint Calculator</h1>
+        <label for="bagType">Select Bag Type:</label>
+        <select id="bagType">
+            <option value="plastic">Plastic Bag</option>
+            <option value="paper">Paper Bag</option>
+            <option value="reusable">Reusable Bag</option>
+        </select>
+
+        <label for="bagCount">Number of Bags Used:</label>
+        <input type="number" id="bagCount" placeholder="Enter number of bags" required>
+
+        <button onclick="calculateFootprint()">Calculate Footprint</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateFootprint() {
+            const bagType = document.getElementById('bagType').value;
+            const bagCount = parseInt(document.getElementById('bagCount').value);
+
+            // Carbon emissions per bag in kg CO2
+            const emissions = {
+                plastic: 0.1, // Example value for plastic bags
+                paper: 0.2,   // Example value for paper bags
+                reusable: 0.05 // Example value for reusable bags
+            };
+
+            if (isNaN(bagCount) || bagCount < 0) {
+                document.getElementById('result').innerText = "Please enter a valid number of bags.";
+                return;
+            }
+
+            // Calculate total carbon footprint
+            const totalFootprint = emissions[bagType] * bagCount;
+
+            document.getElementById('result').innerText = `Total Carbon Footprint: ${totalFootprint.toFixed(2)} kg CO2`;
+        }
+    </script>
+</body>
+</html>

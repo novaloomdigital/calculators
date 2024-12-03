@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dog Onion Toxicity Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        input[type="number"] {
+            width: 120px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .warning {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Dog Onion Toxicity Calculator</h1>
+    <p>Estimate the risk level of onion toxicity based on the amount of onion consumed and the weight of your dog.</p>
+    
+    <label for="dogWeight">Dog Weight (kg): </label>
+    <input type="number" id="dogWeight" required>
+    
+    <label for="onionAmount">Amount of Onion Consumed (g): </label>
+    <input type="number" id="onionAmount" required>
+    
+    <button onclick="calculateToxicityRisk()">Calculate Toxicity Risk</button>
+    
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateToxicityRisk() {
+            const dogWeight = parseFloat(document.getElementById('dogWeight').value);
+            const onionAmount = parseFloat(document.getElementById('onionAmount').value);
+
+            // Validate input
+            if (isNaN(dogWeight) || dogWeight <= 0 || isNaN(onionAmount) || onionAmount < 0) {
+                alert('Please enter valid positive numbers for Dog Weight and Amount of Onion.');
+                return;
+            }
+
+            // Calculate the toxicity threshold
+            const toxicityThreshold = dogWeight * 0.005; // 0.5% of body weight
+
+            // Determine the risk level
+            let riskMessage;
+            if (onionAmount < toxicityThreshold) {
+                riskMessage = "Low Risk. Keep monitoring your dog.";
+            } else if (onionAmount >= toxicityThreshold && onionAmount < toxicityThreshold * 2) {
+                riskMessage = "Moderate Risk. Contact your veterinarian.";
+            } else {
+                riskMessage = "High Risk. Seek immediate veterinary assistance!";
+            }
+
+            // Display results
+            document.getElementById('result').innerHTML = `Amount of Onion Consumed: ${onionAmount} g<br>Toxicity Threshold: ${toxicityThreshold.toFixed(2)} g<br><span class="warning">${riskMessage}</span>`;
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shannon Diversity Index Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e3f2fd;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #1976d2;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #1976d2;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #1976d2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1565c0;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Shannon Diversity Index Calculator</h1>
+        
+        <label for="speciesCounts">Enter Species Counts (comma-separated):</label>
+        <input type="text" id="speciesCounts" placeholder="e.g., 5,10,15" required>
+
+        <button onclick="calculateShannonIndex()">Calculate Shannon Index</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateShannonIndex() {
+            const countsInput = document.getElementById('speciesCounts').value;
+            const speciesCounts = countsInput.split(',').map(Number).filter(n => !isNaN(n) && n > 0);
+
+            if (speciesCounts.length === 0) {
+                document.getElementById('result').innerText = "Please enter valid species counts.";
+                return;
+            }
+
+            const totalCount = speciesCounts.reduce((sum, count) => sum + count, 0);
+            let shannonIndex = 0;
+
+            speciesCounts.forEach(count => {
+                const proportion = count / totalCount;
+                shannonIndex -= proportion * Math.log(proportion);
+            });
+
+            document.getElementById('result').innerText = `Shannon Diversity Index: ${shannonIndex.toFixed(4)}`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Sitters Rate Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f8e9;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #388e3c;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #388e3c;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #388e3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2e7d32;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Pet Sitters Rate Calculator</h1>
+        
+        <label for="hourlyRate">Hourly Rate ($):</label>
+        <input type="number" id="hourlyRate" placeholder="Enter hourly rate" required>
+
+        <label for="numberOfPets">Number of Pets:</label>
+        <input type="number" id="numberOfPets" placeholder="Enter number of pets" required>
+
+        <label for="duration">Duration (hours):</label>
+        <input type="number" id="duration" placeholder="Enter duration in hours" required>
+
+        <button onclick="calculateTotalRate()">Calculate Total Rate</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateTotalRate() {
+            const hourlyRate = parseFloat(document.getElementById('hourlyRate').value);
+            const numberOfPets = parseInt(document.getElementById('numberOfPets').value);
+            const duration = parseFloat(document.getElementById('duration').value);
+
+            if (isNaN(hourlyRate) || hourlyRate < 0 || 
+                isNaN(numberOfPets) || numberOfPets <= 0 || 
+                isNaN(duration) || duration < 0) {
+                document.getElementById('result').innerText = "Please enter valid positive numbers.";
+                return;
+            }
+
+            // Calculate total cost
+            const totalRate = hourlyRate * numberOfPets * duration;
+
+            document.getElementById('result').innerText = `Total Cost for Pet Sitting: $${totalRate.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>

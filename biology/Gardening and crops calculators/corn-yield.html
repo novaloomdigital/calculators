@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corn Yield Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type=number] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            text-align: center;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Corn Yield Calculator</h1>
+    <label for="area">Area Planted (acres):</label>
+    <input type="number" id="area" min="0" required>
+
+    <label for="yieldPerAcre">Expected Yield (bushels/acre):</label>
+    <input type="number" id="yieldPerAcre" min="0" required>
+
+    <button onclick="calculateCornYield()">Calculate Yield</button>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateCornYield() {
+        const area = parseFloat(document.getElementById('area').value);
+        const yieldPerAcre = parseFloat(document.getElementById('yieldPerAcre').value);
+
+        if (area < 0 || yieldPerAcre < 0) {
+            document.getElementById('result').innerText = "Please enter valid values.";
+            return;
+        }
+
+        // Calculate the total corn yield
+        const totalYield = area * yieldPerAcre;
+
+        document.getElementById('result').innerText = `Estimated Total Corn Yield: ${totalYield.toFixed(2)} bushels`;
+    }
+</script>
+
+</body>
+</html>

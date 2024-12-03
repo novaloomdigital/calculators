@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat Benadryl Dosage Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        input[type="number"] {
+            width: 120px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .warning {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Cat Benadryl Dosage Calculator</h1>
+    <p>Calculate the appropriate Benadryl dosage for your cat based on its weight.</p>
+    
+    <label for="catWeight">Cat Weight (lbs): </label>
+    <input type="number" id="catWeight" required>
+    
+    <button onclick="calculateDosage()">Calculate Dosage (mg)</button>
+    
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateDosage() {
+            const catWeight = parseFloat(document.getElementById('catWeight').value);
+            
+            // Validate input
+            if (isNaN(catWeight) || catWeight <= 0) {
+                alert('Please enter a valid positive number for Cat Weight.');
+                return;
+            }
+
+            // Calculate dosage (1 mg per pound)
+            const dosage = catWeight; // 1 mg per pound of body weight
+
+            document.getElementById('result').innerHTML = `Recommended Dosage: ${dosage} mg`;
+
+            // Warning message
+            const warningMessage = "Consult your veterinarian before administering any medication.";
+            document.getElementById('result').innerHTML += `<br><span class="warning">${warningMessage}</span>`;
+        }
+    </script>
+
+</body>
+</html>

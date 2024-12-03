@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plug-in Hybrid Efficiency Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e3f2fd;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #1e88e5;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #1e88e5;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #1e88e5;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1565c0;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Plug-in Hybrid Efficiency Calculator</h1>
+        
+        <label for="distanceDriven">Distance Driven (miles):</label>
+        <input type="number" id="distanceDriven" placeholder="Enter distance in miles" required>
+
+        <label for="electricRange">Electric Range (miles):</label>
+        <input type="number" id="electricRange" placeholder="Enter electric range in miles" required>
+
+        <label for="fuelEconomy">Gasoline Fuel Economy (mpg):</label>
+        <input type="number" id="fuelEconomy" placeholder="Enter fuel economy in mpg" required>
+
+        <button onclick="calculateSavings()">Calculate Savings</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateSavings() {
+            const distanceDriven = parseFloat(document.getElementById('distanceDriven').value);
+            const electricRange = parseFloat(document.getElementById('electricRange').value);
+            const fuelEconomy = parseFloat(document.getElementById('fuelEconomy').value);
+
+            if (isNaN(distanceDriven) || distanceDriven < 0 ||
+                isNaN(electricRange) || electricRange < 0 ||
+                isNaN(fuelEconomy) || fuelEconomy <= 0) {
+                document.getElementById('result').innerText = "Please enter valid positive numbers.";
+                return;
+            }
+
+            // Calculate the distance driven using electric power and gasoline
+            const electricDistance = Math.min(distanceDriven, electricRange);
+            const gasolineDistance = Math.max(0, distanceDriven - electricDistance);
+
+            // Calculate gallons of gasoline used
+            const gallonsUsed = gasolineDistance / fuelEconomy;
+
+            // Assuming an average CO2 emission of 19.6 lbs CO2 per gallon of gasoline
+            const co2PerGallon = 19.6; // lbs CO2
+            const totalCO2Emissions = gallonsUsed * co2PerGallon;
+
+            document.getElementById('result').innerText = `Total CO2 Emissions using PHEV: ${totalCO2Emissions.toFixed(2)} lbs CO2 (for ${distanceDriven} miles driven)`;
+        }
+    </script>
+</body>
+</html>

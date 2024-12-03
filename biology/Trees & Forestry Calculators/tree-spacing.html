@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tree Spacing Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        input[type="number"] {
+            width: 120px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Tree Spacing Calculator</h1>
+    <p>Calculate the total area needed for planting trees based on spacing and the number of trees.</p>
+    
+    <label for="spacing">Desired Spacing (feet): </label>
+    <input type="number" id="spacing" step="any" required>
+    
+    <label for="numberOfTrees">Number of Trees: </label>
+    <input type="number" id="numberOfTrees" required>
+    
+    <button onclick="calculateTreeSpacing()">Calculate Total Area</button>
+    
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateTreeSpacing() {
+            const spacing = parseFloat(document.getElementById('spacing').value);
+            const numberOfTrees = parseInt(document.getElementById('numberOfTrees').value);
+            
+            // Validate input
+            if (isNaN(spacing) || spacing <= 0 || isNaN(numberOfTrees) || numberOfTrees <= 0) {
+                alert('Please enter valid positive numbers for spacing and number of trees.');
+                return;
+            }
+
+            // Calculate total area required (spacing * number of trees)
+            const totalArea = spacing * numberOfTrees;
+
+            document.getElementById('result').innerHTML = `Total Area Required: ${totalArea.toFixed(2)} square feet`;
+        }
+    </script>
+
+</body>
+</html>

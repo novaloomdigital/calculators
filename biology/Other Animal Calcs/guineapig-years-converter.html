@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guinea Pig Years to Human Years Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        input[type="number"] {
+            width: 120px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Guinea Pig Years to Human Years Calculator</h1>
+    <p>Estimate the equivalent human age of your guinea pig based on its age in guinea pig years.</p>
+    
+    <label for="guineaPigYears">Guinea Pig Age (years): </label>
+    <input type="number" id="guineaPigYears" required>
+    
+    <button onclick="calculateHumanYears()">Calculate Human Years</button>
+    
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateHumanYears() {
+            const guineaPigYears = parseInt(document.getElementById('guineaPigYears').value);
+            
+            // Validate input
+            if (isNaN(guineaPigYears) || guineaPigYears < 0) {
+                alert('Please enter a valid non-negative number for Guinea Pig Age.');
+                return;
+            }
+
+            // Calculate human years based on guinea pig years
+            let humanYears;
+            if (guineaPigYears === 1) {
+                humanYears = 21; // First year
+            } else if (guineaPigYears > 1) {
+                humanYears = 21 + (guineaPigYears - 1) * 4; // Additional years
+            } else {
+                humanYears = 0; // For guinea pigs less than a year, we can assume 0
+            }
+
+            document.getElementById('result').innerHTML = `Equivalent Human Age: ${humanYears} years`;
+        }
+    </script>
+
+</body>
+</html>

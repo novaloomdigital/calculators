@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drip Faucet Water Waste Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e1f5fe;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #1976d2;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #1976d2;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #1976d2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1565c0;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Drip Faucet Water Waste Calculator</h1>
+        
+        <label for="dripsPerMinute">Drips per Minute:</label>
+        <input type="number" id="dripsPerMinute" placeholder="Enter number of drips" required>
+
+        <label for="duration">Duration (Days):</label>
+        <input type="number" id="duration" placeholder="Enter number of days" required>
+
+        <button onclick="calculateWaste()">Calculate Water Waste</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateWaste() {
+            const dripsPerMinute = parseInt(document.getElementById('dripsPerMinute').value);
+            const duration = parseInt(document.getElementById('duration').value);
+
+            if (isNaN(dripsPerMinute) || dripsPerMinute < 0 || isNaN(duration) || duration < 0) {
+                document.getElementById('result').innerText = "Please enter valid positive numbers.";
+                return;
+            }
+
+            // Convert drips to gallons
+            const dripsPerGallon = 3000; // Approximate number of drips in a gallon
+            const totalDrips = dripsPerMinute * 60 * 24 * duration; // Total drips in the duration
+            const totalGallons = totalDrips / dripsPerGallon; // Convert to gallons
+
+            document.getElementById('result').innerText = `Total Water Waste: ${totalGallons.toFixed(2)} gallons`;
+        }
+    </script>
+</body>
+</html>

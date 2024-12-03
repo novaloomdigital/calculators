@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cattle Per Acre Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        input[type="number"] {
+            width: 120px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Cattle Per Acre Calculator</h1>
+    <p>Estimate the number of cattle that can be sustainably grazed on your land.</p>
+    
+    <label for="acreage">Total Acreage: </label>
+    <input type="number" id="acreage" required>
+    
+    <label for="cattlePerAcre">Cattle Per Acre: </label>
+    <input type="number" id="cattlePerAcre" step="any" required>
+    
+    <button onclick="calculateCattle()">Calculate Number of Cattle</button>
+    
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateCattle() {
+            const acreage = parseFloat(document.getElementById('acreage').value);
+            const cattlePerAcre = parseFloat(document.getElementById('cattlePerAcre').value);
+            
+            // Validate input
+            if (isNaN(acreage) || acreage <= 0 || isNaN(cattlePerAcre) || cattlePerAcre < 0) {
+                alert('Please enter valid positive numbers for Acreage and Cattle Per Acre.');
+                return;
+            }
+
+            // Calculate number of cattle
+            const numberOfCattle = acreage * cattlePerAcre;
+
+            document.getElementById('result').innerHTML = `Number of Cattle: ${Math.floor(numberOfCattle)}`;
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smog Impact Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f8e9;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #388e3c;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #388e3c;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #388e3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2e7d32;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Smog Impact Calculator</h1>
+        
+        <label for="pm25">PM2.5 Concentration (µg/m³):</label>
+        <input type="number" id="pm25" placeholder="Enter PM2.5 concentration" required>
+
+        <label for="ozone">Ozone Concentration (µg/m³):</label>
+        <input type="number" id="ozone" placeholder="Enter Ozone concentration" required>
+
+        <button onclick="calculateSmogImpact()">Calculate Smog Impact</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateSmogImpact() {
+            const pm25 = parseFloat(document.getElementById('pm25').value);
+            const ozone = parseFloat(document.getElementById('ozone').value);
+
+            if (isNaN(pm25) || pm25 < 0 || 
+                isNaN(ozone) || ozone < 0) {
+                document.getElementById('result').innerText = "Please enter valid positive numbers.";
+                return;
+            }
+
+            // Health risk assessments based on concentrations
+            let pm25Risk = '';
+            let ozoneRisk = '';
+
+            // PM2.5 Risk
+            if (pm25 <= 12) {
+                pm25Risk = "Good (Air quality is considered satisfactory)";
+            } else if (pm25 <= 35.4) {
+                pm25Risk = "Moderate (Air quality is acceptable; however, for some pollutants, there may be a moderate health concern)";
+            } else if (pm25 <= 55.4) {
+                pm25Risk = "Unhealthy for Sensitive Groups (Members of sensitive groups may experience health effects)";
+            } else {
+                pm25Risk = "Unhealthy (Everyone may begin to experience health effects)";
+            }
+
+            // Ozone Risk
+            if (ozone <= 50) {
+                ozoneRisk = "Good (Air quality is considered satisfactory)";
+            } else if (ozone <= 100) {
+                ozoneRisk = "Moderate (Air quality is acceptable; however, for some pollutants, there may be a moderate health concern)";
+            } else if (ozone <= 150) {
+                ozoneRisk = "Unhealthy for Sensitive Groups (Members of sensitive groups may experience health effects)";
+            } else {
+                ozoneRisk = "Unhealthy (Everyone may begin to experience health effects)";
+            }
+
+            document.getElementById('result').innerText = `
+                PM2.5 Risk Level: ${pm25Risk}
+                Ozone Risk Level: ${ozoneRisk}
+            `;
+        }
+    </script>
+</body>
+</html>

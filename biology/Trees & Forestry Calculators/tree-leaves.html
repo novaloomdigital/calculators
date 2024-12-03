@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tree Leaves Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        input[type="number"] {
+            width: 120px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Tree Leaves Calculator</h1>
+    <p>Estimate the total number of leaves on a tree.</p>
+    
+    <label for="branches">Number of Branches: </label>
+    <input type="number" id="branches" step="any" required>
+    
+    <label for="leavesPerBranch">Average Leaves per Branch: </label>
+    <input type="number" id="leavesPerBranch" step="any" required>
+    
+    <button onclick="calculateTotalLeaves()">Calculate Total Leaves</button>
+    
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateTotalLeaves() {
+            const branches = parseFloat(document.getElementById('branches').value);
+            const leavesPerBranch = parseFloat(document.getElementById('leavesPerBranch').value);
+            
+            if (isNaN(branches) || branches <= 0 || isNaN(leavesPerBranch) || leavesPerBranch <= 0) {
+                alert('Please enter valid positive numbers for both fields.');
+                return;
+            }
+
+            const totalLeaves = branches * leavesPerBranch;
+
+            document.getElementById('result').innerHTML = `Total Leaves on the Tree: ${totalLeaves.toFixed(2)}`;
+        }
+    </script>
+
+</body>
+</html>

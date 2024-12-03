@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        input[type="number"], select {
+            width: 120px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Catculator</h1>
+    <p>Select a calculation type:</p>
+    
+    <div>
+        <h2>1. Cat Age Calculator</h2>
+        <label for="catAge">Cat Age (years): </label>
+        <input type="number" id="catAge" required>
+        <button onclick="calculateHumanAge()">Calculate Human Years</button>
+        <div class="result" id="ageResult"></div>
+    </div>
+
+    <div>
+        <h2>2. Cat Caloric Needs Calculator</h2>
+        <label for="catWeight">Cat Weight (kg): </label>
+        <input type="number" id="catWeightCal" required>
+        <label for="activityLevel">Activity Level: </label>
+        <select id="activityLevel">
+            <option value="inactive">Inactive (Indoor cats)</option>
+            <option value="active">Active (Playful, more active cats)</option>
+            <option value="veryActive">Very Active (Outdoor cats)</option>
+        </select>
+        <button onclick="calculateCalories()">Calculate Daily Calories</button>
+        <div class="result" id="calorieResult"></div>
+    </div>
+
+    <div>
+        <h2>3. Cat BMI Calculator</h2>
+        <label for="catWeightBMI">Weight (kg): </label>
+        <input type="number" id="catWeightBMI" required>
+        <label for="catHeight">Height (cm): </label>
+        <input type="number" id="catHeight" required>
+        <button onclick="calculateBMI()">Calculate BMI</button>
+        <div class="result" id="bmiResult"></div>
+    </div>
+
+    <script>
+        // Cat Age Calculator
+        function calculateHumanAge() {
+            const catYears = parseInt(document.getElementById('catAge').value);
+            let humanYears;
+
+            if (catYears === 1) {
+                humanYears = 15; // First year
+            } else if (catYears === 2) {
+                humanYears = 24; // First + second year
+            } else {
+                humanYears = 24 + (catYears - 2) * 4; // Each additional year
+            }
+
+            document.getElementById('ageResult').innerHTML = `Equivalent Human Age: ${humanYears} years`;
+        }
+
+        // Cat Caloric Needs Calculator
+        function calculateCalories() {
+            const weight = parseFloat(document.getElementById('catWeightCal').value);
+            const activityLevel = document.getElementById('activityLevel').value;
+
+            if (isNaN(weight) || weight <= 0) {
+                alert('Please enter a valid positive number for Cat Weight.');
+                return;
+            }
+
+            const bmr = (weight * 30) + 70;
+            let dailyCalories;
+
+            if (activityLevel === "inactive") {
+                dailyCalories = bmr * 1.2;
+            } else if (activityLevel === "active") {
+                dailyCalories = bmr * 1.4;
+            } else {
+                dailyCalories = bmr * 1.6;
+            }
+
+            document.getElementById('calorieResult').innerHTML = `Estimated Daily Caloric Needs: ${Math.round(dailyCalories)} calories`;
+        }
+
+        // Cat BMI Calculator
+        function calculateBMI() {
+            const weight = parseFloat(document.getElementById('catWeightBMI').value);
+            const height = parseFloat(document.getElementById('catHeight').value) / 100; // Convert cm to meters
+
+            if (isNaN(weight) || weight <= 0 || isNaN(height) || height <= 0) {
+                alert('Please enter valid positive numbers for Weight and Height.');
+                return;
+            }
+
+            const bmi = weight / (height * height);
+            const roundedBMI = bmi.toFixed(2);
+            let classification;
+
+            if (roundedBMI < 18.5) {
+                classification = "Underweight";
+            } else if (roundedBMI >= 18.5 && roundedBMI < 25) {
+                classification = "Normal weight";
+            } else if (roundedBMI >= 25 && roundedBMI < 30) {
+                classification = "Overweight";
+            } else {
+                classification = "Obese";
+            }
+
+            document.getElementById('bmiResult').innerHTML = `Cat's BMI: ${roundedBMI} - Classification: ${classification}`;
+        }
+    </script>
+
+</body>
+</html>

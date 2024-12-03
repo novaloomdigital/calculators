@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bird Age Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        input[type="number"], input[type="text"] {
+            width: 120px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Bird Age Calculator</h1>
+    <p>Estimate the age of a bird based on its species and average lifespan.</p>
+    
+    <label for="species">Bird Species: </label>
+    <input type="text" id="species" required>
+    
+    <label for="averageLifespan">Average Lifespan (years): </label>
+    <input type="number" id="averageLifespan" step="any" required>
+    
+    <label for="currentAge">Current Age (years): </label>
+    <input type="number" id="currentAge" step="any" required>
+    
+    <button onclick="calculateBirdAge()">Calculate Age Percentage</button>
+    
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateBirdAge() {
+            const averageLifespan = parseFloat(document.getElementById('averageLifespan').value);
+            const currentAge = parseFloat(document.getElementById('currentAge').value);
+            
+            // Validate input
+            if (isNaN(averageLifespan) || averageLifespan <= 0 || isNaN(currentAge) || currentAge < 0) {
+                alert('Please enter valid positive numbers for Average Lifespan and Current Age.');
+                return;
+            }
+
+            // Calculate age percentage
+            const agePercentage = (currentAge / averageLifespan) * 100;
+
+            document.getElementById('result').innerHTML = `${document.getElementById('species').value} is ${agePercentage.toFixed(2)}% of its average lifespan.`;
+        }
+    </script>
+
+</body>
+</html>

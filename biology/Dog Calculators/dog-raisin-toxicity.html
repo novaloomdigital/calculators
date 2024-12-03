@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dog Raisin Toxicity Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type=number] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #c82333;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            text-align: center;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Dog Raisin Toxicity Calculator</h1>
+    <label for="weight">Dog's Weight (lbs):</label>
+    <input type="number" id="weight" min="1" required>
+
+    <label for="raisins">Number of Raisins Consumed:</label>
+    <input type="number" id="raisins" min="0" required>
+
+    <button onclick="calculateToxicity()">Check Toxicity Risk</button>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateToxicity() {
+        const weight = parseFloat(document.getElementById('weight').value);
+        const raisins = parseInt(document.getElementById('raisins').value);
+        
+        if (weight <= 0 || raisins < 0) {
+            document.getElementById('result').innerText = "Please enter valid values.";
+            return;
+        }
+
+        // Rough estimate: A toxic dose of raisins is often considered to be around 0.1 oz per kg of body weight
+        const toxicDose = weight * 0.1; // in ounces
+        const raisinsPerOunce = 15; // Average number of raisins per ounce
+        const totalRaisins = raisins / raisinsPerOunce; // Convert to ounces
+
+        let riskMessage = "";
+
+        if (totalRaisins > toxicDose) {
+            riskMessage = "Risk of toxicity: High! Contact your veterinarian.";
+        } else {
+            riskMessage = "Risk of toxicity: Low. However, monitor your dog and consult a vet if concerned.";
+        }
+
+        document.getElementById('result').innerText = riskMessage;
+    }
+</script>
+
+</body>
+</html>

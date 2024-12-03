@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrying Capacity Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e3f2fd;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #1976d2;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #1976d2;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #1976d2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1565c0;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Carrying Capacity Calculator</h1>
+        
+        <label for="availableResources">Available Resources (e.g., food, water) per Year:</label>
+        <input type="number" id="availableResources" placeholder="Enter resources per year" required>
+
+        <label for="resourcesPerPerson">Resources Needed per Person per Year:</label>
+        <input type="number" id="resourcesPerPerson" placeholder="Enter resources per person" required>
+
+        <button onclick="calculateCarryingCapacity()">Calculate Carrying Capacity</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateCarryingCapacity() {
+            const availableResources = parseFloat(document.getElementById('availableResources').value);
+            const resourcesPerPerson = parseFloat(document.getElementById('resourcesPerPerson').value);
+
+            if (isNaN(availableResources) || availableResources <= 0 || 
+                isNaN(resourcesPerPerson) || resourcesPerPerson <= 0) {
+                document.getElementById('result').innerText = "Please enter valid positive numbers.";
+                return;
+            }
+
+            // Calculate carrying capacity
+            const carryingCapacity = availableResources / resourcesPerPerson;
+
+            document.getElementById('result').innerText = `Estimated Carrying Capacity: ${Math.floor(carryingCapacity)} people`;
+        }
+    </script>
+</body>
+</html>

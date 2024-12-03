@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hand Drying Footprint Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e8f5e9;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #388e3c;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #388e3c;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #388e3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2e7d32;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Hand Drying Footprint Calculator</h1>
+        
+        <label for="method">Select Drying Method:</label>
+        <select id="method">
+            <option value="paper">Paper Towels</option>
+            <option value="electric">Electric Hand Dryer</option>
+            <option value="cloth">Cloth Towels</option>
+        </select>
+
+        <label for="usage">Number of Uses Per Day:</label>
+        <input type="number" id="usage" placeholder="Enter number of uses" required>
+
+        <label for="days">Duration (days):</label>
+        <input type="number" id="days" placeholder="Enter number of days" required>
+
+        <button onclick="calculateFootprint()">Calculate Footprint</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateFootprint() {
+            const method = document.getElementById('method').value;
+            const usage = parseInt(document.getElementById('usage').value);
+            const days = parseInt(document.getElementById('days').value);
+            
+            // CO2 emissions per use (in kg CO2)
+            const emissions = {
+                paper: 0.0025,   // Average emissions for paper towels
+                electric: 0.0004, // Average emissions for electric hand dryers
+                cloth: 0.0010     // Average emissions for cloth towels
+            };
+
+            if (isNaN(usage) || isNaN(days) || usage < 0 || days < 0) {
+                document.getElementById('result').innerText = "Please enter valid positive numbers.";
+                return;
+            }
+
+            // Calculate total carbon footprint in kg CO2
+            const totalFootprint = emissions[method] * usage * days;
+
+            document.getElementById('result').innerText = `Total Carbon Footprint: ${totalFootprint.toFixed(4)} kg CO2`;
+        }
+    </script>
+</body>
+</html>

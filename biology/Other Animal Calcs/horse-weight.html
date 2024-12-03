@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horse Weight Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        input[type="number"] {
+            width: 120px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Horse Weight Calculator</h1>
+    <p>Estimate the weight of a horse using its girth and length measurements.</p>
+    
+    <label for="girth">Girth (inches): </label>
+    <input type="number" id="girth" step="any" required>
+    
+    <label for="length">Length (inches): </label>
+    <input type="number" id="length" step="any" required>
+    
+    <button onclick="calculateHorseWeight()">Calculate Weight (lbs)</button>
+    
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateHorseWeight() {
+            const girth = parseFloat(document.getElementById('girth').value);
+            const length = parseFloat(document.getElementById('length').value);
+            
+            // Validate input
+            if (isNaN(girth) || girth <= 0 || isNaN(length) || length <= 0) {
+                alert('Please enter valid positive numbers for Girth and Length.');
+                return;
+            }
+
+            // Calculate weight using the formula
+            const weight = (Math.pow(girth, 2) * length) / 300;
+
+            document.getElementById('result').innerHTML = `Estimated Weight: ${weight.toFixed(2)} lbs`;
+        }
+    </script>
+
+</body>
+</html>

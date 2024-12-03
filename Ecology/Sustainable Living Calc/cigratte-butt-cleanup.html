@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cigarette Butts Cleanup Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #00796b;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #00796b;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #00796b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #004d40;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Cigarette Butts Cleanup Calculator</h1>
+        
+        <label for="butts">Number of Cigarette Butts to Clean Up:</label>
+        <input type="number" id="butts" placeholder="Enter number of butts" required>
+
+        <label for="timePerButt">Time per Butt (in minutes):</label>
+        <input type="number" id="timePerButt" value="0.5" required>
+
+        <button onclick="calculateCleanup()">Calculate Cleanup</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateCleanup() {
+            const butts = parseInt(document.getElementById('butts').value);
+            const timePerButt = parseFloat(document.getElementById('timePerButt').value);
+
+            if (isNaN(butts) || butts < 0 || isNaN(timePerButt) || timePerButt < 0) {
+                document.getElementById('result').innerText = "Please enter valid positive numbers.";
+                return;
+            }
+
+            // Calculate total cleanup time in minutes and hours
+            const totalTime = butts * timePerButt; // in minutes
+            const totalTimeHours = totalTime / 60; // convert to hours
+
+            // Assuming each cigarette butt can pollute around 10 liters of water
+            const pollutionReduction = butts * 10; // in liters of water
+
+            document.getElementById('result').innerText = `
+                Total Cleanup Time: ${totalTime.toFixed(2)} minutes (${totalTimeHours.toFixed(2)} hours)
+                Pollution Reduction: ${pollutionReduction.toFixed(2)} liters of water
+            `;
+        }
+    </script>
+</body>
+</html>

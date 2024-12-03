@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acres Per Hour Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type=number] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            text-align: center;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Acres Per Hour Calculator</h1>
+    <label for="acres">Total Acres:</label>
+    <input type="number" id="acres" min="0" required>
+
+    <label for="hours">Time Taken (in hours):</label>
+    <input type="number" id="hours" min="0.01" step="0.01" required>
+
+    <button onclick="calculateAcresPerHour()">Calculate Acres Per Hour</button>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateAcresPerHour() {
+        const acres = parseFloat(document.getElementById('acres').value);
+        const hours = parseFloat(document.getElementById('hours').value);
+
+        if (acres < 0 || hours <= 0) {
+            document.getElementById('result').innerText = "Please enter valid values.";
+            return;
+        }
+
+        const acresPerHour = acres / hours;
+
+        document.getElementById('result').innerText = `Acres Per Hour: ${acresPerHour.toFixed(2)} acres/hour`;
+    }
+</script>
+
+</body>
+</html>

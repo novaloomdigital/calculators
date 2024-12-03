@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feed Conversion Ratio Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        input[type="number"] {
+            width: 120px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Feed Conversion Ratio Calculator</h1>
+    <p>Calculate the feed conversion ratio of livestock based on feed consumed and weight gain.</p>
+    
+    <label for="feedConsumed">Total Feed Consumed (lbs or kg): </label>
+    <input type="number" id="feedConsumed" step="any" required>
+    
+    <label for="weightGain">Weight Gain (lbs or kg): </label>
+    <input type="number" id="weightGain" step="any" required>
+    
+    <button onclick="calculateFCR()">Calculate FCR</button>
+    
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateFCR() {
+            const feedConsumed = parseFloat(document.getElementById('feedConsumed').value);
+            const weightGain = parseFloat(document.getElementById('weightGain').value);
+            
+            // Validate input
+            if (isNaN(feedConsumed) || feedConsumed <= 0 || isNaN(weightGain) || weightGain <= 0) {
+                alert('Please enter valid positive numbers for Feed Consumed and Weight Gain.');
+                return;
+            }
+
+            // Calculate FCR
+            const fcr = feedConsumed / weightGain;
+
+            document.getElementById('result').innerHTML = `Feed Conversion Ratio (FCR): ${fcr.toFixed(2)}`;
+        }
+    </script>
+
+</body>
+</html>

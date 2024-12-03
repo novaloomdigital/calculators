@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dog Crate Size Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        input[type="number"], select {
+            width: 120px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Dog Crate Size Calculator</h1>
+    <p>Estimate the ideal crate size for your dog based on weight and breed.</p>
+    
+    <label for="dogWeight">Dog Weight (lbs): </label>
+    <input type="number" id="dogWeight" required>
+    
+    <label for="dogBreed">Dog Breed: </label>
+    <select id="dogBreed">
+        <option value="small">Small (up to 25 lbs)</option>
+        <option value="medium">Medium (26-50 lbs)</option>
+        <option value="large">Large (51-75 lbs)</option>
+        <option value="extraLarge">Extra Large (76 lbs and up)</option>
+    </select>
+    
+    <button onclick="calculateCrateSize()">Calculate Crate Size</button>
+    
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateCrateSize() {
+            const dogWeight = parseFloat(document.getElementById('dogWeight').value);
+            const dogBreed = document.getElementById('dogBreed').value;
+
+            // Validate input
+            if (isNaN(dogWeight) || dogWeight <= 0) {
+                alert('Please enter a valid positive number for Dog Weight.');
+                return;
+            }
+
+            // Determine crate size based on weight and breed
+            let crateSize;
+            if (dogBreed === "small") {
+                crateSize = "24 inches long";
+            } else if (dogBreed === "medium") {
+                crateSize = "30 inches long";
+            } else if (dogBreed === "large") {
+                crateSize = "36 inches long";
+            } else {
+                crateSize = "42 inches long or larger";
+            }
+
+            // Display the result
+            document.getElementById('result').innerHTML = `Recommended Crate Size: ${crateSize}`;
+        }
+    </script>
+
+</body>
+</html>
