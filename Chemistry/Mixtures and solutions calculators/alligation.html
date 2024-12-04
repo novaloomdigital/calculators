@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alligation Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Alligation Calculator</h1>
+    <p>Enter the concentration of component A:</p>
+    <input type="number" id="concentrationA" placeholder="Concentration A" step="any" min="0">
+    
+    <p>Enter the concentration of component B:</p>
+    <input type="number" id="concentrationB" placeholder="Concentration B" step="any" min="0">
+
+    <p>Enter the desired concentration of the mixture:</p>
+    <input type="number" id="desiredConcentration" placeholder="Desired Concentration" step="any" min="0">
+
+    <button onclick="calculateAlligation()">Calculate Proportions</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateAlligation() {
+            const concentrationA = parseFloat(document.getElementById('concentrationA').value);
+            const concentrationB = parseFloat(document.getElementById('concentrationB').value);
+            const desiredConcentration = parseFloat(document.getElementById('desiredConcentration').value);
+            let result;
+
+            if (isNaN(concentrationA) || isNaN(concentrationB) || isNaN(desiredConcentration) ||
+                concentrationA < 0 || concentrationB < 0 || desiredConcentration < 0) {
+                result = "Please enter valid positive numbers for all concentrations.";
+            } else {
+                const differenceA = Math.abs(desiredConcentration - concentrationA);
+                const differenceB = Math.abs(desiredConcentration - concentrationB);
+
+                // Calculate the ratio for the alligation
+                const ratioA = differenceB;
+                const ratioB = differenceA;
+
+                result = `Proportions: Component A : Component B = ${ratioA.toFixed(2)} : ${ratioB.toFixed(2)}`;
+            }
+
+            document.getElementById('result').innerText = result;
+        }
+    </script>
+
+</body>
+</html>

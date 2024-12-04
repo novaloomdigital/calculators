@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nernst Equation Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Nernst Equation Calculator</h1>
+    <form id="nernstForm">
+        <label for="standardPotential">Standard Cell Potential (E° in V):</label>
+        <input type="number" id="standardPotential" placeholder="Enter E°" step="any" required>
+
+        <label for="temperature">Temperature (°C):</label>
+        <input type="number" id="temperature" placeholder="Enter temperature" step="any" required>
+
+        <label for="molesElectrons">Number of Electrons Transferred (n):</label>
+        <input type="number" id="molesElectrons" placeholder="Enter number of electrons" step="any" required>
+
+        <label for="reactionQuotient">Reaction Quotient (Q):</label>
+        <input type="number" id="reactionQuotient" placeholder="Enter reaction quotient" step="any" required>
+
+        <button type="button" onclick="calculateNernst()">Calculate Cell Potential (E)</button>
+        <div class="result" id="nernstResult"></div>
+    </form>
+
+    <script>
+        function calculateNernst() {
+            // Constants
+            const R = 8.314; // Gas constant in J/(mol·K)
+            const F = 96485; // Faraday's constant in C/mol
+
+            // Input values
+            const E0 = parseFloat(document.getElementById('standardPotential').value);
+            const temperatureC = parseFloat(document.getElementById('temperature').value);
+            const n = parseFloat(document.getElementById('molesElectrons').value);
+            const Q = parseFloat(document.getElementById('reactionQuotient').value);
+
+            let result = '';
+
+            if (n > 0 && Q > 0) {
+                // Convert temperature to Kelvin
+                const T = temperatureC + 273.15;
+
+                // Calculate cell potential using the Nernst equation
+                const E = E0 - (R * T) / (n * F) * Math.log(Q);
+
+                result = `Cell Potential (E) = ${E.toFixed(4)} V`;
+            } else {
+                result = 'Please enter valid positive values for n and Q.';
+            }
+
+            // Display result
+            document.getElementById('nernstResult').innerText = result;
+        }
+    </script>
+</body>
+</html>

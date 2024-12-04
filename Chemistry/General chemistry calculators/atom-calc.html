@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atomic Mass Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Atomic Mass Calculator</h1>
+    <p>Enter the number of protons:</p>
+    <input type="number" id="protons" placeholder="Number of Protons" step="0" min="0">
+    
+    <p>Enter the number of neutrons:</p>
+    <input type="number" id="neutrons" placeholder="Number of Neutrons" step="0" min="0">
+
+    <button onclick="calculateAtomicMass()">Calculate Atomic Mass</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateAtomicMass() {
+            const protons = parseInt(document.getElementById('protons').value);
+            const neutrons = parseInt(document.getElementById('neutrons').value);
+            let atomicMass;
+
+            if (isNaN(protons) || isNaN(neutrons) || protons < 0 || neutrons < 0) {
+                atomicMass = "Please enter valid non-negative integers for protons and neutrons.";
+            } else {
+                atomicMass = protons + neutrons; // Calculate atomic mass
+                atomicMass = `Atomic Mass: ${atomicMass} amu`;
+            }
+
+            document.getElementById('result').innerText = atomicMass;
+        }
+    </script>
+
+</body>
+</html>

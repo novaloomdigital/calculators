@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrhenius Equation Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Arrhenius Equation Calculator</h1>
+    <form id="arrheniusForm">
+        <label for="activationEnergy">Activation Energy (E<sub>a</sub>) in J/mol:</label>
+        <input type="number" id="activationEnergy" placeholder="Enter activation energy" step="any" required>
+
+        <label for="temperature">Temperature (T) in K:</label>
+        <input type="number" id="temperature" placeholder="Enter temperature in Kelvin" step="any" required>
+
+        <label for="preExponential">Pre-Exponential Factor (A) in 1/s:</label>
+        <input type="number" id="preExponential" placeholder="Enter pre-exponential factor" step="any" required>
+
+        <button type="button" onclick="calculateRateConstant()">Calculate Rate Constant (k)</button>
+        <div class="result" id="rateConstantResult"></div>
+    </form>
+
+    <script>
+        function calculateRateConstant() {
+            const R = 8.314; // Universal gas constant in J/(mol·K)
+
+            // Get input values
+            const Ea = parseFloat(document.getElementById('activationEnergy').value);
+            const T = parseFloat(document.getElementById('temperature').value);
+            const A = parseFloat(document.getElementById('preExponential').value);
+
+            let result = '';
+
+            if (T > 0) {
+                // Calculate rate constant using the Arrhenius equation
+                const k = A * Math.exp(-Ea / (R * T)); // in 1/s
+
+                result = `Rate Constant (k) = ${k.toFixed(4)} 1/s`;
+            } else {
+                result = 'Please enter a valid positive temperature.';
+            }
+
+            // Display the result
+            document.getElementById('rateConstantResult').innerText = result;
+        }
+    </script>
+</body>
+</html>

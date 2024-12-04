@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reconstitution Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Reconstitution Calculator</h1>
+    <label for="desiredConcentration">Desired Concentration (C<sub>final</sub>, in mol/L):</label>
+    <input type="number" step="0.01" id="desiredConcentration" placeholder="Enter desired concentration" required>
+
+    <label for="desiredVolume">Desired Volume (V<sub>final</sub>, in L):</label>
+    <input type="number" step="0.01" id="desiredVolume" placeholder="Enter desired volume" required>
+
+    <label for="stockConcentration">Stock Concentration (C<sub>stock</sub>, in mol/L):</label>
+    <input type="number" step="0.01" id="stockConcentration" placeholder="Enter stock concentration" required>
+
+    <button onclick="calculateStockVolume()">Calculate Volume of Stock Solution Needed</button>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateStockVolume() {
+        const desiredConcentration = parseFloat(document.getElementById('desiredConcentration').value);
+        const desiredVolume = parseFloat(document.getElementById('desiredVolume').value);
+        const stockConcentration = parseFloat(document.getElementById('stockConcentration').value);
+
+        if (isNaN(desiredConcentration) || isNaN(desiredVolume) || isNaN(stockConcentration) || 
+            desiredConcentration <= 0 || desiredVolume <= 0 || stockConcentration <= 0) {
+            alert("Please enter valid positive numbers.");
+            return;
+        }
+
+        // Using the dilution equation: C1 * V1 = C2 * V2
+        const stockVolumeNeeded = (desiredConcentration * desiredVolume) / stockConcentration; // in liters
+
+        document.getElementById('result').innerText = `Volume of Stock Solution Needed: ${stockVolumeNeeded.toFixed(2)} L`;
+    }
+</script>
+
+</body>
+</html>

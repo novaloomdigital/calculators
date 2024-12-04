@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boiling Point at Altitude Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Boiling Point at Altitude Calculator</h1>
+    <p>Enter altitude (meters):</p>
+    <input type="number" id="altitude" placeholder="Altitude in meters">
+    <button onclick="calculateBoilingPoint()">Calculate Boiling Point</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateBoilingPoint() {
+            const altitude = parseFloat(document.getElementById('altitude').value);
+            let boilingPoint;
+
+            if (altitude < 0) {
+                boilingPoint = "Altitude must be a positive number.";
+            } else {
+                boilingPoint = 100 - (altitude / 285.0); // Approximation formula for boiling point
+                boilingPoint = boilingPoint.toFixed(2); // Fixed to 2 decimal places
+                boilingPoint = `Boiling Point: ${boilingPoint} °C`;
+            }
+
+            document.getElementById('result').innerText = boilingPoint;
+        }
+    </script>
+
+</body>
+</html>

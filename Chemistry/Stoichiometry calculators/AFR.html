@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air-Fuel Ratio Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Air-Fuel Ratio Calculator</h1>
+    <p>Enter the mass of air (in grams):</p>
+    <input type="number" id="massAir" placeholder="Mass of Air (g)" step="any" min="0">
+    
+    <p>Enter the mass of fuel (in grams):</p>
+    <input type="number" id="massFuel" placeholder="Mass of Fuel (g)" step="any" min="0">
+
+    <button onclick="calculateAFR()">Calculate Air-Fuel Ratio (AFR)</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateAFR() {
+            const massAir = parseFloat(document.getElementById('massAir').value);
+            const massFuel = parseFloat(document.getElementById('massFuel').value);
+            let afr;
+
+            if (isNaN(massAir) || isNaN(massFuel) || massAir < 0 || massFuel <= 0) {
+                afr = "Please enter valid positive numbers for mass of air and mass of fuel.";
+            } else {
+                afr = (massAir / massFuel).toFixed(2); // Calculate air-fuel ratio
+                afr = `Air-Fuel Ratio (AFR): ${afr}`;
+            }
+
+            document.getElementById('result').innerText = afr;
+        }
+    </script>
+
+</body>
+</html>

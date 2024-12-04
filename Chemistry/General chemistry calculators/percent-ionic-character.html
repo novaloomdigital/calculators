@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Percent Ionic Character Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Percent Ionic Character Calculator</h1>
+    <p>Enter the electronegativity of the first element:</p>
+    <input type="number" id="en1" placeholder="Electronegativity (Element 1)" step="any">
+
+    <p>Enter the electronegativity of the second element:</p>
+    <input type="number" id="en2" placeholder="Electronegativity (Element 2)" step="any">
+
+    <button onclick="calculateIonicCharacter()">Calculate Percent Ionic Character</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateIonicCharacter() {
+            const en1 = parseFloat(document.getElementById('en1').value);
+            const en2 = parseFloat(document.getElementById('en2').value);
+            let ionicCharacter;
+
+            if (isNaN(en1) || isNaN(en2) || en1 < 0 || en2 < 0) {
+                ionicCharacter = "Please enter valid positive electronegativity values.";
+            } else {
+                const deltaEN = Math.abs(en1 - en2); // Calculate the difference in electronegativity
+                ionicCharacter = (1 - Math.exp(-0.25 * Math.pow(deltaEN, 2))) * 100; // Calculate percent ionic character
+                ionicCharacter = `Percent Ionic Character: ${ionicCharacter.toFixed(2)}%`;
+            }
+
+            document.getElementById('result').innerText = ionicCharacter;
+        }
+    </script>
+
+</body>
+</html>

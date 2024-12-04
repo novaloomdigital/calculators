@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Langmuir Isotherm Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Langmuir Isotherm Calculator</h1>
+    <form id="langmuirForm">
+        <label for="qMax">Maximum Adsorption Capacity (q<sub>m</sub> in mg/g):</label>
+        <input type="number" id="qMax" placeholder="Enter maximum adsorption capacity" step="any" required>
+
+        <label for="kLangmuir">Langmuir Constant (K<sub>L</sub> in L/mg):</label>
+        <input type="number" id="kLangmuir" placeholder="Enter Langmuir constant" step="any" required>
+
+        <label for="concentration">Equilibrium Concentration (C in mg/L):</label>
+        <input type="number" id="concentration" placeholder="Enter concentration" step="any" required>
+
+        <button type="button" onclick="calculateAdsorption()">Calculate Adsorption (q)</button>
+        <div class="result" id="adsorptionResult"></div>
+    </form>
+
+    <script>
+        function calculateAdsorption() {
+            // Get input values
+            const qMax = parseFloat(document.getElementById('qMax').value);
+            const K_L = parseFloat(document.getElementById('kLangmuir').value);
+            const C = parseFloat(document.getElementById('concentration').value);
+
+            let result = '';
+
+            if (qMax > 0 && K_L > 0 && C >= 0) {
+                // Calculate adsorption using Langmuir isotherm equation
+                const q = (qMax * K_L * C) / (1 + K_L * C); // in mg/g
+
+                result = `Amount Adsorbed (q) = ${q.toFixed(4)} mg/g`;
+            } else {
+                result = 'Please enter valid positive values for q<sub>m</sub>, K<sub>L</sub>, and C.';
+            }
+
+            // Display the result
+            document.getElementById('adsorptionResult').innerText = result;
+        }
+    </script>
+</body>
+</html>

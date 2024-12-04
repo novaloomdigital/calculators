@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partial Pressure Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Partial Pressure Calculator</h1>
+    <form id="partialPressureForm">
+        <label for="totalPressure">Total Pressure (P<sub>total</sub>) in atm:</label>
+        <input type="number" id="totalPressure" placeholder="Enter total pressure" step="any" required>
+
+        <label for="molesGas">Moles of Gas (n<sub>i</sub>):</label>
+        <input type="number" id="molesGas" placeholder="Enter moles of gas" step="any" required>
+
+        <label for="totalMoles">Total Moles (n<sub>total</sub>):</label>
+        <input type="number" id="totalMoles" placeholder="Enter total moles" step="any" required>
+
+        <button type="button" onclick="calculatePartialPressure()">Calculate Partial Pressure (P<sub>i</sub>)</button>
+        <div class="result" id="partialPressureResult"></div>
+    </form>
+
+    <script>
+        function calculatePartialPressure() {
+            // Get input values
+            const P_total = parseFloat(document.getElementById('totalPressure').value);
+            const n_i = parseFloat(document.getElementById('molesGas').value);
+            const n_total = parseFloat(document.getElementById('totalMoles').value);
+
+            let result = '';
+
+            if (P_total > 0 && n_i > 0 && n_total > 0) {
+                // Calculate partial pressure using the formula
+                const P_i = (n_i / n_total) * P_total; // in atm
+
+                result = `Partial Pressure (P<sub>i</sub>) = ${P_i.toFixed(4)} atm`;
+            } else {
+                result = 'Please enter valid positive values for total pressure, moles of gas, and total moles.';
+            }
+
+            // Display the result
+            document.getElementById('partialPressureResult').innerHTML = result;
+        }
+    </script>
+</body>
+</html>

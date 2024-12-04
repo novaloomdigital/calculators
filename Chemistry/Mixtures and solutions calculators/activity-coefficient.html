@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity Coefficient Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Activity Coefficient Calculator</h1>
+    <p>Enter the activity of the solute (a):</p>
+    <input type="number" id="activity" placeholder="Activity (a)" step="any" min="0">
+    
+    <p>Enter the concentration of the solute (c) in mol/L:</p>
+    <input type="number" id="concentration" placeholder="Concentration (c)" step="any" min="0">
+
+    <button onclick="calculateActivityCoefficient()">Calculate Activity Coefficient</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateActivityCoefficient() {
+            const activity = parseFloat(document.getElementById('activity').value);
+            const concentration = parseFloat(document.getElementById('concentration').value);
+            let activityCoefficient;
+
+            if (isNaN(activity) || isNaN(concentration) || activity < 0 || concentration <= 0) {
+                activityCoefficient = "Please enter valid positive numbers for activity and concentration.";
+            } else {
+                activityCoefficient = activity / concentration; // Calculate activity coefficient
+                activityCoefficient = `Activity Coefficient (γ): ${activityCoefficient.toFixed(4)}`;
+            }
+
+            document.getElementById('result').innerText = activityCoefficient;
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combustion Reaction Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Combustion Reaction Calculator</h1>
+    <form id="combustionForm">
+        <label for="hydrocarbon">Hydrocarbon Formula (CxHy):</label>
+        <input type="text" id="hydrocarbon" placeholder="Enter hydrocarbon formula (e.g., C3H8)">
+
+        <label for="amount">Amount of Hydrocarbon (g):</label>
+        <input type="number" id="amount" placeholder="Enter amount in grams" step="any">
+
+        <label for="heatOfCombustion">Heat of Combustion (ΔH, kJ/mol):</label>
+        <input type="number" id="heatOfCombustion" placeholder="Enter heat of combustion" step="any">
+
+        <button type="button" onclick="calculateCombustionEnergy()">Calculate Energy Released</button>
+        <div class="result" id="energyResult"></div>
+    </form>
+
+    <script>
+        function calculateCombustionEnergy() {
+            // Get input values
+            const hydrocarbon = document.getElementById('hydrocarbon').value;
+            const amount = parseFloat(document.getElementById('amount').value);
+            const heatOfCombustion = parseFloat(document.getElementById('heatOfCombustion').value);
+
+            let result = '';
+
+            // Extract carbon and hydrogen from the formula
+            const regex = /C(\d+)?H(\d+)?/i;
+            const matches = hydrocarbon.match(regex);
+
+            if (matches) {
+                const carbon = parseInt(matches[1] || 1); // Default to 1 if not specified
+                const hydrogen = parseInt(matches[2] || 1); // Default to 1 if not specified
+
+                // Calculate moles of hydrocarbon (molar mass approximation)
+                const molarMass = (carbon * 12.01) + (hydrogen * 1.008); // g/mol
+                const moles = amount / molarMass; // Calculate moles of hydrocarbon
+
+                // Calculate total energy released
+                const energyReleased = moles * heatOfCombustion; // kJ
+
+                result = `Energy Released = ${energyReleased.toFixed(2)} kJ`;
+            } else {
+                result = 'Please enter a valid hydrocarbon formula (e.g., C3H8).';
+            }
+
+            // result
+            document.getElementById('energyResult').innerText = result;
+        }
+    </script>
+</body>
+</html>

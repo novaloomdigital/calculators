@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entropy Change Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Entropy Change Calculator</h1>
+    <p>Enter the heat transferred (Q) in Joules:</p>
+    <input type="number" id="heat" placeholder="Heat (Q in Joules)" step="any">
+    
+    <p>Enter the absolute temperature (T) in Kelvin:</p>
+    <input type="number" id="temperature" placeholder="Temperature (T in K)" step="any">
+
+    <button onclick="calculateEntropyChange()">Calculate Change in Entropy</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateEntropyChange() {
+            const Q = parseFloat(document.getElementById('heat').value);
+            const T = parseFloat(document.getElementById('temperature').value);
+            let deltaS;
+
+            if (isNaN(Q) || isNaN(T) || T <= 0) {
+                deltaS = "Please enter valid values for Q and T (T must be > 0).";
+            } else {
+                deltaS = Q / T; // Calculate change in entropy
+                deltaS = deltaS.toFixed(2); // Fixed to 2 decimal places
+                deltaS = `Change in Entropy (ΔS): ${deltaS} J/K`;
+            }
+
+            document.getElementById('result').innerText = deltaS;
+        }
+    </script>
+
+</body>
+</html>

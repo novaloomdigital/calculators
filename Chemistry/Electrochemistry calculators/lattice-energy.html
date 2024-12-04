@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lattice Energy Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lattice Energy Calculator</h1>
+    <form id="latticeEnergyForm">
+        <label for="charge1">Charge of Cation (q<sub>1</sub>):</label>
+        <input type="number" id="charge1" placeholder="Enter charge of cation" step="any" required>
+
+        <label for="charge2">Charge of Anion (q<sub>2</sub>):</label>
+        <input type="number" id="charge2" placeholder="Enter charge of anion" step="any" required>
+
+        <label for="distance">Distance between Ions (r) in nm:</label>
+        <input type="number" id="distance" placeholder="Enter distance" step="any" required>
+
+        <button type="button" onclick="calculateLatticeEnergy()">Calculate Lattice Energy (kJ/mol)</button>
+        <div class="result" id="energyResult"></div>
+    </form>
+
+    <script>
+        function calculateLatticeEnergy() {
+            const k = 8.99e9; // Coulomb's constant in N m²/C²
+
+            // Get input values
+            const q1 = parseFloat(document.getElementById('charge1').value);
+            const q2 = parseFloat(document.getElementById('charge2').value);
+            const r = parseFloat(document.getElementById('distance').value) * 1e-9; // Convert nm to meters
+
+            let result = '';
+
+            if (r > 0) {
+                // Calculate lattice energy in joules
+                const U = (k * Math.abs(q1 * q2)) / r; // in Joules
+
+                // Convert to kJ/mol (1 J = 0.001 kJ)
+                const U_kJ_per_mol = (U * 6.022e23) / 1000; // 6.022e23 is Avogadro's number
+
+                result = `Lattice Energy = ${U_kJ_per_mol.toFixed(2)} kJ/mol`;
+            } else {
+                result = 'Please enter a valid positive distance between ions.';
+            }
+
+            // Display the result
+            document.getElementById('energyResult').innerText = result;
+        }
+    </script>
+</body>
+</html>

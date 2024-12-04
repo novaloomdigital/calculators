@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grams to Moles Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Grams to Moles Calculator</h1>
+    <p>Enter the mass of the substance (in grams):</p>
+    <input type="number" id="mass" placeholder="Mass (g)" step="any" min="0">
+    
+    <p>Enter the molar mass of the substance (in g/mol):</p>
+    <input type="number" id="molarMass" placeholder="Molar Mass (g/mol)" step="any" min="0">
+
+    <button onclick="calculateMoles()">Calculate Moles</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateMoles() {
+            const mass = parseFloat(document.getElementById('mass').value);
+            const molarMass = parseFloat(document.getElementById('molarMass').value);
+            let moles;
+
+            if (isNaN(mass) || isNaN(molarMass) || mass < 0 || molarMass <= 0) {
+                moles = "Please enter valid positive numbers for mass and molar mass.";
+            } else {
+                moles = mass / molarMass; // Calculate moles
+                moles = `Moles: ${moles.toFixed(4)}`;
+            }
+
+            document.getElementById('result').innerText = moles;
+        }
+    </script>
+
+</body>
+</html>

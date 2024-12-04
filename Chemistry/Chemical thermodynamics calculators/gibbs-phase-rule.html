@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gibbs Phase Rule Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Gibbs Phase Rule Calculator</h1>
+    <p>Enter the number of components (C):</p>
+    <input type="number" id="components" placeholder="Number of components (C)" step="1" min="0">
+    
+    <p>Enter the number of phases (P):</p>
+    <input type="number" id="phases" placeholder="Number of phases (P)" step="1" min="0">
+
+    <button onclick="calculateGibbsPhaseRule()">Calculate Degrees of Freedom (F)</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateGibbsPhaseRule() {
+            const C = parseInt(document.getElementById('components').value);
+            const P = parseInt(document.getElementById('phases').value);
+            let F;
+
+            if (isNaN(C) || isNaN(P) || C < 0 || P < 0) {
+                F = "Please enter valid non-negative integers for components (C) and phases (P).";
+            } else {
+                F = C - P + 2; // Gibbs Phase Rule formula
+                F = `Degrees of Freedom (F): ${F}`;
+            }
+
+            document.getElementById('result').innerText = F;
+        }
+    </script>
+
+</body>
+</html>

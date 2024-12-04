@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electron Configuration Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Electron Configuration Calculator</h1>
+    <p>Enter the atomic number:</p>
+    <input type="number" id="atomicNumber" placeholder="Atomic Number" step="1" min="1" max="118">
+
+    <button onclick="getElectronConfiguration()">Get Electron Configuration</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function getElectronConfiguration() {
+            const atomicNumber = parseInt(document.getElementById('atomicNumber').value);
+            let configuration = "";
+
+            if (isNaN(atomicNumber) || atomicNumber < 1 || atomicNumber > 118) {
+                configuration = "Please enter a valid atomic number between 1 and 118.";
+            } else {
+                const orbitals = [
+                    { name: "1s", maxElectrons: 2 },
+                    { name: "2s", maxElectrons: 2 },
+                    { name: "2p", maxElectrons: 6 },
+                    { name: "3s", maxElectrons: 2 },
+                    { name: "3p", maxElectrons: 6 },
+                    { name: "4s", maxElectrons: 2 },
+                    { name: "3d", maxElectrons: 10 },
+                    { name: "4p", maxElectrons: 6 },
+                    { name: "5s", maxElectrons: 2 },
+                    { name: "4d", maxElectrons: 10 },
+                    { name: "5p", maxElectrons: 6 },
+                    { name: "6s", maxElectrons: 2 },
+                    { name: "4f", maxElectrons: 14 },
+                    { name: "5d", maxElectrons: 10 },
+                    { name: "6p", maxElectrons: 6 },
+                    { name: "7s", maxElectrons: 2 },
+                    { name: "5f", maxElectrons: 14 },
+                    { name: "6d", maxElectrons: 10 },
+                    { name: "7p", maxElectrons: 6 },
+                ];
+
+                let electronsRemaining = atomicNumber;
+
+                for (const orbital of orbitals) {
+                    if (electronsRemaining > 0) {
+                        const electronsInOrbital = Math.min(electronsRemaining, orbital.maxElectrons);
+                        configuration += `${orbital.name}^${electronsInOrbital} `;
+                        electronsRemaining -= electronsInOrbital;
+                    }
+                }
+            }
+
+            document.getElementById('result').innerText = configuration.trim();
+        }
+    </script>
+
+</body>
+</html>

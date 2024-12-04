@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hydraulic Retention Time Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hydraulic Retention Time Calculator</h1>
+    <form id="hrtForm">
+        <label for="tankVolume">Volume of Tank (V, in cubic units):</label>
+        <input type="number" id="tankVolume" placeholder="Enter volume" step="any">
+
+        <label for="flowRate">Flow Rate (Q, in cubic units per time):</label>
+        <input type="number" id="flowRate" placeholder="Enter flow rate" step="any">
+
+        <button type="button" onclick="calculateHRT()">Calculate HRT</button>
+        <div class="result" id="hrtResult"></div>
+    </form>
+
+    <script>
+        function calculateHRT() {
+            // Get input values
+            const volume = parseFloat(document.getElementById('tankVolume').value);
+            const flowRate = parseFloat(document.getElementById('flowRate').value);
+
+            let result = '';
+
+            // Calculate Hydraulic Retention Time
+            if (volume > 0 && flowRate > 0) {
+                const hrt = volume / flowRate;
+                result = `Hydraulic Retention Time (HRT) = ${hrt.toFixed(4)} time units`;
+            } else {
+                result = 'Please enter positive values for both Volume and Flow Rate.';
+            }
+
+            // Display the result
+            document.getElementById('hrtResult').innerText = result;
+        }
+    </script>
+</body>
+</html>

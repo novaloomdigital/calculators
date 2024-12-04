@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Degree of Unsaturation Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Degree of Unsaturation Calculator</h1>
+    <form id="unsaturationForm">
+        <label for="carbonCount">Number of Carbon Atoms (C):</label>
+        <input type="number" id="carbonCount" placeholder="Enter number of carbon atoms" step="any">
+
+        <label for="hydrogenCount">Number of Hydrogen Atoms (H):</label>
+        <input type="number" id="hydrogenCount" placeholder="Enter number of hydrogen atoms" step="any">
+
+        <label for="nitrogenCount">Number of Nitrogen Atoms (N):</label>
+        <input type="number" id="nitrogenCount" placeholder="Enter number of nitrogen atoms" step="any" value="0">
+
+        <label for="halogenCount">Number of Halogen Atoms (X):</label>
+        <input type="number" id="halogenCount" placeholder="Enter number of halogen atoms" step="any" value="0">
+
+        <button type="button" onclick="calculateUnsaturation()">Calculate Degree of Unsaturation</button>
+        <div class="result" id="unsaturationResult"></div>
+    </form>
+
+    <script>
+        function calculateUnsaturation() {
+            // Get input values
+            const C = parseFloat(document.getElementById('carbonCount').value);
+            const H = parseFloat(document.getElementById('hydrogenCount').value);
+            const N = parseFloat(document.getElementById('nitrogenCount').value);
+            const X = parseFloat(document.getElementById('halogenCount').value);
+
+            let result = '';
+
+            // Calculate the degree of unsaturation
+            if (C >= 0 && H >= 0 && N >= 0 && X >= 0) {
+                const degreeOfUnsaturation = (2 * C + 2 + N - H - X) / 2;
+
+                result = `Degree of Unsaturation = ${degreeOfUnsaturation.toFixed(2)}`;
+            } else {
+                result = 'Please enter valid non-negative values for Carbon, Hydrogen, Nitrogen, and Halogen.';
+            }
+
+            // Display the result
+            document.getElementById('unsaturationResult').innerText = result;
+        }
+    </script>
+</body>
+</html>

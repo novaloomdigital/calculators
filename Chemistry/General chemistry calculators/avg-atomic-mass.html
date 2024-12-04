@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Average Atomic Mass Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+        .isotope-input {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Average Atomic Mass Calculator</h1>
+    <div id="isotopeInputs">
+        <div class="isotope-input">
+            <p>Isotope Mass (amu):</p>
+            <input type="number" class="mass" placeholder="Mass (amu)" step="any">
+            <p>Relative Abundance (%):</p>
+            <input type="number" class="abundance" placeholder="Abundance (%)" step="any">
+        </div>
+    </div>
+    <button onclick="addIsotopeInput()">Add Isotope</button>
+    <button onclick="calculateAverageAtomicMass()">Calculate Average Atomic Mass</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function addIsotopeInput() {
+            const isotopeInputs = document.getElementById('isotopeInputs');
+            const newInput = document.createElement('div');
+            newInput.className = 'isotope-input';
+            newInput.innerHTML = `
+                <p>Isotope Mass (amu):</p>
+                <input type="number" class="mass" placeholder="Mass (amu)" step="any">
+                <p>Relative Abundance (%):</p>
+                <input type="number" class="abundance" placeholder="Abundance (%)" step="any">
+            `;
+            isotopeInputs.appendChild(newInput);
+        }
+
+        function calculateAverageAtomicMass() {
+            const masses = document.querySelectorAll('.mass');
+            const abundances = document.querySelectorAll('.abundance');
+            let totalMass = 0;
+            let totalAbundance = 0;
+
+            for (let i = 0; i < masses.length; i++) {
+                const mass = parseFloat(masses[i].value);
+                const abundance = parseFloat(abundances[i].value);
+                if (!isNaN(mass) && !isNaN(abundance) && abundance >= 0) {
+                    totalMass += mass * (abundance / 100);
+                    totalAbundance += abundance;
+                }
+            }
+
+            if (totalAbundance === 0) {
+                document.getElementById('result').innerText = "Please enter valid isotope data.";
+            } else {
+                const averageAtomicMass = totalMass; // Average atomic mass calculation
+                document.getElementById('result').innerText = `Average Atomic Mass: ${averageAtomicMass.toFixed(2)} amu`;
+            }
+        }
+    </script>
+
+</body>
+</html>

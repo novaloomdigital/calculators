@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boiling Point Elevation Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"], input[type="text"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Boiling Point Elevation Calculator</h1>
+    <p>Enter the van 't Hoff factor (i):</p>
+    <input type="number" id="vantHoff" placeholder="i (number of particles)" step="any">
+    
+    <p>Enter the molality (m):</p>
+    <input type="number" id="molality" placeholder="Molality (mol/kg)" step="any">
+
+    <p>The ebullioscopic constant for water (K<sub>b</sub>) is approximately 0.512 °C kg/mol</p>
+
+    <button onclick="calculateBoilingPointElevation()">Calculate Boiling Point Elevation</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateBoilingPointElevation() {
+            const i = parseFloat(document.getElementById('vantHoff').value);
+            const m = parseFloat(document.getElementById('molality').value);
+            const Kb = 0.512; // Kb for water in °C kg/mol
+            let elevation;
+
+            if (isNaN(i) || isNaN(m) || i <= 0 || m < 0) {
+                elevation = "Please enter valid positive numbers for i and m.";
+            } else {
+                elevation = i * Kb * m; // Calculate boiling point elevation
+                elevation = elevation.toFixed(2); // Fixed to 2 decimal places
+                elevation = `Boiling Point Elevation: ${elevation} °C`;
+            }
+
+            document.getElementById('result').innerText = elevation;
+        }
+    </script>
+
+</body>
+</html>

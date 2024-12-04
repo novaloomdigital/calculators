@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Hardness Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Water Hardness Calculator</h1>
+    <label for="calciumConcentration">Calcium Concentration (Ca²⁺) in mg/L:</label>
+    <input type="number" step="0.01" id="calciumConcentration" placeholder="Enter calcium concentration" required>
+
+    <label for="magnesiumConcentration">Magnesium Concentration (Mg²⁺) in mg/L:</label>
+    <input type="number" step="0.01" id="magnesiumConcentration" placeholder="Enter magnesium concentration" required>
+
+    <button onclick="calculateWaterHardness()">Calculate Total Hardness</button>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateWaterHardness() {
+        const calciumConcentration = parseFloat(document.getElementById('calciumConcentration').value);
+        const magnesiumConcentration = parseFloat(document.getElementById('magnesiumConcentration').value);
+
+        if (isNaN(calciumConcentration) || isNaN(magnesiumConcentration) || 
+            calciumConcentration < 0 || magnesiumConcentration < 0) {
+            alert("Please enter valid positive numbers.");
+            return;
+        }
+
+        // Calculate total hardness as mg/L of CaCO3
+        const hardnessCaCO3 = (calciumConcentration * 2.5) + (magnesiumConcentration * 4.12); // Conversion factors
+
+        document.getElementById('result').innerText = `Total Hardness: ${hardnessCaCO3.toFixed(2)} mg/L as CaCO₃`;
+    }
+</script>
+
+</body>
+</html>

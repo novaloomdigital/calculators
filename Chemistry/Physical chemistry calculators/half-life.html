@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Half-Life Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Half-Life Calculator</h1>
+    <form id="halfLifeForm">
+        <label for="initialQuantity">Initial Quantity (N<sub>0</sub>):</label>
+        <input type="number" id="initialQuantity" placeholder="Enter initial quantity" step="any" required>
+
+        <label for="halfLife">Half-Life (t<sub>1/2</sub>):</label>
+        <input type="number" id="halfLife" placeholder="Enter half-life" step="any" required>
+
+        <label for="elapsedTime">Elapsed Time (t):</label>
+        <input type="number" id="elapsedTime" placeholder="Enter elapsed time" step="any" required>
+
+        <button type="button" onclick="calculateRemaining()">Calculate Remaining Quantity</button>
+        <div class="result" id="remainingResult"></div>
+    </form>
+
+    <script>
+        function calculateRemaining() {
+            // Get input values
+            const N0 = parseFloat(document.getElementById('initialQuantity').value);
+            const t_half = parseFloat(document.getElementById('halfLife').value);
+            const t = parseFloat(document.getElementById('elapsedTime').value);
+
+            let result = '';
+
+            if (N0 > 0 && t_half > 0 && t >= 0) {
+                // Calculate the remaining quantity using the half-life formula
+                const remainingQuantity = N0 * Math.pow(0.5, t / t_half);
+
+                result = `Remaining Quantity = ${remainingQuantity.toFixed(4)}`;
+            } else {
+                result = 'Please enter valid positive values for Initial Quantity, Half-Life, and Elapsed Time.';
+            }
+
+            // Display the result
+            document.getElementById('remainingResult').innerText = result;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bleach Dilution Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        h2 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: calc(100% - 10px);
+            padding: 5px;
+            margin-bottom: 15px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Bleach Dilution Calculator</h2>
+    <label for="initialConcentration">Initial Concentration (%):</label>
+    <input type="number" id="initialConcentration" placeholder="e.g. 10" required>
+
+    <label for="desiredConcentration">Desired Concentration (%):</label>
+    <input type="number" id="desiredConcentration" placeholder="e.g. 1" required>
+
+    <label for="finalVolume">Final Volume (mL):</label>
+    <input type="number" id="finalVolume" placeholder="e.g. 100" required>
+
+    <button onclick="calculateDilution()">Calculate</button>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateDilution() {
+        const initialConcentration = parseFloat(document.getElementById('initialConcentration').value);
+        const desiredConcentration = parseFloat(document.getElementById('desiredConcentration').value);
+        const finalVolume = parseFloat(document.getElementById('finalVolume').value);
+
+        if (isNaN(initialConcentration) || isNaN(desiredConcentration) || isNaN(finalVolume) || initialConcentration <= 0 || desiredConcentration <= 0 || finalVolume <= 0) {
+            document.getElementById('result').innerText = "Please enter valid positive numbers.";
+            return;
+        }
+
+        const bleachVolume = (desiredConcentration / initialConcentration) * finalVolume;
+        const waterVolume = finalVolume - bleachVolume;
+
+        document.getElementById('result').innerText = `Bleach needed: ${bleachVolume.toFixed(2)} mL, Water needed: ${waterVolume.toFixed(2)} mL`;
+    }
+</script>
+
+</body>
+</html>

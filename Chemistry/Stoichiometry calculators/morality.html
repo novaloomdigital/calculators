@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Molarity Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Molarity Calculator</h1>
+    <p>Enter the number of moles of solute:</p>
+    <input type="number" id="moles" placeholder="Moles of Solute" step="any" min="0">
+    
+    <p>Enter the volume of solution (in liters):</p>
+    <input type="number" id="volume" placeholder="Volume of Solution (L)" step="any" min="0">
+
+    <button onclick="calculateMolarity()">Calculate Molarity</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateMolarity() {
+            const moles = parseFloat(document.getElementById('moles').value);
+            const volume = parseFloat(document.getElementById('volume').value);
+            let molarity;
+
+            if (isNaN(moles) || isNaN(volume) || moles < 0 || volume <= 0) {
+                molarity = "Please enter valid positive numbers for moles of solute and volume of solution.";
+            } else {
+                molarity = moles / volume; // Calculate molarity
+                molarity = `Molarity: ${molarity.toFixed(4)} M`;
+            }
+
+            document.getElementById('result').innerText = molarity;
+        }
+    </script>
+
+</body>
+</html>

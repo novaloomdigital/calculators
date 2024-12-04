@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate Constant Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Rate Constant Calculator</h1>
+    <form id="rateConstantForm">
+        <label for="initialConcentration">Initial Concentration ([A]<sub>0</sub>) in mol/L:</label>
+        <input type="number" id="initialConcentration" placeholder="Enter initial concentration" step="any" required>
+
+        <label for="finalConcentration">Final Concentration ([A]) in mol/L:</label>
+        <input type="number" id="finalConcentration" placeholder="Enter final concentration" step="any" required>
+
+        <label for="time">Time (t) in seconds:</label>
+        <input type="number" id="time" placeholder="Enter time" step="any" required>
+
+        <label for="reactionOrder">Reaction Order:</label>
+        <select id="reactionOrder">
+            <option value="0">Zero Order</option>
+            <option value="1">First Order</option>
+            <option value="2">Second Order</option>
+        </select>
+
+        <button type="button" onclick="calculateRateConstant()">Calculate Rate Constant (k)</button>
+        <div class="result" id="rateConstantResult"></div>
+    </form>
+
+    <script>
+        function calculateRateConstant() {
+            // Get input values
+            const A0 = parseFloat(document.getElementById('initialConcentration').value);
+            const A = parseFloat(document.getElementById('finalConcentration').value);
+            const t = parseFloat(document.getElementById('time').value);
+            const order = parseInt(document.getElementById('reactionOrder').value);
+
+            let result = '';
+
+            if (t > 0) {
+                let k; // Rate constant
+
+                if (order === 0) {
+                    // Zero Order
+                    k = (A0 - A) / t;
+                } else if (order === 1) {
+                    // First Order
+                    k = Math.log(A0 / A) / t;
+                } else if (order === 2) {
+                    // Second Order
+                    k = 1 / (A - A0) * t;
+                }
+
+                result = `Rate Constant (k) = ${k.toFixed(4)} 1/s`;
+            } else {
+                result = 'Time must be greater than zero.';
+            }
+
+            // Display the result
+            document.getElementById('rateConstantResult').innerText = result;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vapor Pressure of Water Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Vapor Pressure of Water Calculator</h1>
+    <p>Enter the temperature (T) in °C:</p>
+    <input type="number" id="temperature" placeholder="Temperature (°C)" step="any">
+
+    <button onclick="calculateVaporPressure()">Calculate Vapor Pressure</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateVaporPressure() {
+            const A = 8.07131; // Antoine constant A for water
+            const B = 1730.63; // Antoine constant B for water
+            const C = 233.426; // Antoine constant C for water
+            const T = parseFloat(document.getElementById('temperature').value);
+            let vaporPressure;
+
+            if (isNaN(T)) {
+                vaporPressure = "Please enter a valid temperature.";
+            } else {
+                // Calculate vapor pressure using Antoine's equation
+                vaporPressure = Math.pow(10, A - (B / (T + C))); // Vapor pressure in mmHg
+                vaporPressure = vaporPressure.toFixed(2); // Fixed to 2 decimal places
+                vaporPressure = `Vapor Pressure of Water: ${vaporPressure} mmHg`;
+            }
+
+            document.getElementById('result').innerText = vaporPressure;
+        }
+    </script>
+
+</body>
+</html>

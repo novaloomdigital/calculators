@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chemical Name Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="text"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 300px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Chemical Name Calculator</h1>
+    <p>Enter the chemical formula (e.g., H2O, CO2):</p>
+    <input type="text" id="chemicalFormula" placeholder="Chemical Formula">
+
+    <button onclick="getChemicalName()">Get Chemical Name</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function getChemicalName() {
+            const formula = document.getElementById('chemicalFormula').value.trim();
+            let name;
+
+            switch (formula) {
+                case 'H2O':
+                    name = "Water";
+                    break;
+                case 'CO2':
+                    name = "Carbon Dioxide";
+                    break;
+                case 'NaCl':
+                    name = "Sodium Chloride";
+                    break;
+                case 'HCl':
+                    name = "Hydrochloric Acid";
+                    break;
+                case 'NH3':
+                    name = "Ammonia";
+                    break;
+                case 'C6H12O6':
+                    name = "Glucose";
+                    break;
+                case 'CH4':
+                    name = "Methane";
+                    break;
+                case 'C2H5OH':
+                    name = "Ethanol";
+                    break;
+                default:
+                    name = "Unknown chemical formula. Please enter a valid formula.";
+            }
+
+            document.getElementById('result').innerText = `Chemical Name: ${name}`;
+        }
+    </script>
+
+</body>
+</html>

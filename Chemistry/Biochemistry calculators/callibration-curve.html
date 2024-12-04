@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calibration Curve Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Calibration Curve Calculator</h1>
+    <form id="calibrationForm">
+        <label for="dataPoints">Enter data points (Concentration, Absorbance):</label>
+        <textarea id="dataPoints" rows="5" placeholder="e.g., 0.1, 0.2; 0.2, 0.4; 0.3, 0.6"></textarea>
+
+        <button type="button" onclick="calculateCalibrationCurve()">Calculate</button>
+        <div class="result" id="calibrationResult"></div>
+    </form>
+
+    <script>
+        function calculateCalibrationCurve() {
+            const data = document.getElementById('dataPoints').value.split(';');
+            let xValues = [];
+            let yValues = [];
+
+            data.forEach(point => {
+                const values = point.split(',').map(v => parseFloat(v.trim()));
+                if (values.length === 2) {
+                    xValues.push(values[0]);
+                    yValues.push(values[1]);
+                }
+            });
+
+            if (xValues.length < 2) {
+                document.getElementById('calibrationResult').innerText = 'Please enter at least two data points.';
+                return;
+            }
+
+            const n = xValues.length;
+            const sumX = xValues.reduce((a, b) => a + b, 0);
+            const sumY = yValues.reduce((a, b) => a + b, 0);
+            const sumXY = xValues.reduce((sum, x, i) => sum + x * yValues[i], 0);
+            const sumX2 = xValues.reduce((sum, x) => sum + x * x, 0);
+
+            const m = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX); // slope
+            const b = (sumY - m * sumX) / n; // y-intercept
+
+            const result = `Slope (m) = ${m.toFixed(4)}, Intercept (b) = ${b.toFixed(4)}`;
+            document.getElementById('calibrationResult').innerText = result;
+        }
+    </script>
+</body>
+</html>

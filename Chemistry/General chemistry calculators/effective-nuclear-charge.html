@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Effective Nuclear Charge Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Effective Nuclear Charge Calculator</h1>
+    <p>Enter the atomic number (Z):</p>
+    <input type="number" id="atomicNumber" placeholder="Atomic Number (Z)" step="1" min="1">
+    
+    <p>Enter the number of shielding electrons (S):</p>
+    <input type="number" id="shieldingElectrons" placeholder="Shielding Electrons (S)" step="1" min="0">
+
+    <button onclick="calculateEffectiveNuclearCharge()">Calculate Effective Nuclear Charge (Z_eff)</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateEffectiveNuclearCharge() {
+            const Z = parseInt(document.getElementById('atomicNumber').value);
+            const S = parseInt(document.getElementById('shieldingElectrons').value);
+            let Z_eff;
+
+            if (isNaN(Z) || isNaN(S) || Z < 1 || S < 0) {
+                Z_eff = "Please enter valid values for atomic number and shielding electrons.";
+            } else {
+                Z_eff = Z - S; // Calculate effective nuclear charge
+                Z_eff = `Effective Nuclear Charge (Z_eff): ${Z_eff}`;
+            }
+
+            document.getElementById('result').innerText = Z_eff;
+        }
+    </script>
+
+</body>
+</html>

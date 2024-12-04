@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buffer pH Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        h2 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: calc(100% - 10px);
+            padding: 5px;
+            margin-bottom: 15px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Buffer pH Calculator</h2>
+    <label for="acidConcentration">Acid Concentration (M):</label>
+    <input type="number" id="acidConcentration" step="0.01" placeholder="e.g. 0.1" required>
+
+    <label for="baseConcentration">Base Concentration (M):</label>
+    <input type="number" id="baseConcentration" step="0.01" placeholder="e.g. 0.1" required>
+
+    <label for="pKa">pKa of the Acid:</label>
+    <input type="number" id="pKa" step="0.01" placeholder="e.g. 4.76" required>
+
+    <button onclick="calculateBufferPH()">Calculate pH</button>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateBufferPH() {
+        const acidConcentration = parseFloat(document.getElementById('acidConcentration').value);
+        const baseConcentration = parseFloat(document.getElementById('baseConcentration').value);
+        const pKa = parseFloat(document.getElementById('pKa').value);
+
+        if (isNaN(acidConcentration) || isNaN(baseConcentration) || isNaN(pKa) || 
+            acidConcentration < 0 || baseConcentration < 0) {
+            document.getElementById('result').innerText = "Please enter valid non-negative numbers.";
+            return;
+        }
+
+        // Using the Henderson-Hasselbalch equation: pH = pKa + log([A-]/[HA])
+        const pH = pKa + Math.log10(baseConcentration / acidConcentration);
+
+        document.getElementById('result').innerText = `Calculated pH: ${pH.toFixed(2)}`;
+    }
+</script>
+
+</body>
+</html>

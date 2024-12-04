@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equilibrium Constant Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Equilibrium Constant Calculator</h1>
+    <form id="equilibriumForm">
+        <label for="concentrationC">Concentration of Product C ([C]) in mol/L:</label>
+        <input type="number" id="concentrationC" placeholder="Enter concentration of C" step="any" required>
+
+        <label for="concentrationD">Concentration of Product D ([D]) in mol/L:</label>
+        <input type="number" id="concentrationD" placeholder="Enter concentration of D" step="any" required>
+
+        <label for="concentrationA">Concentration of Reactant A ([A]) in mol/L:</label>
+        <input type="number" id="concentrationA" placeholder="Enter concentration of A" step="any" required>
+
+        <label for="concentrationB">Concentration of Reactant B ([B]) in mol/L:</label>
+        <input type="number" id="concentrationB" placeholder="Enter concentration of B" step="any" required>
+
+        <button type="button" onclick="calculateEquilibriumConstant()">Calculate Equilibrium Constant (K)</button>
+        <div class="result" id="equilibriumConstantResult"></div>
+    </form>
+
+    <script>
+        function calculateEquilibriumConstant() {
+            // Get input values
+            const C = parseFloat(document.getElementById('concentrationC').value);
+            const D = parseFloat(document.getElementById('concentrationD').value);
+            const A = parseFloat(document.getElementById('concentrationA').value);
+            const B = parseFloat(document.getElementById('concentrationB').value);
+
+            let result = '';
+
+            if (A > 0 && B > 0) {
+                // Calculate equilibrium constant using the formula
+                const K = (C * D) / (A * B); // K = [C]^c * [D]^d / [A]^a * [B]^b
+
+                result = `Equilibrium Constant (K) = ${K.toFixed(4)}`;
+            } else {
+                result = 'Concentrations of reactants must be greater than zero.';
+            }
+
+            // Display the result
+            document.getElementById('equilibriumConstantResult').innerText = result;
+        }
+    </script>
+</body>
+</html>

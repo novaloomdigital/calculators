@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resuspension Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Resuspension Calculator</h1>
+    <form id="resuspensionForm">
+        <label for="stockConcentration">Stock Solution Concentration (C<sub>1</sub>):</label>
+        <input type="number" id="stockConcentration" placeholder="Enter stock concentration (mg/mL)" step="any">
+
+        <label for="desiredConcentration">Desired Concentration (C<sub>2</sub>):</label>
+        <input type="number" id="desiredConcentration" placeholder="Enter desired concentration (mg/mL)" step="any">
+
+        <label for="finalVolume">Final Volume (V<sub>2</sub>):</label>
+        <input type="number" id="finalVolume" placeholder="Enter final volume (mL)" step="any">
+
+        <button type="button" onclick="calculateVolumeNeeded()">Calculate Volume Needed (V<sub>1</sub>)</button>
+        <div class="result" id="volumeResult"></div>
+    </form>
+
+    <script>
+        function calculateVolumeNeeded() {
+            // Get input values
+            const stockConcentration = parseFloat(document.getElementById('stockConcentration').value);
+            const desiredConcentration = parseFloat(document.getElementById('desiredConcentration').value);
+            const finalVolume = parseFloat(document.getElementById('finalVolume').value);
+
+            let result = '';
+
+            // Calculate volume needed using the formula C1V1 = C2V2
+            if (stockConcentration > 0 && desiredConcentration > 0 && finalVolume > 0) {
+                const volumeNeeded = (desiredConcentration * finalVolume) / stockConcentration;
+                result = `Volume of stock solution needed (V<sub>1</sub>) = ${volumeNeeded.toFixed(4)} mL`;
+            } else {
+                result = 'Please enter valid positive values for Stock Concentration, Desired Concentration, and Final Volume.';
+            }
+
+            // Display the result
+            document.getElementById('volumeResult').innerHTML = result;
+        }
+    </script>
+</body>
+</html>

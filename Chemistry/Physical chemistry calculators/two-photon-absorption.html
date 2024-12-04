@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two-Photon Absorption Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Two-Photon Absorption Calculator</h1>
+    <form id="twoPhotonForm">
+        <label for="incidentIntensity">Incident Intensity (I<sub>0</sub>) in W/cm²:</label>
+        <input type="number" id="incidentIntensity" placeholder="Enter incident intensity" step="any" required>
+
+        <label for="transmittedIntensity">Transmitted Intensity (I) in W/cm²:</label>
+        <input type="number" id="transmittedIntensity" placeholder="Enter transmitted intensity" step="any" required>
+
+        <label for="concentration">Concentration (C) in mol/cm³:</label>
+        <input type="number" id="concentration" placeholder="Enter concentration" step="any" required>
+
+        <label for="pathLength">Path Length (L) in cm:</label>
+        <input type="number" id="pathLength" placeholder="Enter path length" step="any" required>
+
+        <button type="button" onclick="calculateTwoPhotonAbsorption()">Calculate σ<sub>2photon</sub></button>
+        <div class="result" id="absorptionResult"></div>
+    </form>
+
+    <script>
+        function calculateTwoPhotonAbsorption() {
+            // Get input values
+            const I0 = parseFloat(document.getElementById('incidentIntensity').value);
+            const I = parseFloat(document.getElementById('transmittedIntensity').value);
+            const C = parseFloat(document.getElementById('concentration').value);
+            const L = parseFloat(document.getElementById('pathLength').value);
+
+            let result = '';
+
+            if (I0 > 0 && I >= 0 && C > 0 && L > 0) {
+                // Calculate effective absorption coefficient (α)
+                const alpha = -Math.log(I / I0) / L; // in cm⁻¹
+
+                // Calculate two-photon absorption cross-section (σ)
+                const sigma_2photon = alpha / C; // in cm²
+
+                result = `Two-Photon Absorption Cross-Section (σ<sub>2photon</sub>) = ${sigma_2photon.toExponential(2)} cm²`;
+            } else {
+                result = 'Please enter valid positive values for incident intensity, transmitted intensity, concentration, and path length.';
+            }
+
+            // Display the result
+            document.getElementById('absorptionResult').innerHTML = result;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Osmotic Pressure Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Osmotic Pressure Calculator</h1>
+    <form id="osmoticPressureForm">
+        <label for="vantHoffFactor">Van 't Hoff Factor (i):</label>
+        <input type="number" id="vantHoffFactor" placeholder="Enter van 't Hoff factor" step="any" required>
+
+        <label for="concentration">Molar Concentration (C) in mol/L:</label>
+        <input type="number" id="concentration" placeholder="Enter molar concentration" step="any" required>
+
+        <label for="temperature">Temperature (T) in °C:</label>
+        <input type="number" id="temperature" placeholder="Enter temperature in °C" step="any" required>
+
+        <button type="button" onclick="calculateOsmoticPressure()">Calculate Osmotic Pressure (atm)</button>
+        <div class="result" id="osmoticPressureResult"></div>
+    </form>
+
+    <script>
+        function calculateOsmoticPressure() {
+            const R = 0.0821; // Ideal gas constant in L·atm/(K·mol)
+
+            // Get input values
+            const i = parseFloat(document.getElementById('vantHoffFactor').value);
+            const C = parseFloat(document.getElementById('concentration').value);
+            const temperatureC = parseFloat(document.getElementById('temperature').value);
+
+            let result = '';
+
+            if (i > 0 && C >= 0 && temperatureC >= 0) {
+                // Convert temperature to Kelvin
+                const T = temperatureC + 273.15;
+
+                // Calculate osmotic pressure using the formula
+                const osmoticPressure = i * C * R * T; // in atm
+
+                result = `Osmotic Pressure = ${osmoticPressure.toFixed(4)} atm`;
+            } else {
+                result = 'Please enter valid positive values for i, C, and temperature.';
+            }
+
+            // Display the result
+            document.getElementById('osmoticPressureResult').innerText = result;
+        }
+    </script>
+</body>
+</html>

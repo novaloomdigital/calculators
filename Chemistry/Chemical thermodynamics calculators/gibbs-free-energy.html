@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gibbs Free Energy Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Gibbs Free Energy Calculator</h1>
+    <p>Enter the change in enthalpy (ΔH) in kJ/mol:</p>
+    <input type="number" id="enthalpy" placeholder="ΔH (kJ/mol)" step="any">
+    
+    <p>Enter the temperature (T) in Kelvin:</p>
+    <input type="number" id="temperature" placeholder="Temperature (K)" step="any">
+    
+    <p>Enter the change in entropy (ΔS) in J/K·mol:</p>
+    <input type="number" id="entropy" placeholder="ΔS (J/K·mol)" step="any">
+
+    <button onclick="calculateGibbsFreeEnergy()">Calculate Gibbs Free Energy (ΔG)</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateGibbsFreeEnergy() {
+            const ΔH = parseFloat(document.getElementById('enthalpy').value);
+            const T = parseFloat(document.getElementById('temperature').value);
+            const ΔS = parseFloat(document.getElementById('entropy').value) / 1000; // Convert J/K·mol to kJ/K·mol
+            let ΔG;
+
+            if (isNaN(ΔH) || isNaN(T) || isNaN(ΔS) || T <= 0) {
+                ΔG = "Please enter valid values for ΔH, T (must be > 0), and ΔS.";
+            } else {
+                ΔG = ΔH - (T * ΔS); // Calculate Gibbs free energy
+                ΔG = ΔG.toFixed(2); // Fixed to 2 decimal places
+                ΔG = `Gibbs Free Energy (ΔG): ${ΔG} kJ/mol`;
+            }
+
+            document.getElementById('result').innerText = ΔG;
+        }
+    </script>
+
+</body>
+</html>

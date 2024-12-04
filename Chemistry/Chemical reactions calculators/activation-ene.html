@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activation Energy Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Activation Energy Calculator</h1>
+    <form id="activationEnergyForm">
+        <label for="temp1">Temperature 1 (T<sub>1</sub>) in K:</label>
+        <input type="number" id="temp1" placeholder="Enter temperature 1" step="any" required>
+
+        <label for="rateConstant1">Rate Constant 1 (k<sub>1</sub>):</label>
+        <input type="number" id="rateConstant1" placeholder="Enter rate constant 1" step="any" required>
+
+        <label for="temp2">Temperature 2 (T<sub>2</sub>) in K:</label>
+        <input type="number" id="temp2" placeholder="Enter temperature 2" step="any" required>
+
+        <label for="rateConstant2">Rate Constant 2 (k<sub>2</sub>):</label>
+        <input type="number" id="rateConstant2" placeholder="Enter rate constant 2" step="any" required>
+
+        <button type="button" onclick="calculateActivationEnergy()">Calculate Activation Energy (E<sub>a</sub>)</button>
+        <div class="result" id="activationEnergyResult"></div>
+    </form>
+
+    <script>
+        function calculateActivationEnergy() {
+            const R = 8.314; // Universal gas constant in J/(mol·K)
+
+            // Get input values
+            const T1 = parseFloat(document.getElementById('temp1').value);
+            const k1 = parseFloat(document.getElementById('rateConstant1').value);
+            const T2 = parseFloat(document.getElementById('temp2').value);
+            const k2 = parseFloat(document.getElementById('rateConstant2').value);
+
+            let result = '';
+
+            if (T1 > 0 && T2 > 0 && k1 > 0 && k2 > 0) {
+                // Calculate activation energy using the Arrhenius equation rearrangement
+                const Ea = R * (T1 * T2) / (T2 - T1) * Math.log(k2 / k1);
+
+                result = `Activation Energy (E<sub>a</sub>) = ${Ea.toFixed(2)} J/mol`;
+            } else {
+                result = 'Please enter valid positive values for temperatures and rate constants.';
+            }
+
+            // Display the result
+            document.getElementById('activationEnergyResult').innerHTML = result;
+        }
+    </script>
+</body>
+</html>

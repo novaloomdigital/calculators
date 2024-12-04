@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atom Economy Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Atom Economy Calculator</h1>
+    <p>Enter the molar mass of the desired product (g/mol):</p>
+    <input type="number" id="desiredProductMass" placeholder="Molar Mass of Product" step="any" min="0">
+    
+    <p>Enter the total molar mass of reactants (g/mol):</p>
+    <input type="number" id="reactantsMass" placeholder="Total Molar Mass of Reactants" step="any" min="0">
+
+    <button onclick="calculateAtomEconomy()">Calculate Atom Economy</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateAtomEconomy() {
+            const desiredProductMass = parseFloat(document.getElementById('desiredProductMass').value);
+            const reactantsMass = parseFloat(document.getElementById('reactantsMass').value);
+            let atomEconomy;
+
+            if (isNaN(desiredProductMass) || isNaN(reactantsMass) || desiredProductMass < 0 || reactantsMass <= 0) {
+                atomEconomy = "Please enter valid positive numbers for the product and reactants.";
+            } else {
+                atomEconomy = (desiredProductMass / reactantsMass) * 100; // Calculate atom economy
+                atomEconomy = `Atom Economy: ${atomEconomy.toFixed(2)}%`;
+            }
+
+            document.getElementById('result').innerText = atomEconomy;
+        }
+    </script>
+
+</body>
+</html>

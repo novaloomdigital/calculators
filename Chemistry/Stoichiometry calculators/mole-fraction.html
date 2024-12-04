@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mole Fraction Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Mole Fraction Calculator</h1>
+    <p>Enter the number of moles of the component:</p>
+    <input type="number" id="molesComponent" placeholder="Moles of Component" step="any" min="0">
+    
+    <p>Enter the total number of moles in the mixture:</p>
+    <input type="number" id="totalMoles" placeholder="Total Moles" step="any" min="0">
+
+    <button onclick="calculateMoleFraction()">Calculate Mole Fraction</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateMoleFraction() {
+            const molesComponent = parseFloat(document.getElementById('molesComponent').value);
+            const totalMoles = parseFloat(document.getElementById('totalMoles').value);
+            let moleFraction;
+
+            if (isNaN(molesComponent) || isNaN(totalMoles) || molesComponent < 0 || totalMoles <= 0) {
+                moleFraction = "Please enter valid positive numbers for moles of component and total moles.";
+            } else {
+                moleFraction = molesComponent / totalMoles; // Calculate mole fraction
+                moleFraction = `Mole Fraction: ${moleFraction.toFixed(4)}`;
+            }
+
+            document.getElementById('result').innerText = moleFraction;
+        }
+    </script>
+
+</body>
+</html>

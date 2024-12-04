@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mixing Ratio Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Mixing Ratio Calculator</h1>
+    <label for="amountA">Amount of Component A (in units):</label>
+    <input type="number" id="amountA" placeholder="Enter amount of Component A" required>
+
+    <label for="amountB">Amount of Component B (in units):</label>
+    <input type="number" id="amountB" placeholder="Enter amount of Component B" required>
+
+    <button onclick="calculateMixingRatio()">Calculate Mixing Ratio</button>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateMixingRatio() {
+        const amountA = parseFloat(document.getElementById('amountA').value);
+        const amountB = parseFloat(document.getElementById('amountB').value);
+
+        if (isNaN(amountA) || isNaN(amountB) || amountA <= 0 || amountB < 0) {
+            alert("Please enter valid numbers.");
+            return;
+        }
+
+        // Calculate the ratio
+        const ratioA = amountA / (amountA + amountB);
+        const ratioB = amountB / (amountA + amountB);
+
+        document.getElementById('result').innerHTML = `
+            <p>Mixing Ratio of Component A to B: ${amountA}:${amountB}</p>
+            <p>Percentage of Component A: ${(ratioA * 100).toFixed(2)}%</p>
+            <p>Percentage of Component B: ${(ratioB * 100).toFixed(2)}%</p>
+        `;
+    }
+</script>
+
+</body>
+</html>

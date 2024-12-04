@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Molar Ratio Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Molar Ratio Calculator</h1>
+    <form id="molarRatioForm">
+        <label for="coeffA">Coefficient of A (a):</label>
+        <input type="number" id="coeffA" placeholder="Enter coefficient for A" step="any" required>
+
+        <label for="coeffB">Coefficient of B (b):</label>
+        <input type="number" id="coeffB" placeholder="Enter coefficient for B" step="any" required>
+
+        <label for="coeffC">Coefficient of C (c):</label>
+        <input type="number" id="coeffC" placeholder="Enter coefficient for C" step="any" required>
+
+        <label for="coeffD">Coefficient of D (d):</label>
+        <input type="number" id="coeffD" placeholder="Enter coefficient for D" step="any" required>
+
+        <button type="button" onclick="calculateMolarRatios()">Calculate Molar Ratios</button>
+        <div class="result" id="molarRatioResult"></div>
+    </form>
+
+    <script>
+        function calculateMolarRatios() {
+            // Get input values
+            const a = parseFloat(document.getElementById('coeffA').value);
+            const b = parseFloat(document.getElementById('coeffB').value);
+            const c = parseFloat(document.getElementById('coeffC').value);
+            const d = parseFloat(document.getElementById('coeffD').value);
+
+            let result = '';
+
+            if (a > 0 && b > 0 && c > 0 && d > 0) {
+                // Calculate molar ratios
+                const ratioAB = a / b;
+                const ratioAC = a / c;
+                const ratioAD = a / d;
+                const ratioBC = b / c;
+                const ratioBD = b / d;
+                const ratioCD = c / d;
+
+                result = `
+                    Molar Ratio A:B = ${ratioAB.toFixed(2)}<br>
+                    Molar Ratio A:C = ${ratioAC.toFixed(2)}<br>
+                    Molar Ratio A:D = ${ratioAD.toFixed(2)}<br>
+                    Molar Ratio B:C = ${ratioBC.toFixed(2)}<br>
+                    Molar Ratio B:D = ${ratioBD.toFixed(2)}<br>
+                    Molar Ratio C:D = ${ratioCD.toFixed(2)}
+                `;
+            } else {
+                result = 'Please enter valid positive coefficients.';
+            }
+
+            // Display the result
+            document.getElementById('molarRatioResult').innerHTML = result;
+        }
+    </script>
+</body>
+</html>

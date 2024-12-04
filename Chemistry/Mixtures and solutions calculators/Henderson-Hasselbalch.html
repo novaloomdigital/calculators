@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Henderson-Hasselbalch Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="number"], input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Henderson-Hasselbalch Calculator</h1>
+    <label for="pH">Enter pH:</label>
+    <input type="number" step="0.01" id="pH" placeholder="Enter pH" required>
+
+    <label for="concentrationA">Concentration of Acid (HA, in mol/L):</label>
+    <input type="number" step="0.001" id="concentrationA" placeholder="Enter HA concentration" required>
+
+    <label for="concentrationB">Concentration of Conjugate Base (A-, in mol/L):</label>
+    <input type="number" step="0.001" id="concentrationB" placeholder="Enter A- concentration" required>
+
+    <button onclick="calculateHendersonHasselbalch()">Calculate</button>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateHendersonHasselbalch() {
+        const pH = parseFloat(document.getElementById('pH').value);
+        const concentrationA = parseFloat(document.getElementById('concentrationA').value);
+        const concentrationB = parseFloat(document.getElementById('concentrationB').value);
+
+        if (isNaN(pH) || isNaN(concentrationA) || isNaN(concentrationB) || concentrationA <= 0 || concentrationB < 0) {
+            alert("Please enter valid numbers.");
+            return;
+        }
+
+        // Calculate the ratio
+        const ratio = concentrationB / concentrationA;
+
+        // Verify pH using the Henderson-Hasselbalch equation: pH = pKa + log(A-/HA)
+        const pKa = -Math.log10(ratio) + pH; // Rearranged form to find pKa
+
+        document.getElementById('result').innerHTML = `
+            <p>Concentration Ratio (A-/HA): ${ratio.toFixed(2)}</p>
+            <p>Calculated pKa: ${pKa.toFixed(2)}</p>
+        `;
+    }
+</script>
+
+</body>
+</html>

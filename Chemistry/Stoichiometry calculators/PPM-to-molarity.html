@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPM to Molality Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>PPM to Molality Calculator</h1>
+    <p>Enter the concentration in PPM:</p>
+    <input type="number" id="ppm" placeholder="Concentration (PPM)" step="any" min="0">
+    
+    <p>Enter the volume of solution (in liters):</p>
+    <input type="number" id="volume" placeholder="Volume of Solution (L)" step="any" min="0">
+    
+    <p>Enter the molar mass of the solute (in g/mol):</p>
+    <input type="number" id="molarMass" placeholder="Molar Mass (g/mol)" step="any" min="0">
+    
+    <p>Enter the mass of solvent (in kg):</p>
+    <input type="number" id="massSolvent" placeholder="Mass of Solvent (kg)" step="any" min="0">
+
+    <button onclick="calculateMolality()">Calculate Molality</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateMolality() {
+            const ppm = parseFloat(document.getElementById('ppm').value);
+            const volume = parseFloat(document.getElementById('volume').value);
+            const molarMass = parseFloat(document.getElementById('molarMass').value);
+            const massSolvent = parseFloat(document.getElementById('massSolvent').value);
+            let molality;
+
+            if (isNaN(ppm) || isNaN(volume) || isNaN(molarMass) || isNaN(massSolvent) ||
+                ppm < 0 || volume <= 0 || molarMass <= 0 || massSolvent <= 0) {
+                molality = "Please enter valid positive numbers for all inputs.";
+            } else {
+                // Calculate grams of solute
+                const gramsOfSolute = ppm * volume / 1000000; // Grams of solute
+
+                // Calculate moles of solute
+                const molesOfSolute = gramsOfSolute / molarMass; // Moles of solute
+
+                // Calculate molality
+                molality = molesOfSolute / massSolvent; // Molality
+                molality = `Molality: ${molality.toFixed(4)} m`;
+            }
+
+            document.getElementById('result').innerText = molality;
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hydrogen Ion Concentration Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Hydrogen Ion Concentration Calculator</h1>
+    <p>Enter the pH of the solution:</p>
+    <input type="number" id="pH" placeholder="pH" step="any" min="0" max="14">
+
+    <button onclick="calculateHConcentration()">Calculate [H<sup>+</sup>]</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateHConcentration() {
+            const pH = parseFloat(document.getElementById('pH').value);
+            let hConcentration;
+
+            if (isNaN(pH) || pH < 0 || pH > 14) {
+                hConcentration = "Please enter a valid pH value (0-14).";
+            } else {
+                hConcentration = Math.pow(10, -pH); // Calculate hydrogen ion concentration
+                hConcentration = `[H<sup>+</sup>]: ${hConcentration.toExponential(2)} M`;
+            }
+
+            document.getElementById('result').innerHTML = hConcentration;
+        }
+    </script>
+
+</body>
+</html>

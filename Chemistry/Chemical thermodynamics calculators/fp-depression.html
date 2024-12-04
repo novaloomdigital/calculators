@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freezing Point Depression Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Freezing Point Depression Calculator</h1>
+    <p>Enter the van 't Hoff factor (i):</p>
+    <input type="number" id="vantHoff" placeholder="i (number of particles)" step="any">
+    
+    <p>Enter the molality (m):</p>
+    <input type="number" id="molality" placeholder="Molality (mol/kg)" step="any">
+
+    <p>The cryoscopic constant for water (K<sub>f</sub>) is approximately 1.86 °C kg/mol</p>
+
+    <button onclick="calculateFreezingPointDepression()">Calculate Freezing Point Depression</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateFreezingPointDepression() {
+            const i = parseFloat(document.getElementById('vantHoff').value);
+            const m = parseFloat(document.getElementById('molality').value);
+            const Kf = 1.86; // Kf for water in °C kg/mol
+            let depression;
+
+            if (isNaN(i) || isNaN(m) || i <= 0 || m < 0) {
+                depression = "Please enter valid positive numbers for i and m.";
+            } else {
+                depression = i * Kf * m; // Calculate freezing point depression
+                depression = depression.toFixed(2); // Fixed to 2 decimal places
+                depression = `Freezing Point Depression (ΔT<sub>f</sub>): ${depression} °C`;
+            }
+
+            document.getElementById('result').innerHTML = depression;
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combustion Analysis Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Combustion Analysis Calculator</h1>
+    <form id="combustionForm">
+        <label for="massSample">Mass of Sample (g):</label>
+        <input type="number" id="massSample" placeholder="Enter mass of sample" step="any">
+
+        <label for="massCO2">Mass of CO₂ Produced (g):</label>
+        <input type="number" id="massCO2" placeholder="Enter mass of CO₂" step="any">
+
+        <label for="massH2O">Mass of H₂O Produced (g):</label>
+        <input type="number" id="massH2O" placeholder="Enter mass of H₂O" step="any">
+
+        <button type="button" onclick="calculateEmpiricalFormula()">Calculate Empirical Formula</button>
+        <div class="result" id="formulaResult"></div>
+    </form>
+
+    <script>
+        function calculateEmpiricalFormula() {
+            // Get input values
+            const massSample = parseFloat(document.getElementById('massSample').value);
+            const massCO2 = parseFloat(document.getElementById('massCO2').value);
+            const massH2O = parseFloat(document.getElementById('massH2O').value);
+
+            let result = '';
+
+            // Molar masses
+            const molarMassC = 12.01; // g/mol for Carbon
+            const molarMassH = 1.008;  // g/mol for Hydrogen
+            const molarMassCO2 = 44.01; // g/mol for CO2
+            const molarMassH2O = 18.02;  // g/mol for H2O
+
+            // Calculate moles of C and H
+            const molesC = (massCO2 / molarMassCO2) * 1;          // Each mole of CO2 gives 1 mole of C
+            const molesH = (massH2O / molarMassH2O) * 2;         // Each mole of H2O gives 2 moles of H
+
+            // Calculate the ratio to get the empirical formula
+            const molesTotal = molesC + molesH;
+            const ratioC = molesC / molesTotal;
+            const ratioH = molesH / molesTotal;
+
+            // Display results as empirical formula
+            const empiricalFormula = `C${Math.round(ratioC * 100)}H${Math.round(ratioH * 100)}`;
+
+            result = `Empirical Formula: ${empiricalFormula}`;
+            
+            // Display the result
+            document.getElementById('formulaResult').innerText = result;
+        }
+    </script>
+</body>
+</html>

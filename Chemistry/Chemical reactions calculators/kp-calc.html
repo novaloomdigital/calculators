@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kp Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Kp Calculator</h1>
+    <form id="kpForm">
+        <label for="pressureC">Partial Pressure of Product C (P<sub>C</sub>) in atm:</label>
+        <input type="number" id="pressureC" placeholder="Enter partial pressure of C" step="any" required>
+
+        <label for="pressureD">Partial Pressure of Product D (P<sub>D</sub>) in atm:</label>
+        <input type="number" id="pressureD" placeholder="Enter partial pressure of D" step="any" required>
+
+        <label for="pressureA">Partial Pressure of Reactant A (P<sub>A</sub>) in atm:</label>
+        <input type="number" id="pressureA" placeholder="Enter partial pressure of A" step="any" required>
+
+        <label for="pressureB">Partial Pressure of Reactant B (P<sub>B</sub>) in atm:</label>
+        <input type="number" id="pressureB" placeholder="Enter partial pressure of B" step="any" required>
+
+        <button type="button" onclick="calculateKp()">Calculate K<sub>p</sub></button>
+        <div class="result" id="kpResult"></div>
+    </form>
+
+    <script>
+        function calculateKp() {
+            // Get input values
+            const P_C = parseFloat(document.getElementById('pressureC').value);
+            const P_D = parseFloat(document.getElementById('pressureD').value);
+            const P_A = parseFloat(document.getElementById('pressureA').value);
+            const P_B = parseFloat(document.getElementById('pressureB').value);
+
+            let result = '';
+
+            if (P_A > 0 && P_B > 0) {
+                // Calculate equilibrium constant Kp using the formula
+                const Kp = (P_C * P_D) / (P_A * P_B); // Kp = (P_C * P_D) / (P_A * P_B)
+
+                result = `Equilibrium Constant (K<sub>p</sub>) = ${Kp.toFixed(4)}`;
+            } else {
+                result = 'Partial pressures of reactants must be greater than zero.';
+            }
+
+            // Display the result
+            document.getElementById('kpResult').innerHTML = result;
+        }
+    </script>
+</body>
+</html>

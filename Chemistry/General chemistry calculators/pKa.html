@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pKa Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>pKa Calculator</h1>
+    <p>Enter the dissociation constant (Ka):</p>
+    <input type="number" id="ka" placeholder="Ka" step="any" min="0">
+
+    <button onclick="calculatePKa()">Calculate pKa</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculatePKa() {
+            const ka = parseFloat(document.getElementById('ka').value);
+            let pKa;
+
+            if (isNaN(ka) || ka <= 0) {
+                pKa = "Please enter a valid positive dissociation constant (Ka).";
+            } else {
+                pKa = -Math.log10(ka); // Calculate pKa
+                pKa = `pKa: ${pKa.toFixed(2)}`;
+            }
+
+            document.getElementById('result').innerText = pKa;
+        }
+    </script>
+
+</body>
+</html>

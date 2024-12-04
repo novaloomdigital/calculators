@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cubic Cell Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cubic Cell Calculator</h1>
+    <form id="cubicCellForm">
+        <label for="edgeLength">Edge Length (a, in units):</label>
+        <input type="number" id="edgeLength" placeholder="Leave blank if unknown" step="any">
+
+        <label for="volume">Volume (V, in cubic units):</label>
+        <input type="number" id="volume" placeholder="Leave blank if unknown" step="any">
+
+        <label for="surfaceArea">Surface Area (S, in square units):</label>
+        <input type="number" id="surfaceArea" placeholder="Leave blank if unknown" step="any">
+
+        <button type="button" onclick="calculateCubicCell()">Calculate</button>
+        <div class="result" id="cubicResult"></div>
+    </form>
+
+    <script>
+        function calculateCubicCell() {
+            // Get input values
+            const a = parseFloat(document.getElementById('edgeLength').value) || null;
+            const V = parseFloat(document.getElementById('volume').value) || null;
+            const S = parseFloat(document.getElementById('surfaceArea').value) || null;
+
+            let result = '';
+
+            // Use cubic cell formulas:
+            // Volume: V = a^3
+            // Surface Area: S = 6 * a^2
+            // Edge Length: a = (V)^(1/3) or a = sqrt(S / 6)
+
+            if (a === null && V !== null && S === null) {
+                // Calculate Edge Length from Volume
+                result = `Edge Length (a) = ${(Math.cbrt(V)).toFixed(4)} units`;
+            } else if (a === null && V === null && S !== null) {
+                // Calculate Edge Length from Surface Area
+                result = `Edge Length (a) = ${(Math.sqrt(S / 6)).toFixed(4)} units`;
+            } else if (V === null && a !== null && S === null) {
+                // Calculate Volume from Edge Length
+                result = `Volume (V) = ${(Math.pow(a, 3)).toFixed(4)} cubic units`;
+            } else if (S === null && a !== null && V === null) {
+                // Calculate Surface Area from Edge Length
+                result = `Surface Area (S) = ${(6 * Math.pow(a, 2)).toFixed(4)} square units`;
+            } else {
+                result = 'Please provide exactly two values and leave one blank.';
+            }
+
+            // Display the result
+            document.getElementById('cubicResult').innerText = result;
+        }
+    </script>
+</body>
+</html>

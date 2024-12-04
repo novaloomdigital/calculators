@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vapor Pressure Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Vapor Pressure Calculator</h1>
+    <p>Enter the constants for the Antoine equation:</p>
+    <p>A: <input type="number" id="A" placeholder="A" step="any"></p>
+    <p>B: <input type="number" id="B" placeholder="B" step="any"></p>
+    <p>C: <input type="number" id="C" placeholder="C" step="any"></p>
+
+    <p>Enter the temperature (T) in °C:</p>
+    <input type="number" id="temperature" placeholder="Temperature (°C)" step="any">
+
+    <button onclick="calculateVaporPressure()">Calculate Vapor Pressure</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateVaporPressure() {
+            const A = parseFloat(document.getElementById('A').value);
+            const B = parseFloat(document.getElementById('B').value);
+            const C = parseFloat(document.getElementById('C').value);
+            const T = parseFloat(document.getElementById('temperature').value);
+            let vaporPressure;
+
+            if (isNaN(A) || isNaN(B) || isNaN(C) || isNaN(T)) {
+                vaporPressure = "Please enter valid values for A, B, C, and temperature.";
+            } else {
+                // Calculate vapor pressure using Antoine's equation
+                vaporPressure = Math.pow(10, A - (B / (T + C))); // Calculate vapor pressure in mmHg
+                vaporPressure = vaporPressure.toFixed(2); // Fixed to 2 decimal places
+                vaporPressure = `Vapor Pressure: ${vaporPressure} mmHg`;
+            }
+
+            document.getElementById('result').innerText = vaporPressure;
+        }
+    </script>
+
+</body>
+</html>

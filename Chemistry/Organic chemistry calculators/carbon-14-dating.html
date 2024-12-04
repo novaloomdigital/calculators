@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radiocarbon Dating Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Radiocarbon Dating Calculator</h1>
+    <form id="carbonDatingForm">
+        <label for="percentC14">Percentage of Carbon-14 Remaining (%):</label>
+        <input type="number" id="percentC14" placeholder="Enter remaining C-14 (%)" step="any" required>
+
+        <button type="button" onclick="calculateCarbonDating()">Calculate Age</button>
+        <div class="result" id="datingResult"></div>
+    </form>
+
+    <script>
+        function calculateCarbonDating() {
+            // Constants
+            const halfLife = 5730; // Half-life of Carbon-14 in years
+            const ln2 = Math.log(2); // Natural log of 2
+
+            // Get input value
+            const percentC14 = parseFloat(document.getElementById('percentC14').value);
+
+            let result = '';
+
+            if (percentC14 > 0 && percentC14 <= 100) {
+                const N0 = 100; // Initial amount, assumed to be 100%
+                const N = percentC14; // Remaining fraction of C-14
+                const age = (Math.log(N0 / N) / ln2) * halfLife; // Age calculation
+
+                result = `Estimated Age = ${age.toFixed(2)} years`;
+            } else {
+                result = 'Please enter a percentage between 0 and 100.';
+            }
+
+            // result
+            document.getElementById('datingResult').innerText = result;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Normality Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Normality Calculator</h1>
+    <p>Enter the number of moles of solute:</p>
+    <input type="number" id="moles" placeholder="Moles of Solute" step="any" min="0">
+    
+    <p>Enter the number of equivalents per mole:</p>
+    <input type="number" id="equivalentsPerMole" placeholder="Equivalents per Mole (n)" step="any" min="0">
+
+    <p>Enter the volume of solution (in liters):</p>
+    <input type="number" id="volume" placeholder="Volume of Solution (L)" step="any" min="0">
+
+    <button onclick="calculateNormality()">Calculate Normality</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateNormality() {
+            const moles = parseFloat(document.getElementById('moles').value);
+            const equivalentsPerMole = parseFloat(document.getElementById('equivalentsPerMole').value);
+            const volume = parseFloat(document.getElementById('volume').value);
+            let normality;
+
+            if (isNaN(moles) || isNaN(equivalentsPerMole) || isNaN(volume) || 
+                moles < 0 || equivalentsPerMole <= 0 || volume <= 0) {
+                normality = "Please enter valid positive numbers for all inputs.";
+            } else {
+                const equivalents = moles * equivalentsPerMole; // Calculate equivalents
+                normality = equivalents / volume; // Calculate normality
+                normality = `Normality: ${normality.toFixed(4)} N`;
+            }
+
+            document.getElementById('result').innerText = normality;
+        }
+    </script>
+
+</body>
+</html>

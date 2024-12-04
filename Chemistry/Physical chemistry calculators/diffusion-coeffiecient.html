@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diffusion Coefficient Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Diffusion Coefficient Calculator</h1>
+    <form id="diffusionForm">
+        <label for="temperature">Temperature (K):</label>
+        <input type="number" id="temperature" placeholder="Enter temperature in Kelvin" step="any" required>
+
+        <label for="viscosity">Dynamic Viscosity (Pa·s):</label>
+        <input type="number" id="viscosity" placeholder="Enter viscosity" step="any" required>
+
+        <label for="radius">Radius of Particle (m):</label>
+        <input type="number" id="radius" placeholder="Enter radius in meters" step="any" required>
+
+        <button type="button" onclick="calculateDiffusionCoefficient()">Calculate Diffusion Coefficient (D)</button>
+        <div class="result" id="diffusionResult"></div>
+    </form>
+
+    <script>
+        function calculateDiffusionCoefficient() {
+            const k = 1.38e-23; // Boltzmann's constant in J/K
+
+            // Get input values
+            const T = parseFloat(document.getElementById('temperature').value);
+            const viscosity = parseFloat(document.getElementById('viscosity').value);
+            const r = parseFloat(document.getElementById('radius').value);
+
+            let result = '';
+
+            // Calculate diffusion coefficient using the Stokes-Einstein equation
+            if (T > 0 && viscosity > 0 && r > 0) {
+                const D = (k * T) / (6 * Math.PI * viscosity * r); // D in m²/s
+
+                result = `Diffusion Coefficient (D) = ${D.toExponential(2)} m²/s`;
+            } else {
+                result = 'Please enter valid positive values for temperature, viscosity, and radius.';
+            }
+
+            // Display the result
+            document.getElementById('diffusionResult').innerText = result;
+        }
+    </script>
+</body>
+</html>

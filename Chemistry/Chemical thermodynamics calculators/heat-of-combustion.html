@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heat of Combustion Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Heat of Combustion Calculator</h1>
+    <p>Enter the heat of combustion (ΔH<sub>comb</sub>) in kJ/mol:</p>
+    <input type="number" id="heatOfCombustion" placeholder="ΔH<sub>comb</sub> (kJ/mol)" step="any">
+    
+    <p>Enter the number of moles burned:</p>
+    <input type="number" id="moles" placeholder="Number of moles" step="any">
+
+    <button onclick="calculateHeatOfCombustion()">Calculate Total Energy Released</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateHeatOfCombustion() {
+            const ΔH_comb = parseFloat(document.getElementById('heatOfCombustion').value);
+            const moles = parseFloat(document.getElementById('moles').value);
+            let totalEnergy;
+
+            if (isNaN(ΔH_comb) || isNaN(moles) || moles < 0) {
+                totalEnergy = "Please enter valid values for heat of combustion and non-negative number of moles.";
+            } else {
+                totalEnergy = ΔH_comb * moles; // Calculate total energy released
+                totalEnergy = totalEnergy.toFixed(2); // Fixed to 2 decimal places
+                totalEnergy = `Total Energy Released: ${totalEnergy} kJ`;
+            }
+
+            document.getElementById('result').innerText = totalEnergy;
+        }
+    </script>
+
+</body>
+</html>

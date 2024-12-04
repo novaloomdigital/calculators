@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Molar Mass of Gas Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Molar Mass of Gas Calculator</h1>
+    <p>Enter the mass of the gas (in grams):</p>
+    <input type="number" id="mass" placeholder="Mass (g)" step="any" min="0">
+    
+    <p>Enter the volume of the gas (in liters):</p>
+    <input type="number" id="volume" placeholder="Volume (L)" step="any" min="0">
+    
+    <p>Enter the pressure of the gas (in atm):</p>
+    <input type="number" id="pressure" placeholder="Pressure (atm)" step="any" min="0">
+    
+    <p>Enter the temperature of the gas (in Kelvin):</p>
+    <input type="number" id="temperature" placeholder="Temperature (K)" step="any" min="0">
+
+    <button onclick="calculateMolarMass()">Calculate Molar Mass</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        const R = 0.0821; // Ideal gas constant in L·atm/(K·mol)
+
+        function calculateMolarMass() {
+            const mass = parseFloat(document.getElementById('mass').value);
+            const volume = parseFloat(document.getElementById('volume').value);
+            const pressure = parseFloat(document.getElementById('pressure').value);
+            const temperature = parseFloat(document.getElementById('temperature').value);
+            let molarMass;
+
+            if (isNaN(mass) || isNaN(volume) || isNaN(pressure) || isNaN(temperature) ||
+                mass <= 0 || volume <= 0 || pressure <= 0 || temperature <= 0) {
+                molarMass = "Please enter valid positive numbers for all inputs.";
+            } else {
+                const density = mass / volume; // Calculate density in g/L
+                molarMass = (density * R * temperature) / pressure; // Calculate molar mass
+                molarMass = `Molar Mass: ${molarMass.toFixed(2)} g/mol`;
+            }
+
+            document.getElementById('result').innerText = molarMass;
+        }
+    </script>
+
+</body>
+</html>

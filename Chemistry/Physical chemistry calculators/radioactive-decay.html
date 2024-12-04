@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radioactive Decay Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Radioactive Decay Calculator</h1>
+    <form id="decayForm">
+        <label for="initialQuantity">Initial Quantity (N<sub>0</sub>):</label>
+        <input type="number" id="initialQuantity" placeholder="Enter initial quantity" step="any" required>
+
+        <label for="decayConstant">Decay Constant (λ) or Half-Life (t<sub>1/2</sub> in years):</label>
+        <input type="number" id="decayConstant" placeholder="Enter decay constant or half-life" step="any" required>
+
+        <label for="elapsedTime">Elapsed Time (t in years):</label>
+        <input type="number" id="elapsedTime" placeholder="Enter elapsed time" step="any" required>
+
+        <button type="button" onclick="calculateRemaining()">Calculate Remaining Quantity (N)</button>
+        <div class="result" id="remainingResult"></div>
+    </form>
+
+    <script>
+        function calculateRemaining() {
+            // Get input values
+            const N0 = parseFloat(document.getElementById('initialQuantity').value);
+            const decayInput = parseFloat(document.getElementById('decayConstant').value);
+            const t = parseFloat(document.getElementById('elapsedTime').value);
+
+            let result = '';
+
+            if (N0 > 0 && t >= 0) {
+                let N; // Remaining quantity
+                if (document.getElementById('decayConstant').placeholder.includes("decay constant")) {
+                    const lambda = decayInput; // Use decay constant directly
+                    N = N0 * Math.exp(-lambda * t); // Using decay constant
+                } else {
+                    const halfLife = decayInput; // Use half-life
+                    const lambda = Math.log(2) / halfLife; // Calculate decay constant
+                    N = N0 * Math.pow(0.5, t / halfLife); // Using half-life
+                }
+
+                result = `Remaining Quantity (N) = ${N.toFixed(4)}`;
+            } else {
+                result = 'Please enter valid positive values for Initial Quantity and non-negative value for Elapsed Time.';
+            }
+
+            // Display the result
+            document.getElementById('remainingResult').innerText = result;
+        }
+    </script>
+</body>
+</html>

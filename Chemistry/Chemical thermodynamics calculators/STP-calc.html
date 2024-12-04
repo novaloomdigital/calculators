@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STP Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>STP Calculator</h1>
+    <p>Enter the number of moles of gas:</p>
+    <input type="number" id="moles" placeholder="Number of moles" step="any" min="0">
+
+    <button onclick="calculateVolumeAtSTP()">Calculate Volume at STP</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateVolumeAtSTP() {
+            const moles = parseFloat(document.getElementById('moles').value);
+            const molarVolume = 22.4; // Volume of 1 mole of gas at STP in liters
+            let volume;
+
+            if (isNaN(moles) || moles < 0) {
+                volume = "Please enter a valid non-negative number of moles.";
+            } else {
+                volume = moles * molarVolume; // Calculate volume at STP
+                volume = volume.toFixed(2); // Fixed to 2 decimal places
+                volume = `Volume at STP: ${volume} liters`;
+            }
+
+            document.getElementById('result').innerText = volume;
+        }
+    </script>
+
+</body>
+</html>

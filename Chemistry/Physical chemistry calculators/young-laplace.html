@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Young-Laplace Equation Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Young-Laplace Equation Calculator</h1>
+    <form id="youngLaplaceForm">
+        <label for="surfaceTension">Surface Tension (γ) in N/m:</label>
+        <input type="number" id="surfaceTension" placeholder="Enter surface tension" step="any" required>
+
+        <label for="radius1">Radius of Curvature (R<sub>1</sub>) in m:</label>
+        <input type="number" id="radius1" placeholder="Enter radius R<sub>1</sub>" step="any" required>
+
+        <label for="radius2">Radius of Curvature (R<sub>2</sub>) in m:</label>
+        <input type="number" id="radius2" placeholder="Enter radius R<sub>2</sub>" step="any" required>
+
+        <button type="button" onclick="calculatePressureDifference()">Calculate Pressure Difference (ΔP)</button>
+        <div class="result" id="pressureResult"></div>
+    </form>
+
+    <script>
+        function calculatePressureDifference() {
+            // Get input values
+            const gamma = parseFloat(document.getElementById('surfaceTension').value);
+            const R1 = parseFloat(document.getElementById('radius1').value);
+            const R2 = parseFloat(document.getElementById('radius2').value);
+
+            let result = '';
+
+            if (R1 > 0 && R2 > 0) {
+                // Calculate the pressure difference using the Young-Laplace equation
+                const pressureDifference = gamma * (1 / R1 + 1 / R2); // in Pa
+
+                result = `Pressure Difference (ΔP) = ${pressureDifference.toFixed(4)} Pa`;
+            } else {
+                result = 'Please enter valid positive values for surface tension and radii.';
+            }
+
+            // Display the result
+            document.getElementById('pressureResult').innerText = result;
+        }
+    </script>
+</body>
+</html>

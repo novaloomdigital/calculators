@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ionic Strength Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ionic Strength Calculator</h1>
+    <form id="ionicStrengthForm">
+        <label for="ionCount">Number of Ions:</label>
+        <input type="number" id="ionCount" placeholder="Enter number of different ions" step="1" required>
+
+        <div id="ionInputs"></div>
+
+        <button type="button" onclick="calculateIonicStrength()">Calculate Ionic Strength</button>
+        <div class="result" id="ionicStrengthResult"></div>
+    </form>
+
+    <script>
+        document.getElementById('ionCount').addEventListener('change', function() {
+            const count = parseInt(this.value);
+            const ionInputs = document.getElementById('ionInputs');
+            ionInputs.innerHTML = ''; // Clear previous inputs
+
+            for (let i = 0; i < count; i++) {
+                ionInputs.innerHTML += `
+                    <label for="concentration${i}">Concentration of Ion ${i + 1} (mol/L):</label>
+                    <input type="number" id="concentration${i}" placeholder="Enter concentration" step="any" required>
+                    <label for="charge${i}">Charge of Ion ${i + 1}:</label>
+                    <input type="number" id="charge${i}" placeholder="Enter charge (e.g., +1, -2)" step="any" required>
+                `;
+            }
+        });
+
+        function calculateIonicStrength() {
+            const ionCount = parseInt(document.getElementById('ionCount').value);
+            let ionicStrength = 0;
+
+            for (let i = 0; i < ionCount; i++) {
+                const concentration = parseFloat(document.getElementById(`concentration${i}`).value);
+                const charge = parseFloat(document.getElementById(`charge${i}`).value);
+                ionicStrength += concentration * (charge ** 2);
+            }
+
+            ionicStrength /= 2; // Final calculation for ionic strength
+
+            document.getElementById('ionicStrengthResult').innerText = `Ionic Strength = ${ionicStrength.toFixed(4)} mol/L`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avogadro's Number Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Avogadro's Number Calculator</h1>
+    <p>Enter the number of moles:</p>
+    <input type="number" id="moles" placeholder="Moles" step="any" min="0">
+
+    <button onclick="calculateParticles()">Calculate Number of Particles</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        const avogadroNumber = 6.022e23; // Avogadro's number
+
+        function calculateParticles() {
+            const moles = parseFloat(document.getElementById('moles').value);
+            let particles;
+
+            if (isNaN(moles) || moles < 0) {
+                particles = "Please enter a valid non-negative number of moles.";
+            } else {
+                particles = moles * avogadroNumber; // Calculate number of particles
+                particles = `Number of Particles: ${particles.toFixed(2)}`;
+            }
+
+            document.getElementById('result').innerText = particles;
+        }
+    </script>
+
+</body>
+</html>

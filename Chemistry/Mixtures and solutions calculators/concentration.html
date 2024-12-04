@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concentration Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Concentration Calculator</h1>
+    <label for="solute">Amount of Solute (in grams):</label>
+    <input type="number" id="solute" placeholder="Enter solute amount" required>
+
+    <label for="volume">Volume of Solution (in liters):</label>
+    <input type="number" id="volume" placeholder="Enter solution volume" required>
+
+    <button onclick="calculateConcentration()">Calculate Concentration</button>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateConcentration() {
+        const solute = parseFloat(document.getElementById('solute').value);
+        const volume = parseFloat(document.getElementById('volume').value);
+
+        if (isNaN(solute) || isNaN(volume) || volume <= 0) {
+            alert("Please enter valid numbers.");
+            return;
+        }
+
+        const concentration = solute / volume; // concentration in grams per liter
+        document.getElementById('result').innerText = `Concentration: ${concentration.toFixed(2)} g/L`;
+    }
+</script>
+
+</body>
+</html>
