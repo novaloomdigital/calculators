@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wall Material Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            max-width: 400px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Wall Material Calculator</h1>
+    <label for="length">Length of the Wall (feet):</label>
+    <input type="number" id="length" placeholder="Enter length" step="0.01">
+
+    <label for="height">Height of the Wall (feet):</label>
+    <input type="number" id="height" placeholder="Enter height" step="0.01">
+
+    <label for="thickness">Thickness of the Wall (feet):</label>
+    <input type="number" id="thickness" placeholder="Enter thickness" step="0.01">
+
+    <button onclick="calculateWallMaterials()">Calculate</button>
+
+    <div id="result"></div>
+
+    <script>
+        function calculateWallMaterials() {
+            const length = parseFloat(document.getElementById('length').value);
+            const height = parseFloat(document.getElementById('height').value);
+            const thickness = parseFloat(document.getElementById('thickness').value);
+
+            if (length > 0 && height > 0 && thickness > 0) {
+                const area = length * height; // Area = length * height
+                const volume = length * height * thickness; // Volume = length * height * thickness
+
+                document.getElementById('result').innerHTML = `
+                    Wall Area: ${area.toFixed(2)} square feet<br>
+                    Volume of Materials: ${volume.toFixed(2)} cubic feet
+                `;
+            } else {
+                document.getElementById('result').innerText = 'Please enter valid dimensions for length, height, and thickness.';
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallons Per Square Foot Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            max-width: 400px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Gallons Per Square Foot Calculator</h1>
+    <label for="area">Area (square feet):</label>
+    <input type="number" id="area" placeholder="Enter area" step="0.01">
+
+    <label for="gallons">Total Gallons:</label>
+    <input type="number" id="gallons" placeholder="Enter total gallons" step="0.01">
+
+    <button onclick="calculateGallonsPerSquareFoot()">Calculate</button>
+
+    <div id="result"></div>
+
+    <script>
+        function calculateGallonsPerSquareFoot() {
+            const area = parseFloat(document.getElementById('area').value);
+            const gallons = parseFloat(document.getElementById('gallons').value);
+
+            if (area > 0 && gallons >= 0) {
+                const gallonsPerSquareFoot = gallons / area;
+                document.getElementById('result').innerText = `Gallons per Square Foot: ${gallonsPerSquareFoot.toFixed(2)}`;
+            } else {
+                document.getElementById('result').innerText = 'Please enter valid dimensions.';
+            }
+        }
+    </script>
+
+</body>
+</html>

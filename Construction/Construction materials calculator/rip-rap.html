@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riprap Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            max-width: 400px;
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Riprap Calculator</h1>
+    <label for="length">Length (feet):</label>
+    <input type="number" id="length" placeholder="Enter length">
+
+    <label for="width">Width (feet):</label>
+    <input type="number" id="width" placeholder="Enter width">
+
+    <label for="depth">Depth (feet):</label>
+    <input type="number" id="depth" placeholder="Enter depth">
+
+    <button onclick="calculateRiprap()">Calculate Volume and Weight</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateRiprap() {
+            const length = document.getElementById('length').value;
+            const width = document.getElementById('width').value;
+            const depth = document.getElementById('depth').value;
+
+            // Average density for riprap in pounds per cubic foot
+            const density = 100; // Adjust based on the material used
+
+            if (length && width && depth) {
+                // Calculate volume in cubic feet (Volume = Length * Width * Depth)
+                const volume = length * width * depth;
+                // Calculate weight in pounds (Weight = Volume * Density)
+                const weight = volume * density;
+
+                document.getElementById('result').innerText = 
+                    `Volume: ${volume.toFixed(2)} cubic feet\n` +
+                    `Estimated Weight: ${weight.toFixed(2)} pounds.`;
+            } else {
+                document.getElementById('result').innerText = 'Please fill in all fields.';
+            }
+        }
+    </script>
+
+</body>
+</html>

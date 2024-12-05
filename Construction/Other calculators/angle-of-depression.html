@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Angle of Depression Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            max-width: 400px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Angle of Depression Calculator</h1>
+    <label for="height">Height (feet):</label>
+    <input type="number" id="height" placeholder="Enter height" step="0.01">
+
+    <label for="distance">Horizontal Distance (feet):</label>
+    <input type="number" id="distance" placeholder="Enter distance" step="0.01">
+
+    <button onclick="calculateAngle()">Calculate Angle of Depression</button>
+
+    <div id="result"></div>
+
+    <script>
+        function calculateAngle() {
+            const height = parseFloat(document.getElementById('height').value);
+            const distance = parseFloat(document.getElementById('distance').value);
+
+            if (height > 0 && distance > 0) {
+                // Calculate the angle of depression in radians
+                const angleRadians = Math.atan(height / distance);
+                // Convert radians to degrees
+                const angleDegrees = angleRadians * (180 / Math.PI);
+
+                document.getElementById('result').innerText = `Angle of Depression: ${angleDegrees.toFixed(2)}°`;
+            } else {
+                document.getElementById('result').innerText = 'Please enter valid values for height and distance.';
+            }
+        }
+    </script>
+
+</body>
+</html>

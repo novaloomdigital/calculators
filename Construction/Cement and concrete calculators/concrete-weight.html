@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concrete Weight Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            max-width: 400px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Concrete Weight Calculator</h1>
+    <label for="volume">Volume (cubic yards):</label>
+    <input type="number" id="volume" placeholder="Enter volume" step="0.01">
+
+    <button onclick="calculateWeight()">Calculate Weight</button>
+
+    <div id="result"></div>
+
+    <script>
+        function calculateWeight() {
+            const volumeCubicYards = parseFloat(document.getElementById('volume').value);
+
+            if (volumeCubicYards > 0) {
+                // Average density of concrete is approximately 150 pounds per cubic foot
+                const densityPoundsPerCubicFoot = 150;
+                
+                // Convert volume from cubic yards to cubic feet (1 cubic yard = 27 cubic feet)
+                const volumeCubicFeet = volumeCubicYards * 27;
+
+                // Calculate weight in pounds
+                const weightPounds = volumeCubicFeet * densityPoundsPerCubicFoot;
+
+                document.getElementById('result').innerHTML = `
+                    Weight of Concrete: ${weightPounds.toFixed(2)} pounds
+                `;
+            } else {
+                document.getElementById('result').innerText = 'Please enter a valid volume.';
+            }
+        }
+    </script>
+
+</body>
+</html>

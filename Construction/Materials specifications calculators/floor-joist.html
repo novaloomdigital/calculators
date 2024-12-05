@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floor Joist Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Floor Joist Calculator</h1>
+        <label for="span">Joist Span (feet):</label>
+        <input type="number" id="span" placeholder="Enter span in feet" required>
+        
+        <label for="load">Load (psf):</label>
+        <input type="number" id="load" placeholder="Enter total load in psf" required>
+
+        <label for="woodType">Wood Type:</label>
+        <select id="woodType">
+            <option value="Douglas Fir">Douglas Fir</option>
+            <option value="Southern Pine">Southern Pine</option>
+            <option value="Hemlock">Hemlock</option>
+        </select>
+
+        <button onclick="calculateJoistSize()">Calculate Joist Size</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateJoistSize() {
+            const span = parseFloat(document.getElementById('span').value);
+            const load = parseFloat(document.getElementById('load').value);
+            const woodType = document.getElementById('woodType').value;
+
+            if (isNaN(span) || isNaN(load) || span <= 0 || load <= 0) {
+                document.getElementById('result').innerText = 'Please enter valid positive numbers.';
+                return;
+            }
+
+            let joistSize;
+
+            // Basic sizing logic based on span and load (simplified)
+            if (woodType === "Douglas Fir") {
+                if (span <= 10 && load <= 40) {
+                    joistSize = "2x6";
+                } else if (span <= 12 && load <= 40) {
+                    joistSize = "2x8";
+                } else if (span <= 14 && load <= 40) {
+                    joistSize = "2x10";
+                } else {
+                    joistSize = "Consult a structural engineer.";
+                }
+            } else if (woodType === "Southern Pine") {
+                if (span <= 10 && load <= 40) {
+                    joistSize = "2x6";
+                } else if (span <= 12 && load <= 40) {
+                    joistSize = "2x8";
+                } else if (span <= 14 && load <= 40) {
+                    joistSize = "2x10";
+                } else {
+                    joistSize = "Consult a structural engineer.";
+                }
+            } else {
+                joistSize = "Consult a structural engineer.";
+            }
+
+            document.getElementById('result').innerText = `Recommended Joist Size: ${joistSize}`;
+        }
+    </script>
+</body>
+</html>

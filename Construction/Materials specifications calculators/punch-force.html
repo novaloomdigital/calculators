@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Punch Force Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e2e3e5;
+            border-left: 5px solid #007bff;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Punch Force Calculator</h1>
+    <label for="diameter">Punch Diameter (inches):</label>
+    <input type="number" id="diameter" min="0.1" step="0.01" required>
+
+    <label for="yieldStrength">Material Yield Strength (psi):</label>
+    <input type="number" id="yieldStrength" min="1" required>
+
+    <label for="thickness">Material Thickness (inches):</label>
+    <input type="number" id="thickness" min="0.01" step="0.01" required>
+
+    <button id="calculate">Calculate Punch Force</button>
+
+    <div class="result" id="result" style="display: none;"></div>
+
+    <script>
+        document.getElementById('calculate').addEventListener('click', function() {
+            const diameter = parseFloat(document.getElementById('diameter').value);
+            const yieldStrength = parseFloat(document.getElementById('yieldStrength').value);
+            const thickness = parseFloat(document.getElementById('thickness').value);
+
+            if (!diameter || !yieldStrength || !thickness) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            // Calculate Punch Force in pounds
+            const area = Math.PI * Math.pow(diameter / 2, 2); // Area in square inches
+            const punchForce = yieldStrength * area * thickness; // Total force in pounds
+
+            // Display result
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = `The required Punch Force is approximately <strong>${punchForce.toFixed(2)}</strong> pounds.`;
+        });
+    </script>
+
+</body>
+</html>

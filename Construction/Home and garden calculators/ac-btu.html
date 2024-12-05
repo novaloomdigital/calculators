@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air Conditioner BTU Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e2e3e5;
+            border-left: 5px solid #007bff;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Air Conditioner BTU Calculator</h1>
+
+    <label for="length">Room Length (ft):</label>
+    <input type="number" id="length" min="1" required>
+
+    <label for="width">Room Width (ft):</label>
+    <input type="number" id="width" min="1" required>
+
+    <label for="height">Ceiling Height (ft):</label>
+    <input type="number" id="height" min="1" required>
+
+    <label for="occupants">Number of Occupants:</label>
+    <input type="number" id="occupants" min="0" required>
+
+    <button id="calculate">Calculate Required BTU</button>
+
+    <div class="result" id="result" style="display: none;"></div>
+
+    <script>
+        document.getElementById('calculate').addEventListener('click', function() {
+            const length = parseFloat(document.getElementById('length').value);
+            const width = parseFloat(document.getElementById('width').value);
+            const height = parseFloat(document.getElementById('height').value);
+            const occupants = parseInt(document.getElementById('occupants').value);
+
+            if (!length || !width || !height || occupants < 0) {
+                alert("Please fill in all fields correctly.");
+                return;
+            }
+
+            // Calculate room volume (cubic feet)
+            const roomVolume = length * width * height;
+
+            // Calculate BTU based on room size (using a basic standard of 20 BTUs per square foot)
+            const area = length * width;
+            let requiredBTU = area * 20; // Basic estimate
+
+            // Add BTUs for occupants
+            requiredBTU += occupants * 400; // Each occupant adds approximately 400 BTUs
+
+            // Display result
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = `The required BTU for the air conditioner is approximately <strong>${requiredBTU.toFixed(0)}</strong> BTUs.`;
+        });
+    </script>
+
+</body>
+</html>

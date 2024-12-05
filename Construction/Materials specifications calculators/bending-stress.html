@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bending Stress Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bending Stress Calculator</h1>
+        <label for="moment">Bending Moment (pound-inches):</label>
+        <input type="number" id="moment" placeholder="Enter bending moment" required>
+        
+        <label for="distance">Distance to Outermost Fiber (inches):</label>
+        <input type="number" id="distance" placeholder="Enter distance to outermost fiber" required>
+
+        <label for="width">Beam Width (inches):</label>
+        <input type="number" id="width" placeholder="Enter beam width" required>
+
+        <label for="height">Beam Height (inches):</label>
+        <input type="number" id="height" placeholder="Enter beam height" required>
+
+        <button onclick="calculateBendingStress()">Calculate Bending Stress</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateBendingStress() {
+            const moment = parseFloat(document.getElementById('moment').value);
+            const distance = parseFloat(document.getElementById('distance').value);
+            const width = parseFloat(document.getElementById('width').value);
+            const height = parseFloat(document.getElementById('height').value);
+        
+            if (isNaN(moment) || isNaN(distance) || isNaN(width) || isNaN(height) ||
+                moment <= 0 || distance <= 0 || width <= 0 || height <= 0) {
+                document.getElementById('result').innerText = 'Please enter valid positive numbers.';
+                return;
+            }
+
+            // Calculate Moment of Inertia (I) for a rectangular section
+            const I = (width * Math.pow(height, 3)) / 12; // in inches^4
+            
+            // Calculate bending stress using the formula
+            const bendingStress = (moment * distance) / I; // in psi
+
+            document.getElementById('result').innerText = `Bending Stress: ${bendingStress.toFixed(2)} psi`;
+        }
+    </script>
+</body>
+</html>

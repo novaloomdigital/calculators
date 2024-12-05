@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Board and Batten Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background: #28a745;
+            color: white;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Board and Batten Calculator</h1>
+    <label for="wallWidth">Wall Width (m):</label>
+    <input type="number" id="wallWidth" placeholder="Enter wall width in meters" required>
+
+    <label for="wallHeight">Wall Height (m):</label>
+    <input type="number" id="wallHeight" placeholder="Enter wall height in meters" required>
+
+    <label for="boardWidth">Board Width (m):</label>
+    <input type="number" id="boardWidth" placeholder="Enter board width in meters" required>
+
+    <label for="battenWidth">Batting Width (m):</label>
+    <input type="number" id="battenWidth" placeholder="Enter batten width in meters" required>
+
+    <button onclick="calculateMaterials()">Calculate Materials</button>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateMaterials() {
+        const wallWidth = parseFloat(document.getElementById('wallWidth').value);
+        const wallHeight = parseFloat(document.getElementById('wallHeight').value);
+        const boardWidth = parseFloat(document.getElementById('boardWidth').value);
+        const battenWidth = parseFloat(document.getElementById('battenWidth').value);
+
+        if (wallWidth > 0 && wallHeight > 0 && boardWidth > 0 && battenWidth > 0) {
+            const area = wallWidth * wallHeight; // Total area to cover
+            const boardArea = boardWidth * wallHeight; // Area covered by one board
+            const battenArea = battenWidth * wallHeight; // Area covered by one batten
+
+            const numberOfBoards = Math.ceil(area / (boardArea + battenArea)); // Total number of boards needed
+            const numberOfBattens = Math.ceil(wallWidth / battenWidth); // Total number of battens needed
+
+            document.getElementById('result').innerText = `Total Boards Needed: ${numberOfBoards}\nTotal Battens Needed: ${numberOfBattens}`;
+        } else {
+            document.getElementById('result').innerText = `Please enter valid dimensions.`;
+        }
+    }
+</script>
+
+</body>
+</html>

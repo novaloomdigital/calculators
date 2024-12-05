@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Box Fill Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Box Fill Calculator</h1>
+        <label for="boxLength">Box Length (inches):</label>
+        <input type="number" id="boxLength" placeholder="Enter box length" required>
+        
+        <label for="boxWidth">Box Width (inches):</label>
+        <input type="number" id="boxWidth" placeholder="Enter box width" required>
+
+        <label for="boxHeight">Box Height (inches):</label>
+        <input type="number" id="boxHeight" placeholder="Enter box height" required>
+
+        <label for="itemsVolume">Volume of Items (cubic inches):</label>
+        <input type="number" id="itemsVolume" placeholder="Enter volume of items" required>
+
+        <button onclick="calculateFillPercentage()">Calculate Fill Percentage</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateFillPercentage() {
+            const boxLength = parseFloat(document.getElementById('boxLength').value);
+            const boxWidth = parseFloat(document.getElementById('boxWidth').value);
+            const boxHeight = parseFloat(document.getElementById('boxHeight').value);
+            const itemsVolume = parseFloat(document.getElementById('itemsVolume').value);
+        
+            if (isNaN(boxLength) || isNaN(boxWidth) || isNaN(boxHeight) || isNaN(itemsVolume) ||
+                boxLength <= 0 || boxWidth <= 0 || boxHeight <= 0 || itemsVolume < 0) {
+                document.getElementById('result').innerText = 'Please enter valid positive numbers.';
+                return;
+            }
+
+            // Calculate the volume of the box
+            const boxVolume = boxLength * boxWidth * boxHeight; // in cubic inches
+
+            // Calculate the fill percentage
+            const fillPercentage = (itemsVolume / boxVolume) * 100; // in percentage
+
+            document.getElementById('result').innerText = `Fill Percentage: ${fillPercentage.toFixed(2)}%`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bowl Segment Volume Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            max-width: 400px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Bowl Segment Volume Calculator</h1>
+    <label for="radius">Radius of the Bowl (feet):</label>
+    <input type="number" id="radius" placeholder="Enter radius" step="0.01">
+
+    <label for="height">Height of Segment (feet):</label>
+    <input type="number" id="height" placeholder="Enter height" step="0.01">
+
+    <button onclick="calculateVolume()">Calculate Volume</button>
+
+    <div id="result"></div>
+
+    <script>
+        function calculateVolume() {
+            const radius = parseFloat(document.getElementById('radius').value);
+            const height = parseFloat(document.getElementById('height').value);
+
+            if (radius > 0 && height > 0 && height <= radius) {
+                // Calculate the volume of the bowl segment
+                const volume = (Math.PI * height * (3 * radius ** 2 - height ** 2)) / 3;
+
+                document.getElementById('result').innerText = `Volume of Bowl Segment: ${volume.toFixed(2)} cubic feet`;
+            } else {
+                document.getElementById('result').innerText = 'Please enter valid values for radius and height (height must be <= radius).';
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vinyl Fence Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Vinyl Fence Calculator</h1>
+        <label for="fenceLength">Total Fence Length (feet):</label>
+        <input type="number" id="fenceLength" placeholder="Enter total length" required>
+        
+        <label for="panelWidth">Panel Width (feet):</label>
+        <input type="number" id="panelWidth" placeholder="Enter width of each panel" required>
+
+        <button onclick="calculateFence()">Calculate Fence Requirements</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateFence() {
+            const fenceLength = parseFloat(document.getElementById('fenceLength').value);
+            const panelWidth = parseFloat(document.getElementById('panelWidth').value);
+
+            if (isNaN(fenceLength) || isNaN(panelWidth) || fenceLength <= 0 || panelWidth <= 0) {
+                document.getElementById('result').innerText = 'Please enter valid positive numbers.';
+                return;
+            }
+
+            // Calculate the number of panels needed
+            const numberOfPanels = Math.ceil(fenceLength / panelWidth); // Round up
+            const numberOfPosts = numberOfPanels + 1; // One post needed for each panel plus one at the end
+
+            document.getElementById('result').innerText = `You will need: ${numberOfPanels} panels and ${numberOfPosts} posts.`;
+        }
+    </script>
+</body>
+</html>

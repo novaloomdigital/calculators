@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wall Square Footage Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Wall Square Footage Calculator</h1>
+        <label for="length">Wall Length (feet):</label>
+        <input type="number" id="length" placeholder="Enter wall length" required>
+        
+        <label for="height">Wall Height (feet):</label>
+        <input type="number" id="height" placeholder="Enter wall height" required>
+
+        <button onclick="calculateSquareFootage()">Calculate Square Footage</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateSquareFootage() {
+            const length = parseFloat(document.getElementById('length').value);
+            const height = parseFloat(document.getElementById('height').value);
+        
+            if (isNaN(length) || isNaN(height) || length <= 0 || height <= 0) {
+                document.getElementById('result').innerText = 'Please enter valid positive numbers.';
+                return;
+            }
+
+            // Calculate the square footage
+            const squareFootage = length * height; // Area in square feet
+
+            document.getElementById('result').innerText = `Total Square Footage: ${squareFootage.toFixed(2)} sq ft`;
+        }
+    </script>
+</body>
+</html>

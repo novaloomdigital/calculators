@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sand Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            max-width: 400px;
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .info {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Sand Calculator</h1>
+    
+    <label for="length">Length:</label>
+    <input type="number" id="length" placeholder="Enter length">
+
+    <label for="width">Width:</label>
+    <input type="number" id="width" placeholder="Enter width">
+
+    <label for="depth">Depth:</label>
+    <input type="number" id="depth" placeholder="Enter depth">
+
+    <label for="units">Measurement Units:</label>
+    <select id="units">
+        <option value="feet">Feet</option>
+        <option value="yards">Yards</option>
+        <option value="meters">Meters</option>
+    </select>
+
+    <label for="sandType">Sand Type:</label>
+    <select id="sandType">
+        <option value="regular">Regular Sand (100 lbs/cu ft)</option>
+        <option value="masonry">Masonry Sand (95 lbs/cu ft)</option>
+        <option value="play">Play Sand (90 lbs/cu ft)</option>
+    </select>
+
+    <button onclick="calculateSand()">Calculate</button>
+
+    <div class="result" id="result"></div>
+
+    <div class="info">
+        Common conversions:<br>
+        1 cubic yard = 27 cubic feet<br>
+        1 ton = 2000 pounds
+    </div>
+
+    <script>
+        function calculateSand() {
+            const length = parseFloat(document.getElementById('length').value);
+            const width = parseFloat(document.getElementById('width').value);
+            const depth = parseFloat(document.getElementById('depth').value);
+            const units = document.getElementById('units').value;
+            const sandType = document.getElementById('sandType').value;
+
+            if (!length || !width || !depth) {
+                document.getElementById('result').innerText = 'Please fill in all measurements.';
+                return;
+            }
+
+            let volume;
+            let sandDensity;
+
+            // Calculate volume in cubic feet
+            if (units === 'feet') {
+                volume = length * width * depth;
+            } else if (units === 'yards') {
+                volume = length * width * depth * 27; // Convert cubic yards to cubic feet
+            } else if (units === 'meters') {
+                volume = length * width * depth * 35.315; // Convert cubic meters to cubic feet
+            }
+
+            // Set sand density based on type
+            switch(sandType) {
+                case 'regular':
+                    sandDensity = 100;
+                    break;
+                case 'masonry':
+                    sandDensity = 95;
+                    break;
+                case 'play':
+                    sandDensity = 90;
+                    break;
+            }
+
+            // Calculate weight in pounds
+            const weightInPounds = volume * sandDensity;
+            
+            // Convert to tons
+            const weightInTons = weightInPounds / 2000;
+
+            // Calculate cubic yards
+            const cubicYards = volume / 27;
+
+            let result = `Results:\n`;
+            result += `Volume: ${cubicYards.toFixed(2)} cubic yards\n`;
+            result += `Volume: ${volume.toFixed(2)} cubic feet\n`;
+            result += `Weight: ${weightInPounds.toFixed(2)} pounds\n`;
+            result += `Weight: ${weightInTons.toFixed(2)} tons`;
+
+            document.getElementById('result').innerText = result;
+        }
+    </script>
+
+</body>
+</html>

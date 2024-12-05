@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbon Equivalent Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Carbon Equivalent Calculator</h1>
+        <label for="carbon">Carbon Content (C) (%):</label>
+        <input type="number" id="carbon" placeholder="Enter carbon content" required>
+        
+        <label for="manganese">Manganese Content (Mn) (%):</label>
+        <input type="number" id="manganese" placeholder="Enter manganese content" required>
+
+        <label for="chromium">Chromium Content (Cr) (%):</label>
+        <input type="number" id="chromium" placeholder="Enter chromium content" required>
+
+        <label for="molybdenum">Molybdenum Content (Mo) (%):</label>
+        <input type="number" id="molybdenum" placeholder="Enter molybdenum content" required>
+
+        <label for="nickel">Nickel Content (Ni) (%):</label>
+        <input type="number" id="nickel" placeholder="Enter nickel content" required>
+
+        <label for="copper">Copper Content (Cu) (%):</label>
+        <input type="number" id="copper" placeholder="Enter copper content" required>
+
+        <button onclick="calculateCarbonEquivalent()">Calculate Carbon Equivalent</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateCarbonEquivalent() {
+            const carbon = parseFloat(document.getElementById('carbon').value);
+            const manganese = parseFloat(document.getElementById('manganese').value);
+            const chromium = parseFloat(document.getElementById('chromium').value);
+            const molybdenum = parseFloat(document.getElementById('molybdenum').value);
+            const nickel = parseFloat(document.getElementById('nickel').value);
+            const copper = parseFloat(document.getElementById('copper').value);
+        
+            if (isNaN(carbon) || isNaN(manganese) || isNaN(chromium) || isNaN(molybdenum) || 
+                isNaN(nickel) || isNaN(copper) || 
+                carbon < 0 || manganese < 0 || chromium < 0 || molybdenum < 0 || 
+                nickel < 0 || copper < 0) {
+                document.getElementById('result').innerText = 'Please enter valid non-negative numbers.';
+                return;
+            }
+
+            // Calculate the carbon equivalent
+            const carbonEquivalent = carbon + (manganese / 6) + (chromium / 5) + (molybdenum / 4) + (nickel / 3) + (copper / 15);
+            
+            document.getElementById('result').innerText = `Carbon Equivalent (CE): ${carbonEquivalent.toFixed(4)}%`;
+        }
+    </script>
+</body>
+</html>

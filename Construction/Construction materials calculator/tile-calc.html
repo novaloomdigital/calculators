@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tile Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tile Calculator</h1>
+        <label for="areaLength">Area Length (inches):</label>
+        <input type="number" id="areaLength" placeholder="Enter area length" required>
+        
+        <label for="areaWidth">Area Width (inches):</label>
+        <input type="number" id="areaWidth" placeholder="Enter area width" required>
+        
+        <label for="tileLength">Tile Length (inches):</label>
+        <input type="number" id="tileLength" placeholder="Enter tile length" required>
+        
+        <label for="tileWidth">Tile Width (inches):</label>
+        <input type="number" id="tileWidth" placeholder="Enter tile width" required>
+        
+        <button onclick="calculateTiles()">Calculate Tiles</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateTiles() {
+            const areaLength = parseFloat(document.getElementById('areaLength').value);
+            const areaWidth = parseFloat(document.getElementById('areaWidth').value);
+            const tileLength = parseFloat(document.getElementById('tileLength').value);
+            const tileWidth = parseFloat(document.getElementById('tileWidth').value);
+        
+            if (isNaN(areaLength) || isNaN(areaWidth) || isNaN(tileLength) || isNaN(tileWidth) ||
+                areaLength <= 0 || areaWidth <= 0 || tileLength <= 0 || tileWidth <= 0) {
+                document.getElementById('result').innerText = 'Please enter valid positive numbers.';
+                return;
+            }
+
+            // Calculate the area of the floor and the area of one tile
+            const area = areaLength * areaWidth; // Area in square inches
+            const tileArea = tileLength * tileWidth; // Tile area in square inches
+            
+            // Calculate the number of tiles required
+            const numberOfTiles = Math.ceil(area / tileArea); // Round up to the nearest whole number
+
+            document.getElementById('result').innerText = `You will need: ${numberOfTiles} tiles`;
+        }
+    </script>
+</body>
+</html>

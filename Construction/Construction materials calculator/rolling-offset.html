@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rolling Offset Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            max-width: 400px;
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Rolling Offset Calculator</h1>
+    <label for="horizontalDistance">Horizontal Distance (feet):</label>
+    <input type="number" id="horizontalDistance" placeholder="Enter horizontal distance">
+
+    <label for="verticalDistance">Vertical Distance (feet):</label>
+    <input type="number" id="verticalDistance" placeholder="Enter vertical distance">
+
+    <button onclick="calculateRollingOffset()">Calculate Rolling Offset</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateRollingOffset() {
+            const horizontalDistance = document.getElementById('horizontalDistance').value;
+            const verticalDistance = document.getElementById('verticalDistance').value;
+
+            if (horizontalDistance && verticalDistance) {
+                // Calculate the rolling offset using the Pythagorean theorem
+                const rollingOffset = Math.sqrt(Math.pow(horizontalDistance, 2) + Math.pow(verticalDistance, 2));
+
+                document.getElementById('result').innerText = 
+                    `Rolling Offset Distance: ${rollingOffset.toFixed(2)} feet.`;
+            } else {
+                document.getElementById('result').innerText = 'Please fill in all fields.';
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Limestone Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            max-width: 400px;
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Limestone Calculator</h1>
+    <label for="length">Length (feet):</label>
+    <input type="number" id="length" placeholder="Enter length">
+
+    <label for="width">Width (feet):</label>
+    <input type="number" id="width" placeholder="Enter width">
+
+    <label for="depth">Depth (inches):</label>
+    <input type="number" id="depth" placeholder="Enter depth">
+
+    <button onclick="calculateLimestone()">Calculate Limestone</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateLimestone() {
+            const length = document.getElementById('length').value;
+            const width = document.getElementById('width').value;
+            const depth = document.getElementById('depth').value;
+
+            if (length && width && depth) {
+                // Convert depth from inches to feet
+                const depthInFeet = depth / 12;
+                // Calculate volume in cubic feet
+                const volume = length * width * depthInFeet;
+                // Convert cubic feet to cubic yards (1 cubic yard = 27 cubic feet)
+                const cubicYards = volume / 27;
+
+                document.getElementById('result').innerText = `You will need approximately ${cubicYards.toFixed(2)} cubic yards of limestone.`;
+            } else {
+                document.getElementById('result').innerText = 'Please fill in all fields.';
+            }
+        }
+    </script>
+
+</body>
+</html>

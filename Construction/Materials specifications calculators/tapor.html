@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taper Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="number"], select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e2e3e5;
+            border-left: 5px solid #007bff;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Taper Calculator</h1>
+    <label for="diameterLarge">Larger Diameter (inches):</label>
+    <input type="number" id="diameterLarge" min="0.1" step="0.01" required>
+
+    <label for="diameterSmall">Smaller Diameter (inches):</label>
+    <input type="number" id="diameterSmall" min="0.1" step="0.01" required>
+
+    <label for="length">Length of Taper (inches):</label>
+    <input type="number" id="length" min="0.1" step="0.01" required>
+
+    <button id="calculate">Calculate Taper Angle</button>
+
+    <div class="result" id="result" style="display: none;"></div>
+
+    <script>
+        document.getElementById('calculate').addEventListener('click', function() {
+            const diameterLarge = parseFloat(document.getElementById('diameterLarge').value);
+            const diameterSmall = parseFloat(document.getElementById('diameterSmall').value);
+            const length = parseFloat(document.getElementById('length').value);
+
+            if (!diameterLarge || !diameterSmall || !length) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            // Calculate the taper angle in degrees
+            const radiusDifference = (diameterLarge - diameterSmall) / 2;
+            const taperAngle = Math.atan(radiusDifference / length) * (180 / Math.PI); // Convert to degrees
+
+            // Display result
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = `The taper angle is approximately <strong>${taperAngle.toFixed(2)}</strong> degrees.`;
+        });
+    </script>
+
+</body>
+</html>

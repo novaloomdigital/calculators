@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snow Load Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            max-width: 400px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Snow Load Calculator</h1>
+    <label for="area">Roof Area (square feet):</label>
+    <input type="number" id="area" placeholder="Enter area" step="0.01">
+
+    <label for="snowLoad">Snow Load (pounds per square foot):</label>
+    <input type="number" id="snowLoad" placeholder="Enter snow load" step="0.01">
+
+    <button onclick="calculateSnowLoad()">Calculate Total Snow Load</button>
+
+    <div id="result"></div>
+
+    <script>
+        function calculateSnowLoad() {
+            const area = parseFloat(document.getElementById('area').value);
+            const snowLoad = parseFloat(document.getElementById('snowLoad').value);
+
+            if (area > 0 && snowLoad > 0) {
+                // Calculate total snow load
+                const totalSnowLoad = area * snowLoad;
+                document.getElementById('result').innerText = `Total Snow Load: ${totalSnowLoad.toFixed(2)} pounds`;
+            } else {
+                document.getElementById('result').innerText = 'Please enter valid dimensions and snow load.';
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concrete Driveway Cost Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            max-width: 400px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Concrete Driveway Cost Calculator</h1>
+    <label for="length">Length (feet):</label>
+    <input type="number" id="length" placeholder="Enter length" step="0.01">
+
+    <label for="width">Width (feet):</label>
+    <input type="number" id="width" placeholder="Enter width" step="0.01">
+
+    <label for="costPerYard">Cost per Cubic Yard ($):</label>
+    <input type="number" id="costPerYard" placeholder="Enter cost" step="0.01">
+
+    <button onclick="calculateCost()">Calculate Cost</button>
+
+    <div id="result"></div>
+
+    <script>
+        function calculateCost() {
+            const length = parseFloat(document.getElementById('length').value);
+            const width = parseFloat(document.getElementById('width').value);
+            const costPerYard = parseFloat(document.getElementById('costPerYard').value);
+
+            if (length > 0 && width > 0 && costPerYard > 0) {
+                const thickness = 4; // thickness in inches
+                const volumeCubicFeet = length * width * (thickness / 12); // convert thickness to feet
+                const volumeCubicYards = volumeCubicFeet / 27; // convert cubic feet to cubic yards
+                const totalCost = volumeCubicYards * costPerYard; // calculate total cost
+                document.getElementById('result').innerText = `Total Cost: $${totalCost.toFixed(2)}`;
+            } else {
+                document.getElementById('result').innerText = 'Please enter valid dimensions and cost.';
+            }
+        }
+    </script>
+
+</body>
+</html>

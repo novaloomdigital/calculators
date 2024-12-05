@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumber Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            max-width: 400px;
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Lumber Calculator</h1>
+    <label for="length">Length (feet):</label>
+    <input type="number" id="length" placeholder="Enter length">
+
+    <label for="width">Width (inches):</label>
+    <input type="number" id="width" placeholder="Enter width">
+
+    <label for="thickness">Thickness (inches):</label>
+    <input type="number" id="thickness" placeholder="Enter thickness">
+
+    <button onclick="calculateLumber()">Calculate Board Feet</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateLumber() {
+            const length = document.getElementById('length').value;
+            const width = document.getElementById('width').value;
+            const thickness = document.getElementById('thickness').value;
+
+            if (length && width && thickness) {
+                // Calculate board feet (BF = (Length * Width * Thickness) / 12)
+                const boardFeet = (length * width * thickness) / 12;
+
+                document.getElementById('result').innerText = `Total Board Feet: ${boardFeet.toFixed(2)} BF`;
+            } else {
+                document.getElementById('result').innerText = 'Please fill in all fields.';
+            }
+        }
+    </script>
+
+</body>
+</html>

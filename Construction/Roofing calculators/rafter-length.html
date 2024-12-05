@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rafter Length Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            max-width: 400px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Rafter Length Calculator</h1>
+    <label for="rise">Rise (feet):</label>
+    <input type="number" id="rise" placeholder="Enter rise" step="0.01">
+
+    <label for="run">Run (feet):</label>
+    <input type="number" id="run" placeholder="Enter run" step="0.01">
+
+    <button onclick="calculateRafterLength()">Calculate Rafter Length</button>
+
+    <div id="result"></div>
+
+    <script>
+        function calculateRafterLength() {
+            const rise = parseFloat(document.getElementById('rise').value);
+            const run = parseFloat(document.getElementById('run').value);
+
+            if (rise > 0 && run > 0) {
+                // Calculate rafter length using the Pythagorean theorem
+                const rafterLength = Math.sqrt((rise * rise) + (run * run));
+                document.getElementById('result').innerText = `Rafter Length: ${rafterLength.toFixed(2)} feet`;
+            } else {
+                document.getElementById('result').innerText = 'Please enter valid dimensions.';
+            }
+        }
+    </script>
+
+</body>
+</html>

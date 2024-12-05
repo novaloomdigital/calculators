@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sealant Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            max-width: 400px;
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .info {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Sealant Calculator</h1>
+
+    <label for="length">Length (feet):</label>
+    <input type="number" id="length" placeholder="Enter length" required>
+
+    <label for="width">Width (feet):</label>
+    <input type="number" id="width" placeholder="Enter width" required>
+
+    <label for="coverage">Coverage (square feet per gallon):</label>
+    <input type="number" id="coverage" placeholder="Enter coverage" required>
+
+    <button onclick="calculateSealant()">Calculate Sealant Needed</button>
+
+    <div class="result" id="result"></div>
+
+    <div class="info">
+        Note: Make sure to account for any windows, doors, or other areas that won't need sealant.
+    </div>
+
+    <script>
+        function calculateSealant() {
+            const length = parseFloat(document.getElementById('length').value);
+            const width = parseFloat(document.getElementById('width').value);
+            const coverage = parseFloat(document.getElementById('coverage').value);
+
+            if (!length || !width || !coverage) {
+                document.getElementById('result').innerText = 'Please fill in all fields.';
+                return;
+            }
+
+            // Calculate area in square feet
+            const area = length * width;
+
+            // Calculate the amount of sealant needed
+            const sealantNeeded = area / coverage;
+
+            // Format the result
+            const result = `Area: ${area.toFixed(2)} square feet\n` +
+                           `Sealant Needed: ${sealantNeeded.toFixed(2)} gallons`;
+
+            document.getElementById('result').innerText = result;
+        }
+    </script>
+
+</body>
+</html>

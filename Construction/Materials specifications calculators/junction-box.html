@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Junction Box Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e2e3e5;
+            border-left: 5px solid #007bff;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Junction Box Calculator</h1>
+    <label for="wires">Number of Wires:</label>
+    <input type="number" id="wires" min="1" required>
+
+    <label for="wireSize">Wire Size (AWG):</label>
+    <input type="number" id="wireSize" min="1" required>
+
+    <button id="calculate">Calculate Box Size</button>
+
+    <div class="result" id="result" style="display: none;"></div>
+
+    <script>
+        document.getElementById('calculate').addEventListener('click', function() {
+            const wires = parseInt(document.getElementById('wires').value);
+            const wireSize = parseInt(document.getElementById('wireSize').value);
+
+            if (!wires || !wireSize) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            // Box fill calculations based on NEC
+            let boxFillVolume = 0;
+
+            // Calculate volume based on wire size (example: 2 cubic inches per wire for 14 AWG)
+            // Adjust the cubic inches based on wire size
+            if (wireSize <= 14) {
+                boxFillVolume = wires * 2; // For 14 AWG
+            } else if (wireSize <= 10) {
+                boxFillVolume = wires * 2.25; // For 12 AWG
+            } else {
+                boxFillVolume = wires * 2.5; // For 10 AWG and larger
+            }
+
+            // Display result
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = `You will need a junction box with a volume of at least <strong>${boxFillVolume.toFixed(2)}</strong> cubic inches.`;
+        });
+    </script>
+
+</body>
+</html>

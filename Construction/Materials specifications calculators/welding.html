@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welding Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e2e3e5;
+            border-left: 5px solid #007bff;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Welding Calculator</h1>
+
+    <label for="current">Welding Current (Amps):</label>
+    <input type="number" id="current" min="1" required>
+
+    <label for="voltage">Welding Voltage (Volts):</label>
+    <input type="number" id="voltage" min="1" required>
+
+    <label for="travelSpeed">Travel Speed (in/min):</label>
+    <input type="number" id="travelSpeed" min="1" required>
+
+    <button id="calculate">Calculate Heat Input</button>
+
+    <div class="result" id="result" style="display: none;"></div>
+
+    <script>
+        document.getElementById('calculate').addEventListener('click', function() {
+            const current = parseFloat(document.getElementById('current').value);
+            const voltage = parseFloat(document.getElementById('voltage').value);
+            const travelSpeed = parseFloat(document.getElementById('travelSpeed').value);
+
+            if (!current || !voltage || !travelSpeed) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            // Calculate heat input (kJ/in)
+            const heatInput = (current * voltage) / travelSpeed; // in kJ/in
+
+            // Display result
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = `The calculated Heat Input is approximately <strong>${heatInput.toFixed(2)}</strong> kJ/in.`;
+        });
+    </script>
+
+</body>
+</html>

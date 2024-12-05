@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liters Per Minute Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            max-width: 400px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Liters Per Minute Calculator</h1>
+    <label for="liters">Total Liters Used:</label>
+    <input type="number" id="liters" placeholder="Enter total liters" step="0.01">
+
+    <label for="time">Time (minutes):</label>
+    <input type="number" id="time" placeholder="Enter time in minutes" step="0.01">
+
+    <button onclick="calculateLPM()">Calculate LPM</button>
+
+    <div id="result"></div>
+
+    <script>
+        function calculateLPM() {
+            const liters = parseFloat(document.getElementById('liters').value);
+            const time = parseFloat(document.getElementById('time').value);
+
+            if (liters > 0 && time > 0) {
+                // Calculate liters per minute
+                const lpm = liters / time;
+                document.getElementById('result').innerText = `Flow Rate: ${lpm.toFixed(2)} LPM`;
+            } else {
+                document.getElementById('result').innerText = 'Please enter valid values for liters and time.';
+            }
+        }
+    </script>
+
+</body>
+</html>

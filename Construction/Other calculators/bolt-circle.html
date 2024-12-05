@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bolt Circle Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            max-width: 400px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Bolt Circle Calculator</h1>
+    <label for="diameter">Diameter of Bolt Circle (inches):</label>
+    <input type="number" id="diameter" placeholder="Enter diameter" step="0.01">
+
+    <label for="bolts">Number of Bolts:</label>
+    <input type="number" id="bolts" placeholder="Enter number of bolts" step="1" min="1">
+
+    <button onclick="calculateSpacing()">Calculate Bolt Spacing</button>
+
+    <div id="result"></div>
+
+    <script>
+        function calculateSpacing() {
+            const diameter = parseFloat(document.getElementById('diameter').value);
+            const bolts = parseInt(document.getElementById('bolts').value);
+
+            if (diameter > 0 && bolts > 0) {
+                // Calculate the angle (spacing) between bolts in degrees
+                const angle = 360 / bolts;
+
+                // Calculate the distance from the center to each bolt
+                const radius = diameter / 2;
+                const spacing = (2 * Math.PI * radius) / bolts;
+
+                document.getElementById('result').innerText = `Angle Between Bolts: ${angle.toFixed(2)}°\nSpacing: ${spacing.toFixed(2)} inches`;
+            } else {
+                document.getElementById('result').innerText = 'Please enter valid values for diameter and number of bolts.';
+            }
+        }
+    </script>
+
+</body>
+</html>

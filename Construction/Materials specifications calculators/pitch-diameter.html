@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pitch Diameter Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e2e3e5;
+            border-left: 5px solid #007bff;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Pitch Diameter Calculator</h1>
+    <label for="numberOfTeeth">Number of Teeth:</label>
+    <input type="number" id="numberOfTeeth" min="1" required>
+
+    <label for="diametralPitch">Diametral Pitch:</label>
+    <input type="number" id="diametralPitch" min="0.01" step="0.01" required>
+
+    <button id="calculate">Calculate Pitch Diameter</button>
+
+    <div class="result" id="result" style="display: none;"></div>
+
+    <script>
+        document.getElementById('calculate').addEventListener('click', function() {
+            const numberOfTeeth = parseInt(document.getElementById('numberOfTeeth').value);
+            const diametralPitch = parseFloat(document.getElementById('diametralPitch').value);
+
+            if (!numberOfTeeth || !diametralPitch) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            // Calculate Pitch Diameter
+            const pitchDiameter = numberOfTeeth / diametralPitch; // Diameter in inches
+
+            // Display result
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = `The Pitch Diameter is approximately <strong>${pitchDiameter.toFixed(4)}</strong> inches.`;
+        });
+    </script>
+
+</body>
+</html>

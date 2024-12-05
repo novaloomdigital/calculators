@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pipe Weight Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            max-width: 400px;
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Pipe Weight Calculator</h1>
+    <label for="outerDiameter">Outer Diameter (inches):</label>
+    <input type="number" id="outerDiameter" placeholder="Enter outer diameter">
+
+    <label for="wallThickness">Wall Thickness (inches):</label>
+    <input type="number" id="wallThickness" placeholder="Enter wall thickness">
+
+    <label for="length">Length (feet):</label>
+    <input type="number" id="length" placeholder="Enter length">
+
+    <button onclick="calculatePipeWeight()">Calculate Weight</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculatePipeWeight() {
+            const outerDiameter = document.getElementById('outerDiameter').value;
+            const wallThickness = document.getElementById('wallThickness').value;
+            const length = document.getElementById('length').value;
+
+            // Average density for steel in pounds per cubic foot
+            const density = 490; // Adjust for different materials as needed
+
+            if (outerDiameter && wallThickness && length) {
+                // Convert length from feet to inches
+                const lengthInInches = length * 12;
+
+                // Calculate inner diameter
+                const innerDiameter = outerDiameter - (2 * wallThickness);
+                
+                // Calculate volume of the pipe (outer volume - inner volume)
+                const outerVolume = Math.PI * Math.pow(outerDiameter / 2, 2) * lengthInInches;
+                const innerVolume = Math.PI * Math.pow(innerDiameter / 2, 2) * lengthInInches;
+
+                // Volume of the material
+                const volume = outerVolume - innerVolume;
+
+                // Calculate weight in pounds
+                const weight = volume * density / 1728; // Convert cubic inches to cubic feet (1728 in³ = 1 ft³)
+
+                document.getElementById('result').innerText = `Estimated Weight: ${weight.toFixed(2)} pounds.`;
+            } else {
+                document.getElementById('result').innerText = 'Please fill in all fields.';
+            }
+        }
+    </script>
+
+</body>
+</html>
