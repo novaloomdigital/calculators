@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WAR Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        input[type="number"], input[type="button"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="button"] {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="button"]:hover {
+            background-color: #4cae4c;
+        }
+        .result {
+            font-size: 1.2em;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <h1>WAR Calculator</h1>
+        <label for="battingRuns">Batting Runs:</label>
+        <input type="number" id="battingRuns" placeholder="Enter batting runs" required>
+
+        <label for="baseRunningRuns">Base Running Runs:</label>
+        <input type="number" id="baseRunningRuns" placeholder="Enter base running runs" required>
+
+        <label for="fieldingRuns">Fielding Runs:</label>
+        <input type="number" id="fieldingRuns" placeholder="Enter fielding runs" required>
+
+        <label for="positionalAdjustment">Positional Adjustment:</label>
+        <input type="number" id="positionalAdjustment" placeholder="Enter positional adjustment" required>
+
+        <label for="replacementRuns">Replacement Runs:</label>
+        <input type="number" id="replacementRuns" placeholder="Enter replacement runs" required>
+
+        <input type="button" value="Calculate WAR" onclick="calculateWAR()">
+        
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateWAR() {
+            const battingRuns = parseFloat(document.getElementById('battingRuns').value);
+            const baseRunningRuns = parseFloat(document.getElementById('baseRunningRuns').value);
+            const fieldingRuns = parseFloat(document.getElementById('fieldingRuns').value);
+            const positionalAdjustment = parseFloat(document.getElementById('positionalAdjustment').value);
+            const replacementRuns = parseFloat(document.getElementById('replacementRuns').value);
+            const resultDiv = document.getElementById('result');
+
+            // Calculate WAR
+            if (!isNaN(battingRuns) && !isNaN(baseRunningRuns) &&
+                !isNaN(fieldingRuns) && !isNaN(positionalAdjustment) &&
+                !isNaN(replacementRuns)) {
+                
+                const war = (battingRuns + baseRunningRuns + fieldingRuns + positionalAdjustment - replacementRuns) / 10; // Example scaling factor
+                resultDiv.innerHTML = `Wins Above Replacement (WAR): ${war.toFixed(2)}`;
+            } else {
+                resultDiv.innerHTML = 'Please enter valid numbers for all fields.';
+            }
+        }
+    </script>
+
+</body>
+</html>

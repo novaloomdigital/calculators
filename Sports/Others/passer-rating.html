@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passer Rating Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input[type="number"] {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h2>Passer Rating Calculator</h2>
+    <input type="number" id="completions" placeholder="Completions (C)" />
+    <input type="number" id="attempts" placeholder="Attempts (A)" />
+    <input type="number" id="yards" placeholder="Yards (Y)" />
+    <input type="number" id="touchdowns" placeholder="Touchdowns (TD)" />
+    <input type="number" id="interceptions" placeholder="Interceptions (INT)" />
+    <button onclick="calculatePasserRating()">Calculate Passer Rating</button>
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculatePasserRating() {
+        const completions = parseInt(document.getElementById('completions').value);
+        const attempts = parseInt(document.getElementById('attempts').value);
+        const yards = parseInt(document.getElementById('yards').value);
+        const touchdowns = parseInt(document.getElementById('touchdowns').value);
+        const interceptions = parseInt(document.getElementById('interceptions').value);
+        
+        if (isNaN(completions) || isNaN(attempts) || isNaN(yards) || 
+            isNaN(touchdowns) || isNaN(interceptions) || attempts === 0) {
+            document.getElementById('result').innerText = 'Please enter valid values. Attempts cannot be zero.';
+            return;
+        }
+
+        // Calculate the components for the passer rating
+        const completionPercentage = completions / attempts - 0.3;
+        const yardagePerAttempt = yards / attempts - 3;
+        const touchdownsPerAttempt = touchdowns / attempts;
+        const interceptionsPerAttempt = interceptions / attempts;
+
+        // Calculate the passer rating components
+        const a = Math.max(0, completionPercentage * 5);
+        const b = Math.max(0, yardagePerAttempt * 0.25);
+        const c = Math.max(0, touchdownsPerAttempt * 20);
+        const d = 2.375 - Math.max(0, interceptionsPerAttempt * 25);
+
+        // Calculate the passer rating
+        let passerRating = ((a + b + c + d) / 6) * 100;
+
+        // Cap the passer rating
+        passerRating = Math.min(passerRating, 158.3);
+
+        document.getElementById('result').innerText = `Passer Rating: ${passerRating.toFixed(2)}`;
+    }
+</script>
+
+</body>
+</html>

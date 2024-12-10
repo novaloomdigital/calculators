@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VO2 Max Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input[type="number"] {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h2>VO2 Max Calculator</h2>
+    <input type="number" id="age" placeholder="Enter your age" />
+    <input type="number" id="weight" placeholder="Weight (kg)" />
+    <input type="number" id="time" placeholder="Time (minutes)" />
+    <input type="number" id="heartRate" placeholder="Heart Rate (bpm)" />
+    <button onclick="calculateVO2Max()">Calculate VO2 Max</button>
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateVO2Max() {
+        const age = parseInt(document.getElementById('age').value);
+        const weight = parseFloat(document.getElementById('weight').value);
+        const time = parseFloat(document.getElementById('time').value);
+        const heartRate = parseInt(document.getElementById('heartRate').value);
+        
+        if (!age || !weight || !time || !heartRate) {
+            document.getElementById('result').innerText = 'Please enter valid values.';
+            return;
+        }
+
+        // Calculate VO2 Max using the Rockport formula
+        const vo2Max = 132.853 - (0.0769 * weight) - (0.3877 * age) + (6.315 * 1) - (3.264 * time) - (0.1565 * heartRate);
+
+        document.getElementById('result').innerText = `Estimated VO2 Max: ${vo2Max.toFixed(2)} mL/kg/min`;
+    }
+</script>
+
+</body>
+</html>

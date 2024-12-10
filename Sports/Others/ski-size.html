@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ski Size Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input[type="number"], select {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h2>Ski Size Calculator</h2>
+    <input type="number" id="height" placeholder="Height (cm)" />
+    <input type="number" id="weight" placeholder="Weight (kg)" />
+    <select id="ability">
+        <option value="">Select Ability Level</option>
+        <option value="beginner">Beginner</option>
+        <option value="intermediate">Intermediate</option>
+        <option value="advanced">Advanced</option>
+    </select>
+    <button onclick="calculateSkiSize()">Calculate Ski Size</button>
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateSkiSize() {
+        const height = parseInt(document.getElementById('height').value);
+        const weight = parseInt(document.getElementById('weight').value);
+        const ability = document.getElementById('ability').value;
+
+        if (isNaN(height) || isNaN(weight) || ability === "") {
+            document.getElementById('result').innerText = 'Please enter valid values.';
+            return;
+        }
+
+        let skiSize;
+
+        // Calculate ski size based on ability level
+        if (ability === 'beginner') {
+            skiSize = height * 0.85; // Skis should be shorter for beginners
+        } else if (ability === 'intermediate') {
+            skiSize = height * 0.9; // Skis at nose height for intermediates
+        } else if (ability === 'advanced') {
+            skiSize = height * 0.95; // Skis at forehead height for advanced
+        }
+
+        // Convert ski size to a range based on weight (optional consideration)
+        if (weight > 80) {
+            skiSize += 5; // Longer skis for heavier weight
+        } else if (weight < 60) {
+            skiSize -= 5; // Shorter skis for lighter weight
+        }
+
+        document.getElementById('result').innerText = `Recommended Ski Length: ${skiSize.toFixed(2)} cm`;
+    }
+</script>
+
+</body>
+</html>

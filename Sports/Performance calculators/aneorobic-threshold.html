@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Anaerobic Threshold Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    input[type="number"] {
+      padding: 5px;
+      width: 100px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    #result {
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Anaerobic Threshold Calculator</h1>
+  <label for="mhr">Maximum Heart Rate (bpm):</label>
+  <input type="number" id="mhr">
+  <label for="percentage">Percentage of MHR:</label>
+  <input type="number" id="percentage">
+  <button onclick="calculateAT()">Calculate AT</button>
+  <p id="result"></p>
+
+  <script>
+    function calculateAT() {
+      const mhr = parseInt(document.getElementById("mhr").value);
+      const percentage = parseInt(document.getElementById("percentage").value);
+
+      const at = Math.round(mhr * (percentage / 100));
+      document.getElementById("result").textContent = `Your estimated Anaerobic Threshold is: ${at} bpm`;
+    }
+  </script>
+</body>
+</html>

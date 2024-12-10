@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIN Calculator - Ski Bindings Adjustment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e9ecef;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input[type="number"], select {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h2>DIN Calculator</h2>
+    <input type="number" id="weight" placeholder="Weight (kg)" />
+    <input type="number" id="height" placeholder="Height (cm)" />
+    <input type="number" id="age" placeholder="Age" />
+    <select id="ability">
+        <option value="">Select Ability Level</option>
+        <option value="1">Beginner</option>
+        <option value="2">Intermediate</option>
+        <option value="3">Advanced</option>
+    </select>
+    <button onclick="calculateDIN()">Calculate DIN</button>
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateDIN() {
+        const weight = parseFloat(document.getElementById('weight').value);
+        const height = parseFloat(document.getElementById('height').value);
+        const age = parseInt(document.getElementById('age').value);
+        const ability = parseInt(document.getElementById('ability').value);
+        
+        if (!weight || !height || !age || !ability) {
+            document.getElementById('result').innerText = 'Please enter valid values and select an ability level.';
+            return;
+        }
+
+        // Basic DIN calculation logic (this is a simplified example)
+        let dinValue = (weight / 10) + (height / 100) - (age / 10);
+
+        // Adjust DIN based on ability level
+        if (ability === 1) { // Beginner
+            dinValue -= 2;
+        } else if (ability === 3) { // Advanced
+            dinValue += 2;
+        }
+
+        // Ensure DIN value is within reasonable bounds
+        dinValue = Math.max(1, Math.min(dinValue, 18)); // DIN values typically range from 1 to 18
+
+        document.getElementById('result').innerText = `Recommended DIN Setting: ${Math.round(dinValue)}`;
+    }
+</script>
+
+</body>
+</html>

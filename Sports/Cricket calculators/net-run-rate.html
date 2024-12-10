@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Net Run Rate Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        input[type="number"], input[type="button"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="button"] {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="button"]:hover {
+            background-color: #4cae4c;
+        }
+        .result {
+            font-size: 1.2em;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <h1>Net Run Rate Calculator</h1>
+        <label for="totalRunsScored">Total Runs Scored:</label>
+        <input type="number" id="totalRunsScored" placeholder="Enter total runs scored" required>
+        
+        <label for="totalRunsConceded">Total Runs Conceded:</label>
+        <input type="number" id="totalRunsConceded" placeholder="Enter total runs conceded" required>
+
+        <label for="totalOversFaced">Total Overs Faced:</label>
+        <input type="number" step="0.1" id="totalOversFaced" placeholder="Enter total overs faced" required>
+
+        <input type="button" value="Calculate NRR" onclick="calculateNRR()">
+        
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateNRR() {
+            const totalRunsScored = parseFloat(document.getElementById('totalRunsScored').value);
+            const totalRunsConceded = parseFloat(document.getElementById('totalRunsConceded').value);
+            const totalOversFaced = parseFloat(document.getElementById('totalOversFaced').value);
+            const resultDiv = document.getElementById('result');
+
+            if (!isNaN(totalRunsScored) && !isNaN(totalRunsConceded) && !isNaN(totalOversFaced) && totalOversFaced > 0) {
+                // Calculate Net Run Rate
+                const nrr = (totalRunsScored - totalRunsConceded) / totalOversFaced;
+                resultDiv.innerHTML = `Net Run Rate (NRR): ${nrr.toFixed(2)}`;
+            } else {
+                resultDiv.innerHTML = 'Please enter valid numbers for all fields and ensure total overs faced is greater than 0.';
+            }
+        }
+    </script>
+
+</body>
+</html>

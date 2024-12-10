@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>On-Base Percentage Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        input[type="number"], input[type="button"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="button"] {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="button"]:hover {
+            background-color: #4cae4c;
+        }
+        .result {
+            font-size: 1.2em;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <h1>On-Base Percentage Calculator</h1>
+        <label for="hits">Hits:</label>
+        <input type="number" id="hits" placeholder="Enter hits" required>
+        
+        <label for="walks">Walks:</label>
+        <input type="number" id="walks" placeholder="Enter walks" required>
+
+        <label for="hitByPitch">Hit By Pitch:</label>
+        <input type="number" id="hitByPitch" placeholder="Enter hit by pitch" required>
+
+        <label for="atBats">At Bats:</label>
+        <input type="number" id="atBats" placeholder="Enter at bats" required>
+
+        <label for="sacFly">Sacrifice Flies:</label>
+        <input type="number" id="sacFly" placeholder="Enter sacrifice flies" required>
+
+        <input type="button" value="Calculate OBP" onclick="calculateOBP()">
+        
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateOBP() {
+            const hits = parseFloat(document.getElementById('hits').value);
+            const walks = parseFloat(document.getElementById('walks').value);
+            const hitByPitch = parseFloat(document.getElementById('hitByPitch').value);
+            const atBats = parseFloat(document.getElementById('atBats').value);
+            const sacFly = parseFloat(document.getElementById('sacFly').value);
+            const resultDiv = document.getElementById('result');
+
+            // Calculate total opportunities to reach base
+            const denominator = atBats + walks + hitByPitch + sacFly;
+
+            if (!isNaN(hits) && !isNaN(walks) && !isNaN(hitByPitch) && !isNaN(atBats) && !isNaN(sacFly) && denominator > 0) {
+                // Calculate On-Base Percentage
+                const obp = (hits + walks + hitByPitch) / denominator;
+                resultDiv.innerHTML = `On-Base Percentage (OBP): ${(obp * 100).toFixed(2)}%`;
+            } else {
+                resultDiv.innerHTML = 'Please enter valid numbers for all fields and ensure the denominator is greater than 0.';
+            }
+        }
+    </script>
+
+</body>
+</html>

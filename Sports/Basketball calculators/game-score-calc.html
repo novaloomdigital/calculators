@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Score Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        input[type="number"], input[type="button"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="button"] {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="button"]:hover {
+            background-color: #4cae4c;
+        }
+        .result {
+            font-size: 1.2em;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <h1>Game Score Calculator</h1>
+        <label for="points">Points:</label>
+        <input type="number" id="points" placeholder="Enter points scored" required>
+        
+        <label for="fieldGoalsMade">Field Goals Made:</label>
+        <input type="number" id="fieldGoalsMade" placeholder="Enter field goals made" required>
+
+        <label for="fieldGoalsAttempted">Field Goals Attempted:</label>
+        <input type="number" id="fieldGoalsAttempted" placeholder="Enter field goals attempted" required>
+
+        <label for="freeThrowsMade">Free Throws Made:</label>
+        <input type="number" id="freeThrowsMade" placeholder="Enter free throws made" required>
+
+        <label for="freeThrowsAttempted">Free Throws Attempted:</label>
+        <input type="number" id="freeThrowsAttempted" placeholder="Enter free throws attempted" required>
+
+        <label for="offensiveRebounds">Offensive Rebounds:</label>
+        <input type="number" id="offensiveRebounds" placeholder="Enter offensive rebounds" required>
+
+        <label for="defensiveRebounds">Defensive Rebounds:</label>
+        <input type="number" id="defensiveRebounds" placeholder="Enter defensive rebounds" required>
+
+        <label for="steals">Steals:</label>
+        <input type="number" id="steals" placeholder="Enter steals" required>
+
+        <label for="assists">Assists:</label>
+        <input type="number" id="assists" placeholder="Enter assists" required>
+
+        <label for="turnovers">Turnovers:</label>
+        <input type="number" id="turnovers" placeholder="Enter turnovers" required>
+
+        <label for="personalFouls">Personal Fouls:</label>
+        <input type="number" id="personalFouls" placeholder="Enter personal fouls" required>
+
+        <input type="button" value="Calculate Game Score" onclick="calculateGameScore()">
+        
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateGameScore() {
+            const points = parseFloat(document.getElementById('points').value);
+            const fieldGoalsMade = parseFloat(document.getElementById('fieldGoalsMade').value);
+            const fieldGoalsAttempted = parseFloat(document.getElementById('fieldGoalsAttempted').value);
+            const freeThrowsMade = parseFloat(document.getElementById('freeThrowsMade').value);
+            const freeThrowsAttempted = parseFloat(document.getElementById('freeThrowsAttempted').value);
+            const offensiveRebounds = parseFloat(document.getElementById('offensiveRebounds').value);
+            const defensiveRebounds = parseFloat(document.getElementById('defensiveRebounds').value);
+            const steals = parseFloat(document.getElementById('steals').value);
+            const assists = parseFloat(document.getElementById('assists').value);
+            const turnovers = parseFloat(document.getElementById('turnovers').value);
+            const personalFouls = parseFloat(document.getElementById('personalFouls').value);
+            const resultDiv = document.getElementById('result');
+
+            // Calculate Game Score
+            const gameScore = points +
+                (0.4 * fieldGoalsMade) -
+                (0.7 * fieldGoalsAttempted) -
+                (0.4 * (freeThrowsAttempted - freeThrowsMade)) +
+                (0.7 * offensiveRebounds) +
+                (0.3 * defensiveRebounds) +
+                steals +
+                (0.7 * assists) -
+                (0.7 * turnovers) -
+                (0.4 * personalFouls);
+
+            resultDiv.innerHTML = `Game Score: ${gameScore.toFixed(2)}`;
+        }
+    </script>
+
+</body>
+</html>

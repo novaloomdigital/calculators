@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ergometer Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    input[type="number"] {
+      padding: 5px;
+      width: 100px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    #result {
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Ergometer Calculator</h1>
+  <label for="distance">Distance (meters):</label>
+  <input type="number" id="distance">
+  <label for="time">Time (seconds):</label>
+  <input type="number" id="time">
+  <button onclick="calculateErg()">Calculate</button>
+  <p id="result"></p>
+
+  <script>
+    function calculateErg() {
+      const distance = parseFloat(document.getElementById("distance").value);
+      const time = parseFloat(document.getElementById("time").value);
+
+      const watts = Math.round(distance * 1000 / time);
+      const split = (time / distance) * 500;
+
+      document.getElementById("result").textContent = `Watts: ${watts} | Split: ${split.toFixed(2)}`;
+    }
+  </script>
+</body>
+</html>

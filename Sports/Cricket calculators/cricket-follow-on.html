@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Follow-On Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        input[type="number"], input[type="button"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="button"] {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="button"]:hover {
+            background-color: #4cae4c;
+        }
+        .result {
+            font-size: 1.2em;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <h1>Follow-On Calculator</h1>
+        <label for="firstInningsScore">First Innings Score (Team A):</label>
+        <input type="number" id="firstInningsScore" placeholder="Enter runs scored by Team A" required>
+        
+        <label for="secondInningsScore">Second Innings Score (Team B):</label>
+        <input type="number" id="secondInningsScore" placeholder="Enter runs scored by Team B" required>
+
+        <input type="button" value="Check Follow-On" onclick="checkFollowOn()">
+        
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function checkFollowOn() {
+            const firstInningsScore = parseFloat(document.getElementById('firstInningsScore').value);
+            const secondInningsScore = parseFloat(document.getElementById('secondInningsScore').value);
+            const resultDiv = document.getElementById('result');
+
+            if (!isNaN(firstInningsScore) && !isNaN(secondInningsScore)) {
+                const followOnThreshold = firstInningsScore - secondInningsScore;
+
+                if (followOnThreshold >= 200) {
+                    resultDiv.innerHTML = `Team B must follow on as they are behind by ${followOnThreshold} runs.`;
+                } else {
+                    resultDiv.innerHTML = `Team B does not have to follow on. They are behind by ${followOnThreshold} runs.`;
+                }
+            } else {
+                resultDiv.innerHTML = 'Please enter valid numbers for both scores.';
+            }
+        }
+    </script>
+
+</body>
+</html>

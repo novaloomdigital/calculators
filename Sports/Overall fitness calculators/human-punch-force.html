@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Punch Force Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        input[type="number"], input[type="button"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="button"] {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="button"]:hover {
+            background-color: #4cae4c;
+        }
+        .result {
+            font-size: 1.2em;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <h1>Punch Force Calculator</h1>
+        <label for="mass">Mass (kg):</label>
+        <input type="number" id="mass" placeholder="Enter your mass" required>
+        
+        <label for="speed">Speed (m/s):</label>
+        <input type="number" id="speed" placeholder="Enter punch speed" required>
+        
+        <input type="button" value="Calculate Force" onclick="calculateForce()">
+        
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateForce() {
+            const mass = parseFloat(document.getElementById('mass').value);
+            const speed = parseFloat(document.getElementById('speed').value);
+            const resultDiv = document.getElementById('result');
+
+            if (!isNaN(mass) && !isNaN(speed)) {
+                // Force = mass * acceleration. Assuming acceleration = speed (m/s)
+                const force = mass * speed;
+                resultDiv.innerHTML = `Punch Force: ${force.toFixed(2)} Newtons`;
+            } else {
+                resultDiv.innerHTML = 'Please enter valid numbers.';
+            }
+        }
+    </script>
+
+</body>
+</html>

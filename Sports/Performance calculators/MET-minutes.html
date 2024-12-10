@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MET Minutes Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input[type="number"] {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h2>MET Minutes Calculator</h2>
+    <input type="number" id="metValue" placeholder="Enter MET value" />
+    <input type="number" id="duration" placeholder="Duration (minutes)" />
+    <input type="number" id="weight" placeholder="Weight (kg)" />
+    <button onclick="calculateCaloriesBurned()">Calculate Calories Burned</button>
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateCaloriesBurned() {
+        const metValue = parseFloat(document.getElementById('metValue').value);
+        const duration = parseFloat(document.getElementById('duration').value);
+        const weight = parseFloat(document.getElementById('weight').value);
+        
+        if (!metValue || !duration || !weight) {
+            document.getElementById('result').innerText = 'Please enter valid values.';
+            return;
+        }
+
+        // Calculate calories burned using the formula: Calories = METs * weight (kg) * duration (hours)
+        const caloriesBurned = (metValue * weight * (duration / 60)).toFixed(2);
+
+        document.getElementById('result').innerText = `Calories burned: ${caloriesBurned} kcal`;
+    }
+</script>
+
+</body>
+</html>

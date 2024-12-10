@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiteboarding Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="number"], button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Kiteboarding Calculator</h1>
+        <label for="weight">Weight (lbs):</label>
+        <input type="number" id="weight" placeholder="Enter your weight" required>
+
+        <label for="windSpeed">Wind Speed (mph):</label>
+        <input type="number" id="windSpeed" placeholder="Enter wind speed" required>
+
+        <label for="kiteSize">Kite Size (m²):</label>
+        <input type="number" id="kiteSize" placeholder="Enter kite size" required>
+
+        <button id="calculateBtn">Calculate Suitability</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('calculateBtn').addEventListener('click', function() {
+            const weight = parseFloat(document.getElementById('weight').value);
+            const windSpeed = parseFloat(document.getElementById('windSpeed').value);
+            const kiteSize = parseFloat(document.getElementById('kiteSize').value);
+
+            if (isNaN(weight) || weight <= 0 || isNaN(windSpeed) || windSpeed <= 0 || isNaN(kiteSize) || kiteSize <= 0) {
+                document.getElementById('result').innerText = "Please enter valid values.";
+                return;
+            }
+
+            // General guideline for kiteboarding:
+            // A rough estimate is 1m² of kite size for every 10 lbs of rider weight in light winds (around 10-15 mph).
+            // Adjusting for wind speed:
+            let requiredKiteSize = (weight / 10) * (15 / windSpeed);
+
+            // Evaluating suitability
+            let suitabilityMessage;
+            if (kiteSize >= requiredKiteSize) {
+                suitabilityMessage = "The kite size is suitable for the given conditions!";
+            } else {
+                suitabilityMessage = "The kite size is too small for your weight and the wind conditions.";
+            }
+
+            document.getElementById('result').innerText = suitabilityMessage;
+        });
+    </script>
+</body>
+</html>

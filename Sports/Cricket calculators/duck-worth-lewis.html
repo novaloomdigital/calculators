@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duckworth-Lewis Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        input[type="number"], input[type="button"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="button"] {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="button"]:hover {
+            background-color: #4cae4c;
+        }
+        .result {
+            font-size: 1.2em;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <h1>Duckworth-Lewis Calculator</h1>
+        <label for="originalTarget">Original Target:</label>
+        <input type="number" id="originalTarget" placeholder="Enter original target" required>
+        
+        <label for="resourcesLost">Resources Lost (%):</label>
+        <input type="number" id="resourcesLost" placeholder="Enter resources lost" required>
+
+        <label for="resourcesLeft">Resources Remaining (%):</label>
+        <input type="number" id="resourcesLeft" placeholder="Enter resources remaining" required>
+
+        <input type="button" value="Calculate Adjusted Target" onclick="calculateDLC()">
+        
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateDLC() {
+            const originalTarget = parseFloat(document.getElementById('originalTarget').value);
+            const resourcesLost = parseFloat(document.getElementById('resourcesLost').value);
+            const resourcesLeft = parseFloat(document.getElementById('resourcesLeft').value);
+            const resultDiv = document.getElementById('result');
+
+            if (!isNaN(originalTarget) && !isNaN(resourcesLost) && !isNaN(resourcesLeft)) {
+                // Calculate the adjusted target based on a simplified D/L method
+                // Adjusted Target = (Original Target * Resources Left) / (100 - Resources Lost)
+                const adjustedTarget = (originalTarget * resourcesLeft) / (100 - resourcesLost);
+                resultDiv.innerHTML = `Adjusted Target: ${adjustedTarget.toFixed(2)} runs`;
+            } else {
+                resultDiv.innerHTML = 'Please enter valid numbers for all fields.';
+            }
+        }
+    </script>
+
+</body>
+</html>

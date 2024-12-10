@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goals Against Average (GAA) Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input[type="number"] {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h2>GAA Calculator</h2>
+    <input type="number" id="goalsAgainst" placeholder="Goals Against" />
+    <input type="number" id="minutesPlayed" placeholder="Minutes Played" />
+    <button onclick="calculateGAA()">Calculate GAA</button>
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateGAA() {
+        const goalsAgainst = parseInt(document.getElementById('goalsAgainst').value);
+        const minutesPlayed = parseInt(document.getElementById('minutesPlayed').value);
+        
+        if (isNaN(goalsAgainst) || isNaN(minutesPlayed) || minutesPlayed === 0) {
+            document.getElementById('result').innerText = 'Please enter valid values. Minutes played cannot be zero.';
+            return;
+        }
+
+        // Calculate GAA
+        const gaa = (goalsAgainst * 60) / minutesPlayed;
+
+        document.getElementById('result').innerText = `Goals Against Average (GAA): ${gaa.toFixed(2)}`;
+    }
+</script>
+
+</body>
+</html>

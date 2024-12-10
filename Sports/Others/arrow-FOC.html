@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrow FOC Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input[type="number"] {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h2>Arrow FOC Calculator</h2>
+    <input type="number" id="totalWeight" placeholder="Total Arrow Weight (grains)" />
+    <input type="number" id="pointWeight" placeholder="Point Weight (grains)" />
+    <button onclick="calculateFOC()">Calculate FOC</button>
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateFOC() {
+        const totalWeight = parseFloat(document.getElementById('totalWeight').value);
+        const pointWeight = parseFloat(document.getElementById('pointWeight').value);
+        
+        if (!totalWeight || !pointWeight || pointWeight > totalWeight) {
+            document.getElementById('result').innerText = 'Please enter valid weights. Point weight must be less than total weight.';
+            return;
+        }
+        
+        // Calculate FOC
+        const foc = ((totalWeight / 2.0) + pointWeight) / totalWeight * 100;
+
+        document.getElementById('result').innerText = `FOC: ${foc.toFixed(2)}%`;
+    }
+</script>
+
+</body>
+</html>

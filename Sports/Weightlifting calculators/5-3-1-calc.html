@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5/3/1 Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="number"], button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>5/3/1 Calculator</h1>
+        <label for="oneRepMax">One Rep Max (1RM):</label>
+        <input type="number" id="oneRepMax" placeholder="Enter your 1RM" required>
+        
+        <button id="calculateBtn">Calculate</button>
+        
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('calculateBtn').addEventListener('click', function() {
+            const oneRepMax = parseFloat(document.getElementById('oneRepMax').value);
+            if (isNaN(oneRepMax) || oneRepMax <= 0) {
+                document.getElementById('result').innerText = "Please enter a valid 1RM.";
+                return;
+            }
+
+            const weights = {
+                "65%": (oneRepMax * 0.65).toFixed(2),
+                "75%": (oneRepMax * 0.75).toFixed(2),
+                "85%": (oneRepMax * 0.85).toFixed(2),
+                "95%": (oneRepMax * 0.95).toFixed(2),
+            };
+
+            document.getElementById('result').innerHTML = `
+                <p>Working Weights:</p>
+                <p>65%: ${weights["65%"]} lbs</p>
+                <p>75%: ${weights["75%"]} lbs</p>
+                <p>85%: ${weights["85%"]} lbs</p>
+                <p>95%: ${weights["95%"]} lbs</p>
+            `;
+        });
+    </script>
+</body>
+</html>

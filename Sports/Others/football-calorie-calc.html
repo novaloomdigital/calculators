@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Calorie Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input[type="number"], select {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h2>Football Calorie Calculator</h2>
+    <input type="number" id="weight" placeholder="Weight (kg)" />
+    <input type="number" id="duration" placeholder="Duration (minutes)" />
+    <select id="intensity">
+        <option value="">Select Intensity Level</option>
+        <option value="5">Recreational Play (5 METs)</option>
+        <option value="7">Competitive Play (7 METs)</option>
+    </select>
+    <button onclick="calculateCalories()">Calculate Calories Burned</button>
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateCalories() {
+        const weight = parseFloat(document.getElementById('weight').value);
+        const duration = parseFloat(document.getElementById('duration').value);
+        const intensity = parseFloat(document.getElementById('intensity').value);
+        
+        if (!weight || !duration || !intensity) {
+            document.getElementById('result').innerText = 'Please enter valid values and select an intensity level.';
+            return;
+        }
+        
+        // Convert duration from minutes to hours
+        const durationInHours = duration / 60;
+
+        // Calculate calories burned
+        const caloriesBurned = intensity * weight * durationInHours;
+
+        document.getElementById('result').innerText = `Calories burned: ${caloriesBurned.toFixed(2)} kcal`;
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERA Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        input[type="number"], input[type="button"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="button"] {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="button"]:hover {
+            background-color: #4cae4c;
+        }
+        .result {
+            font-size: 1.2em;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <h1>ERA Calculator</h1>
+        <label for="earnedRuns">Earned Runs:</label>
+        <input type="number" id="earnedRuns" placeholder="Enter earned runs" required>
+        
+        <label for="inningsPitched">Innings Pitched:</label>
+        <input type="number" step="0.1" id="inningsPitched" placeholder="Enter innings pitched" required>
+
+        <input type="button" value="Calculate ERA" onclick="calculateERA()">
+        
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateERA() {
+            const earnedRuns = parseFloat(document.getElementById('earnedRuns').value);
+            const inningsPitched = parseFloat(document.getElementById('inningsPitched').value);
+            const resultDiv = document.getElementById('result');
+
+            if (!isNaN(earnedRuns) && !isNaN(inningsPitched) && inningsPitched > 0) {
+                // Calculate Earned Run Average
+                const era = (earnedRuns * 9) / inningsPitched;
+                resultDiv.innerHTML = `Earned Run Average (ERA): ${era.toFixed(2)}`;
+            } else {
+                resultDiv.innerHTML = 'Please enter valid numbers for both fields and ensure innings pitched is greater than 0.';
+            }
+        }
+    </script>
+
+</body>
+</html>

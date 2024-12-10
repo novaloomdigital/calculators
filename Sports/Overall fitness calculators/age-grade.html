@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Grade Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="number"], select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Age Grade Calculator</h1>
+        <label for="age">Age:</label>
+        <input type="number" id="age" placeholder="Enter your age" required>
+
+        <label for="gender">Gender:</label>
+        <select id="gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+
+        <label for="time">Finishing Time (min):</label>
+        <input type="number" id="time" placeholder="Enter finishing time in minutes" required>
+
+        <button id="calculateBtn">Calculate Age Grade</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('calculateBtn').addEventListener('click', function() {
+            const age = parseInt(document.getElementById('age').value);
+            const gender = document.getElementById('gender').value;
+            const time = parseFloat(document.getElementById('time').value);
+
+            if (isNaN(age) || age <= 0 || isNaN(time) || time <= 0) {
+                document.getElementById('result').innerText = "Please enter valid values.";
+                return;
+            }
+
+            // Age grading standards (example values)
+            const ageGradingStandards = {
+                "male": {
+                    "10K": [36.0, 38.0, 40.0, 42.0, 45.0, 48.0], // Example finishing times for age groups
+                    "half-marathon": [80.0, 85.0, 90.0, 95.0, 100.0, 105.0]
+                },
+                "female": {
+                    "10K": [40.0, 42.0, 44.0, 46.0, 50.0, 54.0],
+                    "half-marathon": [90.0, 95.0, 100.0, 105.0, 110.0, 115.0]
+                }
+            }
+
+            const raceDistance = "10K"; // Change as necessary
+            const standards = ageGradingStandards[gender][raceDistance];
+
+            let ageGroup = Math.floor(age / 5); // Age group index (0 for 0-4, 1 for 5-9, etc.)
+            ageGroup = Math.min(ageGroup, standards.length - 1); // Limit index to standard length
+
+            const standardTime = standards[ageGroup];
+            const ageGradePercentage = ((standardTime / time) * 100).toFixed(2);
+
+            document.getElementById('result').innerHTML = `
+                <h3>Age Grade Results:</h3>
+                <p>Age Group: ${ageGroup * 5} - ${(ageGroup + 1) * 5 - 1} years</p>
+                <p>Standard Time for ${raceDistance}: ${standardTime} min</p>
+                <p>Your Age Grade: ${ageGradePercentage}%</p>
+            `;
+        });
+    </script>
+</body>
+</html>

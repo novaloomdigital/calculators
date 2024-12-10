@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIP Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        input[type="number"], input[type="button"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="button"] {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="button"]:hover {
+            background-color: #4cae4c;
+        }
+        .result {
+            font-size: 1.2em;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <h1>FIP Calculator</h1>
+        <label for="homeRuns">Home Runs Allowed:</label>
+        <input type="number" id="homeRuns" placeholder="Enter home runs allowed" required>
+        
+        <label for="walks">Walks Allowed:</label>
+        <input type="number" id="walks" placeholder="Enter walks allowed" required>
+
+        <label for="strikeouts">Strikeouts:</label>
+        <input type="number" id="strikeouts" placeholder="Enter strikeouts" required>
+
+        <label for="inningsPitched">Innings Pitched:</label>
+        <input type="number" step="0.1" id="inningsPitched" placeholder="Enter innings pitched" required>
+
+        <input type="button" value="Calculate FIP" onclick="calculateFIP()">
+        
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateFIP() {
+            const homeRuns = parseFloat(document.getElementById('homeRuns').value);
+            const walks = parseFloat(document.getElementById('walks').value);
+            const strikeouts = parseFloat(document.getElementById('strikeouts').value);
+            const inningsPitched = parseFloat(document.getElementById('inningsPitched').value);
+            const resultDiv = document.getElementById('result');
+
+            const constant = 3.20; // This constant can vary
+
+            if (!isNaN(homeRuns) && !isNaN(walks) && !isNaN(strikeouts) && !isNaN(inningsPitched) && inningsPitched > 0) {
+                // Calculate FIP
+                const fip = ((13 * homeRuns + 3 * walks - 2 * strikeouts) / inningsPitched) + constant;
+                resultDiv.innerHTML = `Fielding Independent Pitching (FIP): ${fip.toFixed(2)}`;
+            } else {
+                resultDiv.innerHTML = 'Please enter valid numbers for all fields and ensure innings pitched is greater than 0.';
+            }
+        }
+    </script>
+
+</body>
+</html>

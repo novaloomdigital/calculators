@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fishing Reel Line Capacity Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="number"], select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Fishing Reel Line Capacity Calculator</h1>
+        <label for="lineDiameter">Line Diameter (mm):</label>
+        <input type="number" id="lineDiameter" placeholder="Enter line diameter" required>
+        
+        <label for="lineLength">Line Length (yards or meters):</label>
+        <input type="number" id="lineLength" placeholder="Enter line length" required>
+
+        <label for="lineType">Line Type:</label>
+        <select id="lineType">
+            <option value="monofilament">Monofilament</option>
+            <option value="fluorocarbon">Fluorocarbon</option>
+            <option value="braided">Braided</option>
+        </select>
+        
+        <button id="calculateBtn">Calculate Capacity</button>
+        
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('calculateBtn').addEventListener('click', function() {
+            const lineDiameter = parseFloat(document.getElementById('lineDiameter').value);
+            const lineLength = parseFloat(document.getElementById('lineLength').value);
+            const lineType = document.getElementById('lineType').value;
+
+            if (isNaN(lineDiameter) || lineDiameter <= 0 || isNaN(lineLength) || lineLength <= 0) {
+                document.getElementById('result').innerText = "Please enter valid values.";
+                return;
+            }
+
+            // Basic estimation of line capacity in yards based on line type and diameter
+            let capacity;
+            if (lineType === 'monofilament') {
+                capacity = (lineLength * (0.5 / lineDiameter)).toFixed(2);
+            } else if (lineType === 'fluorocarbon') {
+                capacity = (lineLength * (0.4 / lineDiameter)).toFixed(2);
+            } else if (lineType === 'braided') {
+                capacity = (lineLength * (0.7 / lineDiameter)).toFixed(2);
+            }
+
+            document.getElementById('result').innerText = `Estimated Reel Capacity: ${capacity} yards`;
+        });
+    </script>
+</body>
+</html>

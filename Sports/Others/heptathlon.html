@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heptathlon Score Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input[type="number"] {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h2>Heptathlon Score Calculator</h2>
+    <input type="number" id="hurdles" placeholder="100m Hurdles (seconds)" />
+    <input type="number" id="highJump" placeholder="High Jump (cm)" />
+    <input type="number" id="shotPut" placeholder="Shot Put (m)" />
+    <input type="number" id="twoHundred" placeholder="200m (seconds)" />
+    <input type="number" id="longJump" placeholder="Long Jump (cm)" />
+    <input type="number" id="javelin" placeholder="Javelin (m)" />
+    <input type="number" id="eightHundred" placeholder="800m (seconds)" />
+    <button onclick="calculateHeptathlonScore()">Calculate Total Score</button>
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateHeptathlonScore() {
+        const hurdles = parseFloat(document.getElementById('hurdles').value);
+        const highJump = parseFloat(document.getElementById('highJump').value);
+        const shotPut = parseFloat(document.getElementById('shotPut').value);
+        const twoHundred = parseFloat(document.getElementById('twoHundred').value);
+        const longJump = parseFloat(document.getElementById('longJump').value);
+        const javelin = parseFloat(document.getElementById('javelin').value);
+        const eightHundred = parseFloat(document.getElementById('eightHundred').value);
+
+        if (isNaN(hurdles) || isNaN(highJump) || isNaN(shotPut) || isNaN(twoHundred) || 
+            isNaN(longJump) || isNaN(javelin) || isNaN(eightHundred)) {
+            document.getElementById('result').innerText = 'Please enter valid values for all events.';
+            return;
+        }
+
+        // Calculate scores for each event
+        const scoreHurdles = 9.23076 * Math.pow(100 - hurdles, 1.345);
+        const scoreHighJump = 1.84523 * Math.pow(highJump - 75, 1.42);
+        const scoreShotPut = 56.0211 * Math.pow(shotPut - 1.5, 1.05);
+        const scoreTwoHundred = 4.99087 * Math.pow(50 - twoHundred, 1.14);
+        const scoreLongJump = 0.188807 * Math.pow(longJump - 210, 1.41);
+        const scoreJavelin = 15.9803 * Math.pow(javelin - 3.8, 1.04);
+        const scoreEightHundred = 0.11193 * Math.pow(254 - eightHundred, 1.07);
+
+        // Total score
+        const totalScore = Math.round(
+            scoreHurdles + scoreHighJump + scoreShotPut + scoreTwoHundred + 
+            scoreLongJump + scoreJavelin + scoreEightHundred
+        );
+
+        document.getElementById('result').innerText = `Total Heptathlon Score: ${totalScore}`;
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triathlon Heart Rate Training Zones Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="number"], button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Heart Rate Training Zones Calculator</h1>
+        <label for="mhr">Maximum Heart Rate (MHR):</label>
+        <input type="number" id="mhr" placeholder="Enter your MHR" required>
+
+        <label for="rhr">Resting Heart Rate (RHR):</label>
+        <input type="number" id="rhr" placeholder="Enter your RHR" required>
+
+        <button id="calculateBtn">Calculate Training Zones</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('calculateBtn').addEventListener('click', function() {
+            const mhr = parseFloat(document.getElementById('mhr').value);
+            const rhr = parseFloat(document.getElementById('rhr').value);
+
+            if (isNaN(mhr) || mhr <= 0 || isNaN(rhr) || rhr < 0) {
+                document.getElementById('result').innerText = "Please enter valid heart rate values.";
+                return;
+            }
+
+            // Calculate heart rate reserve (HRR)
+            const hrr = mhr - rhr;
+
+            // Calculate heart rate zones based on HRR
+            const zones = {
+                "Zone 1 (Recovery)": Math.round(rhr + (hrr * 0.60)),
+                "Zone 2 (Endurance)": Math.round(rhr + (hrr * 0.70)),
+                "Zone 3 (Tempo)": Math.round(rhr + (hrr * 0.80)),
+                "Zone 4 (Lactate Threshold)": Math.round(rhr + (hrr * 0.90)),
+                "Zone 5 (VO2 Max)": Math.round(mhr)
+            };
+
+            let resultText = "<h3>Heart Rate Training Zones:</h3>";
+            for (const [zone, heartRate] of Object.entries(zones)) {
+                resultText += `<p>${zone}: ${heartRate} bpm</p>`;
+            }
+
+            document.getElementById('result').innerHTML = resultText;
+        });
+    </script>
+</body>
+</html>

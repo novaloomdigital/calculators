@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Target Heart Rate Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e9ecef;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input[type="number"] {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h2>Target Heart Rate Calculator</h2>
+    <input type="number" id="age" placeholder="Enter your age" />
+    <input type="number" id="restingHeartRate" placeholder="Enter your resting heart rate" />
+    <button onclick="calculateTargetHeartRate()">Calculate Target Heart Rate</button>
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateTargetHeartRate() {
+        const age = parseInt(document.getElementById('age').value);
+        const restingHeartRate = parseInt(document.getElementById('restingHeartRate').value);
+        
+        if (!age || !restingHeartRate) {
+            document.getElementById('result').innerText = 'Please enter valid values.';
+            return;
+        }
+
+        const maxHeartRate = 220 - age; // Maximum heart rate
+        const heartRateReserve = maxHeartRate - restingHeartRate; // Heart rate reserve
+
+        // Calculate target heart rate zones (50% to 85% of HRR)
+        const targetHeartRateLow = Math.round(restingHeartRate + heartRateReserve * 0.50);
+        const targetHeartRateHigh = Math.round(restingHeartRate + heartRateReserve * 0.85);
+
+        document.getElementById('result').innerText = `
+            Target Heart Rate Zone: ${targetHeartRateLow} - ${targetHeartRateHigh} bpm
+        `;
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICC Player Rating Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        input[type="number"], input[type="button"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="button"] {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="button"]:hover {
+            background-color: #4cae4c;
+        }
+        .result {
+            font-size: 1.2em;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <h1>ICC Player Rating Calculator</h1>
+        <label for="totalRuns">Total Runs:</label>
+        <input type="number" id="totalRuns" placeholder="Enter total runs" required>
+        
+        <label for="totalWickets">Total Wickets:</label>
+        <input type="number" id="totalWickets" placeholder="Enter total wickets" required>
+
+        <label for="matchesPlayed">Matches Played:</label>
+        <input type="number" id="matchesPlayed" placeholder="Enter matches played" required>
+
+        <input type="button" value="Calculate Ratings" onclick="calculateRatings()">
+        
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateRatings() {
+            const totalRuns = parseFloat(document.getElementById('totalRuns').value);
+            const totalWickets = parseFloat(document.getElementById('totalWickets').value);
+            const matchesPlayed = parseFloat(document.getElementById('matchesPlayed').value);
+            const resultDiv = document.getElementById('result');
+
+            if (!isNaN(totalRuns) && !isNaN(totalWickets) && !isNaN(matchesPlayed) && matchesPlayed > 0) {
+                // Calculate batting and bowling ratings
+                const battingRating = (totalRuns / matchesPlayed).toFixed(2);
+                const bowlingRating = (totalWickets / matchesPlayed).toFixed(2);
+                resultDiv.innerHTML = `Batting Rating: ${battingRating} <br> Bowling Rating: ${bowlingRating}`;
+            } else {
+                resultDiv.innerHTML = 'Please enter valid numbers for all fields and ensure matches played is greater than 0.';
+            }
+        }
+    </script>
+
+</body>
+</html>

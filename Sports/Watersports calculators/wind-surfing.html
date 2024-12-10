@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windsurfing Sail Size Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="number"], select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Windsurfing Sail Size Calculator</h1>
+        <label for="weight">Weight (lbs):</label>
+        <input type="number" id="weight" placeholder="Enter your weight" required>
+
+        <label for="windSpeed">Wind Speed (mph):</label>
+        <input type="number" id="windSpeed" placeholder="Enter wind speed" required>
+
+        <label for="skillLevel">Skill Level:</label>
+        <select id="skillLevel">
+            <option value="beginner">Beginner</option>
+            <option value="intermediate">Intermediate</option>
+            <option value="advanced">Advanced</option>
+        </select>
+
+        <button id="calculateBtn">Calculate Sail Size</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('calculateBtn').addEventListener('click', function() {
+            const weight = parseFloat(document.getElementById('weight').value);
+            const windSpeed = parseFloat(document.getElementById('windSpeed').value);
+            const skillLevel = document.getElementById('skillLevel').value;
+
+            if (isNaN(weight) || weight <= 0 || isNaN(windSpeed) || windSpeed <= 0) {
+                document.getElementById('result').innerText = "Please enter valid values.";
+                return;
+            }
+
+            // Basic sail size estimation based on weight, wind speed, and skill level
+            let baseSailSize = (weight / 10) * (15 / windSpeed); // Base sail size in square meters
+            let adjustment = 0;
+
+            // Adjust sail size based on skill level
+            if (skillLevel === 'beginner') {
+                adjustment += 1; // Increase sail size for beginners
+            } else if (skillLevel === 'advanced') {
+                adjustment -= 1; // Decrease sail size for advanced
+            }
+
+            const estimatedSailSize = (baseSailSize + adjustment).toFixed(2);
+            
+            document.getElementById('result').innerText = `Estimated Sail Size: ${estimatedSailSize} m²`;
+        });
+    </script>
+</body>
+</html>

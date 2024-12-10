@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bruce Protocol METs Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    input[type="number"] {
+      padding: 5px;
+      width: 100px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    #result {
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Bruce Protocol METs Calculator</h1>
+  <label for="stage">Stage Reached:</label>
+  <input type="number" id="stage" min="1" max="7">
+  <button onclick="calculateMETs()">Calculate METs</button>
+  <p id="result"></p>
+
+  <script>
+    function calculateMETs() {
+      const stage = parseInt(document.getElementById("stage").value);
+
+      let mets;
+      switch (stage) {
+        case 1:
+          mets = 3;
+          break;
+        case 2:
+          mets = 4;
+          break;
+        case 3:
+          mets = 5.7;
+          break;
+        case 4:
+          mets = 7.7;
+          break;
+        case 5:
+          mets = 10;
+          break;
+        case 6:
+          mets = 12;
+          break;
+        case 7:
+          mets = 14;
+          break;
+        default:
+          mets = 0;
+      }
+
+      document.getElementById("result").textContent = `Estimated METs at Stage ${stage}: ${mets}`;
+    }
+  </script>
+</body>
+</html>

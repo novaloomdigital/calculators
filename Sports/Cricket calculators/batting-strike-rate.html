@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Batting Strike Rate Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        input[type="number"], input[type="button"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="button"] {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="button"]:hover {
+            background-color: #4cae4c;
+        }
+        .result {
+            font-size: 1.2em;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <h1>Strike Rate Calculator</h1>
+        <label for="runs">Runs Scored:</label>
+        <input type="number" id="runs" placeholder="Enter runs scored" required>
+        
+        <label for="balls">Balls Faced:</label>
+        <input type="number" id="balls" placeholder="Enter balls faced" required>
+        
+        <input type="button" value="Calculate Strike Rate" onclick="calculateStrikeRate()">
+        
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateStrikeRate() {
+            const runs = parseFloat(document.getElementById('runs').value);
+            const balls = parseFloat(document.getElementById('balls').value);
+            const resultDiv = document.getElementById('result');
+
+            if (!isNaN(runs) && !isNaN(balls) && balls > 0) {
+                // Strike Rate = (Runs Scored / Balls Faced) * 100
+                const strikeRate = (runs / balls) * 100;
+                resultDiv.innerHTML = `Strike Rate: ${strikeRate.toFixed(2)}`;
+            } else {
+                resultDiv.innerHTML = 'Please enter valid numbers and ensure balls faced is greater than 0.';
+            }
+        }
+    </script>
+
+</body>
+</html>

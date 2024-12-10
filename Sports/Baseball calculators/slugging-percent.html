@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slugging Percentage Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        input[type="number"], input[type="button"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="button"] {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="button"]:hover {
+            background-color: #4cae4c;
+        }
+        .result {
+            font-size: 1.2em;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <h1>Slugging Percentage Calculator</h1>
+        <label for="hits">Hits:</label>
+        <input type="number" id="hits" placeholder="Enter total hits" required>
+
+        <label for="doubles">Doubles:</label>
+        <input type="number" id="doubles" placeholder="Enter total doubles" required>
+
+        <label for="triples">Triples:</label>
+        <input type="number" id="triples" placeholder="Enter total triples" required>
+
+        <label for="homeRuns">Home Runs:</label>
+        <input type="number" id="homeRuns" placeholder="Enter total home runs" required>
+
+        <label for="atBats">At Bats:</label>
+        <input type="number" id="atBats" placeholder="Enter total at bats" required>
+
+        <input type="button" value="Calculate SLG" onclick="calculateSLG()">
+        
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateSLG() {
+            const hits = parseFloat(document.getElementById('hits').value);
+            const doubles = parseFloat(document.getElementById('doubles').value);
+            const triples = parseFloat(document.getElementById('triples').value);
+            const homeRuns = parseFloat(document.getElementById('homeRuns').value);
+            const atBats = parseFloat(document.getElementById('atBats').value);
+            const resultDiv = document.getElementById('result');
+
+            // Calculate total bases
+            const totalBases = hits + (2 * doubles) + (3 * triples) + (4 * homeRuns);
+
+            if (!isNaN(totalBases) && !isNaN(atBats) && atBats > 0) {
+                // Calculate Slugging Percentage
+                const slg = totalBases / atBats;
+                resultDiv.innerHTML = `Slugging Percentage (SLG): ${(slg).toFixed(3)}`;
+            } else {
+                resultDiv.innerHTML = 'Please enter valid numbers for all fields and ensure at bats is greater than 0.';
+            }
+        }
+    </script>
+
+</body>
+</html>

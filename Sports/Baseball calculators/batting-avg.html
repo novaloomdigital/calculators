@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Batting Average Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        input[type="number"], input[type="button"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="button"] {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="button"]:hover {
+            background-color: #4cae4c;
+        }
+        .result {
+            font-size: 1.2em;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <h1>Batting Average Calculator</h1>
+        <label for="totalRuns">Total Runs Scored:</label>
+        <input type="number" id="totalRuns" placeholder="Enter total runs scored" required>
+        
+        <label for="totalOuts">Total Outs:</label>
+        <input type="number" id="totalOuts" placeholder="Enter total times out" required>
+
+        <input type="button" value="Calculate Batting Average" onclick="calculateBattingAverage()">
+        
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateBattingAverage() {
+            const totalRuns = parseFloat(document.getElementById('totalRuns').value);
+            const totalOuts = parseFloat(document.getElementById('totalOuts').value);
+            const resultDiv = document.getElementById('result');
+
+            if (!isNaN(totalRuns) && !isNaN(totalOuts) && totalOuts > 0) {
+                // Calculate Batting Average
+                const battingAverage = totalRuns / totalOuts;
+                resultDiv.innerHTML = `Batting Average: ${battingAverage.toFixed(2)}`;
+            } else {
+                resultDiv.innerHTML = 'Please enter valid numbers for both fields and ensure total outs is greater than 0.';
+            }
+        }
+    </script>
+
+</body>
+</html>

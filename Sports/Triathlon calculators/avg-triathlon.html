@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Average Triathlon Finishing Time Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="number"], button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Triathlon Finishing Time Calculator</h1>
+        <label for="swimTime">Swim Time (minutes):</label>
+        <input type="number" id="swimTime" placeholder="Enter swim time" required>
+
+        <label for="bikeTime">Bike Time (minutes):</label>
+        <input type="number" id="bikeTime" placeholder="Enter bike time" required>
+
+        <label for="runTime">Run Time (minutes):</label>
+        <input type="number" id="runTime" placeholder="Enter run time" required>
+
+        <button id="calculateBtn">Calculate Total Time</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('calculateBtn').addEventListener('click', function() {
+            const swimTime = parseFloat(document.getElementById('swimTime').value);
+            const bikeTime = parseFloat(document.getElementById('bikeTime').value);
+            const runTime = parseFloat(document.getElementById('runTime').value);
+
+            if (isNaN(swimTime) || swimTime < 0 || isNaN(bikeTime) || bikeTime < 0 || isNaN(runTime) || runTime < 0) {
+                document.getElementById('result').innerText = "Please enter valid times.";
+                return;
+            }
+
+            // Calculate total time in minutes
+            const totalTime = swimTime + bikeTime + runTime;
+
+            // Convert total time to hours and minutes
+            const hours = Math.floor(totalTime / 60);
+            const minutes = totalTime % 60;
+
+            document.getElementById('result').innerText = `Estimated Finishing Time: ${hours} hours ${minutes} minutes`;
+        });
+    </script>
+</body>
+</html>

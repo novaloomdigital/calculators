@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>True Shooting Percentage Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        input[type="number"], input[type="button"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="button"] {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="button"]:hover {
+            background-color: #4cae4c;
+        }
+        .result {
+            font-size: 1.2em;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <h1>TS% Calculator</h1>
+        <label for="points">Points:</label>
+        <input type="number" id="points" placeholder="Enter total points" required>
+        
+        <label for="fieldGoalsAttempted">Field Goals Attempted:</label>
+        <input type="number" id="fieldGoalsAttempted" placeholder="Enter field goals attempted" required>
+
+        <label for="freeThrowsAttempted">Free Throws Attempted:</label>
+        <input type="number" id="freeThrowsAttempted" placeholder="Enter free throws attempted" required>
+
+        <input type="button" value="Calculate TS%" onclick="calculateTS()">
+        
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateTS() {
+            const points = parseFloat(document.getElementById('points').value);
+            const fieldGoalsAttempted = parseFloat(document.getElementById('fieldGoalsAttempted').value);
+            const freeThrowsAttempted = parseFloat(document.getElementById('freeThrowsAttempted').value);
+            const resultDiv = document.getElementById('result');
+
+            if (!isNaN(points) && !isNaN(fieldGoalsAttempted) && !isNaN(freeThrowsAttempted) && (fieldGoalsAttempted + 0.44 * freeThrowsAttempted) > 0) {
+                // Calculate True Shooting Percentage
+                const ts = (points / (2 * (fieldGoalsAttempted + 0.44 * freeThrowsAttempted))) * 100;
+                resultDiv.innerHTML = `True Shooting Percentage (TS%): ${ts.toFixed(2)}%`;
+            } else {
+                resultDiv.innerHTML = 'Please enter valid numbers for all fields and ensure the denominator is greater than 0.';
+            }
+        }
+    </script>
+
+</body>
+</html>

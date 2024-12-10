@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Max Heart Rate Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input[type="number"] {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h2>Max Heart Rate Calculator</h2>
+    <input type="number" id="age" placeholder="Enter your age" />
+    <button onclick="calculateMaxHeartRate()">Calculate Max Heart Rate</button>
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateMaxHeartRate() {
+        const age = parseInt(document.getElementById('age').value);
+        
+        if (!age || age <= 0) {
+            document.getElementById('result').innerText = 'Please enter a valid age.';
+            return;
+        }
+
+        const maxHeartRate = 220 - age;
+
+        document.getElementById('result').innerText = `Your estimated maximum heart rate is ${maxHeartRate} beats per minute.`;
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elo Rating Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input[type="number"], select {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h2>Elo Rating Calculator</h2>
+    <input type="number" id="player1Rating" placeholder="Player 1 Rating" />
+    <input type="number" id="player2Rating" placeholder="Player 2 Rating" />
+    <select id="matchResult">
+        <option value="">Select Match Result</option>
+        <option value="1">Player 1 Wins</option>
+        <option value="0.5">Draw</option>
+        <option value="0">Player 2 Wins</option>
+    </select>
+    <input type="number" id="kFactor" placeholder="K Factor (default 30)" value="30" />
+    <button onclick="calculateElo()">Calculate New Ratings</button>
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateElo() {
+        const player1Rating = parseInt(document.getElementById('player1Rating').value);
+        const player2Rating = parseInt(document.getElementById('player2Rating').value);
+        const matchResult = parseFloat(document.getElementById('matchResult').value);
+        const kFactor = parseInt(document.getElementById('kFactor').value) || 30;
+
+        if (isNaN(player1Rating) || isNaN(player2Rating) || isNaN(matchResult)) {
+            document.getElementById('result').innerText = 'Please enter valid ratings and select a match result.';
+            return;
+        }
+
+        const expectedScore1 = 1 / (1 + Math.pow(10, (player2Rating - player1Rating) / 400));
+        const expectedScore2 = 1 / (1 + Math.pow(10, (player1Rating - player2Rating) / 400));
+
+        const newPlayer1Rating = Math.round(player1Rating + kFactor * (matchResult - expectedScore1));
+        const newPlayer2Rating = Math.round(player2Rating + kFactor * ((1 - matchResult) - expectedScore2));
+
+        document.getElementById('result').innerText = `
+            New Player 1 Rating: ${newPlayer1Rating}
+            New Player 2 Rating: ${newPlayer2Rating}
+        `;
+    }
+</script>
+
+</body>
+</html>

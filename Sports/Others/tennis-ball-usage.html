@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tennis Ball Usage Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input[type="number"] {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h2>Tennis Ball Usage Calculator</h2>
+    <input type="number" id="players" placeholder="Number of Players" />
+    <input type="number" id="days" placeholder="Days Played per Week" />
+    <input type="number" id="hours" placeholder="Hours Played per Session" />
+    <button onclick="calculateTennisBallUsage()">Calculate Tennis Balls Used</button>
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateTennisBallUsage() {
+        const players = parseInt(document.getElementById('players').value);
+        const days = parseInt(document.getElementById('days').value);
+        const hours = parseInt(document.getElementById('hours').value);
+        
+        if (isNaN(players) || isNaN(days) || isNaN(hours) || players <= 0 || days <= 0 || hours <= 0) {
+            document.getElementById('result').innerText = 'Please enter valid values.';
+            return;
+        }
+
+        // Calculate balls used per week
+        const ballsPerSession = Math.ceil(hours / 2); // 1 ball per 2 hours
+        const totalBallsUsed = players * days * ballsPerSession;
+
+        document.getElementById('result').innerText = `Estimated Tennis Balls Used per Week: ${totalBallsUsed}`;
+    }
+</script>
+
+</body>
+</html>

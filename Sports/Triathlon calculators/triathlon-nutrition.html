@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triathlon Nutrition Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="number"], select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Triathlon Nutrition Calculator</h1>
+        <label for="weight">Weight (lbs):</label>
+        <input type="number" id="weight" placeholder="Enter your weight" required>
+
+        <label for="trainingHours">Training Hours per Week:</label>
+        <input type="number" id="trainingHours" placeholder="Enter training hours" required>
+
+        <label for="trainingIntensity">Training Intensity:</label>
+        <select id="trainingIntensity">
+            <option value="light">Light (1-2 hours/week)</option>
+            <option value="moderate">Moderate (3-5 hours/week)</option>
+            <option value="heavy">Heavy (6+ hours/week)</option>
+        </select>
+
+        <button id="calculateBtn">Calculate Nutrition Needs</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('calculateBtn').addEventListener('click', function() {
+            const weight = parseFloat(document.getElementById('weight').value);
+            const trainingHours = parseFloat(document.getElementById('trainingHours').value);
+            const trainingIntensity = document.getElementById('trainingIntensity').value;
+
+            if (isNaN(weight) || weight <= 0 || isNaN(trainingHours) || trainingHours < 0) {
+                document.getElementById('result').innerText = "Please enter valid values.";
+                return;
+            }
+
+            // Calculate daily caloric needs based on training intensity
+            let activityMultiplier;
+            if (trainingIntensity === 'light') {
+                activityMultiplier = 15; // Caloric needs per pound of body weight
+            } else if (trainingIntensity === 'moderate') {
+                activityMultiplier = 17;
+            } else { // heavy
+                activityMultiplier = 19;
+            }
+
+            const caloricNeeds = weight * activityMultiplier;
+
+            // Macronutrient breakdown (approximate)
+            const carbs = (caloricNeeds * 0.55) / 4; // 55% of calories from carbs
+            const protein = (caloricNeeds * 0.20) / 4; // 20% of calories from protein
+            const fat = (caloricNeeds * 0.25) / 9; // 25% of calories from fat
+
+            document.getElementById('result').innerHTML = `
+                <h3>Nutrition Needs:</h3>
+                <p>Total Daily Calories: ${caloricNeeds.toFixed(0)} kcal</p>
+                <p>Carbohydrates: ${carbs.toFixed(0)} grams</p>
+                <p>Protein: ${protein.toFixed(0)} grams</p>
+                <p>Fat: ${fat.toFixed(0)} grams</p>
+            `;
+        });
+    </script>
+</body>
+</html>

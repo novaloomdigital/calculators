@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fielding Percentage Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        input[type="number"], input[type="button"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="button"] {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="button"]:hover {
+            background-color: #4cae4c;
+        }
+        .result {
+            font-size: 1.2em;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <h1>Fielding Percentage Calculator</h1>
+        <label for="putouts">Putouts:</label>
+        <input type="number" id="putouts" placeholder="Enter putouts" required>
+        
+        <label for="assists">Assists:</label>
+        <input type="number" id="assists" placeholder="Enter assists" required>
+
+        <label for="errors">Errors:</label>
+        <input type="number" id="errors" placeholder="Enter errors" required>
+
+        <input type="button" value="Calculate Fielding Percentage" onclick="calculateFieldingPercentage()">
+        
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateFieldingPercentage() {
+            const putouts = parseFloat(document.getElementById('putouts').value);
+            const assists = parseFloat(document.getElementById('assists').value);
+            const errors = parseFloat(document.getElementById('errors').value);
+            const resultDiv = document.getElementById('result');
+
+            // Calculate total chances
+            const totalChances = putouts + assists + errors;
+
+            if (!isNaN(putouts) && !isNaN(assists) && !isNaN(errors) && totalChances > 0) {
+                // Calculate Fielding Percentage
+                const fieldingPercentage = (putouts + assists) / totalChances * 100;
+                resultDiv.innerHTML = `Fielding Percentage: ${fieldingPercentage.toFixed(2)}%`;
+            } else {
+                resultDiv.innerHTML = 'Please enter valid numbers for all fields and ensure total chances is greater than 0.';
+            }
+        }
+    </script>
+
+</body>
+</html>

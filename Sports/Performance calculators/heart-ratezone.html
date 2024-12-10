@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Rate Zone Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input[type="number"] {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h2>Heart Rate Zone Calculator</h2>
+    <input type="number" id="age" placeholder="Enter your age" />
+    <input type="number" id="restingHeartRate" placeholder="Enter your resting heart rate" />
+    <button onclick="calculateHeartRateZones()">Calculate Zones</button>
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateHeartRateZones() {
+        const age = parseInt(document.getElementById('age').value);
+        const restingHeartRate = parseInt(document.getElementById('restingHeartRate').value);
+        
+        if (!age || !restingHeartRate) {
+            document.getElementById('result').innerText = 'Please enter valid values.';
+            return;
+        }
+
+        const maxHeartRate = 220 - age; // Maximum heart rate
+        const heartRateReserve = maxHeartRate - restingHeartRate; // Heart rate reserve
+
+        // Calculate heart rate zones (expressed as a percentage of HRR)
+        const zones = {
+            light: {
+                min: Math.round(restingHeartRate + (heartRateReserve * 0.5)),
+                max: Math.round(restingHeartRate + (heartRateReserve * 0.6))
+            },
+            moderate: {
+                min: Math.round(restingHeartRate + (heartRateReserve * 0.6)),
+                max: Math.round(restingHeartRate + (heartRateReserve * 0.7))
+            },
+            vigorous: {
+                min: Math.round(restingHeartRate + (heartRateReserve * 0.7)),
+                max: Math.round(restingHeartRate + (heartRateReserve * 0.85))
+            },
+            maximum: {
+                min: Math.round(restingHeartRate + (heartRateReserve * 0.85)),
+                max: maxHeartRate
+            }
+        };
+
+        document.getElementById('result').innerText = `
+            Heart Rate Zones:
+            - Light: ${zones.light.min} - ${zones.light.max} bpm
+            - Moderate: ${zones.moderate.min} - ${zones.moderate.max} bpm
+            - Vigorous: ${zones.vigorous.min} - ${zones.vigorous.max} bpm
+            - Maximum: ${zones.maximum.min} - ${zones.maximum.max} bpm
+        `;
+    }
+</script>
+
+</body>
+</html>

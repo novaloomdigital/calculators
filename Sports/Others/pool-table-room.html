@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pool Table Room Size Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input[type="number"], select {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h2>Pool Table Room Size Calculator</h2>
+    <select id="tableSize">
+        <option value="">Select Table Size</option>
+        <option value="7">7-foot Table</option>
+        <option value="8">8-foot Table</option>
+        <option value="9">9-foot Table</option>
+    </select>
+    <button onclick="calculateRoomSize()">Calculate Room Size</button>
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateRoomSize() {
+        const tableSize = parseInt(document.getElementById('tableSize').value);
+        
+        if (isNaN(tableSize)) {
+            document.getElementById('result').innerText = 'Please select a table size.';
+            return;
+        }
+
+        let tableWidth, tableLength;
+
+        switch (tableSize) {
+            case 7:
+                tableWidth = 3.5; // feet
+                tableLength = 7; // feet
+                break;
+            case 8:
+                tableWidth = 4; // feet
+                tableLength = 8; // feet
+                break;
+            case 9:
+                tableWidth = 4.5; // feet
+                tableLength = 9; // feet
+                break;
+            default:
+                document.getElementById('result').innerText = 'Invalid table size.';
+                return;
+        }
+
+        // Calculate room dimensions
+        const roomWidth = tableWidth + 10; // 5 feet on each side
+        const roomLength = tableLength + 10; // 5 feet on each side
+
+        document.getElementById('result').innerText = `Recommended Room Size: ${roomWidth.toFixed(2)} ft (Width) x ${roomLength.toFixed(2)} ft (Length)`;
+    }
+</script>
+
+</body>
+</html>

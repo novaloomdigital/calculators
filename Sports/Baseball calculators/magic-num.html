@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic Number Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        input[type="number"], input[type="button"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="button"] {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="button"]:hover {
+            background-color: #4cae4c;
+        }
+        .result {
+            font-size: 1.2em;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <h1>Magic Number Calculator</h1>
+        <label for="totalGames">Total Games in Season:</label>
+        <input type="number" id="totalGames" placeholder="Enter total games (usually 162)" value="162" required>
+        
+        <label for="wins">Wins by Leading Team:</label>
+        <input type="number" id="wins" placeholder="Enter wins by leading team" required>
+
+        <label for="losses">Losses by Nearest Competitor:</label>
+        <input type="number" id="losses" placeholder="Enter losses by nearest competitor" required>
+
+        <input type="button" value="Calculate Magic Number" onclick="calculateMagicNumber()">
+        
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateMagicNumber() {
+            const totalGames = parseInt(document.getElementById('totalGames').value);
+            const wins = parseInt(document.getElementById('wins').value);
+            const losses = parseInt(document.getElementById('losses').value);
+            const resultDiv = document.getElementById('result');
+
+            if (!isNaN(totalGames) && !isNaN(wins) && !isNaN(losses) && totalGames > 0) {
+                // Calculate Magic Number
+                const magicNumber = (totalGames - wins) + 1 + losses;
+                resultDiv.innerHTML = `Magic Number: ${magicNumber}`;
+            } else {
+                resultDiv.innerHTML = 'Please enter valid numbers for all fields.';
+            }
+        }
+    </script>
+
+</body>
+</html>

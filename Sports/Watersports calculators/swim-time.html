@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swim Time Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="number"], select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Swim Time Calculator</h1>
+        <label for="distance">Distance (meters or yards):</label>
+        <input type="number" id="distance" placeholder="Enter distance" required>
+
+        <label for="speed">Average Swim Speed (seconds per 100 meters/yards):</label>
+        <input type="number" id="speed" placeholder="Enter speed" required>
+
+        <select id="unit">
+            <option value="meters">Meters</option>
+            <option value="yards">Yards</option>
+        </select>
+
+        <button id="calculateBtn">Calculate Time</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('calculateBtn').addEventListener('click', function() {
+            const distance = parseFloat(document.getElementById('distance').value);
+            const speed = parseFloat(document.getElementById('speed').value);
+            const unit = document.getElementById('unit').value;
+
+            if (isNaN(distance) || distance <= 0 || isNaN(speed) || speed <= 0) {
+                document.getElementById('result').innerText = "Please enter valid values.";
+                return;
+            }
+
+            // Calculate total time in seconds
+            const timeInSeconds = (distance / 100) * speed;
+
+            // Convert time to minutes and seconds
+            const minutes = Math.floor(timeInSeconds / 60);
+            const seconds = (timeInSeconds % 60).toFixed(0);
+
+            document.getElementById('result').innerText = `Estimated Swim Time: ${minutes} minutes ${seconds} seconds`;
+        });
+    </script>
+</body>
+</html>
