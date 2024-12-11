@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pounds to Newtons Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .converter {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input {
+            margin: 10px;
+            padding: 10px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Pounds to Newtons Converter</h1>
+    <div class="converter">
+        <h2>Convert Pounds to Newtons</h2>
+        <input type="number" id="poundsInput" placeholder="Pounds (lbs)" step="any">
+        <button onclick="convertPoundsToNewtons()">Convert to N</button>
+        <div class="result" id="poundsToNewtonsResult"></div>
+
+        <h2>Convert Newtons to Pounds</h2>
+        <input type="number" id="newtonsInput" placeholder="Newtons (N)" step="any">
+        <button onclick="convertNewtonsToPounds()">Convert to lbs</button>
+        <div class="result" id="newtonsToPoundsResult"></div>
+    </div>
+
+    <script>
+        function convertPoundsToNewtons() {
+            const pounds = parseFloat(document.getElementById('poundsInput').value);
+
+            if (isNaN(pounds)) {
+                document.getElementById('poundsToNewtonsResult').innerText = 'Please enter a valid number.';
+                return;
+            }
+
+            const newtonsValue = pounds * 4.44822; // 1 lb = 4.44822 N
+            document.getElementById('poundsToNewtonsResult').innerText = `${pounds} lbs = ${newtonsValue.toFixed(4)} N`;
+        }
+
+        function convertNewtonsToPounds() {
+            const newtons = parseFloat(document.getElementById('newtonsInput').value);
+
+            if (isNaN(newtons)) {
+                document.getElementById('newtonsToPoundsResult').innerText = 'Please enter a valid number.';
+                return;
+            }
+
+            const poundsValue = newtons / 4.44822; // 1 N = 0.224809 lb
+            document.getElementById('newtonsToPoundsResult').innerText = `${newtons} N = ${poundsValue.toFixed(4)} lbs`;
+        }
+    </script>
+</body>
+</html>

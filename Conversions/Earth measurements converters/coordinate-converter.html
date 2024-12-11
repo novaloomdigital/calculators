@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coordinate Converter Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .converter {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input {
+            margin: 10px;
+            padding: 10px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Coordinate Converter</h1>
+    <div class="converter">
+        <h2>Decimal Degrees to DMS</h2>
+        <input type="number" id="decimalInput" placeholder="Decimal Degrees">
+        <button onclick="convertToDMS()">Convert to DMS</button>
+        <div class="result" id="dmsResult"></div>
+
+        <h2>DMS to Decimal Degrees</h2>
+        <input type="text" id="dmsInput" placeholder="Degrees Minutes Seconds (DMS)">
+        <button onclick="convertToDecimal()">Convert to Decimal</button>
+        <div class="result" id="decimalResult"></div>
+    </div>
+
+    <script>
+        function convertToDMS() {
+            const decimal = parseFloat(document.getElementById('decimalInput').value);
+            if (isNaN(decimal)) {
+                document.getElementById('dmsResult').innerText = 'Please enter a valid number.';
+                return;
+            }
+
+            const degrees = Math.floor(decimal);
+            const minutes = Math.floor((decimal - degrees) * 60);
+            const seconds = ((decimal - degrees - (minutes / 60)) * 3600).toFixed(2);
+
+            const dms = `${degrees}° ${Math.abs(minutes)}' ${Math.abs(seconds)}"`;
+            document.getElementById('dmsResult').innerText = `DMS: ${dms}`;
+        }
+
+        function convertToDecimal() {
+            const dmsString = document.getElementById('dmsInput').value;
+            const dmsArray = dmsString.split(' ');
+
+            if (dmsArray.length !== 3) {
+                document.getElementById('decimalResult').innerText = 'Please enter DMS in the format "degrees minutes seconds".';
+                return;
+            }
+
+            const degrees = parseFloat(dmsArray[0]);
+            const minutes = parseFloat(dmsArray[1]) / 60;
+            const seconds = parseFloat(dmsArray[2]) / 3600;
+
+            const decimal = degrees + minutes + seconds;
+            document.getElementById('decimalResult').innerText = `Decimal Degrees: ${decimal.toFixed(6)}`;
+        }
+    </script>
+</body>
+</html>

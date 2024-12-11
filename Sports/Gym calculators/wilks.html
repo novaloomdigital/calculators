@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wilks Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="number"], button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Wilks Calculator</h1>
+        <label for="bodyWeight">Body Weight (lbs):</label>
+        <input type="number" id="bodyWeight" placeholder="Enter your body weight" required>
+        
+        <label for="totalLift">Total Lift Weight (lbs):</label>
+        <input type="number" id="totalLift" placeholder="Enter total lift weight" required>
+        
+        <button id="calculateBtn">Calculate Wilks Score</button>
+        
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('calculateBtn').addEventListener('click', function() {
+            const bodyWeight = parseFloat(document.getElementById('bodyWeight').value);
+            const totalLift = parseFloat(document.getElementById('totalLift').value);
+
+            if (isNaN(bodyWeight) || bodyWeight <= 0 || isNaN(totalLift) || totalLift <= 0) {
+                document.getElementById('result').innerText = "Please enter valid values.";
+                return;
+            }
+
+            // Wilks coefficients for males and females
+            const coefficients = [
+                {weight: 114, coeff: 500},
+                {weight: 123, coeff: 496},
+                {weight: 132, coeff: 491},
+                {weight: 148, coeff: 485},
+                {weight: 165, coeff: 480},
+                {weight: 181, coeff: 475},
+                {weight: 198, coeff: 470},
+                {weight: 220, coeff: 466},
+                {weight: 242, coeff: 460},
+                {weight: 275, coeff: 457},
+                {weight: 308, coeff: 454},
+                {weight: 330, coeff: 451},
+                {weight: Infinity, coeff: 450}
+            ];
+
+            // Calculate Wilks score
+            let wilksCoefficient = 0;
+            for (let i = 0; i < coefficients.length; i++) {
+                if (bodyWeight <= coefficients[i].weight) {
+                    wilksCoefficient = coefficients[i].coeff;
+                    break;
+                }
+            }
+
+            const wilksScore = (totalLift * 500) / wilksCoefficient;
+            document.getElementById('result').innerText = `Wilks Score: ${wilksScore.toFixed(2)}`;
+        });
+    </script>
+</body>
+</html>

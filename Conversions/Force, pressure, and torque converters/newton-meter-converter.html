@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newton-Meter Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .converter {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input {
+            margin: 10px;
+            padding: 10px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Newton-Meter Converter</h1>
+    <div class="converter">
+        <h2>Convert Newton-Meters to Foot-Pounds</h2>
+        <input type="number" id="newtonMetersInput" placeholder="Newton-meters (Nm)" step="any">
+        <button onclick="convertNmToFootPounds()">Convert to ft-lb</button>
+        <div class="result" id="nmToFootResult"></div>
+
+        <h2>Convert Newton-Meters to Inch-Pounds</h2>
+        <input type="number" id="inchPoundsInput" placeholder="Newton-meters (Nm)" step="any">
+        <button onclick="convertNmToInchPounds()">Convert to in-lb</button>
+        <div class="result" id="nmToInchResult"></div>
+    </div>
+
+    <script>
+        function convertNmToFootPounds() {
+            const newtonMeters = parseFloat(document.getElementById('newtonMetersInput').value);
+
+            if (isNaN(newtonMeters)) {
+                document.getElementById('nmToFootResult').innerText = 'Please enter a valid number.';
+                return;
+            }
+
+            const footPoundsValue = newtonMeters * 0.737562; // 1 Nm = 0.737562 ft-lb
+            document.getElementById('nmToFootResult').innerText = `${newtonMeters} Nm = ${footPoundsValue.toFixed(4)} ft-lb`;
+        }
+
+        function convertNmToInchPounds() {
+            const newtonMeters = parseFloat(document.getElementById('inchPoundsInput').value);
+
+            if (isNaN(newtonMeters)) {
+                document.getElementById('nmToInchResult').innerText = 'Please enter a valid number.';
+                return;
+            }
+
+            const inchPoundsValue = newtonMeters * 8.8507; // 1 Nm = 8.8507 in-lb
+            document.getElementById('nmToInchResult').innerText = `${newtonMeters} Nm = ${inchPoundsValue.toFixed(4)} in-lb`;
+        }
+    </script>
+</body>
+</html>

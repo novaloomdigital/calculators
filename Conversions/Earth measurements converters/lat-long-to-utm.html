@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lat/Long to UTM Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .converter {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input {
+            margin: 10px;
+            padding: 10px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Lat/Long to UTM Converter</h1>
+    <div class="converter">
+        <h2>Convert Lat/Long to UTM</h2>
+        <input type="number" step="any" id="latitudeInput" placeholder="Latitude (°)">
+        <input type="number" step="any" id="longitudeInput" placeholder="Longitude (°)">
+        <button onclick="convertToUTM()">Convert to UTM</button>
+        <div class="result" id="utmResult"></div>
+    </div>
+
+    <script>
+        function convertToUTM() {
+            const lat = parseFloat(document.getElementById('latitudeInput').value);
+            const lon = parseFloat(document.getElementById('longitudeInput').value);
+
+            if (isNaN(lat) || isNaN(lon)) {
+                document.getElementById('utmResult').innerText = 'Please enter valid latitude and longitude values.';
+                return;
+            }
+
+            const zone = Math.floor((lon + 180) / 6) + 1;
+            const northernHemisphere = lat >= 0;
+            const utmEasting = calculateUTMEasting(lon, lat, zone);
+            const utmNorthing = calculateUTMNorthing(lat, northernHemisphere);
+        
+            document.getElementById('utmResult').innerText = `UTM Zone: ${zone}, Easting: ${utmEasting.toFixed(2)}, Northing: ${utmNorthing.toFixed(2)}`;
+        }
+
+        function calculateUTMEasting(lon, lat, zone) {
+            const a = 6378137; // radius of the Earth
+            const e = 0.08181919084262157; // eccentricity
+            const k0 = 0.9996;
+
+            const lonOrigin = (zone - 1) * 6 - 180 + 3; // central meridian
+            const n = lat / 180 * Math.PI;
+
+            const easting = k0 * a * (lon - lonOrigin) * Math.cos(n);
+
+            return easting;
+        }
+
+        function calculateUTMNorthing(lat, northernHemisphere) {
+            const a = 6378137; // radius of the Earth
+            const k0 = 0.9996;
+
+            if (northernHemisphere) {
+                return k0 * a * (Math.log(Math.tan((Math.PI / 4) + (lat * Math.PI / 180) / 2)));
+            } else {
+                return k0 * a * (Math.log(Math.tan((Math.PI / 4) + ((lat + 180) * Math.PI / 180) / 2))) + 10000000;
+            }
+        }
+    </script>
+</body>
+</html>

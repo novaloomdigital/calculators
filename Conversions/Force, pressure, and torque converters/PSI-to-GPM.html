@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PSI to GPM Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .converter {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input {
+            margin: 10px;
+            padding: 10px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>PSI to GPM Calculator</h1>
+    <div class="converter">
+        <input type="number" id="psiInput" placeholder="Pressure (PSI)" step="any">
+        <button onclick="convertPsiToGpm()">Convert to GPM</button>
+        <div class="result" id="gpmResult"></div>
+    </div>
+
+    <script>
+        function convertPsiToGpm() {
+            const psi = parseFloat(document.getElementById('psiInput').value);
+
+            if (isNaN(psi) || psi < 0) {
+                document.getElementById('gpmResult').innerText = 'Please enter a valid positive number.';
+                return;
+            }
+
+            // Assuming a fixed conversion factor for a specific application
+            const conversionFactor = 0.1; // Adjust as necessary for your application
+            const gpmValue = psi * conversionFactor;
+
+            document.getElementById('gpmResult').innerText = `${psi} PSI = ${gpmValue.toFixed(4)} GPM`;
+        }
+    </script>
+</body>
+</html>

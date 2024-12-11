@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Torque to Horsepower Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .converter {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input {
+            margin: 10px;
+            padding: 10px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Torque to Horsepower Calculator</h1>
+    <div class="converter">
+        <h2>Convert Torque to Horsepower (ft-lb)</h2>
+        <input type="number" id="torqueInput" placeholder="Torque (ft-lb)" step="any">
+        <input type="number" id="rpmInput" placeholder="RPM" step="any">
+        <button onclick="convertTorqueToHp()">Convert to hp</button>
+        <div class="result" id="torqueToHpResult"></div>
+
+        <h2>Convert Torque to Horsepower (Nm)</h2>
+        <input type="number" id="torqueNmInput" placeholder="Torque (Nm)" step="any">
+        <input type="number" id="rpmNmInput" placeholder="RPM" step="any">
+        <button onclick="convertNmToHp()">Convert to hp</button>
+        <div class="result" id="nmToHpResult"></div>
+    </div>
+
+    <script>
+        function convertTorqueToHp() {
+            const torque = parseFloat(document.getElementById('torqueInput').value);
+            const rpm = parseFloat(document.getElementById('rpmInput').value);
+
+            if (isNaN(torque) || isNaN(rpm) || torque < 0 || rpm < 0) {
+                document.getElementById('torqueToHpResult').innerText = 'Please enter valid positive numbers.';
+                return;
+            }
+
+            const hpValue = (torque * rpm) / 5252; // ft-lb to hp
+            document.getElementById('torqueToHpResult').innerText = `${torque} ft-lb at ${rpm} RPM = ${hpValue.toFixed(2)} hp`;
+        }
+
+        function convertNmToHp() {
+            const torqueNm = parseFloat(document.getElementById('torqueNmInput').value);
+            const rpmNm = parseFloat(document.getElementById('rpmNmInput').value);
+
+            if (isNaN(torqueNm) || isNaN(rpmNm) || torqueNm < 0 || rpmNm < 0) {
+                document.getElementById('nmToHpResult').innerText = 'Please enter valid positive numbers.';
+                return;
+            }
+
+            const hpNmValue = (torqueNm * rpmNm) / 9549; // Nm to hp
+            document.getElementById('nmToHpResult').innerText = `${torqueNm} Nm at ${rpmNm} RPM = ${hpNmValue.toFixed(2)} hp`;
+        }
+    </script>
+</head>
+</html>

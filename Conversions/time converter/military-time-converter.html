@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Military Time Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .converter {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input {
+            margin: 10px;
+            padding: 10px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        select {
+            margin: 10px;
+            padding: 10px;
+            width: 220px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Military Time Converter</h1>
+    <div class="converter">
+        <h2>Convert Standard Time to Military Time</h2>
+        <input type="text" id="standardTimeInput" placeholder="e.g. 2:30 PM">
+        <button onclick="convertToMilitary()">Convert to Military Time</button>
+        <div class="result" id="militaryResult"></div>
+
+        <h2>Convert Military Time to Standard Time</h2>
+        <input type="text" id="militaryTimeInput" placeholder="e.g. 14:30">
+        <button onclick="convertToStandard()">Convert to Standard Time</button>
+        <div class="result" id="standardResult"></div>
+    </div>
+
+    <script>
+        function convertToMilitary() {
+            const standardTime = document.getElementById('standardTimeInput').value.trim();
+            const [time, modifier] = standardTime.split(' ');
+
+            let [hours, minutes] = time.split(':').map(Number);
+            if (modifier.toUpperCase() === 'PM' && hours !== 12) {
+                hours += 12;
+            }
+            if (modifier.toUpperCase() === 'AM' && hours === 12) {
+                hours = 0;
+            }
+
+            const militaryTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+            document.getElementById('militaryResult').innerText = `Military Time: ${militaryTime}`;
+        }
+
+        function convertToStandard() {
+            const militaryTime = document.getElementById('militaryTimeInput').value.trim();
+            let [hours, minutes] = militaryTime.split(':').map(Number);
+            let modifier = 'AM';
+
+            if (hours >= 12) {
+                modifier = 'PM';
+                if (hours > 12) {
+                    hours -= 12;
+                }
+            } else if (hours === 0) {
+                hours = 12;
+            }
+
+            const standardTime = `${hours}:${String(minutes).padStart(2, '0')} ${modifier}`;
+            document.getElementById('standardResult').innerText = `Standard Time: ${standardTime}`;
+        }
+    </script>
+</body>
+</html>

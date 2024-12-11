@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Torque Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .converter {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input {
+            margin: 10px;
+            padding: 10px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        select {
+            margin: 10px;
+            padding: 10px;
+            width: 220px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Torque Converter</h1>
+    <div class="converter">
+        <h2>Convert Torque Units</h2>
+        <input type="number" id="valueInput" placeholder="Value" step="any">
+        
+        <select id="fromUnit">
+            <option value="newton-meters">Newton-meters (Nm)</option>
+            <option value="foot-pounds">Foot-pounds (ft-lb)</option>
+            <option value="inch-pounds">Inch-pounds (in-lb)</option>
+        </select>
+        
+        <select id="toUnit">
+            <option value="newton-meters">Newton-meters (Nm)</option>
+            <option value="foot-pounds">Foot-pounds (ft-lb)</option>
+            <option value="inch-pounds">Inch-pounds (in-lb)</option>
+        </select>
+        
+        <button onclick="convertTorque()">Convert</button>
+        <div class="result" id="conversionResult"></div>
+    </div>
+
+    <script>
+        function convertTorque() {
+            const value = parseFloat(document.getElementById('valueInput').value);
+            const fromUnit = document.getElementById('fromUnit').value;
+            const toUnit = document.getElementById('toUnit').value;
+
+            if (isNaN(value)) {
+                document.getElementById('conversionResult').innerText = 'Please enter a valid number.';
+                return;
+            }
+
+            // Conversion factors to Newton-meters
+            const conversionRates = {
+                'newton-meters': 1,
+                'foot-pounds': 1.35582, // 1 ft-lb = 1.35582 Nm
+                'inch-pounds': 0.1130 // 1 in-lb = 0.1130 Nm
+            };
+
+            // Convert the input value to Newton-meters
+            const valueInNm = value * conversionRates[fromUnit];
+
+            // Convert from Newton-meters to the target unit
+            const convertedValue = valueInNm / conversionRates[toUnit];
+
+            document.getElementById('conversionResult').innerText = `${value} ${fromUnit} = ${convertedValue.toFixed(4)} ${toUnit}`;
+        }
+    </script>
+</body>
+</html>

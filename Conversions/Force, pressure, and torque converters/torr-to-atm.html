@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Torr to atm Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .converter {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input {
+            margin: 10px;
+            padding: 10px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Torr to atm Converter</h1>
+    <div class="converter">
+        <h2>Convert Torr to atm</h2>
+        <input type="number" id="torrInput" placeholder="Torr" step="any">
+        <button onclick="convertTorrToAtm()">Convert to atm</button>
+        <div class="result" id="torrToAtmResult"></div>
+
+        <h2>Convert atm to Torr</h2>
+        <input type="number" id="atmInput" placeholder="atm" step="any">
+        <button onclick="convertAtmToTorr()">Convert to Torr</button>
+        <div class="result" id="atmToTorrResult"></div>
+    </div>
+
+    <script>
+        function convertTorrToAtm() {
+            const torr = parseFloat(document.getElementById('torrInput').value);
+
+            if (isNaN(torr) || torr < 0) {
+                document.getElementById('torrToAtmResult').innerText = 'Please enter a valid positive number.';
+                return;
+            }
+
+            const atmValue = torr / 760; // 1 Torr = 1/760 atm
+            document.getElementById('torrToAtmResult').innerText = `${torr} Torr = ${atmValue.toFixed(6)} atm`;
+        }
+
+        function convertAtmToTorr() {
+            const atm = parseFloat(document.getElementById('atmInput').value);
+
+            if (isNaN(atm) || atm < 0) {
+                document.getElementById('atmToTorrResult').innerText = 'Please enter a valid positive number.';
+                return;
+            }
+
+            const torrValue = atm * 760; // 1 atm = 760 Torr
+            document.getElementById('atmToTorrResult').innerText = `${atm} atm = ${torrValue.toFixed(6)} Torr`;
+        }
+    </script>
+</body>
+</html>

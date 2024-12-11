@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hardness Conversion Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .converter {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input {
+            margin: 10px;
+            padding: 10px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        select {
+            margin: 10px;
+            padding: 10px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Hardness Conversion Calculator</h1>
+    <div class="converter">
+        <h2>Convert Hardness</h2>
+        <input type="number" id="hardnessInput" placeholder="Hardness Value" step="any">
+        <select id="hardnessScale">
+            <option value="HB">Brinell (HB)</option>
+            <option value="HRB">Rockwell B (HRB)</option>
+            <option value="HRC">Rockwell C (HRC)</option>
+            <option value="HV">Vickers (HV)</option>
+        </select>
+        <button onclick="convertHardness()">Convert</button>
+        <div class="result" id="hardnessResult"></div>
+    </div>
+
+    <script>
+        function convertHardness() {
+            const hardnessValue = parseFloat(document.getElementById('hardnessInput').value);
+            const hardnessScale = document.getElementById('hardnessScale').value;
+
+            if (isNaN(hardnessValue) || hardnessValue < 0) {
+                document.getElementById('hardnessResult').innerText = 'Please enter a valid positive number for hardness.';
+                return;
+            }
+
+            let resultHB, resultHRB, resultHRC, resultHV;
+
+            switch (hardnessScale) {
+                case 'HB':
+                    resultHB = hardnessValue;
+                    resultHRB = 0.00264 * hardnessValue + 9.012; // HB to HRB
+                    resultHRC = 0.00078 * hardnessValue + 21.1; // HB to HRC
+                    resultHV = hardnessValue * 0.9; // HB to HV (approx)
+                    break;
+                case 'HRB':
+                    resultHRB = hardnessValue;
+                    resultHB = (hardnessValue - 9.012) / 0.00264; // HRB to HB
+                    resultHRC = 0.5 * hardnessValue + 30.0; // HRB to HRC (approx)
+                    resultHV = resultHB * 0.9; // HB to HV (approx)
+                    break;
+                case 'HRC':
+                    resultHRC = hardnessValue;
+                    resultHB = (hardnessValue - 21.1) / 0.00078; // HRC to HB
+                    resultHRB = (hardnessValue - 30.0) / 0.5; // HRC to HRB (approx)
+                    resultHV = resultHB * 0.9; // HB to HV (approx)
+                    break;
+                case 'HV':
+                    resultHV = hardnessValue;
+                    resultHB = hardnessValue / 0.9; // HV to HB (approx)
+                    resultHRB = 0.00264 * resultHB + 9.012; // HB to HRB
+                    resultHRC = 0.00078 * resultHB + 21.1; // HB to HRC
+                    break;
+            }
+
+            document.getElementById('hardnessResult').innerHTML = `
+                Conversion Results: <br>
+                Brinell (HB): ${resultHB.toFixed(2)} <br>
+                Rockwell B (HRB): ${resultHRB.toFixed(2)} <br>
+                Rockwell C (HRC): ${resultHRC.toFixed(2)} <br>
+                Vickers (HV): ${resultHV.toFixed(2)}
+            `;
+        }
+    </script>
+</body>
+</html>

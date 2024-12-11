@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Density Converter Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .converter {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input {
+            margin: 10px;
+            padding: 10px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Density Converter Calculator</h1>
+    <div class="converter">
+        <h2>Convert Density</h2>
+        <input type="number" id="densityInput" placeholder="Density Value" step="any">
+        <select id="densityUnit">
+            <option value="g/cm³">g/cm³</option>
+            <option value="kg/m³">kg/m³</option>
+            <option value="lb/ft³">lb/ft³</option>
+        </select>
+        <button onclick="convertDensity()">Convert</button>
+        <div class="result" id="densityResult"></div>
+    </div>
+
+    <script>
+        function convertDensity() {
+            const densityValue = parseFloat(document.getElementById('densityInput').value);
+            const densityUnit = document.getElementById('densityUnit').value;
+
+            if (isNaN(densityValue) || densityValue < 0) {
+                document.getElementById('densityResult').innerText = 'Please enter a valid positive number for density.';
+                return;
+            }
+
+            let resultGcm3, resultKgM3, resultLbFt3;
+
+            switch (densityUnit) {
+                case 'g/cm³':
+                    resultGcm3 = densityValue;
+                    resultKgM3 = densityValue * 1000; // g/cm³ to kg/m³
+                    resultLbFt3 = densityValue * 62.43; // g/cm³ to lb/ft³
+                    break;
+                case 'kg/m³':
+                    resultGcm3 = densityValue / 1000; // kg/m³ to g/cm³
+                    resultKgM3 = densityValue;
+                    resultLbFt3 = densityValue * 0.06243; // kg/m³ to lb/ft³
+                    break;
+                case 'lb/ft³':
+                    resultGcm3 = densityValue * 0.0160185; // lb/ft³ to g/cm³
+                    resultKgM3 = densityValue * 16.0185; // lb/ft³ to kg/m³
+                    resultLbFt3 = densityValue;
+                    break;
+            }
+
+            document.getElementById('densityResult').innerHTML = `
+                Conversion Results: <br>
+                ${resultGcm3.toFixed(4)} g/cm³ <br>
+                ${resultKgM3.toFixed(4)} kg/m³ <br>
+                ${resultLbFt3.toFixed(4)} lb/ft³
+            `;
+        }
+    </script>
+</body>
+</html>
