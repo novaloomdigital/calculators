@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polynomial Regression Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Polynomial Regression Calculator</h2>
+        <label for="data">Data Points (comma-separated, format: x1,y1 x2,y2 ...):</label>
+        <textarea id="data" rows="5" placeholder="Enter data points"></textarea>
+        <label for="degree">Degree of Polynomial:</label>
+        <input type="number" id="degree" placeholder="Enter degree" min="1">
+        <button onclick="calculatePolynomialRegression()">Calculate Polynomial Regression</button>
+        <p id="result"></p>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.5.0/math.min.js"></script>
+    <script>
+        function calculatePolynomialRegression() {
+            const dataInput = document.getElementById('data').value;
+            const degree = parseInt(document.getElementById('degree').value);
+            const dataPoints = dataInput.split(' ').map(pair => pair.split(',').map(Number));
+
+            if (dataPoints.some(pair => pair.length !== 2 || pair.some(isNaN)) || isNaN(degree) || degree < 1) {
+                document.getElementById('result').innerText = 'Please enter valid data points and degree.';
+                return;
+            }
+
+            const x = dataPoints.map(pair => pair[0]);
+            const y = dataPoints.map(pair => pair[1]);
+            
+            const X = x.map(xi => {
+                const row = [];
+                for (let i = 0; i <= degree; i++) {
+                    row.push(Math.pow(xi, i));
+                }
+                return row;
+            });
+
+            const XT = math.transpose(X);
+            const XTX = math.multiply(XT, X);
+            const XTY = math.multiply(XT, y);
+            const coeffs = math.lusolve(XTX, XTY);
+
+            let equation = 'y = ';
+            for (let i = degree; i >= 0; i--) {
+                equation += `${coeffs[i][0].toFixed(4)}x^${i} `;
+                if (i > 0) equation += '+ ';
+            }
+
+            document.getElementById('result').innerText = `Polynomial Regression Equation: ${equation}`;
+        }
+    </script>
+</body>
+</html>

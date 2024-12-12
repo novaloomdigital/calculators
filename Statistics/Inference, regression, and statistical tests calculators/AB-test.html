@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A/B Test Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        p {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>A/B Test Calculator</h2>
+        <label for="convA">Conversions in Group A:</label>
+        <input type="number" id="convA" placeholder="Enter conversions in group A" min="0">
+        <label for="sampleA">Sample Size of Group A:</label>
+        <input type="number" id="sampleA" placeholder="Enter sample size of group A" min="1">
+        <label for="convB">Conversions in Group B:</label>
+        <input type="number" id="convB" placeholder="Enter conversions in group B" min="0">
+        <label for="sampleB">Sample Size of Group B:</label>
+        <input type="number" id="sampleB" placeholder="Enter sample size of group B" min="1">
+        <button onclick="calculateABTest()">Calculate</button>
+        <p id="result"></p>
+    </div>
+    <script>
+        function calculateABTest() {
+            const convA = parseInt(document.getElementById('convA').value);
+            const sampleA = parseInt(document.getElementById('sampleA').value);
+            const convB = parseInt(document.getElementById('convB').value);
+            const sampleB = parseInt(document.getElementById('sampleB').value);
+
+            if (isNaN(convA) || isNaN(sampleA) || isNaN(convB) || isNaN(sampleB) || convA < 0 || sampleA <= 0 || convB < 0 || sampleB <= 0) {
+                document.getElementById('result').innerText = 'Please enter valid values for all fields.';
+                return;
+            }
+
+            const pA = convA / sampleA;
+            const pB = convB / sampleB;
+            const p = (convA + convB) / (sampleA + sampleB);
+            const z = (pA - pB) / Math.sqrt(p * (1 - p) * (1 / sampleA + 1 / sampleB));
+
+            const pValue = 1 - (0.5 * Math.erfc(-z / Math.sqrt(2)));
+
+            document.getElementById('result').innerHTML = `
+                Conversion Rate of Group A: ${(pA * 100).toFixed(2)}%<br>
+                Conversion Rate of Group B: ${(pB * 100).toFixed(2)}%<br>
+                Z-score: ${z.toFixed(2)}<br>
+                P-value: ${pValue.toFixed(4)}
+            `;
+        }
+    </script>
+</body>
+</html>

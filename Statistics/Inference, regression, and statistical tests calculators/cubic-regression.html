@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cubic Regression Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Cubic Regression Calculator</h2>
+        <label for="data">Data Points (comma-separated, format: x1,y1 x2,y2 ...):</label>
+        <textarea id="data" rows="5" placeholder="Enter data points"></textarea>
+        <button onclick="calculateCubicRegression()">Calculate Cubic Regression</button>
+        <p id="result"></p>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.5.0/math.min.js"></script>
+    <script>
+        function calculateCubicRegression() {
+            const dataInput = document.getElementById('data').value;
+            const dataPoints = dataInput.split(' ').map(pair => pair.split(',').map(Number));
+
+            if (dataPoints.some(pair => pair.length !== 2 || pair.some(isNaN))) {
+                document.getElementById('result').innerText = 'Please enter valid data points.';
+                return;
+            }
+
+            const x = dataPoints.map(pair => pair[0]);
+            const y = dataPoints.map(pair => pair[1]);
+
+            const X = x.map(xi => [1, xi, Math.pow(xi, 2), Math.pow(xi, 3)]);
+            const XT = math.transpose(X);
+            const XTX = math.multiply(XT, X);
+            const XTY = math.multiply(XT, y);
+            const coeffs = math.lusolve(XTX, XTY);
+
+            document.getElementById('result').innerText = `
+                Cubic Regression Equation: y = ${coeffs[3][0].toFixed(4)}x^3 + ${coeffs[2][0].toFixed(4)}x^2 + ${coeffs[1][0].toFixed(4)}x + ${coeffs[0][0].toFixed(4)}
+            `;
+        }
+    </script>
+</body>
+</html>

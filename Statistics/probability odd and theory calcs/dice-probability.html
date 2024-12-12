@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice Probability Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Dice Probability Calculator</h2>
+        <label for="numDice">Number of Dice:</label>
+        <input type="number" id="numDice" min="1" placeholder="Enter the number of dice">
+        <label for="targetSum">Target Sum:</label>
+        <input type="number" id="targetSum" min="1" placeholder="Enter the target sum">
+        <button onclick="calculateProbability()">Calculate Probability</button>
+        <p id="result"></p>
+    </div>
+    <script>
+        function calculateProbability() {
+            const numDice = parseInt(document.getElementById('numDice').value);
+            const targetSum = parseInt(document.getElementById('targetSum').value);
+
+            if (isNaN(numDice) || isNaN(targetSum) || numDice <= 0 || targetSum < numDice || targetSum > 6 * numDice) {
+                document.getElementById('result').innerText = 'Please enter valid values.';
+                return;
+            }
+
+            function getProbability(dice, sum) {
+                if (dice === 0) {
+                    return sum === 0 ? 1 : 0;
+                }
+                let probability = 0;
+                for (let i = 1; i <= 6; i++) {
+                    if (sum - i >= 0) {
+                        probability += getProbability(dice - 1, sum - i);
+                    }
+                }
+                return probability;
+            }
+
+            const totalOutcomes = Math.pow(6, numDice);
+            const favorableOutcomes = getProbability(numDice, targetSum);
+            const probability = (favorableOutcomes / totalOutcomes * 100).toFixed(2);
+
+            document.getElementById('result').innerText = `Probability: ${probability}%`;
+        }
+    </script>
+</body>
+</html>

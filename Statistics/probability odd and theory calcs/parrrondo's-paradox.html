@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parrondo's Paradox Simulator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Parrondo's Paradox Simulator</h2>
+        <label for="numGames">Number of Rounds:</label>
+        <input type="number" id="numGames" placeholder="Enter number of rounds">
+        <button onclick="simulateParrondosParadox()">Run Simulation</button>
+        <p id="result"></p>
+    </div>
+    <script>
+        function simulateParrondosParadox() {
+            const numGames = parseInt(document.getElementById('numGames').value);
+            if (isNaN(numGames) || numGames <= 0) {
+                document.getElementById('result').innerText = 'Please enter a valid number of rounds.';
+                return;
+            }
+
+            let capital = 0;
+
+            for (let i = 0; i < numGames; i++) {
+                if (i % 2 === 0) {
+                    capital += Math.random() < 0.49 ? 1 : -1;  // Game A
+                } else {
+                    capital += Math.random() < (capital % 3 === 0 ? 0.1 : 0.75) ? 1 : -1;  // Game B
+                }
+            }
+
+            document.getElementById('result').innerText = `Final Capital: ${capital}`;
+        }
+    </script>
+</body>
+</html>

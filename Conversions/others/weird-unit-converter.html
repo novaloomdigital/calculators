@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weird Unit Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            margin-top: 10px;
+            display: block;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+        select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background: #e7f1ff;
+            border-left: 5px solid #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Weird Unit Converter</h1>
+        <label for="value">Enter Quantity:</label>
+        <input type="number" id="value" placeholder="Value" step="any">
+        
+        <label for="unit">Select Unit:</label>
+        <select id="unit">
+            <option value="snails">Snails per Hour</option>
+            <option value="unicorns">Unicorns</option>
+            <option value="teaspoons">Teaspoons</option>
+        </select>
+        
+        <button onclick="convertWeirdUnits()">Convert</button>
+        
+        <div class="result" id="result" style="display:none;"></div>
+    </div>
+
+    <script>
+        function convertWeirdUnits() {
+            const value = parseFloat(document.getElementById('value').value);
+            const unit = document.getElementById('unit').value;
+            let result = '';
+
+            if (unit === 'snails') {
+                const unicorns = value / 100; // 1 unicorn = 100 snails per hour (just for fun)
+                const teaspoons = value * 0.5; // 1 snail = 0.5 teaspoons (fictional measurement)
+                result = `${value} Snails per Hour = ${unicorns.toFixed(4)} Unicorns = ${teaspoons.toFixed(4)} Teaspoons`;
+            } else if (unit === 'unicorns') {
+                const snails = value * 100; // 1 unicorn = 100 snails per hour
+                const teaspoons = snails * 0.5; // 1 snail = 0.5 teaspoons
+                result = `${value} Unicorns = ${snails.toFixed(4)} Snails per Hour = ${teaspoons.toFixed(4)} Teaspoons`;
+            } else if (unit === 'teaspoons') {
+                const snails = value / 0.5; // 1 snail = 0.5 teaspoons
+                const unicorns = snails / 100; // 1 unicorn = 100 snails per hour
+                result = `${value} Teaspoons = ${snails.toFixed(4)} Snails per Hour = ${unicorns.toFixed(4)} Unicorns`;
+            }
+
+            document.getElementById('result').innerText = result;
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

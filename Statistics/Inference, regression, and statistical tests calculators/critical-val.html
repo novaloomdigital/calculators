@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Critical Value Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Critical Value Calculator</h2>
+        <label for="alpha">Significance Level (alpha):</label>
+        <input type="number" id="alpha" placeholder="Enter alpha value" step="0.001" min="0" max="1">
+        <label for="df">Degrees of Freedom:</label>
+        <input type="number" id="df" placeholder="Enter degrees of freedom" min="1">
+        <button onclick="calculateCriticalValue()">Calculate Critical Value</button>
+        <p id="result"></p>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstat/1.9.4/jstat.min.js"></script>
+    <script>
+        function calculateCriticalValue() {
+            const alpha = parseFloat(document.getElementById('alpha').value);
+            const df = parseInt(document.getElementById('df').value);
+
+            if (isNaN(alpha) || alpha <= 0 || alpha >= 1 || isNaN(df) || df <= 0) {
+                document.getElementById('result').innerText = 'Please enter valid values for alpha and degrees of freedom.';
+                return;
+            }
+
+            const criticalValue = jStat.student.inv(1 - alpha / 2, df);
+
+            document.getElementById('result').innerText = `Critical Value: ${criticalValue.toFixed(4)}`;
+        }
+    </script>
+</body>
+</html>

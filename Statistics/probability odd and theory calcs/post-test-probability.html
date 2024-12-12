@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post-Test Probability Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Post-Test Probability Calculator</h2>
+        <label for="pretest">Pre-Test Probability (in %):</label>
+        <input type="number" id="pretest" placeholder="Enter pre-test probability" step="0.01" min="0" max="100">
+        <label for="sensitivity">Sensitivity (in %):</label>
+        <input type="number" id="sensitivity" placeholder="Enter sensitivity" step="0.01" min="0" max="100">
+        <label for="specificity">Specificity (in %):</label>
+        <input type="number" id="specificity" placeholder="Enter specificity" step="0.01" min="0" max="100">
+        <button onclick="calculatePostTestProbability()">Calculate Post-Test Probability</button>
+        <p id="result"></p>
+    </div>
+    <script>
+        function calculatePostTestProbability() {
+            const pretest = parseFloat(document.getElementById('pretest').value) / 100;
+            const sensitivity = parseFloat(document.getElementById('sensitivity').value) / 100;
+            const specificity = parseFloat(document.getElementById('specificity').value) / 100;
+
+            if (isNaN(pretest) || isNaN(sensitivity) || isNaN(specificity) || pretest < 0 || pretest > 1 || sensitivity < 0 || sensitivity > 1 || specificity < 0 || specificity > 1) {
+                document.getElementById('result').innerText = 'Please enter valid percentages between 0 and 100.';
+                return;
+            }
+
+            const postTestOdds = (pretest * sensitivity) / ((1 - pretest) * (1 - specificity));
+            const postTestProbability = (postTestOdds / (postTestOdds + 1)) * 100;
+
+            document.getElementById('result').innerText = `Post-Test Probability: ${postTestProbability.toFixed(2)}%`;
+        }
+    </script>
+</body>
+</html>

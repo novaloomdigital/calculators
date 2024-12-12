@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Absolute Uncertainty Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Absolute Uncertainty Calculator</h2>
+        <label for="measuredValue">Measured Value:</label>
+        <input type="number" id="measuredValue" placeholder="Enter measured value" step="0.01" min="0">
+        <label for="absoluteUncertainty">Absolute Uncertainty:</label>
+        <input type="number" id="absoluteUncertainty" placeholder="Enter absolute uncertainty" step="0.01" min="0">
+        <button onclick="calculateUncertainty()">Calculate Uncertainty</button>
+        <p id="result"></p>
+    </div>
+    <script>
+        function calculateUncertainty() {
+            const measuredValue = parseFloat(document.getElementById('measuredValue').value);
+            const absoluteUncertainty = parseFloat(document.getElementById('absoluteUncertainty').value);
+
+            if (isNaN(measuredValue) || isNaN(absoluteUncertainty) || measuredValue <= 0 || absoluteUncertainty < 0) {
+                document.getElementById('result').innerText = 'Please enter valid values.';
+                return;
+            }
+
+            const percentageUncertainty = (absoluteUncertainty / measuredValue) * 100;
+
+            document.getElementById('result').innerText = `Percentage Uncertainty: ${percentageUncertainty.toFixed(2)}%`;
+        }
+    </script>
+</body>
+</html>

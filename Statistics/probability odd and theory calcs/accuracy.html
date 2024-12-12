@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accuracy Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            margin-top: 10px;
+            display: block;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background: #e7f1ff;
+            border-left: 5px solid #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Accuracy Calculator</h1>
+        <label for="truePositives">True Positives (TP):</label>
+        <input type="number" id="truePositives" placeholder="Enter True Positives" step="any">
+        
+        <label for="trueNegatives">True Negatives (TN):</label>
+        <input type="number" id="trueNegatives" placeholder="Enter True Negatives" step="any">
+        
+        <label for="falsePositives">False Positives (FP):</label>
+        <input type="number" id="falsePositives" placeholder="Enter False Positives" step="any">
+        
+        <label for="falseNegatives">False Negatives (FN):</label>
+        <input type="number" id="falseNegatives" placeholder="Enter False Negatives" step="any">
+        
+        <button onclick="calculateAccuracy()">Calculate Accuracy</button>
+        
+        <div class="result" id="result" style="display:none;"></div>
+    </div>
+
+    <script>
+        function calculateAccuracy() {
+            const TP = parseFloat(document.getElementById('truePositives').value);
+            const TN = parseFloat(document.getElementById('trueNegatives').value);
+            const FP = parseFloat(document.getElementById('falsePositives').value);
+            const FN = parseFloat(document.getElementById('falseNegatives').value);
+            
+            const total = TP + TN + FP + FN;
+
+            if (total === 0) {
+                document.getElementById('result').innerText = "Please enter valid numbers.";
+                document.getElementById('result').style.display = 'block';
+                return;
+            }
+
+            const accuracy = (TP + TN) / total * 100; // Accuracy formula
+
+            document.getElementById('result').innerText = `Accuracy: ${accuracy.toFixed(2)}%`;
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

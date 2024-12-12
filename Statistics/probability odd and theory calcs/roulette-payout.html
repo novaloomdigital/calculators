@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roulette Payout Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Roulette Payout Calculator</h2>
+        <label for="betType">Type of Bet:</label>
+        <select id="betType">
+            <option value="straight">Straight (35:1)</option>
+            <option value="split">Split (17:1)</option>
+            <option value="street">Street (11:1)</option>
+            <option value="corner">Corner (8:1)</option>
+            <option value="line">Line (5:1)</option>
+            <option value="dozen">Dozen (2:1)</option>
+            <option value="column">Column (2:1)</option>
+            <option value="evenOdd">Even/Odd (1:1)</option>
+            <option value="redBlack">Red/Black (1:1)</option>
+            <option value="lowHigh">Low/High (1:1)</option>
+        </select>
+        <label for="amount">Amount Wagered:</label>
+        <input type="number" id="amount" placeholder="Enter amount wagered" min="1">
+        <button onclick="calculatePayout()">Calculate Payout</button>
+        <p id="result"></p>
+    </div>
+    <script>
+        function calculatePayout() {
+            const betType = document.getElementById('betType').value;
+            const amount = parseFloat(document.getElementById('amount').value);
+
+            if (isNaN(amount) || amount <= 0) {
+                document.getElementById('result').innerText = 'Please enter a valid amount.';
+                return;
+            }
+
+            let payoutMultiplier;
+            switch (betType) {
+                case 'straight':
+                    payoutMultiplier = 35;
+                    break;
+                case 'split':
+                    payoutMultiplier = 17;
+                    break;
+                case 'street':
+                    payoutMultiplier = 11;
+                    break;
+                case 'corner':
+                    payoutMultiplier = 8;
+                    break;
+                case 'line':
+                    payoutMultiplier = 5;
+                    break;
+                case 'dozen':
+                    payoutMultiplier = 2;
+                    break;
+                case 'column':
+                    payoutMultiplier = 2;
+                    break;
+                case 'evenOdd':
+                case 'redBlack':
+                case 'lowHigh':
+                    payoutMultiplier = 1;
+                    break;
+                default:
+                    document.getElementById('result').innerText = 'Invalid bet type.';
+                    return;
+            }
+
+            const payout = amount * payoutMultiplier;
+
+            document.getElementById('result').innerText = `Potential Payout: $${payout.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>

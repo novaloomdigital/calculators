@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Conversion Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            margin-top: 10px;
+            display: block;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            width: 100%;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background: #e7f1ff;
+            border-left: 5px solid #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Energy Conversion Calculator</h1>
+        <label for="value">Enter Energy:</label>
+        <input type="number" id="value" placeholder="Value">
+        
+        <label for="unit">Select Unit:</label>
+        <select id="unit">
+            <option value="joules">Joules</option>
+            <option value="calories">Calories</option>
+            <option value="kwh">Kilowatt-hours</option>
+        </select>
+        
+        <button onclick="convertEnergy()">Convert</button>
+        
+        <div class="result" id="result" style="display:none;"></div>
+    </div>
+
+    <script>
+        function convertEnergy() {
+            const value = document.getElementById('value').value;
+            const unit = document.getElementById('unit').value;
+            let result = '';
+
+            if (unit === 'joules') {
+                result = `${value} Joules = ${(value / 4184).toFixed(4)} Calories = ${(value / 3.6e6).toFixed(4)} Kilowatt-hours`;
+            } else if (unit === 'calories') {
+                result = `${value} Calories = ${(value * 4184).toFixed(4)} Joules = ${(value * 4184 / 3.6e6).toFixed(4)} Kilowatt-hours`;
+            } else if (unit === 'kwh') {
+                result = `${value} Kilowatt-hours = ${(value * 3.6e6).toFixed(4)} Joules = ${(value * 3.6e6 / 4184).toFixed(4)} Calories`;
+            }
+
+            document.getElementById('result').innerText = result;
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

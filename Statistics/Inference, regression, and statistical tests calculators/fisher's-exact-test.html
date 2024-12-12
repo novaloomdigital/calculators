@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fisher's Exact Test Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Fisher's Exact Test Calculator</h2>
+        <label for="a">Value A (Top Left):</label>
+        <input type="number" id="a" placeholder="Enter value A" min="0">
+        <label for="b">Value B (Top Right):</label>
+        <input type="number" id="b" placeholder="Enter value B" min="0">
+        <label for="c">Value C (Bottom Left):</label>
+        <input type="number" id="c" placeholder="Enter value C" min="0">
+        <label for="d">Value D (Bottom Right):</label>
+        <input type="number" id="d" placeholder="Enter value D" min="0">
+        <button onclick="calculateFishersExactTest()">Calculate P-value</button>
+        <p id="result"></p>
+    </div>
+    <script>
+        function factorial(n) {
+            return n ? n * factorial(n - 1) : 1;
+        }
+
+        function calculateFishersExactTest() {
+            const a = parseInt(document.getElementById('a').value);
+            const b = parseInt(document.getElementById('b').value);
+            const c = parseInt(document.getElementById('c').value);
+            const d = parseInt(document.getElementById('d').value);
+
+            if (isNaN(a) || isNaN(b) || isNaN(c) || isNaN(d)) {
+                document.getElementById('result').innerText = 'Please enter valid numbers for all fields.';
+                return;
+            }
+
+            const numerator = factorial(a + b) * factorial(c + d) * factorial(a + c) * factorial(b + d);
+            const denominator = factorial(a) * factorial(b) * factorial(c) * factorial(d) * factorial(a + b + c + d);
+            const pValue = numerator / denominator;
+
+            document.getElementById('result').innerText = `P-value: ${pValue.toFixed(4)}`;
+        }
+    </script>
+</body>
+</html>

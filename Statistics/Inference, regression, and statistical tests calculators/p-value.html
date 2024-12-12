@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P-Value Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>P-Value Calculator</h2>
+        <label for="sampleMean">Sample Mean (x̄):</label>
+        <input type="number" id="sampleMean" placeholder="Enter sample mean" step="0.01">
+        <label for="populationMean">Population Mean (μ):</label>
+        <input type="number" id="populationMean" placeholder="Enter population mean" step="0.01">
+        <label for="stdDev">Standard Deviation (σ):</label>
+        <input type="number" id="stdDev" placeholder="Enter standard deviation" step="0.01">
+        <label for="sampleSize">Sample Size (n):</label>
+        <input type="number" id="sampleSize" placeholder="Enter sample size" min="1">
+        <button onclick="calculatePValue()">Calculate P-value</button>
+        <p id="result"></p>
+    </div>
+    <script>
+        function calculatePValue() {
+            const sampleMean = parseFloat(document.getElementById('sampleMean').value);
+            const populationMean = parseFloat(document.getElementById('populationMean').value);
+            const stdDev = parseFloat(document.getElementById('stdDev').value);
+            const sampleSize = parseInt(document.getElementById('sampleSize').value);
+
+            if (isNaN(sampleMean) || isNaN(populationMean) || isNaN(stdDev) || isNaN(sampleSize) || sampleSize <= 0) {
+                document.getElementById('result').innerText = 'Please enter valid values for all fields.';
+                return;
+            }
+
+            const z = (sampleMean - populationMean) / (stdDev / Math.sqrt(sampleSize));
+            const pValue = 1 - (0.5 * Math.erfc(-z / Math.sqrt(2)));
+
+            document.getElementById('result').innerText = `P-value: ${pValue.toFixed(4)}`;
+        }
+    </script>
+</body>
+</html>

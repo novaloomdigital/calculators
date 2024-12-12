@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mann-Whitney U Test Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Mann-Whitney U Test Calculator</h2>
+        <label for="sample1">Sample 1 Values (comma-separated):</label>
+        <textarea id="sample1" rows="5" placeholder="Enter sample 1 values"></textarea>
+        <label for="sample2">Sample 2 Values (comma-separated):</label>
+        <textarea id="sample2" rows="5" placeholder="Enter sample 2 values"></textarea>
+        <button onclick="calculateMannWhitneyUTest()">Calculate U and P-value</button>
+        <p id="result"></p>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstat/1.9.4/jstat.min.js"></script>
+    <script>
+        function calculateMannWhitneyUTest() {
+            const sample1 = document.getElementById('sample1').value.split(',').map(Number);
+            const sample2 = document.getElementById('sample2').value.split(',').map(Number);
+
+            if (sample1.some(isNaN) || sample2.some(isNaN) || sample1.length === 0 || sample2.length === 0) {
+                document.getElementById('result').innerText = 'Please enter valid numbers for both samples.';
+                return;
+            }
+
+            const U = jStat.mannwhitneyu(sample1, sample2);
+            const z = (U - (sample1.length * sample2.length) / 2) / Math.sqrt((sample1.length * sample2.length * (sample1.length + sample2.length + 1)) / 12);
+            const pValue = 1 - (0.5 * Math.erfc(-z / Math.sqrt(2)));
+
+            document.getElementById('result').innerHTML = `
+                Mann-Whitney U: ${U}<br>
+                Z-Score: ${z.toFixed(4)}<br>
+                P-value: ${pValue.toFixed(4)}
+            `;
+        }
+    </script>
+</body>
+</html>

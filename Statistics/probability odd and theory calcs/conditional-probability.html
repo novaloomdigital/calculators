@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conditional Probability Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .calculator {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h2>Conditional Probability Calculator</h2>
+        <label for="probA">P(A):</label>
+        <input type="number" id="probA" placeholder="Enter P(A)" step="0.01" min="0" max="1">
+        <label for="probB">P(B):</label>
+        <input type="number" id="probB" placeholder="Enter P(B)" step="0.01" min="0" max="1">
+        <label for="probBGivenA">P(B|A):</label>
+        <input type="number" id="probBGivenA" placeholder="Enter P(B|A)" step="0.01" min="0" max="1">
+        <button onclick="calculateConditionalProbability()">Calculate P(A|B)</button>
+        <p id="result"></p>
+    </div>
+    <script>
+        function calculateConditionalProbability() {
+            const probA = parseFloat(document.getElementById('probA').value);
+            const probB = parseFloat(document.getElementById('probB').value);
+            const probBGivenA = parseFloat(document.getElementById('probBGivenA').value);
+
+            if (isNaN(probA) || isNaN(probB) || isNaN(probBGivenA) || probA < 0 || probA > 1 || probB < 0 || probB > 1 || probBGivenA < 0 || probBGivenA > 1) {
+                document.getElementById('result').innerText = 'Please enter valid probabilities between 0 and 1.';
+                return;
+            }
+
+            const probAGivenB = (probBGivenA * probA) / probB;
+
+            document.getElementById('result').innerText = `P(A|B): ${probAGivenB.toFixed(4)}`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bayes' Theorem Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            margin-top: 10px;
+            display: block;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background: #e7f1ff;
+            border-left: 5px solid #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bayes' Theorem Calculator</h1>
+        <label for="priorProbability">P(A) - Prior Probability of A:</label>
+        <input type="number" id="priorProbability" placeholder="Enter P(A)" step="any" min="0" max="1">
+        
+        <label for="likelihood">P(B|A) - Likelihood of B given A:</label>
+        <input type="number" id="likelihood" placeholder="Enter P(B|A)" step="any" min="0" max="1">
+        
+        <label for="evidence">P(B) - Total Probability of B:</label>
+        <input type="number" id="evidence" placeholder="Enter P(B)" step="any" min="0" max="1">
+        
+        <button onclick="calculateBayes()">Calculate P(A|B)</button>
+        
+        <div class="result" id="result" style="display:none;"></div>
+    </div>
+
+    <script>
+        function calculateBayes() {
+            const priorProbability = parseFloat(document.getElementById('priorProbability').value);
+            const likelihood = parseFloat(document.getElementById('likelihood').value);
+            const evidence = parseFloat(document.getElementById('evidence').value);
+
+            // Check for valid inputs
+            if (priorProbability < 0 || priorProbability > 1 || likelihood < 0 || likelihood > 1 || evidence <= 0) {
+                document.getElementById('result').innerText = "Please enter valid probabilities (0 to 1 for P(A) and P(B|A), P(B) > 0).";
+                document.getElementById('result').style.display = 'block';
+                return;
+            }
+
+            // Calculate P(A|B) using Bayes' Theorem
+            const posteriorProbability = (likelihood * priorProbability) / evidence;
+
+            document.getElementById('result').innerText = `P(A|B): ${posteriorProbability.toFixed(4)}`;
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

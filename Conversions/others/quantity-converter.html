@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantity Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            margin-top: 10px;
+            display: block;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+        select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background: #e7f1ff;
+            border-left: 5px solid #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Quantity Converter</h1>
+        <label for="value">Enter Quantity:</label>
+        <input type="number" id="value" placeholder="Value">
+        
+        <label for="unit">Select Unit:</label>
+        <select id="unit">
+            <option value="meters">Meters</option>
+            <option value="kilometers">Kilometers</option>
+            <option value="grams">Grams</option>
+            <option value="kilograms">Kilograms</option>
+            <option value="liters">Liters</option>
+            <option value="milliliters">Milliliters</option>
+        </select>
+        
+        <button onclick="convertQuantity()">Convert</button>
+        
+        <div class="result" id="result" style="display:none;"></div>
+    </div>
+
+    <script>
+        function convertQuantity() {
+            const value = parseFloat(document.getElementById('value').value);
+            const unit = document.getElementById('unit').value;
+            let result = '';
+
+            if (unit === 'meters') {
+                result = `${value} Meters = ${(value / 1000).toFixed(4)} Kilometers`;
+            } else if (unit === 'kilometers') {
+                result = `${value} Kilometers = ${(value * 1000).toFixed(4)} Meters`;
+            } else if (unit === 'grams') {
+                result = `${value} Grams = ${(value / 1000).toFixed(4)} Kilograms`;
+            } else if (unit === 'kilograms') {
+                result = `${value} Kilograms = ${(value * 1000).toFixed(4)} Grams`;
+            } else if (unit === 'liters') {
+                result = `${value} Liters = ${(value * 1000).toFixed(4)} Milliliters`;
+            } else if (unit === 'milliliters') {
+                result = `${value} Milliliters = ${(value / 1000).toFixed(4)} Liters`;
+            }
+
+            document.getElementById('result').innerText = result;
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

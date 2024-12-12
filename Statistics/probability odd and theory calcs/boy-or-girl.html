@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boy or Girl Paradox Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background: #e7f1ff;
+            border-left: 5px solid #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Boy or Girl Paradox Calculator</h1>
+        <button onclick="calculateProbability()">Calculate Probability</button>
+        
+        <div class="result" id="result" style="display:none;"></div>
+    </div>
+
+    <script>
+        function calculateProbability() {
+            // Scenarios are BB, BG, GB
+            const favorableOutcomes = 1; // Only "BB" satisfies that both are boys
+            const possibleOutcomes = 3; // BB, BG, GB
+
+            const probability = favorableOutcomes / possibleOutcomes;
+
+            document.getElementById('result').innerText = 
+                `Given that at least one child is a boy, the probability that the other child is also a boy is: ${(probability * 100).toFixed(2)}%`;
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

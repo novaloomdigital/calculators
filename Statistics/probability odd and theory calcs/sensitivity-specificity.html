@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensitivity and Specificity Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Sensitivity and Specificity Calculator</h2>
+        <label for="truePositives">True Positives (TP):</label>
+        <input type="number" id="truePositives" placeholder="Enter true positives" min="0">
+        <label for="falseNegatives">False Negatives (FN):</label>
+        <input type="number" id="falseNegatives" placeholder="Enter false negatives" min="0">
+        <label for="trueNegatives">True Negatives (TN):</label>
+        <input type="number" id="trueNegatives" placeholder="Enter true negatives" min="0">
+        <label for="falsePositives">False Positives (FP):</label>
+        <input type="number" id="falsePositives" placeholder="Enter false positives" min="0">
+        <button onclick="calculateMetrics()">Calculate Sensitivity and Specificity</button>
+        <p id="result"></p>
+    </div>
+    <script>
+        function calculateMetrics() {
+            const truePositives = parseInt(document.getElementById('truePositives').value);
+            const falseNegatives = parseInt(document.getElementById('falseNegatives').value);
+            const trueNegatives = parseInt(document.getElementById('trueNegatives').value);
+            const falsePositives = parseInt(document.getElementById('falsePositives').value);
+
+            if (isNaN(truePositives) || isNaN(falseNegatives) || isNaN(trueNegatives) || isNaN(falsePositives)) {
+                document.getElementById('result').innerText = 'Please enter valid numbers for all fields.';
+                return;
+            }
+
+            const sensitivity = (truePositives / (truePositives + falseNegatives)) * 100;
+            const specificity = (trueNegatives / (trueNegatives + falsePositives)) * 100;
+
+            document.getElementById('result').innerText = `
+                Sensitivity: ${sensitivity.toFixed(2)}%<br>
+                Specificity: ${specificity.toFixed(2)}%
+            `;
+        }
+    </script>
+</body>
+</html>

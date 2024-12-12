@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relative Risk Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Relative Risk Calculator</h2>
+        <label for="exposedWithOutcome">Exposed with Outcome:</label>
+        <input type="number" id="exposedWithOutcome" placeholder="Enter number of exposed with outcome" min="0">
+        <label for="exposedWithoutOutcome">Exposed without Outcome:</label>
+        <input type="number" id="exposedWithoutOutcome" placeholder="Enter number of exposed without outcome" min="0">
+        <label for="nonExposedWithOutcome">Non-Exposed with Outcome:</label>
+        <input type="number" id="nonExposedWithOutcome" placeholder="Enter number of non-exposed with outcome" min="0">
+        <label for="nonExposedWithoutOutcome">Non-Exposed without Outcome:</label>
+        <input type="number" id="nonExposedWithoutOutcome" placeholder="Enter number of non-exposed without outcome" min="0">
+        <button onclick="calculateRelativeRisk()">Calculate Relative Risk</button>
+        <p id="result"></p>
+    </div>
+    <script>
+        function calculateRelativeRisk() {
+            const exposedWithOutcome = parseInt(document.getElementById('exposedWithOutcome').value);
+            const exposedWithoutOutcome = parseInt(document.getElementById('exposedWithoutOutcome').value);
+            const nonExposedWithOutcome = parseInt(document.getElementById('nonExposedWithOutcome').value);
+            const nonExposedWithoutOutcome = parseInt(document.getElementById('nonExposedWithoutOutcome').value);
+
+            if (isNaN(exposedWithOutcome) || isNaN(exposedWithoutOutcome) || isNaN(nonExposedWithOutcome) || isNaN(nonExposedWithoutOutcome)) {
+                document.getElementById('result').innerText = 'Please enter valid numbers for all fields.';
+                return;
+            }
+
+            const riskExposed = exposedWithOutcome / (exposedWithOutcome + exposedWithoutOutcome);
+            const riskNonExposed = nonExposedWithOutcome / (nonExposedWithOutcome + nonExposedWithoutOutcome);
+
+            const relativeRisk = riskExposed / riskNonExposed;
+
+            document.getElementById('result').innerText = `Relative Risk: ${relativeRisk.toFixed(4)}`;
+        }
+    </script>
+</body>
+</html>

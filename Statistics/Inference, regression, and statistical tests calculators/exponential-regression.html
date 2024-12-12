@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exponential Regression Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Exponential Regression Calculator</h2>
+        <label for="data">Data Points (comma-separated, format: x1,y1 x2,y2 ...):</label>
+        <textarea id="data" rows="5" placeholder="Enter data points"></textarea>
+        <button onclick="calculateExponentialRegression()">Calculate Exponential Regression</button>
+        <p id="result"></p>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.5.0/math.min.js"></script>
+    <script>
+        function calculateExponentialRegression() {
+            const dataInput = document.getElementById('data').value;
+            const dataPoints = dataInput.split(' ').map(pair => pair.split(',').map(Number));
+
+            if (dataPoints.some(pair => pair.length !== 2 || pair.some(isNaN))) {
+                document.getElementById('result').innerText = 'Please enter valid data points.';
+                return;
+            }
+
+            const x = dataPoints.map(pair => pair[0]);
+            const y = dataPoints.map(pair => Math.log(pair[1]));
+
+            const n = x.length;
+            const sumX = x.reduce((a, b) => a + b, 0);
+            const sumY = y.reduce((a, b) => a + b, 0);
+            const sumXY = x.reduce((sum, xi, i) => sum + xi * y[i], 0);
+            const sumXX = x.reduce((sum, xi) => sum + xi * xi, 0);
+
+            const slope = (n * sumXY - sumX * sumY) / (n * sumXX - sumX * sumX);
+            const intercept = (sumY - slope * sumX) / n;
+
+            const a = Math.exp(intercept);
+            const b = slope;
+
+            document.getElementById('result').innerText = `
+                Exponential Regression Equation: y = ${a.toFixed(4)} * e^(${b.toFixed(4)}x)
+            `;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R-squared Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>R-squared Calculator</h2>
+        <label for="observedValues">Observed Values (comma-separated):</label>
+        <input type="text" id="observedValues" placeholder="Enter observed values">
+        <label for="predictedValues">Predicted Values (comma-separated):</label>
+        <input type="text" id="predictedValues" placeholder="Enter predicted values">
+        <button onclick="calculateRSquared()">Calculate R-squared</button>
+        <p id="result"></p>
+    </div>
+    <script>
+        function calculateRSquared() {
+            const observedValues = document.getElementById('observedValues').value.split(',').map(Number);
+            const predictedValues = document.getElementById('predictedValues').value.split(',').map(Number);
+
+            if (observedValues.length !== predictedValues.length || observedValues.some(isNaN) || predictedValues.some(isNaN)) {
+                document.getElementById('result').innerText = 'Please enter valid numbers with equal lengths.';
+                return;
+            }
+
+            const meanObserved = observedValues.reduce((a, b) => a + b, 0) / observedValues.length;
+
+            let ssTotal = 0;
+            let ssResidual = 0;
+
+            for (let i = 0; i < observedValues.length; i++) {
+                ssTotal += Math.pow(observedValues[i] - meanObserved, 2);
+                ssResidual += Math.pow(observedValues[i] - predictedValues[i], 2);
+            }
+
+            const rSquared = 1 - (ssResidual / ssTotal);
+
+            document.getElementById('result').innerText = `R-squared: ${rSquared.toFixed(4)}`;
+        }
+    </script>
+</body>
+</html>

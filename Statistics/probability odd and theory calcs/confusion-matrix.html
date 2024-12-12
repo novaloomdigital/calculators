@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confusion Matrix Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Confusion Matrix Calculator</h2>
+        <label for="tp">True Positives (TP):</label>
+        <input type="number" id="tp" placeholder="Enter True Positives">
+        <label for="tn">True Negatives (TN):</label>
+        <input type="number" id="tn" placeholder="Enter True Negatives">
+        <label for="fp">False Positives (FP):</label>
+        <input type="number" id="fp" placeholder="Enter False Positives">
+        <label for="fn">False Negatives (FN):</label>
+        <input type="number" id="fn" placeholder="Enter False Negatives">
+        <button onclick="calculateMetrics()">Calculate Metrics</button>
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Predicted Positive</th>
+                    <th>Predicted Negative</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Actual Positive</th>
+                    <td id="tpCell">0</td>
+                    <td id="fnCell">0</td>
+                </tr>
+                <tr>
+                    <th>Actual Negative</th>
+                    <td id="fpCell">0</td>
+                    <td id="tnCell">0</td>
+                </tr>
+            </tbody>
+        </table>
+        <p id="metrics"></p>
+    </div>
+    <script>
+        function calculateMetrics() {
+            const tp = parseInt(document.getElementById('tp').value);
+            const tn = parseInt(document.getElementById('tn').value);
+            const fp = parseInt(document.getElementById('fp').value);
+            const fn = parseInt(document.getElementById('fn').value);
+            
+            if (isNaN(tp) || isNaN(tn) || isNaN(fp) || isNaN(fn)) {
+                document.getElementById('metrics').innerText = 'Please enter all values.';
+                return;
+            }
+            
+            document.getElementById('tpCell').innerText = tp;
+            document.getElementById('fnCell').innerText = fn;
+            document.getElementById('fpCell').innerText = fp;
+            document.getElementById('tnCell').innerText = tn;
+            
+            const total = tp + tn + fp + fn;
+            const accuracy = ((tp + tn) / total * 100).toFixed(2);
+            const precision = (tp / (tp + fp) * 100).toFixed(2);
+            const recall = (tp / (tp + fn) * 100).toFixed(2);
+            const f1 = (2 * (precision * recall) / (precision + recall)).toFixed(2);
+
+            document.getElementById('metrics').innerHTML = `
+                Accuracy: ${accuracy}%<br>
+                Precision: ${precision}%<br>
+                Recall: ${recall}%<br>
+                F1 Score: ${f1}%
+            `;
+        }
+    </script>
+</body>
+</html>

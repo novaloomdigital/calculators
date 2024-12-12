@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            margin-top: 10px;
+            display: block;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+        select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background: #e7f1ff;
+            border-left: 5px solid #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Power Converter</h1>
+        <label for="value">Enter Power:</label>
+        <input type="number" id="value" placeholder="Value" step="any">
+        
+        <label for="unit">Select Unit:</label>
+        <select id="unit">
+            <option value="watts">Watts (W)</option>
+            <option value="kilowatts">Kilowatts (kW)</option>
+            <option value="horsepower">Horsepower (hp)</option>
+        </select>
+        
+        <button onclick="convertPower()">Convert</button>
+        
+        <div class="result" id="result" style="display:none;"></div>
+    </div>
+
+    <script>
+        function convertPower() {
+            const value = parseFloat(document.getElementById('value').value);
+            const unit = document.getElementById('unit').value;
+            let result = '';
+
+            if (unit === 'watts') {
+                const kilowatts = value / 1000; // 1 kW = 1000 W
+                const horsepower = value / 745.7; // 1 hp = 745.7 W
+                result = `${value} Watts = ${kilowatts.toFixed(4)} Kilowatts = ${horsepower.toFixed(4)} Horsepower`;
+            } else if (unit === 'kilowatts') {
+                const watts = value * 1000; // 1 kW = 1000 W
+                const horsepower = value * 1.34102; // 1 kW = 1.34102 hp
+                result = `${value} Kilowatts = ${watts.toFixed(4)} Watts = ${horsepower.toFixed(4)} Horsepower`;
+            } else if (unit === 'horsepower') {
+                const watts = value * 745.7; // 1 hp = 745.7 W
+                const kilowatts = value / 1.34102; // 1 hp = 0.7457 kW
+                result = `${value} Horsepower = ${watts.toFixed(4)} Watts = ${kilowatts.toFixed(4)} Kilowatts`;
+            }
+
+            document.getElementById('result').innerText = result;
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

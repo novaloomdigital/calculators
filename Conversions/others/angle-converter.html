@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Angle Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            margin-top: 10px;
+            display: block;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+        select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background: #e7f1ff;
+            border-left: 5px solid #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Angle Converter</h1>
+        <label for="value">Enter Angle:</label>
+        <input type="number" id="value" placeholder="Value" step="any">
+        
+        <label for="unit">Select Unit:</label>
+        <select id="unit">
+            <option value="degrees">Degrees (°)</option>
+            <option value="radians">Radians (rad)</option>
+            <option value="gradians">Gradians (gon)</option>
+        </select>
+        
+        <button onclick="convertAngle()">Convert</button>
+        
+        <div class="result" id="result" style="display:none;"></div>
+    </div>
+
+    <script>
+        function convertAngle() {
+            const value = parseFloat(document.getElementById('value').value);
+            const unit = document.getElementById('unit').value;
+            let result = '';
+
+            if (unit === 'degrees') {
+                const radians = value * (Math.PI / 180); // Degrees to Radians
+                const gradians = value * (10 / 9); // Degrees to Gradians
+                result = `${value} Degrees = ${radians.toFixed(4)} Radians = ${gradians.toFixed(4)} Gradians`;
+            } else if (unit === 'radians') {
+                const degrees = value * (180 / Math.PI); // Radians to Degrees
+                const gradians = degrees * (10 / 9); // Degrees to Gradians
+                result = `${value} Radians = ${degrees.toFixed(4)} Degrees = ${gradians.toFixed(4)} Gradians`;
+            } else if (unit === 'gradians') {
+                const degrees = value * (9 / 10); // Gradians to Degrees
+                const radians = degrees * (Math.PI / 180); // Degrees to Radians
+                result = `${value} Gradians = ${degrees.toFixed(4)} Degrees = ${radians.toFixed(4)} Radians`;
+            }
+
+            document.getElementById('result').innerText = result;
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

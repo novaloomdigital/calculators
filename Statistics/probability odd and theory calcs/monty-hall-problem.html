@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monty Hall Problem Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Monty Hall Problem Calculator</h2>
+        <label for="numSimulations">Number of Simulations:</label>
+        <input type="number" id="numSimulations" placeholder="Enter number of simulations">
+        <button onclick="simulate()">Run Simulations</button>
+        <p id="result"></p>
+    </div>
+    <script>
+        function simulate() {
+            const numSimulations = parseInt(document.getElementById('numSimulations').value);
+            if (isNaN(numSimulations) || numSimulations <= 0) {
+                document.getElementById('result').innerText = 'Please enter a valid number of simulations.';
+                return;
+            }
+
+            let switchWins = 0;
+            let stayWins = 0;
+
+            for (let i = 0; i < numSimulations; i++) {
+                const prizeDoor = Math.floor(Math.random() * 3);
+                const chosenDoor = Math.floor(Math.random() * 3);
+                const openedDoor = [0, 1, 2].find(door => door !== prizeDoor && door !== chosenDoor);
+                const switchedDoor = [0, 1, 2].find(door => door !== chosenDoor && door !== openedDoor);
+
+                if (switchedDoor === prizeDoor) {
+                    switchWins++;
+                } else if (chosenDoor === prizeDoor) {
+                    stayWins++;
+                }
+            }
+
+            const switchWinRate = (switchWins / numSimulations * 100).toFixed(2);
+            const stayWinRate = (stayWins / numSimulations * 100).toFixed(2);
+
+            document.getElementById('result').innerText = `
+                Switching wins: ${switchWins} times (${switchWinRate}%)<br>
+                Staying wins: ${stayWins} times (${stayWinRate}%)`;
+        }
+    </script>
+</body>
+</html>

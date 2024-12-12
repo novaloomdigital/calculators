@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Paradox Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            margin-top: 10px;
+            display: block;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background: #e7f1ff;
+            border-left: 5px solid #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Birthday Paradox Calculator</h1>
+        <label for="numPeople">Enter Number of People:</label>
+        <input type="number" id="numPeople" placeholder="Number of People" min="1" max="100">
+        
+        <button onclick="calculateProbability()">Calculate Probability</button>
+        
+        <div class="result" id="result" style="display:none;"></div>
+    </div>
+
+    <script>
+        function calculateProbability() {
+            const numPeople = parseInt(document.getElementById('numPeople').value);
+
+            // Ensure valid input
+            if (numPeople < 1) {
+                document.getElementById('result').innerText = "Please enter a valid number of people (1 or more).";
+                document.getElementById('result').style.display = 'block';
+                return;
+            }
+
+            const daysInYear = 365;
+            let probabilityNoSharedBirthday = 1;
+
+            for (let i = 0; i < numPeople; i++) {
+                probabilityNoSharedBirthday *= (daysInYear - i) / daysInYear;
+            }
+
+            const probabilityAtLeastOneShared = 1 - probabilityNoSharedBirthday;
+
+            document.getElementById('result').innerText = 
+                `In a group of ${numPeople} people, the probability that at least two people share a birthday is: ${(probabilityAtLeastOneShared * 100).toFixed(2)}%`;
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

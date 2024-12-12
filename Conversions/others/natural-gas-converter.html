@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Natural Gas Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            margin-top: 10px;
+            display: block;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+        select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background: #e7f1ff;
+            border-left: 5px solid #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Natural Gas Converter</h1>
+        <label for="value">Enter Quantity:</label>
+        <input type="number" id="value" placeholder="Value" step="any">
+        
+        <label for="unit">Select Unit:</label>
+        <select id="unit">
+            <option value="cubic-meters">Cubic Meters (m³)</option>
+            <option value="cubic-feet">Cubic Feet (ft³)</option>
+            <option value="gigajoules">Gigajoules (GJ)</option>
+        </select>
+        
+        <button onclick="convertGas()">Convert</button>
+        
+        <div class="result" id="result" style="display:none;"></div>
+    </div>
+
+    <script>
+        function convertGas() {
+            const value = parseFloat(document.getElementById('value').value);
+            const unit = document.getElementById('unit').value;
+            let result = '';
+
+            if (unit === 'cubic-meters') {
+                const cubicFeet = value * 35.3147; // 1 m³ = 35.3147 ft³
+                const gigajoules = value * 39.2; // 1 m³ = 39.2 GJ (approx)
+                result = `${value} Cubic Meters = ${cubicFeet.toFixed(4)} Cubic Feet = ${gigajoules.toFixed(4)} Gigajoules`;
+            } else if (unit === 'cubic-feet') {
+                const cubicMeters = value / 35.3147; // 1 ft³ = 0.0283168 m³
+                const gigajoules = cubicMeters * 39.2; // Convert to GJ
+                result = `${value} Cubic Feet = ${cubicMeters.toFixed(4)} Cubic Meters = ${gigajoules.toFixed(4)} Gigajoules`;
+            } else if (unit === 'gigajoules') {
+                const cubicMeters = value / 39.2; // 1 GJ = approximately 0.0255 m³
+                const cubicFeet = cubicMeters * 35.3147; // Convert to ft³
+                result = `${value} Gigajoules = ${cubicMeters.toFixed(4)} Cubic Meters = ${cubicFeet.toFixed(4)} Cubic Feet`;
+            }
+
+            document.getElementById('result').innerText = result;
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

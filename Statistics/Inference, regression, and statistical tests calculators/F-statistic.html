@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-Statistic Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>F-Statistic Calculator</h2>
+        <label for="ssb">Sum of Squares Between Groups (SSB):</label>
+        <input type="number" id="ssb" placeholder="Enter SSB" min="0" step="0.01">
+        <label for="dfb">Degrees of Freedom Between Groups (dfB):</label>
+        <input type="number" id="dfb" placeholder="Enter dfB" min="1">
+        <label for="ssw">Sum of Squares Within Groups (SSW):</label>
+        <input type="number" id="ssw" placeholder="Enter SSW" min="0" step="0.01">
+        <label for="dfw">Degrees of Freedom Within Groups (dfW):</label>
+        <input type="number" id="dfw" placeholder="Enter dfW" min="1">
+        <button onclick="calculateFStatistic()">Calculate F-Statistic</button>
+        <p id="result"></p>
+    </div>
+    <script>
+        function calculateFStatistic() {
+            const ssb = parseFloat(document.getElementById('ssb').value);
+            const dfb = parseInt(document.getElementById('dfb').value);
+            const ssw = parseFloat(document.getElementById('ssw').value);
+            const dfw = parseInt(document.getElementById('dfw').value);
+
+            if (isNaN(ssb) || isNaN(dfb) || isNaN(ssw) || isNaN(dfw) || ssb < 0 || dfb <= 0 || ssw < 0 || dfw <= 0) {
+                document.getElementById('result').innerText = 'Please enter valid values for all fields.';
+                return;
+            }
+
+            const msb = ssb / dfb;  // Mean Square Between
+            const msw = ssw / dfw;  // Mean Square Within
+            const fStatistic = msb / msw;
+
+            document.getElementById('result').innerText = `F-Statistic: ${fStatistic.toFixed(4)}`;
+        }
+    </script>
+</body>
+</html>

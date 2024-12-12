@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expected Value Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Expected Value Calculator</h2>
+        <label for="outcomes">Outcomes (comma-separated):</label>
+        <input type="text" id="outcomes" placeholder="Enter outcomes">
+        <label for="probabilities">Probabilities (comma-separated):</label>
+        <input type="text" id="probabilities" placeholder="Enter probabilities">
+        <button onclick="calculateExpectedValue()">Calculate Expected Value</button>
+        <p id="result"></p>
+    </div>
+    <script>
+        function calculateExpectedValue() {
+            const outcomes = document.getElementById('outcomes').value.split(',').map(Number);
+            const probabilities = document.getElementById('probabilities').value.split(',').map(Number);
+
+            if (outcomes.length !== probabilities.length || outcomes.some(isNaN) || probabilities.some(isNaN) || probabilities.some(p => p < 0 || p > 1) || probabilities.reduce((a, b) => a + b, 0) !== 1) {
+                document.getElementById('result').innerText = 'Please enter valid outcomes and probabilities.';
+                return;
+            }
+
+            const expectedValue = outcomes.reduce((acc, outcome, index) => acc + (outcome * probabilities[index]), 0);
+
+            document.getElementById('result').innerText = `Expected Value: ${expectedValue.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>

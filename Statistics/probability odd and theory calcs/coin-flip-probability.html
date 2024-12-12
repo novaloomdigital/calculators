@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coin Flip Probability Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            margin-top: 10px;
+            display: block;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background: #e7f1ff;
+            border-left: 5px solid #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Coin Flip Probability Calculator</h1>
+        <label for="numFlips">Enter Number of Flips:</label>
+        <input type="number" id="numFlips" placeholder="Number of Flips" min="1">
+        
+        <button onclick="calculateProbability()">Calculate Probability</button>
+        
+        <div class="result" id="result" style="display:none;"></div>
+    </div>
+
+    <script>
+        function calculateProbability() {
+            const numFlips = parseInt(document.getElementById('numFlips').value);
+
+            // Ensure valid input
+            if (numFlips < 1) {
+                document.getElementById('result').innerText = "Please enter a valid number of flips (1 or more).";
+                document.getElementById('result').style.display = 'block';
+                return;
+            }
+
+            let headsCount = 0;
+            let tailsCount = 0;
+
+            // Simulate coin flips
+            for (let i = 0; i < numFlips; i++) {
+                const flip = Math.random() < 0.5 ? 'Heads' : 'Tails';
+                if (flip === 'Heads') {
+                    headsCount++;
+                } else {
+                    tailsCount++;
+                }
+            }
+
+            const headsProbability = (headsCount / numFlips) * 100;
+            const tailsProbability = (tailsCount / numFlips) * 100;
+
+            document.getElementById('result').innerText = 
+                `Results:\nHeads: ${headsCount} (${headsProbability.toFixed(2)}%)\nTails: ${tailsCount} (${tailsProbability.toFixed(2)}%)`;
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

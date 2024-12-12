@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combination Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            margin-top: 10px;
+            display: block;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background: #e7f1ff;
+            border-left: 5px solid #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Combination Calculator</h1>
+        <label for="nValue">Enter Total Items (n):</label>
+        <input type="number" id="nValue" placeholder="Total Items" min="0">
+        
+        <label for="rValue">Enter Items to Choose (r):</label>
+        <input type="number" id="rValue" placeholder="Items to Choose" min="0">
+
+        <button onclick="calculateCombination()">Calculate Combinations</button>
+        
+        <div class="result" id="result" style="display:none;"></div>
+    </div>
+
+    <script>
+        function factorial(num) {
+            if (num === 0 || num === 1) {
+                return 1;
+            }
+            let fact = 1;
+            for (let i = 2; i <= num; i++) {
+                fact *= i;
+            }
+            return fact;
+        }
+
+        function calculateCombination() {
+            const n = parseInt(document.getElementById('nValue').value);
+            const r = parseInt(document.getElementById('rValue').value);
+            
+            // Ensure valid input
+            if (n < 0 || r < 0 || r > n) {
+                document.getElementById('result').innerText = "Please enter valid numbers (n >= r >= 0).";
+                document.getElementById('result').style.display = 'block';
+                return;
+            }
+
+            const combinations = factorial(n) / (factorial(r) * factorial(n - r));
+
+            document.getElementById('result').innerText = 
+                `C(${n}, ${r}) = ${combinations}`;
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
