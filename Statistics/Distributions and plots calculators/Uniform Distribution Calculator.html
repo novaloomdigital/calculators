@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uniform Distribution Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Uniform Distribution Calculator</h1>
+        <div class="form-group">
+            <label for="lowerBound">Lower Bound (a)</label>
+            <input type="number" id="lowerBound" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="upperBound">Upper Bound (b)</label>
+            <input type="number" id="upperBound" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="xValue">Value (x)</label>
+            <input type="number" id="xValue" step="0.01">
+        </div>
+        <button class="btn" onclick="calculateUniform()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateUniform() {
+            let a = parseFloat(document.getElementById('lowerBound').value);
+            let b = parseFloat(document.getElementById('upperBound').value);
+            let x = parseFloat(document.getElementById('xValue').value);
+
+            let pdf = (x >= a && x <= b) ? 1 / (b - a) : 0;
+            let cdf = (x < a) ? 0 : (x > b) ? 1 : (x - a) / (b - a);
+
+            document.getElementById('result').innerHTML = `
+                Probability Density Function (PDF): ${pdf.toFixed(4)}<br>
+                Cumulative Distribution Function (CDF): ${cdf.toFixed(4)}
+            `;
+        }
+    </script>
+</body>
+</html>

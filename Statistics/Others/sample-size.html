@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Size Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sample Size Calculator</h1>
+        <div class="form-group">
+            <label for="confidenceLevel">Confidence Level (%)</label>
+            <input type="number" id="confidenceLevel" value="95">
+        </div>
+        <div class="form-group">
+            <label for="marginOfError">Margin of Error (%)</label>
+            <input type="number" id="marginOfError" value="5">
+        </div>
+        <div class="form-group">
+            <label for="populationSize">Population Size</label>
+            <input type="number" id="populationSize" value="1000">
+        </div>
+        <button class="btn" onclick="calculateSampleSize()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateSampleSize() {
+            let confidenceLevel = document.getElementById('confidenceLevel').value;
+            let marginOfError = document.getElementById('marginOfError').value;
+            let populationSize = document.getElementById('populationSize').value;
+
+            let confidenceLevelZ = 1.96; // For 95% confidence level
+            if (confidenceLevel == 99) confidenceLevelZ = 2.576;
+            if (confidenceLevel == 90) confidenceLevelZ = 1.645;
+
+            let marginOfErrorDecimal = marginOfError / 100;
+            let p = 0.5;
+            let q = 1 - p;
+
+            let sampleSize = (Math.pow(confidenceLevelZ, 2) * p * q) / Math.pow(marginOfErrorDecimal, 2);
+            let finitePopulationCorrection = sampleSize / (1 + ((sampleSize - 1) / populationSize));
+
+            document.getElementById('result').innerHTML = `Required Sample Size: ${Math.round(finitePopulationCorrection)}`;
+        }
+    </script>
+</body>
+</html>

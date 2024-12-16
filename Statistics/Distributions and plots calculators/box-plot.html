@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Box Plot Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            height: 100px;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+        #boxplot {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Box Plot Calculator</h1>
+        <div class="form-group">
+            <label for="inputData">Input Data (comma-separated values)</label>
+            <textarea id="inputData" placeholder="Enter data here..."></textarea>
+        </div>
+        <button class="btn" onclick="calculateBoxPlot()">Calculate</button>
+        <div class="result" id="result"></div>
+        <canvas id="boxplot" width="600" height="400"></canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        function calculateBoxPlot() {
+            let data = document.getElementById('inputData').value.split(',').map(Number).sort((a, b) => a - b);
+            let n = data.length;
+
+            let q1 = data[Math.floor((n / 4))];
+            let q2 = data[Math.floor((n / 2))];
+            let q3 = data[Math.floor((3 * n) / 4)];
+            let iqr = q3 - q1;
+            let min = Math.max(data[0], q1 - 1.5 * iqr);
+            let max = Math.min(data[n - 1], q3 + 1.5 * iqr);
+
+            document.getElementById('result').innerHTML = `
+                Q1: ${q1}<br>
+                Median (Q2): ${q2}<br>
+                Q3: ${q3}<br>
+                IQR: ${iqr}<br>
+                Min: ${min}<br>
+                Max: ${max}
+            `;
+
+            let ctx = document.getElementById('boxplot').getContext('2d');
+            new Chart(ctx, {
+                type: 'boxplot',
+                data: {
+                    datasets: [{
+                        label: 'Box Plot',
+                        data: [{
+                            min: min,
+                            q1: q1,
+                            median: q2,
+                            q3: q3,
+                            max: max
+                        }]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

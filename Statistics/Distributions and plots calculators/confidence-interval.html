@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confidence Interval Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Confidence Interval Calculator</h1>
+        <div class="form-group">
+            <label for="sampleMean">Sample Mean</label>
+            <input type="number" id="sampleMean" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="sampleStdDev">Sample Standard Deviation</label>
+            <input type="number" id="sampleStdDev" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="sampleSize">Sample Size</label>
+            <input type="number" id="sampleSize" step="1">
+        </div>
+        <div class="form-group">
+            <label for="confidenceLevel">Confidence Level (%)</label>
+            <input type="number" id="confidenceLevel" step="1" value="95">
+        </div>
+        <button class="btn" onclick="calculateConfidenceInterval()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateConfidenceInterval() {
+            let mean = parseFloat(document.getElementById('sampleMean').value);
+            let stdDev = parseFloat(document.getElementById('sampleStdDev').value);
+            let sampleSize = parseInt(document.getElementById('sampleSize').value);
+            let confidenceLevel = parseInt(document.getElementById('confidenceLevel').value) / 100;
+
+            let z = 1.96; // For 95% confidence level
+            if (confidenceLevel == 0.99) z = 2.576;
+            if (confidenceLevel == 0.90) z = 1.645;
+
+            let marginOfError = z * (stdDev / Math.sqrt(sampleSize));
+
+            let lowerBound = mean - marginOfError;
+            let upperBound = mean + marginOfError;
+
+            document.getElementById('result').innerHTML = `
+                Confidence Interval: (${lowerBound.toFixed(4)}, ${upperBound.toFixed(4)})
+            `;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frequency Distribution Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            height: 100px;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .frequency-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .frequency-table th, .frequency-table td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+        .frequency-table th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Frequency Distribution Calculator</h1>
+        <div class="form-group">
+            <label for="inputData">Input Data (comma-separated values)</label>
+            <textarea id="inputData" placeholder="Enter data here..."></textarea>
+        </div>
+        <button class="btn" onclick="calculateFrequency()">Calculate</button>
+        <div class="result" id="result"></div>
+        <table class="frequency-table" id="frequencyTable">
+            <thead>
+                <tr>
+                    <th>Value</th>
+                    <th>Frequency</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <script>
+        function calculateFrequency() {
+            let data = document.getElementById('inputData').value.split(',').map(Number);
+            let frequency = {};
+
+            data.forEach(value => {
+                if (frequency[value]) {
+                    frequency[value]++;
+                } else {
+                    frequency[value] = 1;
+                }
+            });
+
+            let resultHtml = '';
+            for (let value in frequency) {
+                resultHtml += `<tr><td>${value}</td><td>${frequency[value]}</td></tr>`;
+            }
+
+            document.getElementById('frequencyTable').querySelector('tbody').innerHTML = resultHtml;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exponential Growth Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Exponential Growth Calculator</h1>
+        <div class="form-group">
+            <label for="initialValue">Initial Value (P<sub>0</sub>)</label>
+            <input type="number" id="initialValue" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="growthRate">Growth Rate (r)</label>
+            <input type="number" id="growthRate" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="timePeriod">Time Period (t)</label>
+            <input type="number" id="timePeriod" step="1">
+        </div>
+        <button class="btn" onclick="calculateGrowth()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateGrowth() {
+            let P0 = parseFloat(document.getElementById('initialValue').value);
+            let r = parseFloat(document.getElementById('growthRate').value) / 100;
+            let t = parseInt(document.getElementById('timePeriod').value);
+
+            let Pt = P0 * Math.pow((1 + r), t);
+            document.getElementById('result').innerHTML = `Future Value (P<sub>t</sub>): ${Pt.toFixed(4)}`;
+        }
+    </script>
+</body>
+</html>

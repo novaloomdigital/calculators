@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decile Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Decile Calculator</h1>
+        <input type="text" id="dataValues" placeholder="Enter values (comma separated)" />
+        <button onclick="calculateDeciles()">Calculate Deciles</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateDeciles() {
+            const dataValues = document.getElementById('dataValues').value.split(',').map(Number);
+            if (dataValues.length === 0 || dataValues.some(isNaN)) {
+                document.getElementById('result').innerText = "Please enter valid numeric values.";
+                return;
+            }
+
+            dataValues.sort((a, b) => a - b);
+            const n = dataValues.length;
+            const deciles = [];
+
+            for (let i = 1; i <= 9; i++) {
+                const index = i * (n + 1) / 10;
+                const lowerIndex = Math.floor(index) - 1;
+                const upperIndex = Math.ceil(index) - 1;
+                const fraction = index - Math.floor(index);
+
+                if (upperIndex >= n) {
+                    deciles.push(dataValues[lowerIndex]);
+                } else if (lowerIndex === upperIndex) {
+                    deciles.push(dataValues[lowerIndex]);
+                } else {
+                    deciles.push(dataValues[lowerIndex] + fraction * (dataValues[upperIndex] - dataValues[lowerIndex]));
+                }
+            }
+
+            document.getElementById('result').innerText = `Deciles: ${deciles.map(d => d.toFixed(4)).join(', ')}`;
+        }
+    </script>
+</body>
+</html>

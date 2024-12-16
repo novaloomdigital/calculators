@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beta Distribution Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Beta Distribution Calculator</h1>
+        <div class="form-group">
+            <label for="alpha">Alpha (α)</label>
+            <input type="number" id="alpha" step="0.01" value="2">
+        </div>
+        <div class="form-group">
+            <label for="beta">Beta (β)</label>
+            <input type="number" id="beta" step="0.01" value="5">
+        </div>
+        <button class="btn" onclick="calculateBetaDistribution()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateBetaDistribution() {
+            let alpha = parseFloat(document.getElementById('alpha').value);
+            let beta = parseFloat(document.getElementById('beta').value);
+            let mean = alpha / (alpha + beta);
+            let variance = (alpha * beta) / (Math.pow(alpha + beta, 2) * (alpha + beta + 1));
+
+            document.getElementById('result').innerHTML = `
+                Mean: ${mean.toFixed(4)}<br>
+                Variance: ${variance.toFixed(4)}
+            `;
+        }
+    </script>
+</body>
+</html>

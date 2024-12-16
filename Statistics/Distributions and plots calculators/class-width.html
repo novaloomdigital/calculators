@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Width Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Class Width Calculator</h1>
+        <div class="form-group">
+            <label for="minValue">Minimum Value</label>
+            <input type="number" id="minValue" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="maxValue">Maximum Value</label>
+            <input type="number" id="maxValue" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="numClasses">Number of Classes</label>
+            <input type="number" id="numClasses" step="1" value="5">
+        </div>
+        <button class="btn" onclick="calculateClassWidth()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateClassWidth() {
+            let minValue = parseFloat(document.getElementById('minValue').value);
+            let maxValue = parseFloat(document.getElementById('maxValue').value);
+            let numClasses = parseInt(document.getElementById('numClasses').value);
+
+            let range = maxValue - minValue;
+            let classWidth = range / numClasses;
+
+            document.getElementById('result').innerHTML = `Class Width: ${classWidth.toFixed(4)}`;
+        }
+    </script>
+</body>
+</html>

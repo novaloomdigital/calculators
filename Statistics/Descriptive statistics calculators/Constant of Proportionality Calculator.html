@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Constant of Proportionality Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            height: 100px;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Constant of Proportionality Calculator</h1>
+        <div class="form-group">
+            <label for="xValues">X Values (comma-separated)</label>
+            <textarea id="xValues" placeholder="Enter X values..."></textarea>
+        </div>
+        <div class="form-group">
+            <label for="yValues">Y Values (comma-separated)</label>
+            <textarea id="yValues" placeholder="Enter Y values..."></textarea>
+        </div>
+        <button class="btn" onclick="calculateProportionality()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateProportionality() {
+            let xValues = document.getElementById('xValues').value.split(',').map(Number);
+            let yValues = document.getElementById('yValues').value.split(',').map(Number);
+
+            if (xValues.length !== yValues.length) {
+                document.getElementById('result').innerHTML = 'The number of X values and Y values must be the same.';
+                return;
+            }
+
+            let proportionalities = xValues.map((x, i) => yValues[i] / x);
+            let constantOfProportionality = proportionalities.reduce((a, b) => a + b, 0) / proportionalities.length;
+
+            document.getElementById('result').innerHTML = `Constant of Proportionality (k): ${constantOfProportionality.toFixed(4)}`;
+        }
+    </script>
+</body>
+</html>

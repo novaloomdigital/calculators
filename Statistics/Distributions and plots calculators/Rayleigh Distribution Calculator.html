@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rayleigh Distribution Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Rayleigh Distribution Calculator</h1>
+        <div class="form-group">
+            <label for="scaleParameter">Scale Parameter (σ)</label>
+            <input type="number" id="scaleParameter" step="0.01" value="1">
+        </div>
+        <div class="form-group">
+            <label for="xValue">Value (x)</label>
+            <input type="number" id="xValue" step="0.01" value="1">
+        </div>
+        <button class="btn" onclick="calculateRayleigh()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateRayleigh() {
+            let sigma = parseFloat(document.getElementById('scaleParameter').value);
+            let x = parseFloat(document.getElementById('xValue').value);
+
+            let pdf = (x / Math.pow(sigma, 2)) * Math.exp(-Math.pow(x, 2) / (2 * Math.pow(sigma, 2)));
+            let cdf = 1 - Math.exp(-Math.pow(x, 2) / (2 * Math.pow(sigma, 2)));
+
+            document.getElementById('result').innerHTML = `
+                Probability Density Function (PDF): ${pdf.toFixed(4)}<br>
+                Cumulative Distribution Function (CDF): ${cdf.toFixed(4)}
+            `;
+        }
+    </script>
+</body>
+</html>

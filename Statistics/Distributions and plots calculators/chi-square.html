@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi-Square Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            height: 100px;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Chi-Square Calculator</h1>
+        <div class="form-group">
+            <label for="observed">Observed Frequencies (comma-separated values)</label>
+            <textarea id="observed" placeholder="Enter observed frequencies here..."></textarea>
+        </div>
+        <div class="form-group">
+            <label for="expected">Expected Frequencies (comma-separated values)</label>
+            <textarea id="expected" placeholder="Enter expected frequencies here..."></textarea>
+        </div>
+        <button class="btn" onclick="calculateChiSquare()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateChiSquare() {
+            let observed = document.getElementById('observed').value.split(',').map(Number);
+            let expected = document.getElementById('expected').value.split(',').map(Number);
+
+            if (observed.length !== expected.length) {
+                document.getElementById('result').innerHTML = "The number of observed and expected frequencies must be the same.";
+                return;
+            }
+
+            let chiSquare = 0;
+            for (let i = 0; i < observed.length; i++) {
+                chiSquare += Math.pow(observed[i] - expected[i], 2) / expected[i];
+            }
+
+            document.getElementById('result').innerHTML = `Chi-Square Statistic: ${chiSquare.toFixed(4)}`;
+        }
+    </script>
+</body>
+</html>

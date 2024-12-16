@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error Propagation Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Error Propagation Calculator</h1>
+        <h3>Input 1</h3>
+        <input type="number" id="value1" placeholder="Value 1" />
+        <input type="number" id="error1" placeholder="Uncertainty (Error 1)" />
+        
+        <h3>Input 2</h3>
+        <input type="number" id="value2" placeholder="Value 2" />
+        <input type="number" id="error2" placeholder="Uncertainty (Error 2)" />
+
+        <h3>Operation</h3>
+        <select id="operation">
+            <option value="add">Addition (+)</option>
+            <option value="subtract">Subtraction (-)</option>
+            <option value="multiply">Multiplication (×)</option>
+            <option value="divide">Division (÷)</option>
+        </select>
+
+        <button onclick="calculateErrorPropagation()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateErrorPropagation() {
+            const value1 = parseFloat(document.getElementById('value1').value);
+            const error1 = parseFloat(document.getElementById('error1').value);
+            const value2 = parseFloat(document.getElementById('value2').value);
+            const error2 = parseFloat(document.getElementById('error2').value);
+            const operation = document.getElementById('operation').value;
+
+            let result, propagatedError;
+
+            switch (operation) {
+                case 'add':
+                    result = value1 + value2;
+                    propagatedError = Math.sqrt(Math.pow(error1, 2) + Math.pow(error2, 2));
+                    break;
+                case 'subtract':
+                    result = value1 - value2;
+                    propagatedError = Math.sqrt(Math.pow(error1, 2) + Math.pow(error2, 2));
+                    break;
+                case 'multiply':
+                    result = value1 * value2;
+                    propagatedError = result * Math.sqrt(Math.pow(error1 / value1, 2) + Math.pow(error2 / value2, 2));
+                    break;
+                case 'divide':
+                    result = value1 / value2;
+                    propagatedError = result * Math.sqrt(Math.pow(error1 / value1, 2) + Math.pow(error2 / value2, 2));
+                    break;
+                default:
+                    return;
+            }
+
+            document.getElementById('result').innerHTML = `
+                Result: ${result.toFixed(4)} ± ${propagatedError.toFixed(4)}
+            `;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Five Number Summary Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            height: 100px;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Five Number Summary Calculator</h1>
+        <div class="form-group">
+            <label for="inputData">Input Data (comma-separated values)</label>
+            <textarea id="inputData" placeholder="Enter data here..."></textarea>
+        </div>
+        <button class="btn" onclick="calculateSummary()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateSummary() {
+            let data = document.getElementById('inputData').value.split(',').map(Number).sort((a, b) => a - b);
+            let min = Math.min(...data);
+            let max = Math.max(...data);
+            let median = calculateMedian(data);
+            let q1 = calculateMedian(data.slice(0, Math.floor(data.length / 2)));
+            let q3 = calculateMedian(data.slice(Math.ceil(data.length / 2)));
+
+            document.getElementById('result').innerHTML = `
+                Minimum: ${min.toFixed(2)}<br>
+                Q1 (First Quartile): ${q1.toFixed(2)}<br>
+                Median: ${median.toFixed(2)}<br>
+                Q3 (Third Quartile): ${q3.toFixed(2)}<br>
+                Maximum: ${max.toFixed(2)}
+            `;
+        }
+
+        function calculateMedian(array) {
+            const mid = Math.floor(array.length / 2);
+            return array.length % 2 !== 0 ? array[mid] : (array[mid - 1] + array[mid]) / 2;
+        }
+    </script>
+</body>
+</html>

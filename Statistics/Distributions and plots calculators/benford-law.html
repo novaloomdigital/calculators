@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benford's Law Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            height: 100px;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Benford's Law Calculator</h1>
+        <div class="form-group">
+            <label for="inputData">Input Data (comma-separated values)</label>
+            <textarea id="inputData" placeholder="Enter data here..."></textarea>
+        </div>
+        <button class="btn" onclick="calculateBenford()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateBenford() {
+            let data = document.getElementById('inputData').value.split(',');
+            let freq = Array(9).fill(0);
+            let total = 0;
+
+            data.forEach(value => {
+                let digit = parseInt(value.trim()[0]);
+                if (digit >= 1 && digit <= 9) {
+                    freq[digit - 1]++;
+                    total++;
+                }
+            });
+
+            let expectedFreq = Array.from({length: 9}, (_, i) => Math.log10(1 + 1 / (i + 1)) * total);
+            
+            let resultHtml = `<h3>Benford's Law Distribution</h3>`;
+            resultHtml += `<table><tr><th>Digit</th><th>Observed</th><th>Expected</th></tr>`;
+            for (let i = 0; i < 9; i++) {
+                resultHtml += `<tr><td>${i + 1}</td><td>${freq[i]}</td><td>${expectedFreq[i].toFixed(2)}</td></tr>`;
+            }
+            resultHtml += `</table>`;
+
+            document.getElementById('result').innerHTML = resultHtml;
+        }
+    </script>
+</body>
+</html>

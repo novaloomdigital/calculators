@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index of Relative Opportunity (IOR) Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Index of Relative Opportunity (IOR) Calculator</h1>
+        <input type="number" id="opportunityA" placeholder="Enter opportunity for Group A" />
+        <input type="number" id="opportunityB" placeholder="Enter opportunity for Group B" />
+        <button onclick="calculateIOR()">Calculate IOR</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateIOR() {
+            const opportunityA = parseFloat(document.getElementById('opportunityA').value);
+            const opportunityB = parseFloat(document.getElementById('opportunityB').value);
+
+            if (isNaN(opportunityA) || isNaN(opportunityB) || opportunityB === 0) {
+                document.getElementById('result').innerText = "Please enter valid numeric values. Group B cannot be zero.";
+                return;
+            }
+
+            // IOR Calculation
+            const ior = opportunityA / opportunityB;
+
+            document.getElementById('result').innerHTML = `
+                Index of Relative Opportunity (IOR): ${ior.toFixed(4)}
+            `;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shannon Entropy Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            height: 100px;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Shannon Entropy Calculator</h1>
+        <div class="form-group">
+            <label for="inputText">Input Text</label>
+            <textarea id="inputText" placeholder="Enter text here..."></textarea>
+        </div>
+        <button class="btn" onclick="calculateEntropy()">Calculate Entropy</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateEntropy() {
+            let text = document.getElementById('inputText').value;
+            let freq = {};
+            
+            // Count the frequency of each character in the text
+            for (let i = 0; i < text.length; i++) {
+                let char = text[i];
+                if (freq[char]) {
+                    freq[char]++;
+                } else {
+                    freq[char] = 1;
+                }
+            }
+
+            // Calculate the Shannon entropy
+            let entropy = 0;
+            let len = text.length;
+            for (let char in freq) {
+                let p = freq[char] / len;
+                entropy -= p * Math.log2(p);
+            }
+
+            document.getElementById('result').innerHTML = `Shannon Entropy: ${entropy.toFixed(4)}`;
+        }
+    </script>
+</body>
+</html>

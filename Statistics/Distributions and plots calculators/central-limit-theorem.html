@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central Limit Theorem Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+        #chart {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Central Limit Theorem Calculator</h1>
+        <div class="form-group">
+            <label for="populationSize">Population Size</label>
+            <input type="number" id="populationSize" value="1000">
+        </div>
+        <div class="form-group">
+            <label for="sampleSize">Sample Size</label>
+            <input type="number" id="sampleSize" value="30">
+        </div>
+        <div class="form-group">
+            <label for="numSamples">Number of Samples</label>
+            <input type="number" id="numSamples" value="1000">
+        </div>
+        <button class="btn" onclick="calculateCLT()">Calculate</button>
+        <div class="result" id="result"></div>
+        <canvas id="chart" width="600" height="400"></canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        function generateRandomData(size) {
+            let data = [];
+            for (let i = 0; i < size; i++) {
+                data.push(Math.random());
+            }
+            return data;
+        }
+
+        function calculateSampleMeans(population, sampleSize, numSamples) {
+            let sampleMeans = [];
+            for (let i = 0; i < numSamples; i++) {
+                let sample = [];
+                for (let j = 0; j < sampleSize; j++) {
+                    sample.push(population[Math.floor(Math.random() * population.length)]);
+                }
+                let mean = sample.reduce((acc, val) => acc + val, 0) / sample.length;
+                sampleMeans.push(mean);
+            }
+            return sampleMeans;
+        }
+
+        function calculateCLT() {
+            let populationSize = parseInt(document.getElementById('populationSize').value);
+            let sampleSize = parseInt(document.getElementById('sampleSize').value);
+            let numSamples = parseInt(document.getElementById('numSamples').value);
+
+            let population = generateRandomData(populationSize);
+            let sampleMeans = calculateSampleMeans(population, sampleSize, numSamples);
+
+            document.getElementById('result').innerHTML = `Mean of Sample Means: ${(sampleMeans.reduce((acc, val) => acc + val, 0) / sampleMeans.length).toFixed(4)}`;
+
+            let ctx = document.getElementById('chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: sampleMeans.map((_, index) => index + 1),
+                    datasets: [{
+                        label: 'Sample Means',
+                        data: sampleMeans,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            display: false
+                        },
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

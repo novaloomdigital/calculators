@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hypergeometric Distribution Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hypergeometric Distribution Calculator</h1>
+        <div class="form-group">
+            <label for="populationSize">Population Size (N)</label>
+            <input type="number" id="populationSize" step="1" value="50">
+        </div>
+        <div class="form-group">
+            <label for="successesInPopulation">Number of Successes in Population (K)</label>
+            <input type="number" id="successesInPopulation" step="1" value="10">
+        </div>
+        <div class="form-group">
+            <label for="sampleSize">Sample Size (n)</label>
+            <input type="number" id="sampleSize" step="1" value="5">
+        </div>
+        <div class="form-group">
+            <label for="successesInSample">Number of Successes in Sample (k)</label>
+            <input type="number" id="successesInSample" step="1" value="2">
+        </div>
+        <button class="btn" onclick="calculateHypergeometric()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function factorial(n) {
+            return n ? n * factorial(n - 1) : 1;
+        }
+
+        function combination(n, k) {
+            return factorial(n) / (factorial(k) * factorial(n - k));
+        }
+
+        function calculateHypergeometric() {
+            let N = parseInt(document.getElementById('populationSize').value);
+            let K = parseInt(document.getElementById('successesInPopulation').value);
+            let n = parseInt(document.getElementById('sampleSize').value);
+            let k = parseInt(document.getElementById('successesInSample').value);
+
+            let probability = (combination(K, k) * combination(N - K, n - k)) / combination(N, n);
+
+            document.getElementById('result').innerHTML = `Probability: ${probability.toFixed(6)}`;
+        }
+    </script>
+</body>
+</html>

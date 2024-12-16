@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stem and Leaf Plot Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            height: 100px;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .stem-leaf {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            margin-top: 20px;
+            font-family: monospace;
+        }
+        .stem {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Stem and Leaf Plot Calculator</h1>
+        <div class="form-group">
+            <label for="inputData">Input Data (comma-separated values)</label>
+            <textarea id="inputData" placeholder="Enter data here..."></textarea>
+        </div>
+        <button class="btn" onclick="calculateStemAndLeaf()">Calculate</button>
+        <div class="result stem-leaf" id="stemAndLeaf"></div>
+    </div>
+
+    <script>
+        function calculateStemAndLeaf() {
+            let data = document.getElementById('inputData').value.split(',').map(Number).sort((a, b) => a - b);
+            let stemAndLeaf = {};
+
+            data.forEach(number => {
+                let stem = Math.floor(number / 10);
+                let leaf = number % 10;
+
+                if (!stemAndLeaf[stem]) {
+                    stemAndLeaf[stem] = [];
+                }
+                stemAndLeaf[stem].push(leaf);
+            });
+
+            let resultHtml = '';
+            for (let stem in stemAndLeaf) {
+                resultHtml += `<div class="stem">${stem}</div><div>${stemAndLeaf[stem].join(' ')}</div><br>`;
+            }
+
+            document.getElementById('stemAndLeaf').innerHTML = resultHtml;
+        }
+    </script>
+</body>
+</html>
+``
