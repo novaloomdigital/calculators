@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pearson Correlation Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+        }
+        input[type="text"] {
+            margin: 5px;
+            padding: 8px;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pearson Correlation Calculator</h1>
+    <p>Enter X values separated by commas:</p>
+    <input type="text" id="xInput" placeholder="e.g. 1, 2, 3, 4">
+    
+    <p>Enter Y values separated by commas:</p>
+    <input type="text" id="yInput" placeholder="e.g. 2, 3, 4, 5">
+    
+    <button onclick="calculatePearson()">Calculate Pearson Correlation</button>
+    <div id="result"></div>
+
+    <script>
+        function calculatePearson() {
+            const xInput = document.getElementById('xInput').value;
+            const yInput = document.getElementById('yInput').value;
+
+            const xValues = xInput.split(',').map(num => parseFloat(num.trim())).filter(num => !isNaN(num));
+            const yValues = yInput.split(',').map(num => parseFloat(num.trim())).filter(num => !isNaN(num));
+
+            if (xValues.length === 0 || yValues.length === 0 || xValues.length !== yValues.length) {
+                document.getElementById('result').innerText = 'Please enter valid and matching X and Y values.';
+                return;
+            }
+
+            const n = xValues.length;
+            const meanX = xValues.reduce((sum, val) => sum + val, 0) / n;
+            const meanY = yValues.reduce((sum, val) => sum + val, 0) / n;
+
+            const numerator = xValues.reduce((sum, val, index) => sum + ((val - meanX) * (yValues[index] - meanY)), 0);
+            const denominatorX = Math.sqrt(xValues.reduce((sum, val) => sum + Math.pow(val - meanX, 2), 0));
+            const denominatorY = Math.sqrt(yValues.reduce((sum, val) => sum + Math.pow(val - meanY, 2), 0));
+
+            const correlation = numerator / (denominatorX * denominatorY);
+
+            document.getElementById('result').innerText = `Pearson Correlation Coefficient: ${correlation.toFixed(4)}`;
+        }
+    </script>
+</body>
+</html>

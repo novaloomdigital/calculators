@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mean, Median, Mode Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+        }
+        input[type="text"] {
+            margin: 5px;
+            padding: 8px;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mean, Median, Mode Calculator</h1>
+    <p>Enter numbers separated by commas:</p>
+    <input type="text" id="numbersInput" placeholder="e.g. 1, 2, 2, 3, 4">
+    <button onclick="calculateStats()">Calculate</button>
+    <div id="result"></div>
+
+    <script>
+        function calculateStats() {
+            const input = document.getElementById('numbersInput').value;
+            const numbers = input.split(',').map(num => parseFloat(num.trim())).filter(num => !isNaN(num));
+
+            if (numbers.length === 0) {
+                document.getElementById('result').innerText = 'Please enter valid numbers.';
+                return;
+            }
+
+            const mean = numbers.reduce((acc, num) => acc + num, 0) / numbers.length;
+
+            numbers.sort((a, b) => a - b);
+            const mid = Math.floor(numbers.length / 2);
+            const median = numbers.length % 2 === 0 ? (numbers[mid - 1] + numbers[mid]) / 2 : numbers[mid];
+
+            const modeMap = {};
+            let mode = [];
+            let maxCount = 0;
+
+            for (const num of numbers) {
+                modeMap[num] = (modeMap[num] || 0) + 1;
+                if (modeMap[num] > maxCount) {
+                    maxCount = modeMap[num];
+                    mode = [num];
+                } else if (modeMap[num] === maxCount) {
+                    mode.push(num);
+                }
+            }
+
+            const modeResult = mode.length === numbers.length ? 'No mode' : mode.join(', ');
+
+            document.getElementById('result').innerText = `Mean: ${mean.toFixed(2)}, Median: ${median}, Mode: ${modeResult}`;
+        }
+    </script>
+</body>
+</html>

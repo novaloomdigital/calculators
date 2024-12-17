@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spearman's Correlation Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        input {
+            width: calc(50% - 10px);
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 15px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Spearman's Correlation Calculator</h1>
+    <div>
+        <label for="dataX">Enter data for X (comma-separated):</label><br>
+        <input type="text" id="dataX" placeholder="1, 2, 3, 4"><br>
+        <label for="dataY">Enter data for Y (comma-separated):</label><br>
+        <input type="text" id="dataY" placeholder="4, 3, 2, 1"><br>
+        <button onclick="calculateSpearman()">Calculate Spearman's Correlation</button>
+    </div>
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateSpearman() {
+            const dataX = document.getElementById('dataX').value.split(',').map(Number);
+            const dataY = document.getElementById('dataY').value.split(',').map(Number);
+
+            if (dataX.length !== dataY.length) {
+                document.getElementById('result').innerText = "Both datasets must have the same length!";
+                return;
+            }
+
+            const n = dataX.length;
+
+            const rankX = rankData(dataX);
+            const rankY = rankData(dataY);
+
+            let dSquaredSum = 0;
+            for (let i = 0; i < n; i++) {
+                const d = rankX[i] - rankY[i];
+                dSquaredSum += d * d;
+            }
+
+            const spearmanCorrelation = 1 - (6 * dSquaredSum) / (n * (n * n - 1));
+            document.getElementById('result').innerText = "Spearman's Correlation: " + spearmanCorrelation.toFixed(4);
+        }
+
+        function rankData(data) {
+            const sortedData = [...data].map((value, index) => ({ value, index })).sort((a, b) => a.value - b.value);
+            const rank = new Array(data.length);
+            let currentRank = 1;
+
+            for (let i = 0; i < sortedData.length; i++) {
+                if (i > 0 && sortedData[i].value !== sortedData[i - 1].value) {
+                    currentRank = i + 1;
+                }
+                rank[sortedData[i].index] = currentRank;
+            }
+
+            return rank;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Variance Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        input {
+            width: calc(50% - 10px);
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 15px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Variance Calculator</h1>
+    <div>
+        <label for="data">Enter data (comma-separated):</label><br>
+        <input type="text" id="data" placeholder="1, 2, 3, 4"><br>
+        <button onclick="calculateVariance()">Calculate Variance</button>
+    </div>
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateVariance() {
+            const data = document.getElementById('data').value.split(',').map(Number);
+            const n = data.length;
+
+            if (n === 0) {
+                document.getElementById('result').innerText = "Please enter some data!";
+                return;
+            }
+
+            const mean = data.reduce((acc, value) => acc + value, 0) / n;
+
+            const populationVariance = data.reduce((acc, value) => acc + Math.pow(value - mean, 2), 0) / n;
+            const sampleVariance = data.reduce((acc, value) => acc + Math.pow(value - mean, 2), 0) / (n - 1);
+
+            document.getElementById('result').innerText = 
+                `Population Variance: ${populationVariance.toFixed(4)}, Sample Variance: ${sampleVariance.toFixed(4)}`;
+        }
+    </script>
+</body>
+</html>

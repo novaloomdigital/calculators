@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Median Absolute Deviation Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+        }
+        input[type="text"] {
+            margin: 5px;
+            padding: 8px;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Median Absolute Deviation Calculator</h1>
+    <p>Enter numbers separated by commas:</p>
+    <input type="text" id="numbersInput" placeholder="e.g. 1, 2, 2, 3, 4">
+    <button onclick="calculateMAD()">Calculate MAD</button>
+    <div id="result"></div>
+
+    <script>
+        function calculateMAD() {
+            const input = document.getElementById('numbersInput').value;
+            const numbers = input.split(',').map(num => parseFloat(num.trim())).filter(num => !isNaN(num));
+
+            if (numbers.length === 0) {
+                document.getElementById('result').innerText = 'Please enter valid numbers.';
+                return;
+            }
+
+            // Calculate the median
+            numbers.sort((a, b) => a - b);
+            const mid = Math.floor(numbers.length / 2);
+            const median = numbers.length % 2 === 0 ? (numbers[mid - 1] + numbers[mid]) / 2 : numbers[mid];
+
+            // Calculate the Median Absolute Deviation
+            const mad = numbers.map(num => Math.abs(num - median));
+            const medianMAD = mad.sort((a, b) => a - b);
+            const madMid = Math.floor(medianMAD.length / 2);
+            const madResult = medianMAD.length % 2 === 0 ? 
+                (medianMAD[madMid - 1] + medianMAD[madMid]) / 2 : 
+                medianMAD[madMid];
+
+            document.getElementById('result').innerText = `Median: ${median.toFixed(2)}, MAD: ${madResult.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>

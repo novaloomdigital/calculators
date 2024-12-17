@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venn Diagram Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        input {
+            width: calc(45% - 10px);
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 15px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .venn {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 75px;
+            position: relative;
+            border: 2px solid #007bff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        .circle1 {
+            background-color: rgba(0, 123, 255, 0.5);
+            z-index: 2;
+        }
+        .circle2 {
+            background-color: rgba(0, 123, 255, 0.5);
+            position: absolute;
+            left: 75px;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Venn Diagram Calculator</h1>
+    <div>
+        <label for="setA">Enter Set A (comma-separated):</label><br>
+        <input type="text" id="setA" placeholder="1, 2, 3, 4"><br>
+        <label for="setB">Enter Set B (comma-separated):</label><br>
+        <input type="text" id="setB" placeholder="3, 4, 5, 6"><br>
+        <button onclick="calculateVenn()">Calculate Venn Diagram</button>
+    </div>
+    <div class="result" id="result"></div>
+
+    <div class="venn" id="vennDiagram"></div>
+
+    <script>
+        function calculateVenn() {
+            const setA = new Set(document.getElementById('setA').value.split(',').map(item => item.trim()));
+            const setB = new Set(document.getElementById('setB').value.split(',').map(item => item.trim()));
+
+            const intersection = [...setA].filter(item => setB.has(item));
+            const union = new Set([...setA, ...setB]);
+
+            document.getElementById('result').innerText = 
+                `Union: { ${[...union].join(', ')} }, Intersection: { ${intersection.join(', ')} }`;
+
+            drawVenn(setA, setB, intersection);
+        }
+
+        function drawVenn(setA, setB, intersection) {
+            const vennDiagram = document.getElementById('vennDiagram');
+            vennDiagram.innerHTML = '';
+
+            const circle1 = document.createElement('div');
+            circle1.className = 'circle circle1';
+            circle1.innerText = `Set A\n{ ${[...setA].join(', ')} }`;
+
+            const circle2 = document.createElement('div');
+            circle2.className = 'circle circle2';
+            circle2.innerText = `Set B\n{ ${[...setB].join(', ')} }`;
+
+            vennDiagram.appendChild(circle1);
+            vennDiagram.appendChild(circle2);
+
+            if (intersection.length > 0) {
+                const intersectionDiv = document.createElement('div');
+                intersectionDiv.className = 'circle';
+                intersectionDiv.style.backgroundColor = 'rgba(0, 255, 0, 0.5)';
+                intersectionDiv.style.width = '75px';
+                intersectionDiv.style.height = '75px';
+                intersectionDiv.style.position = 'absolute';
+                intersectionDiv.style.left = '112.5px'; // Center over the intersection
+                intersectionDiv.style.top = '37.5px'; // Center vertically
+                intersectionDiv.innerText = `Intersection\n{ ${intersection.join(', ')} }`;
+                vennDiagram.appendChild(intersectionDiv);
+            }
+        }
+    </script>
+</body>
+</html>

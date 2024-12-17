@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quartile Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+        }
+        input[type="text"] {
+            margin: 5px;
+            padding: 8px;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Quartile Calculator</h1>
+    <p>Enter numbers separated by commas:</p>
+    <input type="text" id="numbersInput" placeholder="e.g. 1, 2, 3, 4, 5, 6, 7, 8, 9">
+    
+    <button onclick="calculateQuartiles()">Calculate Quartiles</button>
+    <div id="result"></div>
+
+    <script>
+        function calculateQuartiles() {
+            const input = document.getElementById('numbersInput').value;
+            const numbers = input.split(',').map(num => parseFloat(num.trim())).filter(num => !isNaN(num));
+
+            if (numbers.length === 0) {
+                document.getElementById('result').innerText = 'Please enter valid numbers.';
+                return;
+            }
+
+            numbers.sort((a, b) => a - b);
+            const q1 = quantile(numbers, 0.25);
+            const q2 = quantile(numbers, 0.50);
+            const q3 = quantile(numbers, 0.75);
+
+            document.getElementById('result').innerText = `Q1: ${q1.toFixed(2)}, Q2 (Median): ${q2.toFixed(2)}, Q3: ${q3.toFixed(2)}`;
+        }
+
+        function quantile(arr, q) {
+            const pos = (arr.length - 1) * q;
+            const base = Math.floor(pos);
+            const rest = pos - base;
+
+            if (arr[base + 1] !== undefined) {
+                return arr[base] + rest * (arr[base + 1] - arr[base]);
+            } else {
+                return arr[base];
+            }
+        }
+    </script>
+</body>
+</html>

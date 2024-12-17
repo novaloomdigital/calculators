@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skewness Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+        }
+        input[type="text"] {
+            margin: 5px;
+            padding: 8px;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Skewness Calculator</h1>
+    <p>Enter numbers separated by commas:</p>
+    <input type="text" id="numbersInput" placeholder="e.g. 1, 2, 3, 4, 5">
+    
+    <button onclick="calculateSkewness()">Calculate Skewness</button>
+    <div id="result"></div>
+
+    <script>
+        function calculateMean(data) {
+            return data.reduce((acc, val) => acc + val, 0) / data.length;
+        }
+
+        function calculateVariance(data, mean) {
+            return data.reduce((acc, val) => acc + Math.pow(val - mean, 2), 0) / data.length;
+        }
+
+        function calculateSkewness() {
+            const input = document.getElementById('numbersInput').value;
+            const numbers = input.split(',').map(num => parseFloat(num.trim())).filter(num => !isNaN(num));
+
+            if (numbers.length === 0) {
+                document.getElementById('result').innerText = 'Please enter valid numbers.';
+                return;
+            }
+
+            const mean = calculateMean(numbers);
+            const variance = calculateVariance(numbers, mean);
+            const stdDev = Math.sqrt(variance);
+
+            const skewness = numbers.reduce((acc, val) => acc + Math.pow((val - mean) / stdDev, 3), 0) / numbers.length;
+
+            document.getElementById('result').innerText = `Skewness: ${skewness.toFixed(4)}`;
+        }
+    </script>
+</body>
+</html>

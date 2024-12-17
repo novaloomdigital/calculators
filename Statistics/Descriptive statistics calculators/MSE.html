@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mean Squared Error Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+        }
+        input[type="text"] {
+            margin: 5px;
+            padding: 8px;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mean Squared Error (MSE) Calculator</h1>
+    <p>Enter actual values separated by commas:</p>
+    <input type="text" id="actualInput" placeholder="e.g. 3, -0.5, 2, 7">
+    
+    <p>Enter predicted values separated by commas:</p>
+    <input type="text" id="predictedInput" placeholder="e.g. 2.5, 0.0, 2, 8">
+    
+    <button onclick="calculateMSE()">Calculate MSE</button>
+    <div id="result"></div>
+
+    <script>
+        function calculateMSE() {
+            const actualInput = document.getElementById('actualInput').value;
+            const predictedInput = document.getElementById('predictedInput').value;
+
+            const actualValues = actualInput.split(',').map(num => parseFloat(num.trim())).filter(num => !isNaN(num));
+            const predictedValues = predictedInput.split(',').map(num => parseFloat(num.trim())).filter(num => !isNaN(num));
+
+            if (actualValues.length === 0 || predictedValues.length === 0 || actualValues.length !== predictedValues.length) {
+                document.getElementById('result').innerText = 'Please enter valid and matching actual and predicted values.';
+                return;
+            }
+
+            const mse = actualValues.reduce((sum, actual, index) => {
+                const error = actual - predictedValues[index];
+                return sum + Math.pow(error, 2);
+            }, 0) / actualValues.length;
+
+            document.getElementById('result').innerText = `Mean Squared Error: ${mse.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>

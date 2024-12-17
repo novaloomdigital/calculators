@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upper and Lower Fence Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        input {
+            width: calc(50% - 10px);
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 15px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Upper and Lower Fence Calculator</h1>
+    <div>
+        <label for="data">Enter data (comma-separated):</label><br>
+        <input type="text" id="data" placeholder="1, 2, 3, 4, 5"><br>
+        <button onclick="calculateFences()">Calculate Fences</button>
+    </div>
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateFences() {
+            const data = document.getElementById('data').value.split(',').map(Number).sort((a, b) => a - b);
+            const n = data.length;
+
+            if (n === 0) {
+                document.getElementById('result').innerText = "Please enter some data!";
+                return;
+            }
+
+            const Q1 = getQuantile(data, 0.25);
+            const Q3 = getQuantile(data, 0.75);
+            const IQR = Q3 - Q1;
+
+            const lowerFence = Q1 - 1.5 * IQR;
+            const upperFence = Q3 + 1.5 * IQR;
+
+            document.getElementById('result').innerText = `Lower Fence: ${lowerFence.toFixed(4)}, Upper Fence: ${upperFence.toFixed(4)}`;
+        }
+
+        function getQuantile(data, quantile) {
+            const pos = quantile * (data.length - 1);
+            const base = Math.floor(pos);
+            const rest = pos - base;
+
+            if (data.length === 1) return data[0];
+            if (base + 1 < data.length) {
+                return data[base] + rest * (data[base + 1] - data[base]);
+            }
+            return data[base];
+        }
+    </script>
+</body>
+</html>

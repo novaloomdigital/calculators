@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pooled Standard Deviation Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+        }
+        input[type="text"] {
+            margin: 5px;
+            padding: 8px;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pooled Standard Deviation Calculator</h1>
+    <p>Enter the first sample data separated by commas:</p>
+    <input type="text" id="sample1Input" placeholder="e.g. 1, 2, 3, 4, 5">
+    
+    <p>Enter the second sample data separated by commas:</p>
+    <input type="text" id="sample2Input" placeholder="e.g. 2, 3, 4, 5, 6">
+    
+    <button onclick="calculatePooledStandardDeviation()">Calculate Pooled Standard Deviation</button>
+    <div id="result"></div>
+
+    <script>
+        function calculateStandardDeviation(data) {
+            const mean = data.reduce((acc, val) => acc + val, 0) / data.length;
+            const variance = data.reduce((acc, val) => acc + Math.pow(val - mean, 2), 0) / (data.length - 1);
+            return Math.sqrt(variance);
+        }
+
+        function calculatePooledStandardDeviation() {
+            const sample1Input = document.getElementById('sample1Input').value;
+            const sample2Input = document.getElementById('sample2Input').value;
+
+            const sample1 = sample1Input.split(',').map(num => parseFloat(num.trim())).filter(num => !isNaN(num));
+            const sample2 = sample2Input.split(',').map(num => parseFloat(num.trim())).filter(num => !isNaN(num));
+
+            if (sample1.length === 0 || sample2.length === 0) {
+                document.getElementById('result').innerText = 'Please enter valid sample data for both samples.';
+                return;
+            }
+
+            const n1 = sample1.length;
+            const n2 = sample2.length;
+
+            const s1 = calculateStandardDeviation(sample1);
+            const s2 = calculateStandardDeviation(sample2);
+
+            const pooledSD = Math.sqrt(((n1 - 1) * Math.pow(s1, 2) + (n2 - 1) * Math.pow(s2, 2)) / (n1 + n2 - 2));
+
+            document.getElementById('result').innerText = `Pooled Standard Deviation: ${pooledSD.toFixed(4)}`;
+        }
+    </script>
+</body>
+</html>

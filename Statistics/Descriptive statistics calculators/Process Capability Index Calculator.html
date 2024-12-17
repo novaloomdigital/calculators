@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Process Capability Index (Cpk) Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+        }
+        input[type="text"] {
+            margin: 5px;
+            padding: 8px;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Process Capability Index (Cpk) Calculator</h1>
+    <p>Enter the mean (average) of the process:</p>
+    <input type="text" id="meanInput" placeholder="e.g. 10">
+    
+    <p>Enter the standard deviation of the process:</p>
+    <input type="text" id="stdDevInput" placeholder="e.g. 1.5">
+    
+    <p>Enter the lower specification limit (LSL):</p>
+    <input type="text" id="lslInput" placeholder="e.g. 8">
+    
+    <p>Enter the upper specification limit (USL):</p>
+    <input type="text" id="uslInput" placeholder="e.g. 12">
+    
+    <button onclick="calculateCpk()">Calculate Cpk</button>
+    <div id="result"></div>
+
+    <script>
+        function calculateCpk() {
+            const mean = parseFloat(document.getElementById('meanInput').value);
+            const stdDev = parseFloat(document.getElementById('stdDevInput').value);
+            const lsl = parseFloat(document.getElementById('lslInput').value);
+            const usl = parseFloat(document.getElementById('uslInput').value);
+
+            if (isNaN(mean) || isNaN(stdDev) || isNaN(lsl) || isNaN(usl) || stdDev <= 0) {
+                document.getElementById('result').innerText = 'Please enter valid numbers for all fields.';
+                return;
+            }
+
+            const cpkLower = (mean - lsl) / (3 * stdDev);
+            const cpkUpper = (usl - mean) / (3 * stdDev);
+            const cpk = Math.min(cpkLower, cpkUpper);
+
+            document.getElementById('result').innerText = `Cpk: ${cpk.toFixed(4)}`;
+        }
+    </script>
+</body>
+</html>

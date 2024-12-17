@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relative Standard Deviation Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+        }
+        input[type="text"] {
+            margin: 5px;
+            padding: 8px;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Relative Standard Deviation Calculator</h1>
+    <p>Enter numbers separated by commas:</p>
+    <input type="text" id="numbersInput" placeholder="e.g. 1, 2, 3, 4, 5">
+    
+    <button onclick="calculateRSD()">Calculate RSD</button>
+    <div id="result"></div>
+
+    <script>
+        function calculateStandardDeviation(data) {
+            const mean = data.reduce((acc, val) => acc + val, 0) / data.length;
+            const variance = data.reduce((acc, val) => acc + Math.pow(val - mean, 2), 0) / (data.length - 1);
+            return Math.sqrt(variance);
+        }
+
+        function calculateRSD() {
+            const input = document.getElementById('numbersInput').value;
+            const numbers = input.split(',').map(num => parseFloat(num.trim())).filter(num => !isNaN(num));
+
+            if (numbers.length === 0) {
+                document.getElementById('result').innerText = 'Please enter valid numbers.';
+                return;
+            }
+
+            const mean = numbers.reduce((acc, val) => acc + val, 0) / numbers.length;
+            const stdDev = calculateStandardDeviation(numbers);
+            
+            if (mean === 0) {
+                document.getElementById('result').innerText = 'Mean cannot be zero for RSD calculation.';
+                return;
+            }
+
+            const rsd = (stdDev / mean) * 100;
+
+            document.getElementById('result').innerText = `Relative Standard Deviation (RSD): ${rsd.toFixed(2)}%`;
+        }
+    </script>
+</body>
+</html>

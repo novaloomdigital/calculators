@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Percentile Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+        }
+        input[type="text"] {
+            margin: 5px;
+            padding: 8px;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Percentile Calculator</h1>
+    <p>Enter numbers separated by commas:</p>
+    <input type="text" id="numbersInput" placeholder="e.g. 1, 2, 3, 4, 5">
+    
+    <p>Enter the percentile (0-100):</p>
+    <input type="text" id="percentileInput" placeholder="e.g. 50">
+    
+    <button onclick="calculatePercentile()">Calculate Percentile</button>
+    <div id="result"></div>
+
+    <script>
+        function calculatePercentile() {
+            const numbersInput = document.getElementById('numbersInput').value;
+            const percentileInput = document.getElementById('percentileInput').value;
+
+            const numbers = numbersInput.split(',').map(num => parseFloat(num.trim())).filter(num => !isNaN(num));
+            const percentile = parseFloat(percentileInput);
+
+            if (numbers.length === 0 || isNaN(percentile) || percentile < 0 || percentile > 100) {
+                document.getElementById('result').innerText = 'Please enter valid numbers and a valid percentile (0-100).';
+                return;
+            }
+
+            numbers.sort((a, b) => a - b);
+
+            const index = (percentile / 100) * (numbers.length - 1);
+            const lowerIndex = Math.floor(index);
+            const upperIndex = Math.ceil(index);
+            const weight = index - lowerIndex;
+
+            let percentileValue;
+
+            if (lowerIndex === upperIndex) {
+                percentileValue = numbers[lowerIndex];
+            } else {
+                percentileValue = numbers[lowerIndex] * (1 - weight) + numbers[upperIndex] * weight;
+            }
+
+            document.getElementById('result').innerText = `Percentile ${percentile}: ${percentileValue.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
