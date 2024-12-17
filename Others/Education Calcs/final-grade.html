@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Grade Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        input {
+            width: calc(45% - 10px);
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 15px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .assignment {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Final Grade Calculator</h1>
+    <div id="assignments">
+        <div class="assignment">
+            <label for="grade1">Grade (%):</label>
+            <input type="number" id="grade1" min="0" max="100" placeholder="e.g. 85"><br>
+            <label for="weight1">Weight (%):</label>
+            <input type="number" id="weight1" min="0" max="100" placeholder="e.g. 30"><br>
+        </div>
+    </div>
+    <button onclick="addAssignment()">Add Another Assignment</button>
+    <button onclick="calculateFinalGrade()">Calculate Final Grade</button>
+    <div class="result" id="result"></div>
+
+    <script>
+        let assignmentCount = 1;
+
+        function addAssignment() {
+            assignmentCount++;
+            const assignmentDiv = document.createElement('div');
+            assignmentDiv.className = 'assignment';
+            assignmentDiv.innerHTML = `
+                <label for="grade${assignmentCount}">Grade (%):</label>
+                <input type="number" id="grade${assignmentCount}" min="0" max="100" placeholder="e.g. 85"><br>
+                <label for="weight${assignmentCount}">Weight (%):</label>
+                <input type="number" id="weight${assignmentCount}" min="0" max="100" placeholder="e.g. 30"><br>
+            `;
+            document.getElementById('assignments').appendChild(assignmentDiv);
+        }
+
+        function calculateFinalGrade() {
+            let totalWeightedScore = 0;
+            let totalWeight = 0;
+
+            for (let i = 1; i <= assignmentCount; i++) {
+                const grade = parseFloat(document.getElementById(`grade${i}`).value) || 0;
+                const weight = parseFloat(document.getElementById(`weight${i}`).value) || 0;
+
+                totalWeightedScore += (grade * (weight / 100));
+                totalWeight += weight;
+            }
+
+            const finalGrade = totalWeight > 0 ? totalWeightedScore : 0;
+            document.getElementById('result').innerText = `Your Final Grade: ${finalGrade.toFixed(2)}%`;
+        }
+    </script>
+</body>
+</html>

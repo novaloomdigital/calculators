@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Score Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        input {
+            width: calc(45% - 10px);
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 15px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>IELTS Score Calculator</h1>
+    <div>
+        <label for="listening">Listening Score (0-9):</label>
+        <input type="number" id="listening" min="0" max="9" step="0.5" placeholder="e.g. 7.5"><br>
+        
+        <label for="reading">Reading Score (0-9):</label>
+        <input type="number" id="reading" min="0" max="9" step="0.5" placeholder="e.g. 8.0"><br>
+        
+        <label for="writing">Writing Score (0-9):</label>
+        <input type="number" id="writing" min="0" max="9" step="0.5" placeholder="e.g. 6.5"><br>
+        
+        <label for="speaking">Speaking Score (0-9):</label>
+        <input type="number" id="speaking" min="0" max="9" step="0.5" placeholder="e.g. 7.0"><br>
+        
+        <button onclick="calculateIELTSScore()">Calculate Average Band Score</button>
+    </div>
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateIELTSScore() {
+            const listening = parseFloat(document.getElementById('listening').value) || 0;
+            const reading = parseFloat(document.getElementById('reading').value) || 0;
+            const writing = parseFloat(document.getElementById('writing').value) || 0;
+            const speaking = parseFloat(document.getElementById('speaking').value) || 0;
+
+            const totalScore = listening + reading + writing + speaking;
+            const averageScore = totalScore / 4;
+
+            document.getElementById('result').innerText = 
+                `Your Average Band Score: ${averageScore.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>

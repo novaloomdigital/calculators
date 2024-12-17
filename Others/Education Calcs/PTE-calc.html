@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PTE Score Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        input {
+            width: calc(45% - 10px);
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 15px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>PTE Score Calculator</h1>
+    <div>
+        <label for="speakingWriting">Speaking & Writing Score (10-90):</label>
+        <input type="number" id="speakingWriting" min="10" max="90" placeholder="e.g. 75"><br>
+        
+        <label for="reading">Reading Score (10-90):</label>
+        <input type="number" id="reading" min="10" max="90" placeholder="e.g. 80"><br>
+        
+        <label for="listening">Listening Score (10-90):</label>
+        <input type="number" id="listening" min="10" max="90" placeholder="e.g. 78"><br>
+        
+        <button onclick="calculatePTEScore()">Calculate Average Score</button>
+    </div>
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculatePTEScore() {
+            const speakingWriting = parseInt(document.getElementById('speakingWriting').value) || 0;
+            const reading = parseInt(document.getElementById('reading').value) || 0;
+            const listening = parseInt(document.getElementById('listening').value) || 0;
+
+            const totalScore = speakingWriting + reading + listening;
+            const averageScore = totalScore / 3;
+
+            document.getElementById('result').innerText = 
+                `Your Average PTE Score: ${averageScore.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>

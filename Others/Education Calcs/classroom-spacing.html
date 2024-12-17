@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classroom Spacing Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        input {
+            width: calc(45% - 10px);
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 15px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Classroom Spacing Calculator</h1>
+    <div>
+        <label for="length">Classroom Length (feet):</label>
+        <input type="number" id="length" min="1" placeholder="e.g. 30"><br>
+        <label for="width">Classroom Width (feet):</label>
+        <input type="number" id="width" min="1" placeholder="e.g. 20"><br>
+        <label for="spacePerStudent">Space Required per Student (sq ft):</label>
+        <input type="number" id="spacePerStudent" min="1" placeholder="e.g. 10"><br>
+        <button onclick="calculateCapacity()">Calculate Capacity</button>
+    </div>
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateCapacity() {
+            const length = parseFloat(document.getElementById('length').value) || 0;
+            const width = parseFloat(document.getElementById('width').value) || 0;
+            const spacePerStudent = parseFloat(document.getElementById('spacePerStudent').value) || 0;
+
+            if (length <= 0 || width <= 0 || spacePerStudent <= 0) {
+                document.getElementById('result').innerText = "Please enter valid dimensions and space requirements!";
+                return;
+            }
+
+            const area = length * width;
+            const capacity = Math.floor(area / spacePerStudent);
+
+            document.getElementById('result').innerText = 
+                `The classroom can accommodate approximately ${capacity} students.`;
+        }
+    </script>
+</body>
+</html>
