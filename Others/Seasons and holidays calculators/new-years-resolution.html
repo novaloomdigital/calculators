@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Year's Resolution Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            color: #00796b;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="text"], input[type="number"] {
+            width: 300px;
+            padding: 10px;
+            margin: 10px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #00796b;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #004d40;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>New Year's Resolution Calculator</h1>
+    <p>Enter your New Year's Resolution:</p>
+    <input type="text" id="resolution" placeholder="e.g., Lose weight, Read more books">
+    <br>
+    <p>How many days have you committed to achieving this resolution?</p>
+    <input type="number" id="days" placeholder="Days (up to 365)" min="1" max="365">
+    <br>
+    <button onclick="calculateProgress()">Calculate Progress</button>
+    
+    <div id="result"></div>
+
+    <script>
+        function calculateProgress() {
+            const resolution = document.getElementById('resolution').value;
+            const daysCommitted = parseInt(document.getElementById('days').value) || 0;
+
+            if (!resolution || daysCommitted <= 0) {
+                document.getElementById('result').innerText = "Please enter a valid resolution and number of days.";
+                return;
+            }
+
+            const today = new Date();
+            const startOfYear = new Date(today.getFullYear(), 0, 1);
+            const endOfYear = new Date(today.getFullYear(), 11, 31);
+            const totalDaysInYear = Math.floor((endOfYear - startOfYear) / (1000 * 60 * 60 * 24)) + 1;
+            const daysPassed = Math.floor((today - startOfYear) / (1000 * 60 * 60 * 24));
+            const daysLeft = totalDaysInYear - daysPassed;
+
+            let message;
+            if (daysCommitted <= daysLeft) {
+                message = `You have ${daysLeft} days left in the year to achieve your resolution: "${resolution}". Keep going!`;
+            } else {
+                message = `You committed to ${daysCommitted} days, but there are only ${daysLeft} days left in the year. Stay focused!`;
+            }
+
+            document.getElementById('result').innerText = message;
+        }
+    </script>
+
+</body>
+</html>

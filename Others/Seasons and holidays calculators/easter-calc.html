@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easter Countdown Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Easter Countdown</h1>
+        <div id="countdown" class="result"></div>
+    </div>
+
+    <script>
+        function calculateEaster(year) {
+            // Calculate Easter date using the "Computus" algorithm
+            const a = year % 19;
+            const b = Math.floor(year / 100);
+            const c = year % 100;
+            const d = Math.floor(b / 4);
+            const e = b % 4;
+            const f = Math.floor((b + 8) / 25);
+            const g = Math.floor(b - f + 1 / 16);
+            const h = (19 * a + b - d - g + 15) % 30;
+            const i = Math.floor(c / 4);
+            const k = c % 4;
+            const l = (32 + 2 * e + 2 * i - h - k) % 7;
+            const m = Math.floor((a + 11 * h + 22 * l) / 453);
+            const month = Math.floor((h + l - 7 * m + 114) / 31);
+            const day = ((h + l - 7 * m + 114) % 31) + 1;
+
+            return new Date(year, month - 1, day); // month is 0-indexed
+        }
+
+        function updateCountdown() {
+            const now = new Date();
+            const currentYear = now.getFullYear();
+            const easter = calculateEaster(currentYear);
+
+            // If Easter has passed this year, calculate for next year
+            if (now > easter) {
+                easter.setFullYear(currentYear + 1);
+            }
+
+            const timeDiff = easter - now; // Time difference in milliseconds
+
+            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown').innerText = 
+                `${days} Days, ${hours} Hours, ${minutes} Minutes, ${seconds} Seconds until Easter!`;
+        }
+
+        // Update the countdown every second
+        setInterval(updateCountdown, 1000);
+        // Initial call to display countdown immediately
+        updateCountdown();
+    </script>
+</body>
+</html>

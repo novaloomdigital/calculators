@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day of the Week Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            color: #3e2723;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="date"] {
+            padding: 10px;
+            margin: 10px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #5c6bc0;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #3949ab;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Day of the Week Calculator</h1>
+    <p>Select a date:</p>
+    <input type="date" id="dateInput">
+    <br>
+    <button onclick="calculateDayOfWeek()">Calculate Day of the Week</button>
+    
+    <div id="result"></div>
+
+    <script>
+        function calculateDayOfWeek() {
+            const dateInput = document.getElementById('dateInput').value;
+
+            if (!dateInput) {
+                document.getElementById('result').innerText = "Please select a date.";
+                return;
+            }
+
+            const date = new Date(dateInput);
+            const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            const dayOfWeek = daysOfWeek[date.getDay()];
+
+            document.getElementById('result').innerText = `The selected date falls on a: ${dayOfWeek}`;
+        }
+    </script>
+
+</body>
+</html>

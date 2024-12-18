@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pallet Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pallet Calculator</h1>
+        <label for="cargoLength">Cargo Length (inches):</label>
+        <input type="number" id="cargoLength" step="any" placeholder="Enter cargo length in inches">
+        
+        <label for="cargoWidth">Cargo Width (inches):</label>
+        <input type="number" id="cargoWidth" step="any" placeholder="Enter cargo width in inches">
+        
+        <label for="cargoHeight">Cargo Height (inches):</label>
+        <input type="number" id="cargoHeight" step="any" placeholder="Enter cargo height in inches">
+        
+        <label for="numberOfItems">Number of Items:</label>
+        <input type="number" id="numberOfItems" step="any" placeholder="Enter number of items">
+
+        <button onclick="calculatePallets()">Calculate Pallets Needed</button>
+
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        function calculatePallets() {
+            const cargoLength = parseFloat(document.getElementById('cargoLength').value);
+            const cargoWidth = parseFloat(document.getElementById('cargoWidth').value);
+            const cargoHeight = parseFloat(document.getElementById('cargoHeight').value);
+            const numberOfItems = parseFloat(document.getElementById('numberOfItems').value);
+
+            // Standard pallet dimensions (48 inches x 40 inches)
+            const palletLength = 48;
+            const palletWidth = 40;
+            
+            if (isNaN(cargoLength) || isNaN(cargoWidth) || isNaN(cargoHeight) || isNaN(numberOfItems) || 
+                cargoLength <= 0 || cargoWidth <= 0 || cargoHeight <= 0 || numberOfItems <= 0) {
+                document.getElementById('result').innerText = 'Please enter valid positive values for cargo dimensions and number of items.';
+                return;
+            }
+
+            // Calculate the footprint area of one item
+            const itemArea = cargoLength * cargoWidth;
+
+            // Calculate how many items fit on one pallet
+            const palletArea = palletLength * palletWidth;
+            const itemsPerPallet = Math.floor(palletArea / itemArea);
+
+            // Calculate the number of pallets needed
+            const palletsNeeded = Math.ceil(numberOfItems / itemsPerPallet);
+
+            document.getElementById('result').innerText = 'Number of pallets needed: ' + palletsNeeded;
+        }
+    </script>
+</body>
+</html>

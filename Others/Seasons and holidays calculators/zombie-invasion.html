@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zombie Invasion Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f44336;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            width: 150px;
+            padding: 10px;
+            margin: 10px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #b71c1c;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Zombie Invasion Survival Calculator</h1>
+    <p>Enter the number of zombies:</p>
+    <input type="number" id="zombies" placeholder="Number of Zombies" min="0">
+    <p>Enter the number of survivors:</p>
+    <input type="number" id="survivors" placeholder="Number of Survivors" min="0">
+    <p>Enter the average number of zombies each survivor can defeat:</p>
+    <input type="number" id="defeated" placeholder="Zombies Defeated per Survivor" min="0">
+    <br>
+    <button onclick="calculateSurvivors()">Calculate Survivors Remaining</button>
+    
+    <div id="result"></div>
+
+    <script>
+        function calculateSurvivors() {
+            const zombies = parseInt(document.getElementById('zombies').value) || 0;
+            const survivors = parseInt(document.getElementById('survivors').value) || 0;
+            const defeated = parseInt(document.getElementById('defeated').value) || 0;
+
+            // Calculate the total number of zombies that can be defeated
+            const totalDefeated = survivors * defeated;
+
+            let remainingSurvivors;
+            if (totalDefeated >= zombies) {
+                remainingSurvivors = survivors;
+            } else {
+                remainingSurvivors = survivors - Math.ceil((zombies - totalDefeated) / defeated);
+            }
+
+            remainingSurvivors = Math.max(remainingSurvivors, 0); // Ensure we don't have negative survivors
+
+            if (zombies < 0 || survivors < 0 || defeated < 0) {
+                document.getElementById('result').innerText = "Please enter valid numbers for all fields.";
+            } else {
+                document.getElementById('result').innerText = `Total survivors remaining: ${remainingSurvivors}. 🧟‍♂️`;
+            }
+        }
+    </script>
+
+</body>
+</html>

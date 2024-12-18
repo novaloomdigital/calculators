@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D&D 5E Encounter Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"], select {
+            width: 150px;
+            padding: 10px;
+            margin: 10px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>D&D 5E Encounter Calculator</h1>
+    <p>Enter the following details:</p>
+    <input type="number" id="numberOfPlayers" placeholder="Number of Players" min="1" required>
+    <input type="number" id="averageLevel" placeholder="Average Level" min="1" required>
+    
+    <p>Select Encounter Difficulty:</p>
+    <select id="difficulty">
+        <option value="easy">Easy</option>
+        <option value="medium">Medium</option>
+        <option value="hard">Hard</option>
+        <option value="deadly">Deadly</option>
+    </select>
+    
+    <br>
+    <button onclick="calculateEncounter()">Calculate Challenge Rating</button>
+    
+    <div id="result"></div>
+
+    <script>
+        function calculateEncounter() {
+            const numberOfPlayers = parseInt(document.getElementById('numberOfPlayers').value) || 0;
+            const averageLevel = parseInt(document.getElementById('averageLevel').value) || 0;
+            const difficulty = document.getElementById('difficulty').value;
+
+            // XP thresholds for different difficulties based on the number of players
+            const xpThresholds = {
+                easy: [25, 50, 75, 100, 125],
+                medium: [50, 100, 150, 200, 250],
+                hard: [75, 150, 225, 300, 375],
+                deadly: [100, 200, 300, 400, 500]
+            };
+
+            // Calculate the total threshold based on the number of players and their levels
+            const levelIndex = averageLevel - 1; // array is zero-indexed
+            let totalXPThreshold = (xpThresholds[difficulty][levelIndex] || 0) * numberOfPlayers;
+
+            document.getElementById('result').innerText = `Total challenge rating: ${totalXPThreshold} XP`;
+        }
+    </script>
+
+</body>
+</html>

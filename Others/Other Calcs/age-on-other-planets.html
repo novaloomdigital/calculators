@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age on Other Planets Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e3f2fd;
+            color: #0d47a1;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            width: 150px;
+            padding: 10px;
+            margin: 10px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #42a5f5;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #1e88e5;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Age on Other Planets Calculator</h1>
+    <p>Enter your age in Earth years:</p>
+    <input type="number" id="earthAge" placeholder="Your Age" min="0">
+    <br>
+    <button onclick="calculatePlanetAges()">Calculate Ages on Other Planets</button>
+    
+    <div id="result"></div>
+
+    <script>
+        function calculatePlanetAges() {
+            const earthAge = parseInt(document.getElementById('earthAge').value) || 0;
+
+            // Days in a year on each planet (approximate values)
+            const planetYears = {
+                Mercury: 0.2408467,
+                Venus: 0.61519726,
+                Earth: 1,
+                Mars: 1.8808158,
+                Jupiter: 11.862615,
+                Saturn: 29.4571,
+                Uranus: 84.0205,
+                Neptune: 164.79132
+            };
+
+            let resultText = `Your age on other planets:\n`;
+            for (const [planet, yearLength] of Object.entries(planetYears)) {
+                const ageOnPlanet = (earthAge / yearLength).toFixed(2);
+                resultText += `${planet}: ${ageOnPlanet} years\n`;
+            }
+
+            document.getElementById('result').innerText = resultText;
+        }
+    </script>
+
+</body>
+</html>

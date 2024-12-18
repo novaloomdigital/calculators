@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engagement Rate Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            width: 150px;
+            padding: 10px;
+            margin: 10px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #1976D2;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Engagement Rate Calculator</h1>
+    <p>Enter the total number of engagements and followers:</p>
+    <input type="number" id="totalEngagements" placeholder="Total Engagements" min="0" required>
+    <input type="number" id="totalFollowers" placeholder="Total Followers" min="0" required>
+    <br>
+    <button onclick="calculateEngagementRate()">Calculate Engagement Rate</button>
+    
+    <div id="result"></div>
+
+    <script>
+        function calculateEngagementRate() {
+            const totalEngagements = parseInt(document.getElementById('totalEngagements').value) || 0;
+            const totalFollowers = parseInt(document.getElementById('totalFollowers').value) || 0;
+
+            if (totalFollowers <= 0) {
+                document.getElementById('result').innerText = "Please enter a valid number of followers.";
+                return;
+            }
+
+            // Calculate engagement rate
+            const engagementRate = (totalEngagements / totalFollowers) * 100;
+
+            document.getElementById('result').innerText = `Engagement Rate: ${engagementRate.toFixed(2)}%`;
+        }
+    </script>
+
+</body>
+</html>

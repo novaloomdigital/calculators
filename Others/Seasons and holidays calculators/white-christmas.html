@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>White Christmas Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e3f2fd;
+            color: #0d47a1;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            width: 150px;
+            padding: 10px;
+            margin: 10px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #1e88e5;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #1565c0;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>White Christmas Snowfall Calculator</h1>
+    <p>Enter the probability of a white Christmas (in %):</p>
+    <input type="number" id="probability" placeholder="Probability (%)" min="0" max="100">
+    <p>Enter the average expected snowfall (in inches) if it snows:</p>
+    <input type="number" id="snowfall" placeholder="Average Snowfall (inches)" min="0">
+    <br>
+    <button onclick="calculateSnowfall()">Calculate Expected Snowfall</button>
+    
+    <div id="result"></div>
+
+    <script>
+        function calculateSnowfall() {
+            const probability = parseInt(document.getElementById('probability').value) || 0;
+            const averageSnowfall = parseInt(document.getElementById('snowfall').value) || 0;
+
+            // Calculate expected snowfall based on probability
+            const expectedSnowfall = (probability / 100) * averageSnowfall;
+
+            if (probability < 0 || probability > 100 || averageSnowfall < 0) {
+                document.getElementById('result').innerText = "Please enter valid numbers.";
+            } else {
+                document.getElementById('result').innerText = `Expected snowfall on Christmas: ${expectedSnowfall.toFixed(2)} inches. ❄️`;
+            }
+        }
+    </script>
+
+</body>
+</html>

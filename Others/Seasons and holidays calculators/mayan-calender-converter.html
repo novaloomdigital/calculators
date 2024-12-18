@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mayan Calendar Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="date"] {
+            padding: 10px;
+            margin: 10px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Mayan Calendar Converter</h1>
+    <p>Select a Gregorian Date:</p>
+    <input type="date" id="gregorianDate">
+    <br>
+    <button onclick="convertToMayan()">Convert to Mayan Calendar</button>
+    
+    <div id="result"></div>
+
+    <script>
+        function convertToMayan() {
+            const dateInput = document.getElementById('gregorianDate').value;
+            if (!dateInput) {
+                document.getElementById('result').innerText = "Please select a date.";
+                return;
+            }
+            
+            const date = new Date(dateInput);
+            const year = date.getUTCFullYear();
+            const month = date.getUTCMonth();
+            const day = date.getUTCDate();
+            
+            // Simple calculation for Mayan Tzolk'in and Haab'
+            const totalDays = Math.floor((date - new Date(584283000000)) / (1000 * 60 * 60 * 24));
+            const tzolkin = totalDays % 260 + 1; // Tzolk'in has a cycle of 260 days
+            const haab = totalDays % 365; // Haab' has a cycle of 365 days
+
+            const tzolkinDays = ["Imix", "Ik'", "K'an", "K'an", "Kib'", "Kaban", "Etz'nab", "Kawak", "Ajaw"];
+            const haabMonths = ["Pop", "Wo'", "Sip", "Sotz'", "Tzec", "Xul", "Yaxkin", "Muwan", "Pax", "K'ank'in", "Muwan", "Pax", "K'ank'in", "K'ayab", "K'ank'in"];
+
+            const tzolkinDay = tzolkinDays[tzolkin % 20];
+            const haabMonth = haabMonths[Math.floor(haab / 20)];
+            const haabDay = (haab % 20) + 1;
+
+            document.getElementById('result').innerText = `Mayan Tzolk'in: ${tzolkinDay} ${tzolkin}, Mayan Haab': ${haabDay} ${haabMonth}`;
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streaming Bitrate Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 320px;
+        }
+        input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Streaming Bitrate Calculator</h1>
+    <label for="resolution">Resolution:</label>
+    <select id="resolution">
+        <option value="720">720p</option>
+        <option value="1080">1080p</option>
+        <option value="1440">1440p</option>
+        <option value="2160">2160p (4K)</option>
+    </select>
+    
+    <label for="frameRate">Frame Rate (FPS):</label>
+    <input type="number" id="frameRate" placeholder="e.g., 30" min="1" required>
+    
+    <label for="duration">Duration (mins):</label>
+    <input type="number" id="duration" placeholder="e.g., 60" min="1" required>
+    
+    <button onclick="calculateBitrate()">Calculate Bitrate</button>
+    
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateBitrate() {
+        const resolution = parseInt(document.getElementById('resolution').value);
+        const frameRate = parseInt(document.getElementById('frameRate').value);
+        const duration = parseInt(document.getElementById('duration').value);
+        
+        let bitrate;
+
+        // Bitrate estimation based on resolution and frame rate
+        switch (resolution) {
+            case 720:
+                bitrate = frameRate * 1.5; // Mbps
+                break;
+            case 1080:
+                bitrate = frameRate * 3; // Mbps
+                break;
+            case 1440:
+                bitrate = frameRate * 6; // Mbps
+                break;
+            case 2160:
+                bitrate = frameRate * 12; // Mbps
+                break;
+            default:
+                bitrate = 0;
+        }
+
+        // Calculate total data required for the duration in GB
+        const totalData = (bitrate * duration * 60) / 8; // Convert to GB (1 byte = 8 bits)
+
+        document.getElementById('result').innerHTML = `
+            <strong>Recommended Bitrate:</strong> ${bitrate.toFixed(2)} Mbps<br>
+            <strong>Total Data Required:</strong> ${totalData.toFixed(2)} GB
+        `;
+    }
+</script>
+
+</body>
+</html>

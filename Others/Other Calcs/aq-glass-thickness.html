@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aquarium Glass Thickness Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            color: #00796b;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            width: 150px;
+            padding: 10px;
+            margin: 10px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #00796b;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #004d40;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Aquarium Glass Thickness Calculator</h1>
+    <p>Enter the dimensions of your aquarium (in centimeters):</p>
+    <input type="number" id="height" placeholder="Water Height (cm)" min="0" step="any">
+    <input type="number" id="length" placeholder="Length (cm)" min="0" step="any">
+    <input type="number" id="width" placeholder="Width (cm)" min="0" step="any">
+    <br>
+    <button onclick="calculateGlassThickness()">Calculate Glass Thickness</button>
+    
+    <div id="result"></div>
+
+    <script>
+        function calculateGlassThickness() {
+            const height = parseFloat(document.getElementById('height').value) || 0;
+            const length = parseFloat(document.getElementById('length').value) || 0;
+            const width = parseFloat(document.getElementById('width').value) || 0;
+
+            if (height <= 0 || length <= 0 || width <= 0) {
+                document.getElementById('result').innerText = "Please enter valid positive numbers for all fields.";
+                return;
+            }
+
+            // Basic guideline for glass thickness (in mm)
+            let thickness = 0;
+
+            // Guidelines based on height (in cm)
+            if (height <= 30) {
+                thickness = 5; // 5 mm for tanks up to 30 cm tall
+            } else if (height <= 60) {
+                thickness = 8; // 8 mm for tanks 31-60 cm tall
+            } else if (height <= 90) {
+                thickness = 10; // 10 mm for tanks 61-90 cm tall
+            } else {
+                thickness = 12; // 12 mm for tanks over 90 cm tall
+            }
+
+            document.getElementById('result').innerText = `Recommended glass thickness: ${thickness} mm`;
+        }
+    </script>
+
+</body>
+</html>

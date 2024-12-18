@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas Tree Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Christmas Tree Calculator</h1>
+        <label for="treeHeight">Tree Height (feet):</label>
+        <input type="number" id="treeHeight" step="any" placeholder="Enter tree height in feet">
+        
+        <label for="treeWidth">Tree Width (feet):</label>
+        <input type="number" id="treeWidth" step="any" placeholder="Enter tree width in feet">
+
+        <button onclick="calculateChristmasTreeSupplies()">Calculate Supplies Needed</button>
+
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        function calculateChristmasTreeSupplies() {
+            const treeHeight = parseFloat(document.getElementById('treeHeight').value);
+            const treeWidth = parseFloat(document.getElementById('treeWidth').value);
+
+            if (isNaN(treeHeight) || isNaN(treeWidth) || treeHeight <= 0 || treeWidth <= 0) {
+                document.getElementById('result').innerText = 'Please enter valid positive values for tree height and width.';
+                return;
+            }
+
+            // Calculate the number of ornaments and lights
+            const minOrnaments = Math.round(treeHeight * 10); // 10 ornaments per foot
+            const maxOrnaments = Math.round(treeHeight * 15); // 15 ornaments per foot
+            const lightsNeeded = Math.round(treeHeight * 100); // 100 lights per foot
+
+            document.getElementById('result').innerText = 
+                `You will need approximately ${minOrnaments} to ${maxOrnaments} ornaments and ${lightsNeeded} lights for your tree.`;
+        }
+    </script>
+</body>
+</html>

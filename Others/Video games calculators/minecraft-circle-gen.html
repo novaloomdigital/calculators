@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Circle Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1em;
+            white-space: pre-wrap; /* Preserve whitespace for better formatting */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Minecraft Circle Generator</h1>
+    <label for="radius">Radius:</label>
+    <input type="number" id="radius" placeholder="Enter radius" min="1" required>
+    
+    <button onclick="generateCircle()">Generate Circle Coordinates</button>
+    
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function generateCircle() {
+        const radius = parseInt(document.getElementById('radius').value);
+        let coordinates = '';
+
+        if (radius > 0) {
+            for (let x = -radius; x <= radius; x++) {
+                for (let z = -radius; z <= radius; z++) {
+                    if (Math.round(Math.sqrt(x * x + z * z)) === radius) {
+                        coordinates += `X: ${x}, Z: ${z}\n`;
+                    }
+                }
+            }
+
+            document.getElementById('result').innerText = coordinates || 'No coordinates generated.';
+        } else {
+            document.getElementById('result').innerText = 'Please enter a valid radius!';
+        }
+    }
+</script>
+
+</body>
+</html>

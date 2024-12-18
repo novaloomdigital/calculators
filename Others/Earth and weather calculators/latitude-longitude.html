@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latitude and Longitude Distance Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Distance Calculator</h1>
+        <label for="lat1">Latitude 1 (degrees):</label>
+        <input type="number" id="lat1" step="any">
+        
+        <label for="lon1">Longitude 1 (degrees):</label>
+        <input type="number" id="lon1" step="any">
+        
+        <label for="lat2">Latitude 2 (degrees):</label>
+        <input type="number" id="lat2" step="any">
+        
+        <label for="lon2">Longitude 2 (degrees):</label>
+        <input type="number" id="lon2" step="any">
+
+        <button onclick="calculateDistance()">Calculate Distance</button>
+
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        function toRadians(degrees) {
+            return degrees * (Math.PI / 180);
+        }
+
+        function calculateDistance() {
+            const lat1 = toRadians(parseFloat(document.getElementById('lat1').value));
+            const lon1 = toRadians(parseFloat(document.getElementById('lon1').value));
+            const lat2 = toRadians(parseFloat(document.getElementById('lat2').value));
+            const lon2 = toRadians(parseFloat(document.getElementById('lon2').value));
+
+            const R = 6371; // Radius of the Earth in kilometers
+            const dLat = lat2 - lat1;
+            const dLon = lon2 - lon1;
+
+            const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                      Math.cos(lat1) * Math.cos(lat2) *
+                      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+            const distance = R * c; // Distance in kilometers
+            document.getElementById('result').innerText = 'Distance: ' + distance.toFixed(2) + ' km';
+        }
+    </script>
+</body>
+</html>

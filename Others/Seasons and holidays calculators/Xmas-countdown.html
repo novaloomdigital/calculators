@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas Countdown Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Christmas Countdown</h1>
+        <div id="countdown" class="result"></div>
+    </div>
+
+    <script>
+        function updateCountdown() {
+            const now = new Date();
+            const christmas = new Date(now.getFullYear(), 11, 25); // December 25 of the current year
+
+            // If Christmas has passed this year, set it to next year
+            if (now > christmas) {
+                christmas.setFullYear(christmas.getFullYear() + 1);
+            }
+
+            const timeDiff = christmas - now; // Time difference in milliseconds
+
+            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown').innerText = 
+                `${days} Days, ${hours} Hours, ${minutes} Minutes, ${seconds} Seconds until Christmas!`;
+        }
+
+        // Update the countdown every second
+        setInterval(updateCountdown, 1000);
+        // Initial call to display countdown immediately
+        updateCountdown();
+    </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snowman Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            color: #00796b;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            width: 100px;
+            padding: 10px;
+            margin: 10px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #00796b;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #004d40;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Snowman Height Calculator</h1>
+    <p>Enter the sizes of the snowballs (in inches):</p>
+    <input type="number" id="size1" placeholder="Bottom" min="1">
+    <input type="number" id="size2" placeholder="Middle" min="1">
+    <input type="number" id="size3" placeholder="Top" min="1">
+    <br>
+    <button onclick="calculateSnowmanHeight()">Calculate Height</button>
+    
+    <div id="result"></div>
+
+    <script>
+        function calculateSnowmanHeight() {
+            const size1 = parseInt(document.getElementById('size1').value) || 0;
+            const size2 = parseInt(document.getElementById('size2').value) || 0;
+            const size3 = parseInt(document.getElementById('size3').value) || 0;
+
+            const totalHeight = size1 + size2 + size3;
+
+            if (totalHeight === 0) {
+                document.getElementById('result').innerText = "Please enter valid sizes for all snowballs.";
+            } else {
+                document.getElementById('result').innerText = `The total height of your snowman is ${totalHeight} inches.`;
+            }
+        }
+    </script>
+
+</body>
+</html>

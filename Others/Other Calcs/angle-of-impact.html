@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Angle of Impact Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            width: 150px;
+            padding: 10px;
+            margin: 10px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #388e3c;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #1b5e20;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Angle of Impact Calculator</h1>
+    <p>Enter the height (in meters) and horizontal distance (in meters):</p>
+    <input type="number" id="height" placeholder="Height (m)" min="0" step="any">
+    <input type="number" id="distance" placeholder="Distance (m)" min="0" step="any">
+    <br>
+    <button onclick="calculateAngle()">Calculate Angle of Impact</button>
+    
+    <div id="result"></div>
+
+    <script>
+        function calculateAngle() {
+            const height = parseFloat(document.getElementById('height').value) || 0;
+            const distance = parseFloat(document.getElementById('distance').value) || 0;
+
+            if (height <= 0 || distance <= 0) {
+                document.getElementById('result').innerText = "Please enter valid positive numbers for both fields.";
+                return;
+            }
+
+            // Calculate the angle of impact in radians
+            const angleRadians = Math.atan(height / distance);
+            // Convert to degrees
+            const angleDegrees = angleRadians * (180 / Math.PI);
+
+            document.getElementById('result').innerText = `Angle of Impact: ${angleDegrees.toFixed(2)}°`;
+        }
+    </script>
+
+</body>
+</html>

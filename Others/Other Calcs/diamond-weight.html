@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diamond Weight Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3e5f5;
+            color: #6a1b9a;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            width: 150px;
+            padding: 10px;
+            margin: 10px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #8e24aa;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #6a1b9a;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Diamond Weight Calculator</h1>
+    <p>Enter the dimensions of the diamond:</p>
+    <input type="number" id="diameter" placeholder="Diameter (mm)" min="0" step="any">
+    <input type="number" id="depth" placeholder="Depth (mm)" min="0" step="any">
+    <br>
+    <button onclick="calculateDiamondWeight()">Calculate Weight</button>
+    
+    <div id="result"></div>
+
+    <script>
+        function calculateDiamondWeight() {
+            const diameter = parseFloat(document.getElementById('diameter').value) || 0;
+            const depth = parseFloat(document.getElementById('depth').value) || 0;
+
+            if (diameter <= 0 || depth <= 0) {
+                document.getElementById('result').innerText = "Please enter valid positive numbers for both fields.";
+                return;
+            }
+
+            // Calculate weight in carats
+            const weightCarats = (Math.pow(diameter, 2) * depth) / 1000;
+
+            document.getElementById('result').innerText = `Approximate weight: ${weightCarats.toFixed(2)} carats`;
+        }
+    </script>
+
+</body>
+</html>

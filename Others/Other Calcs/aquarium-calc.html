@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aquarium Volume Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            color: #00796b;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            width: 150px;
+            padding: 10px;
+            margin: 10px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #00796b;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #004d40;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Aquarium Volume Calculator</h1>
+    <p>Enter the dimensions of your aquarium (in centimeters):</p>
+    <input type="number" id="length" placeholder="Length (cm)" min="0" step="any">
+    <input type="number" id="width" placeholder="Width (cm)" min="0" step="any">
+    <input type="number" id="height" placeholder="Height (cm)" min="0" step="any">
+    <br>
+    <button onclick="calculateVolume()">Calculate Volume</button>
+    
+    <div id="result"></div>
+
+    <script>
+        function calculateVolume() {
+            const length = parseFloat(document.getElementById('length').value) || 0;
+            const width = parseFloat(document.getElementById('width').value) || 0;
+            const height = parseFloat(document.getElementById('height').value) || 0;
+
+            // Calculate the volume in cubic centimeters
+            const volumeCm3 = length * width * height;
+
+            // Convert to liters (1 liter = 1000 cubic centimeters)
+            const volumeLiters = volumeCm3 / 1000;
+
+            if (length <= 0 || width <= 0 || height <= 0) {
+                document.getElementById('result').innerText = "Please enter valid positive numbers for all fields.";
+            } else {
+                document.getElementById('result').innerText = `Total volume: ${volumeLiters.toFixed(2)} liters`;
+            }
+        }
+    </script>
+
+</body>
+</html>

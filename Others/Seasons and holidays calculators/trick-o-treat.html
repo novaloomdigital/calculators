@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trick-or-Treat Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff3e0;
+            color: #3e2723;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            width: 100px;
+            padding: 10px;
+            margin: 10px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #ff6f00;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #e65100;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Trick-or-Treat Candy Calculator</h1>
+    <p>Enter the details below:</p>
+    <input type="number" id="children" placeholder="Number of Children" min="1">
+    <input type="number" id="houses" placeholder="Number of Houses" min="1">
+    <input type="number" id="candies" placeholder="Candies per House" min="1">
+    <br>
+    <button onclick="calculateCandy()">Calculate Total Candy</button>
+    
+    <div id="result"></div>
+
+    <script>
+        function calculateCandy() {
+            const children = parseInt(document.getElementById('children').value) || 0;
+            const houses = parseInt(document.getElementById('houses').value) || 0;
+            const candiesPerHouse = parseInt(document.getElementById('candies').value) || 0;
+
+            const totalCandy = children * houses * candiesPerHouse;
+
+            if (children === 0 || houses === 0 || candiesPerHouse === 0) {
+                document.getElementById('result').innerText = "Please enter valid numbers for all fields.";
+            } else {
+                document.getElementById('result').innerText = `Total candy collected: ${totalCandy} pieces! 🎃🍬`;
+            }
+        }
+    </script>
+
+</body>
+</html>
