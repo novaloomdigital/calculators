@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Key Signature Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Key Signature Calculator</h1>
+        <div class="form-group">
+            <label for="accidentals">Number of Sharps/Flats</label>
+            <input type="number" id="accidentals" step="1">
+        </div>
+        <div class="form-group">
+            <label for="type">Type</label>
+            <select id="type">
+                <option value="sharps">Sharps</option>
+                <option value="flats">Flats</option>
+            </select>
+        </div>
+        <button class="btn" onclick="calculateKeySignature()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        const keySignatures = {
+            'sharps': ['C Major / A minor', 'G Major / E minor', 'D Major / B minor', 'A Major / F# minor', 'E Major / C# minor', 'B Major / G# minor', 'F# Major / D# minor', 'C# Major / A# minor'],
+            'flats': ['C Major / A minor', 'F Major / D minor', 'Bb Major / G minor', 'Eb Major / C minor', 'Ab Major / F minor', 'Db Major / Bb minor', 'Gb Major / Eb minor', 'Cb Major / Ab minor']
+        };
+
+        function calculateKeySignature() {
+            let accidentals = parseInt(document.getElementById('accidentals').value);
+            let type = document.getElementById('type').value;
+
+            let keySignature = keySignatures[type][accidentals];
+
+            document.getElementById('result').innerHTML = `Key Signature: ${keySignature}`;
+        }
+    </script>
+</body>
+</html>

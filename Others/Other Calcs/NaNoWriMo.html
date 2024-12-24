@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NaNoWriMo Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>NaNoWriMo Calculator</h1>
+        <div class="form-group">
+            <label for="targetWords">Total Target Words</label>
+            <input type="number" id="targetWords" value="50000" step="1">
+        </div>
+        <div class="form-group">
+            <label for="daysRemaining">Days Remaining</label>
+            <input type="number" id="daysRemaining" value="30" step="1">
+        </div>
+        <div class="form-group">
+            <label for="wordsWritten">Words Written So Far</label>
+            <input type="number" id="wordsWritten" value="0" step="1">
+        </div>
+        <button class="btn" onclick="calculateNaNoWriMo()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateNaNoWriMo() {
+            let targetWords = parseInt(document.getElementById('targetWords').value);
+            let daysRemaining = parseInt(document.getElementById('daysRemaining').value);
+            let wordsWritten = parseInt(document.getElementById('wordsWritten').value);
+
+            let wordsLeft = targetWords - wordsWritten;
+            let dailyGoal = wordsLeft / daysRemaining;
+
+            document.getElementById('result').innerHTML = `
+                Words Left: ${wordsLeft.toFixed(0)}<br>
+                Daily Word Count Goal: ${dailyGoal.toFixed(0)}
+            `;
+        }
+    </script>
+</body>
+</html>

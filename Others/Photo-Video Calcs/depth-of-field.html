@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Depth of Field Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Depth of Field Calculator</h1>
+        <div class="form-group">
+            <label for="aperture">Aperture (f-stop)</label>
+            <input type="number" id="aperture" step="0.1">
+        </div>
+        <div class="form-group">
+            <label for="focalLength">Focal Length (mm)</label>
+            <input type="number" id="focalLength" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="distance">Distance to Subject (meters)</label>
+            <input type="number" id="distance" step="0.01">
+        </div>
+        <button class="btn" onclick="calculateDOF()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateDOF() {
+            let aperture = parseFloat(document.getElementById('aperture').value);
+            let focalLength = parseFloat(document.getElementById('focalLength').value);
+            let distance = parseFloat(document.getElementById('distance').value);
+
+            let coc = 0.029; // Circle of confusion for a full-frame sensor in mm
+
+            // Hyperfocal distance (in meters)
+            let hyperfocal = (focalLength * focalLength) / (aperture * coc) / 1000;
+
+            // Near focus distance (in meters)
+            let nearFocus = (hyperfocal * distance) / (hyperfocal + (distance - focalLength / 1000));
+
+            // Far focus distance (in meters)
+            let farFocus = (hyperfocal * distance) / (hyperfocal - (distance - focalLength / 1000));
+
+            // Depth of field (in meters)
+            let dof = farFocus - nearFocus;
+
+            document.getElementById('result').innerHTML = `
+                Hyperfocal Distance: ${hyperfocal.toFixed(2)} meters<br>
+                Near Focus Distance: ${nearFocus.toFixed(2)} meters<br>
+                Far Focus Distance: ${farFocus.toFixed(2)} meters<br>
+                Depth of Field: ${dof.toFixed(2)} meters
+            `;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Film Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Film Calculator</h1>
+        <div class="form-group">
+            <label for="frameRate">Frame Rate (fps)</label>
+            <input type="number" id="frameRate" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="resolution">Resolution (width x height)</label>
+            <input type="text" id="resolution" placeholder="E.g. 1920x1080">
+        </div>
+        <div class="form-group">
+            <label for="duration">Duration (minutes)</label>
+            <input type="number" id="duration" step="0.01">
+        </div>
+        <button class="btn" onclick="calculateFilm()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateFilm() {
+            let frameRate = parseFloat(document.getElementById('frameRate').value);
+            let resolution = document.getElementById('resolution').value.split('x').map(Number);
+            let duration = parseFloat(document.getElementById('duration').value);
+
+            let width = resolution[0];
+            let height = resolution[1];
+
+            // Total frames
+            let totalFrames = frameRate * duration * 60;
+
+            // Storage requirement estimation (in bytes) for uncompressed video
+            let storageBytes = totalFrames * width * height * 3; // 3 bytes per pixel for RGB
+
+            // Convert storage to gigabytes
+            let storageGB = storageBytes / (1024 * 1024 * 1024);
+
+            document.getElementById('result').innerHTML = `
+                Total Frames: ${totalFrames.toFixed(0)}<br>
+                Estimated Storage: ${storageGB.toFixed(2)} GB
+            `;
+        }
+    </script>
+</body>
+</html>

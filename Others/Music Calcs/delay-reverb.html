@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delay and Reverb Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Delay and Reverb Calculator</h1>
+        <div class="form-group">
+            <label for="bpm">Tempo (BPM)</label>
+            <input type="number" id="bpm" step="1">
+        </div>
+        <div class="form-group">
+            <label for="roomSize">Room Size (meters)</label>
+            <input type="number" id="roomSize" step="0.1">
+        </div>
+        <button class="btn" onclick="calculateDelayReverb()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateDelayReverb() {
+            let bpm = parseFloat(document.getElementById('bpm').value);
+            let roomSize = parseFloat(document.getElementById('roomSize').value);
+
+            // Calculate delay times
+            let quarterNoteDelay = 60000 / bpm;
+            let eighthNoteDelay = quarterNoteDelay / 2;
+            let sixteenthNoteDelay = quarterNoteDelay / 4;
+
+            // Calculate reverb times based on room size
+            let reverbTime = roomSize * 0.1; // Example calculation, can be adjusted
+
+            document.getElementById('result').innerHTML = `
+                <h2>Delay Times</h2>
+                Quarter Note: ${quarterNoteDelay.toFixed(2)} ms<br>
+                Eighth Note: ${eighthNoteDelay.toFixed(2)} ms<br>
+                Sixteenth Note: ${sixteenthNoteDelay.toFixed(2)} ms<br>
+                <h2>Reverb Time</h2>
+                Estimated Reverb Time: ${reverbTime.toFixed(2)} seconds
+            `;
+        }
+    </script>
+</body>
+</html>

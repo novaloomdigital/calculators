@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Transposition Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group select, .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Music Transposition Calculator</h1>
+        <div class="form-group">
+            <label for="notes">Notes (comma-separated)</label>
+            <input type="text" id="notes" placeholder="E.g. C, D, E, F, G, A, B">
+        </div>
+        <div class="form-group">
+            <label for="originalKey">Original Key</label>
+            <select id="originalKey">
+                <option value="C">C</option>
+                <option value="C#">C#</option>
+                <option value="D">D</option>
+                <option value="D#">D#</option>
+                <option value="E">E</option>
+                <option value="F">F</option>
+                <option value="F#">F#</option>
+                <option value="G">G</option>
+                <option value="G#">G#</option>
+                <option value="A">A</option>
+                <option value="A#">A#</option>
+                <option value="B">B</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="newKey">New Key</label>
+            <select id="newKey">
+                <option value="C">C</option>
+                <option value="C#">C#</option>
+                <option value="D">D</option>
+                <option value="D#">D#</option>
+                <option value="E">E</option>
+                <option value="F">F</option>
+                <option value="F#">F#</option>
+                <option value="G">G</option>
+                <option value="G#">G#</option>
+                <option value="A">A</option>
+                <option value="A#">A#</option>
+                <option value="B">B</option>
+            </select>
+        </div>
+        <button class="btn" onclick="transposeMusic()">Transpose</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+
+        function transposeMusic() {
+            let notesInput = document.getElementById('notes').value.split(',').map(note => note.trim());
+            let originalKey = document.getElementById('originalKey').value;
+            let newKey = document.getElementById('newKey').value;
+
+            let originalIndex = notes.indexOf(originalKey);
+            let newIndex = notes.indexOf(newKey);
+            let transposedNotes = notesInput.map(note => {
+                let noteRoot = note.split(/[m#]/)[0];
+                let noteSuffix = note.substring(noteRoot.length);
+                let noteIndex = (notes.indexOf(noteRoot) + newIndex - originalIndex + 12) % 12;
+                return notes[noteIndex] + noteSuffix;
+            });
+
+            document.getElementById('result').innerHTML = `Transposed Notes: ${transposedNotes.join(', ')}`;
+        }
+    </script>
+</body>
+</html>

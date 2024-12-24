@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Duration Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Music Duration Calculator</h1>
+        <div class="form-group">
+            <label for="trackDurations">Track Durations (comma-separated, in minutes)</label>
+            <input type="text" id="trackDurations" placeholder="E.g. 3.5, 4.2, 5.0">
+        </div>
+        <button class="btn" onclick="calculateTotalDuration()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateTotalDuration() {
+            let trackDurations = document.getElementById('trackDurations').value.split(',').map(Number);
+            let totalDuration = trackDurations.reduce((sum, duration) => sum + duration, 0);
+            let hours = Math.floor(totalDuration / 60);
+            let minutes = totalDuration % 60;
+
+            document.getElementById('result').innerHTML = `Total Duration: ${hours} hours and ${minutes.toFixed(2)} minutes`;
+        }
+    </script>
+</body>
+</html>

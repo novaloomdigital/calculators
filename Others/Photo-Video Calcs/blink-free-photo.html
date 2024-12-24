@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blink-Free Photo Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Blink-Free Photo Calculator</h1>
+        <div class="form-group">
+            <label for="groupSize">Group Size</label>
+            <input type="number" id="groupSize" step="1">
+        </div>
+        <div class="form-group">
+            <label for="blinkProbability">Blink Probability (0 to 1)</label>
+            <input type="number" id="blinkProbability" step="0.01" min="0" max="1">
+        </div>
+        <button class="btn" onclick="calculatePhotos()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculatePhotos() {
+            let groupSize = parseInt(document.getElementById('groupSize').value);
+            let blinkProbability = parseFloat(document.getElementById('blinkProbability').value);
+
+            if (isNaN(groupSize) || isNaN(blinkProbability) || groupSize <= 0 || blinkProbability < 0 || blinkProbability > 1) {
+                alert('Please enter valid values');
+                return;
+            }
+
+            let photosNeeded = Math.ceil(Math.log(0.05) / Math.log(1 - Math.pow(1 - blinkProbability, groupSize)));
+
+            document.getElementById('result').innerHTML = `Number of Photos Needed: ${photosNeeded}`;
+        }
+    </script>
+</body>
+</html>

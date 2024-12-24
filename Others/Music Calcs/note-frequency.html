@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Note Frequency Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group select, .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Note Frequency Calculator</h1>
+        <div class="form-group">
+            <label for="note">Note</label>
+            <select id="note">
+                <option value="C">C</option>
+                <option value="C#">C#</option>
+                <option value="D">D</option>
+                <option value="D#">D#</option>
+                <option value="E">E</option>
+                <option value="F">F</option>
+                <option value="F#">F#</option>
+                <option value="G">G</option>
+                <option value="G#">G#</option>
+                <option value="A">A</option>
+                <option value="A#">A#</option>
+                <option value="B">B</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="octave">Octave</label>
+            <input type="number" id="octave" value="4" min="0" max="8">
+        </div>
+        <button class="btn" onclick="calculateFrequency()">Calculate Frequency</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        const noteFrequencies = {
+            'C': -9, 'C#': -8, 'D': -7, 'D#': -6, 'E': -5, 'F': -4, 'F#': -3, 'G': -2, 'G#': -1, 'A': 0, 'A#': 1, 'B': 2
+        };
+
+        function calculateFrequency() {
+            let note = document.getElementById('note').value;
+            let octave = parseInt(document.getElementById('octave').value);
+
+            let noteNumber = noteFrequencies[note];
+            let frequency = 440 * Math.pow(2, (noteNumber + (octave - 4) * 12) / 12);
+
+            document.getElementById('result').innerHTML = `Frequency: ${frequency.toFixed(2)} Hz`;
+        }
+    </script>
+</body>
+</html>

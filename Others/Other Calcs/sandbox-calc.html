@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sandbox Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sandbox Calculator</h1>
+        <div class="form-group">
+            <label for="length">Length (meters)</label>
+            <input type="number" id="length" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="width">Width (meters)</label>
+            <input type="number" id="width" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="depth">Depth (meters)</label>
+            <input type="number" id="depth" step="0.01">
+        </div>
+        <button class="btn" onclick="calculateVolume()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateVolume() {
+            let length = parseFloat(document.getElementById('length').value);
+            let width = parseFloat(document.getElementById('width').value);
+            let depth = parseFloat(document.getElementById('depth').value);
+
+            let volume = length * width * depth;
+            let volumeLiters = volume * 1000;
+
+            document.getElementById('result').innerHTML = `
+                Volume: ${volume.toFixed(2)} cubic meters<br>
+                Volume: ${volumeLiters.toFixed(2)} liters
+            `;
+        }
+    </script>
+</body>
+</html>

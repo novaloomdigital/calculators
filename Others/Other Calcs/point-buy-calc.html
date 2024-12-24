@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D&D 5e Point Buy Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>D&D 5e Point Buy Calculator</h1>
+        <div class="form-group">
+            <label for="strength">Strength (STR)</label>
+            <input type="number" id="strength" value="8" min="8" max="15" step="1" onchange="calculatePoints()">
+        </div>
+        <div class="form-group">
+            <label for="dexterity">Dexterity (DEX)</label>
+            <input type="number" id="dexterity" value="8" min="8" max="15" step="1" onchange="calculatePoints()">
+        </div>
+        <div class="form-group">
+            <label for="constitution">Constitution (CON)</label>
+            <input type="number" id="constitution" value="8" min="8" max="15" step="1" onchange="calculatePoints()">
+        </div>
+        <div class="form-group">
+            <label for="intelligence">Intelligence (INT)</label>
+            <input type="number" id="intelligence" value="8" min="8" max="15" step="1" onchange="calculatePoints()">
+        </div>
+        <div class="form-group">
+            <label for="wisdom">Wisdom (WIS)</label>
+            <input type="number" id="wisdom" value="8" min="8" max="15" step="1" onchange="calculatePoints()">
+        </div>
+        <div class="form-group">
+            <label for="charisma">Charisma (CHA)</label>
+            <input type="number" id="charisma" value="8" min="8" max="15" step="1" onchange="calculatePoints()">
+        </div>
+        <div class="result" id="result">Total Points: 0</div>
+    </div>
+
+    <script>
+        const pointCosts = [0, 1, 2, 3, 4, 5, 7, 9];
+
+        function calculatePoints() {
+            const abilities = [
+                parseInt(document.getElementById('strength').value),
+                parseInt(document.getElementById('dexterity').value),
+                parseInt(document.getElementById('constitution').value),
+                parseInt(document.getElementById('intelligence').value),
+                parseInt(document.getElementById('wisdom').value),
+                parseInt(document.getElementById('charisma').value),
+            ];
+
+            let totalPoints = abilities.reduce((sum, score) => sum + pointCosts[score - 8], 0);
+            document.getElementById('result').innerText = `Total Points: ${totalPoints}`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Scale Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Music Scale Calculator</h1>
+        <div class="form-group">
+            <label for="rootNote">Root Note</label>
+            <select id="rootNote">
+                <option value="C">C</option>
+                <option value="C#">C#</option>
+                <option value="D">D</option>
+                <option value="D#">D#</option>
+                <option value="E">E</option>
+                <option value="F">F</option>
+                <option value="F#">F#</option>
+                <option value="G">G</option>
+                <option value="G#">G#</option>
+                <option value="A">A</option>
+                <option value="A#">A#</option>
+                <option value="B">B</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="scaleType">Scale Type</label>
+            <select id="scaleType">
+                <option value="major">Major</option>
+                <option value="minor">Minor</option>
+                <option value="pentatonic">Pentatonic</option>
+                <option value="blues">Blues</option>
+            </select>
+        </div>
+        <button class="btn" onclick="calculateScale()">Calculate Scale</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        const scales = {
+            'major': [2, 2, 1, 2, 2, 2, 1],
+            'minor': [2, 1, 2, 2, 1, 2, 2],
+            'pentatonic': [2, 2, 3, 2, 3],
+            'blues': [3, 2, 1, 1, 3, 2]
+        };
+
+        const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+
+        function calculateScale() {
+            let rootNote = document.getElementById('rootNote').value;
+            let scaleType = document.getElementById('scaleType').value;
+
+            let scalePattern = scales[scaleType];
+            let scaleNotes = [];
+            let startIndex = notes.indexOf(rootNote);
+            let currentIndex = startIndex;
+
+            scaleNotes.push(notes[startIndex]);
+
+            scalePattern.forEach(interval => {
+                currentIndex = (currentIndex + interval) % notes.length;
+                scaleNotes.push(notes[currentIndex]);
+            });
+
+            document.getElementById('result').innerHTML = `Scale: ${scaleNotes.join(', ')}`;
+        }
+    </script>
+</body>
+</html>

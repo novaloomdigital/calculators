@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guitar String Tension Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Guitar String Tension Calculator</h1>
+        <div class="form-group">
+            <label for="scaleLength">Scale Length (mm)</label>
+            <input type="number" id="scaleLength" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="frequency">Frequency (Hz)</label>
+            <input type="number" id="frequency" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="mass">String Mass (grams per meter)</label>
+            <input type="number" id="mass" step="0.01">
+        </div>
+        <button class="btn" onclick="calculateTension()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateTension() {
+            let scaleLength = parseFloat(document.getElementById('scaleLength').value) / 1000; // convert mm to meters
+            let frequency = parseFloat(document.getElementById('frequency').value);
+            let mass = parseFloat(document.getElementById('mass').value) / 1000; // convert grams per meter to kg per meter
+
+            let tension = (Math.pow(2 * frequency * scaleLength, 2) * mass) / 9.80665; // tension in Newtons
+
+            document.getElementById('result').innerHTML = `String Tension: ${tension.toFixed(2)} N`;
+        }
+    </script>
+</body>
+</html>

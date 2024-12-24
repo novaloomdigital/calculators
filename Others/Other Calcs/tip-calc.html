@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tip Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tip Calculator</h1>
+        <div class="form-group">
+            <label for="totalBill">Total Bill ($)</label>
+            <input type="number" id="totalBill" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="tipPercentage">Tip Percentage (%)</label>
+            <input type="number" id="tipPercentage" step="0.01" value="15">
+        </div>
+        <button class="btn" onclick="calculateTip()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateTip() {
+            let totalBill = parseFloat(document.getElementById('totalBill').value);
+            let tipPercentage = parseFloat(document.getElementById('tipPercentage').value);
+
+            let tipAmount = (totalBill * tipPercentage) / 100;
+            let totalAmount = totalBill + tipAmount;
+
+            document.getElementById('result').innerHTML = `
+                Tip Amount: $${tipAmount.toFixed(2)}<br>
+                Total Amount: $${totalAmount.toFixed(2)}
+            `;
+        }
+    </script>
+</body>
+</html>

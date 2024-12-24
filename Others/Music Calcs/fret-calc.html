@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fret Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Fret Calculator</h1>
+        <div class="form-group">
+            <label for="scaleLength">Scale Length (mm)</label>
+            <input type="number" id="scaleLength" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="numFrets">Number of Frets</label>
+            <input type="number" id="numFrets" step="1">
+        </div>
+        <button class="btn" onclick="calculateFrets()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateFrets() {
+            let scaleLength = parseFloat(document.getElementById('scaleLength').value);
+            let numFrets = parseInt(document.getElementById('numFrets').value);
+
+            let fretPositions = [];
+            for (let i = 1; i <= numFrets; i++) {
+                let position = scaleLength - (scaleLength / Math.pow(2, i / 12));
+                fretPositions.push({ fret: i, position: position.toFixed(2) });
+            }
+
+            let resultHtml = '<table><tr><th>Fret</th><th>Position (mm)</th></tr>';
+            fretPositions.forEach(fret => {
+                resultHtml += `<tr><td>${fret.fret}</td><td>${fret.position}</td></tr>`;
+            });
+            resultHtml += '</table>';
+
+            document.getElementById('result').innerHTML = resultHtml;
+        }
+    </script>
+</body>
+</html>

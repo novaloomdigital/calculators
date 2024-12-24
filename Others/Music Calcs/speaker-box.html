@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speaker Box Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Speaker Box Calculator</h1>
+        <div class="form-group">
+            <label for="boxVolume">Box Volume (liters)</label>
+            <input type="number" id="boxVolume" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="portDiameter">Port Diameter (cm)</label>
+            <input type="number" id="portDiameter" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="tuningFrequency">Tuning Frequency (Hz)</label>
+            <input type="number" id="tuningFrequency" step="0.01">
+        </div>
+        <button class="btn" onclick="calculateBoxDimensions()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateBoxDimensions() {
+            let boxVolume = parseFloat(document.getElementById('boxVolume').value);
+            let portDiameter = parseFloat(document.getElementById('portDiameter').value);
+            let tuningFrequency = parseFloat(document.getElementById('tuningFrequency').value);
+
+            // Convert volume to cubic meters and diameter to meters
+            boxVolume /= 1000;
+            portDiameter /= 100;
+
+            // Calculate port length using the formula
+            let portLength = (23562.5 * Math.pow(portDiameter, 2) / (boxVolume * Math.pow(tuningFrequency, 2))) - (0.732 * portDiameter);
+
+            // Calculate dimensions (assuming a cube for simplicity)
+            let boxDimension = Math.cbrt(boxVolume);
+
+            document.getElementById('result').innerHTML = `
+                Box Dimension (per side): ${boxDimension.toFixed(2)} meters<br>
+                Port Length: ${portLength.toFixed(2)} meters
+            `;
+        }
+    </script>
+</body>
+</html>

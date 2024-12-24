@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chord Inversion Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group select, .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Chord Inversion Calculator</h1>
+        <div class="form-group">
+            <label for="rootNote">Root Note</label>
+            <select id="rootNote">
+                <option value="C">C</option>
+                <option value="C#">C#</option>
+                <option value="D">D</option>
+                <option value="D#">D#</option>
+                <option value="E">E</option>
+                <option value="F">F</option>
+                <option value="F#">F#</option>
+                <option value="G">G</option>
+                <option value="G#">G#</option>
+                <option value="A">A</option>
+                <option value="A#">A#</option>
+                <option value="B">B</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="chordType">Chord Type</label>
+            <select id="chordType">
+                <option value="major">Major</option>
+                <option value="minor">Minor</option>
+                <option value="7">7th</option>
+                <option value="m7">Minor 7th</option>
+                <option value="maj7">Major 7th</option>
+                <option value="sus2">Suspended 2nd</option>
+                <option value="sus4">Suspended 4th</option>
+            </select>
+        </div>
+        <button class="btn" onclick="calculateInversions()">Calculate Inversions</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        const chords = {
+            'C': {
+                'major': ['C - E - G', 'E - G - C', 'G - C - E'],
+                'minor': ['C - Eb - G', 'Eb - G - C', 'G - C - Eb'],
+                '7': ['C - E - G - Bb', 'E - G - Bb - C', 'G - Bb - C - E', 'Bb - C - E - G'],
+                'm7': ['C - Eb - G - Bb', 'Eb - G - Bb - C', 'G - Bb - C - Eb', 'Bb - C - Eb - G'],
+                'maj7': ['C - E - G - B', 'E - G - B - C', 'G - B - C - E', 'B - C - E - G'],
+                'sus2': ['C - D - G', 'D - G - C', 'G - C - D'],
+                'sus4': ['C - F - G', 'F - G - C', 'G - C - F']
+            },
+            // Other notes and chord types...
+            'B': {
+                'major': ['B - D# - F#', 'D# - F# - B', 'F# - B - D#'],
+                'minor': ['B - D - F#', 'D - F# - B', 'F# - B - D'],
+                '7': ['B - D# - F# - A', 'D# - F# - A - B', 'F# - A - B - D#', 'A - B - D# - F#'],
+                'm7': ['B - D - F# - A', 'D - F# - A - B', 'F# - A - B - D', 'A - B - D - F#'],
+                'maj7': ['B - D# - F# - A#', 'D# - F# - A# - B', 'F# - A# - B - D#', 'A# - B - D# - F#'],
+                'sus2': ['B - C# - F#', 'C# - F# - B', 'F# - B - C#'],
+                'sus4': ['B - E - F#', 'E - F# - B', 'F# - B - E']
+            }
+        };
+
+        function calculateInversions() {
+            let rootNote = document.getElementById('rootNote').value;
+            let chordType = document.getElementById('chordType').value;
+            let inversions = chords[rootNote][chordType];
+            document.getElementById('result').innerHTML = `Chord Inversions:<br>${inversions.join('<br>')}`;
+        }
+    </script>
+</body>
+</html>
