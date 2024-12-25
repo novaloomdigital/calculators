@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amdahl's Law Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Amdahl's Law Calculator</h1>
+        <div class="form-group">
+            <label for="parallelFraction">Parallel Fraction (0 to 1)</label>
+            <input type="number" id="parallelFraction" step="0.01" min="0" max="1">
+        </div>
+        <div class="form-group">
+            <label for="processors">Number of Processors</label>
+            <input type="number" id="processors" step="1" min="1">
+        </div>
+        <button class="btn" onclick="calculateAmdahl()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateAmdahl() {
+            let parallelFraction = parseFloat(document.getElementById('parallelFraction').value);
+            let processors = parseInt(document.getElementById('processors').value);
+
+            if (isNaN(parallelFraction) || isNaN(processors) || parallelFraction < 0 || parallelFraction > 1 || processors < 1) {
+                alert('Please enter valid values');
+                return;
+            }
+
+            // Calculate speedup using Amdahl's Law
+            let speedup = 1 / ((1 - parallelFraction) + (parallelFraction / processors));
+
+            document.getElementById('result').innerHTML = `Speedup: ${speedup.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>

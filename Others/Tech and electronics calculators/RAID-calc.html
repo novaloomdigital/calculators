@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAID Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>RAID Calculator</h1>
+        <div class="form-group">
+            <label for="raidLevel">RAID Level</label>
+            <select id="raidLevel">
+                <option value="RAID0">RAID 0</option>
+                <option value="RAID1">RAID 1</option>
+                <option value="RAID5">RAID 5</option>
+                <option value="RAID6">RAID 6</option>
+                <option value="RAID10">RAID 10</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="numberOfDrives">Number of Drives</label>
+            <input type="number" id="numberOfDrives" step="1">
+        </div>
+        <div class="form-group">
+            <label for="driveSize">Size of Each Drive (GB)</label>
+            <input type="number" id="driveSize" step="0.01">
+        </div>
+        <button class="btn" onclick="calculateRAID()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateRAID() {
+            let raidLevel = document.getElementById('raidLevel').value;
+            let numberOfDrives = parseInt(document.getElementById('numberOfDrives').value);
+            let driveSize = parseFloat(document.getElementById('driveSize').value);
+
+            if (isNaN(numberOfDrives) || isNaN(driveSize) || numberOfDrives <= 0 || driveSize <= 0) {
+                alert('Please enter valid values');
+                return;
+            }
+
+            let totalCapacity = numberOfDrives * driveSize;
+            let usableCapacity;
+
+            switch (raidLevel) {
+                case 'RAID0':
+                    usableCapacity = totalCapacity;
+                    break;
+                case 'RAID1':
+                    usableCapacity = driveSize; // Only one drive's capacity is usable
+                    break;
+                case 'RAID5':
+                    if (numberOfDrives < 3) {
+                        alert('RAID 5 requires at least 3 drives');
+                        return;
+                    }
+                    usableCapacity = (numberOfDrives - 1) * driveSize;
+                    break;
+                case 'RAID6':
+                    if (numberOfDrives < 4) {
+                        alert('RAID 6 requires at least 4 drives');
+                        return;
+                    }
+                    usableCapacity = (numberOfDrives - 2) * driveSize;
+                    break;
+                case 'RAID10':
+                    if (numberOfDrives < 4 || numberOfDrives % 2 !== 0) {
+                        alert('RAID 10 requires at least 4 drives and an even number of drives');
+                        return;
+                    }
+                    usableCapacity = (numberOfDrives / 2) * driveSize;
+                    break;
+                default:
+                    alert('Invalid RAID level');
+                    return;
+            }
+
+            document.getElementById('result').innerHTML = `
+                Total Capacity: ${totalCapacity.toFixed(2)} GB<br>
+                Usable Capacity: ${usableCapacity.toFixed(2)} GB
+            `;
+        }
+    </script>
+</body>
+</html>

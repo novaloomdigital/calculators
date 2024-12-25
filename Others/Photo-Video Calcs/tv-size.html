@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TV Size Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>TV Size Calculator</h1>
+        <div class="form-group">
+            <label for="viewingDistance">Viewing Distance (feet)</label>
+            <input type="number" id="viewingDistance" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="fieldOfView">Desired Field of View (degrees)</label>
+            <input type="number" id="fieldOfView" step="0.01">
+        </div>
+        <button class="btn" onclick="calculateTvSize()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateTvSize() {
+            let viewingDistance = parseFloat(document.getElementById('viewingDistance').value) * 12; // Convert feet to inches
+            let fieldOfView = parseFloat(document.getElementById('fieldOfView').value);
+
+            if (isNaN(viewingDistance) || isNaN(fieldOfView) || viewingDistance <= 0 || fieldOfView <= 0) {
+                alert('Please enter valid values');
+                return;
+            }
+
+            // Calculate the optimal TV size
+            let screenSize = (2 * viewingDistance * Math.tan((fieldOfView / 2) * (Math.PI / 180))) / 25.4; // Convert inches to mm
+
+            document.getElementById('result').innerHTML = `Optimal TV Size: ${screenSize.toFixed(2)} inches`;
+        }
+    </script>
+</body>
+</html>

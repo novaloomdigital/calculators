@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eDPI Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>eDPI Calculator</h1>
+        <div class="form-group">
+            <label for="dpi">DPI (Dots Per Inch)</label>
+            <input type="number" id="dpi" step="1">
+        </div>
+        <div class="form-group">
+            <label for="sensitivity">In-Game Sensitivity</label>
+            <input type="number" id="sensitivity" step="0.01">
+        </div>
+        <button class="btn" onclick="calculateEDPI()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateEDPI() {
+            let dpi = parseInt(document.getElementById('dpi').value);
+            let sensitivity = parseFloat(document.getElementById('sensitivity').value);
+
+            if (isNaN(dpi) || isNaN(sensitivity) || dpi <= 0 || sensitivity <= 0) {
+                alert('Please enter valid values');
+                return;
+            }
+
+            let edpi = dpi * sensitivity;
+
+            document.getElementById('result').innerHTML = `eDPI: ${edpi.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>

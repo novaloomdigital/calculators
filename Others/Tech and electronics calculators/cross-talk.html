@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crosstalk Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Crosstalk Calculator</h1>
+        <div class="form-group">
+            <label for="cableLength">Cable Length (meters)</label>
+            <input type="number" id="cableLength" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="frequency">Frequency (MHz)</label>
+            <input type="number" id="frequency" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="cableType">Cable Type</label>
+            <select id="cableType">
+                <option value="CAT5">CAT5</option>
+                <option value="CAT6">CAT6</option>
+                <option value="CAT7">CAT7</option>
+            </select>
+        </div>
+        <button class="btn" onclick="calculateCrosstalk()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateCrosstalk() {
+            let cableLength = parseFloat(document.getElementById('cableLength').value);
+            let frequency = parseFloat(document.getElementById('frequency').value);
+            let cableType = document.getElementById('cableType').value;
+
+            if (isNaN(cableLength) || isNaN(frequency) || cableLength <= 0 || frequency <= 0) {
+                alert('Please enter valid values');
+                return;
+            }
+
+            // Crosstalk coefficients for different cable types (example values)
+            let coefficients = {
+                'CAT5': 0.5,
+                'CAT6': 0.3,
+                'CAT7': 0.2
+            };
+
+            let crosstalk = coefficients[cableType] * cableLength * frequency;
+
+            document.getElementById('result').innerHTML = `Estimated Crosstalk: ${crosstalk.toFixed(2)} dB`;
+        }
+    </script>
+</body>
+</html>

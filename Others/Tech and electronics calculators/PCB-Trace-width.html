@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PCB Trace Width Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PCB Trace Width Calculator</h1>
+        <div class="form-group">
+            <label for="current">Current (Amperes)</label>
+            <input type="number" id="current" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="copperThickness">Copper Thickness (oz)</label>
+            <input type="number" id="copperThickness" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="temperatureRise">Temperature Rise (°C)</label>
+            <input type="number" id="temperatureRise" step="0.01">
+        </div>
+        <button class="btn" onclick="calculateTraceWidth()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateTraceWidth() {
+            let current = parseFloat(document.getElementById('current').value);
+            let copperThickness = parseFloat(document.getElementById('copperThickness').value);
+            let temperatureRise = parseFloat(document.getElementById('temperatureRise').value);
+
+            if (isNaN(current) || isNaN(copperThickness) || isNaN(temperatureRise) ||
+                current <= 0 || copperThickness <= 0 || temperatureRise <= 0) {
+                alert('Please enter valid values');
+                return;
+            }
+
+            // Convert copper thickness from oz to mm (1 oz/ft² = 0.0347 mm)
+            let copperThicknessMm = copperThickness * 0.0347;
+
+            // Calculate the required trace width using IPC-2221 formula
+            let requiredWidth = (current / (0.048 * Math.pow(copperThicknessMm, 0.44) * Math.pow(temperatureRise, 0.725)));
+
+            document.getElementById('result').innerHTML = `Required Trace Width: ${requiredWidth.toFixed(2)} mm`;
+        }
+    </script>
+</body>
+</html>

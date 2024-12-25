@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cable Impedance Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cable Impedance Calculator</h1>
+        <div class="form-group">
+            <label for="resistance">Resistance (Ohms)</label>
+            <input type="number" id="resistance" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="inductance">Inductance (Henrys)</label>
+            <input type="number" id="inductance" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="capacitance">Capacitance (Farads)</label>
+            <input type="number" id="capacitance" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="frequency">Frequency (Hz)</label>
+            <input type="number" id="frequency" step="0.01">
+        </div>
+        <button class="btn" onclick="calculateImpedance()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateImpedance() {
+            let resistance = parseFloat(document.getElementById('resistance').value);
+            let inductance = parseFloat(document.getElementById('inductance').value);
+            let capacitance = parseFloat(document.getElementById('capacitance').value);
+            let frequency = parseFloat(document.getElementById('frequency').value);
+
+            if (isNaN(resistance) || isNaN(inductance) || isNaN(capacitance) || isNaN(frequency) || resistance < 0 || inductance < 0 || capacitance < 0 || frequency <= 0) {
+                alert('Please enter valid values');
+                return;
+            }
+
+            // Calculate inductive reactance (Xl)
+            let xl = 2 * Math.PI * frequency * inductance;
+
+            // Calculate capacitive reactance (Xc)
+            let xc = 1 / (2 * Math.PI * frequency * capacitance);
+
+            // Calculate impedance (Z)
+            let impedance = Math.sqrt(resistance * resistance + Math.pow(xl - xc, 2));
+
+            document.getElementById('result').innerHTML = `Cable Impedance: ${impedance.toFixed(2)} Ohms`;
+        }
+    </script>
+</body>
+</html>

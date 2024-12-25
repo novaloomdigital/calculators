@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battery Size Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Battery Size Calculator</h1>
+        <div class="form-group">
+            <label for="capacity">Battery Capacity (mAh)</label>
+            <input type="number" id="capacity" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="voltage">Battery Voltage (Volts)</label>
+            <input type="number" id="voltage" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="energyDensity">Energy Density (Wh/L)</label>
+            <input type="number" id="energyDensity" step="0.01">
+        </div>
+        <button class="btn" onclick="calculateBatterySize()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateBatterySize() {
+            let capacity = parseFloat(document.getElementById('capacity').value);
+            let voltage = parseFloat(document.getElementById('voltage').value);
+            let energyDensity = parseFloat(document.getElementById('energyDensity').value);
+
+            if (isNaN(capacity) || isNaN(voltage) || isNaN(energyDensity) || capacity <= 0 || voltage <= 0 || energyDensity <= 0) {
+                alert('Please enter valid values');
+                return;
+            }
+
+            // Calculate energy in Wh
+            let energyWh = (capacity * voltage) / 1000;
+
+            // Calculate volume in liters
+            let volumeL = energyWh / energyDensity;
+
+            // Convert volume to cubic centimeters (cm³)
+            let volumeCm3 = volumeL * 1000;
+
+            document.getElementById('result').innerHTML = `Estimated Battery Volume: ${volumeCm3.toFixed(2)} cm³`;
+        }
+    </script>
+</body>
+</html>

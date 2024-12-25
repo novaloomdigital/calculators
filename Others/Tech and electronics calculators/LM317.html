@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LM317 Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>LM317 Calculator</h1>
+        <div class="form-group">
+            <label for="resistorR1">Resistor R1 (Ohms)</label>
+            <input type="number" id="resistorR1" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="resistorR2">Resistor R2 (Ohms)</label>
+            <input type="number" id="resistorR2" step="0.01">
+        </div>
+        <button class="btn" onclick="calculateLM317()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateLM317() {
+            let resistorR1 = parseFloat(document.getElementById('resistorR1').value);
+            let resistorR2 = parseFloat(document.getElementById('resistorR2').value);
+
+            if (isNaN(resistorR1) || isNaN(resistorR2) || resistorR1 <= 0 || resistorR2 <= 0) {
+                alert('Please enter valid resistor values');
+                return;
+            }
+
+            // The output voltage formula for LM317: Vout = 1.25 * (1 + (R2 / R1))
+            let outputVoltage = 1.25 * (1 + (resistorR2 / resistorR1));
+
+            document.getElementById('result').innerHTML = `Output Voltage: ${outputVoltage.toFixed(2)} V`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video File Size Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Video File Size Calculator</h1>
+        <div class="form-group">
+            <label for="bitrate">Bitrate (Mbps)</label>
+            <input type="number" id="bitrate" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="duration">Duration (minutes)</label>
+            <input type="number" id="duration" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="format">Format</label>
+            <select id="format">
+                <option value="MP4">MP4</option>
+                <option value="AVI">AVI</option>
+                <option value="MOV">MOV</option>
+                <option value="MKV">MKV</option>
+                <option value="WMV">WMV</option>
+            </select>
+        </div>
+        <button class="btn" onclick="calculateFileSize()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateFileSize() {
+            let bitrate = parseFloat(document.getElementById('bitrate').value);
+            let duration = parseFloat(document.getElementById('duration').value);
+            let format = document.getElementById('format').value;
+
+            if (isNaN(bitrate) || isNaN(duration) || bitrate <= 0 || duration <= 0) {
+                alert('Please enter valid values');
+                return;
+            }
+
+            // Calculate file size in megabytes
+            let fileSizeMB = bitrate * duration * 60 / 8;
+
+            // Add format overhead (assuming a rough estimate)
+            switch(format) {
+                case 'MP4':
+                    fileSizeMB *= 1.02;
+                    break;
+                case 'AVI':
+                    fileSizeMB *= 1.05;
+                    break;
+                case 'MOV':
+                    fileSizeMB *= 1.04;
+                    break;
+                case 'MKV':
+                    fileSizeMB *= 1.03;
+                    break;
+                case 'WMV':
+                    fileSizeMB *= 1.01;
+                    break;
+            }
+
+            document.getElementById('result').innerHTML = `Estimated File Size: ${fileSizeMB.toFixed(2)} MB`;
+        }
+    </script>
+</body>
+</html>

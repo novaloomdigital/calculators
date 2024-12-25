@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Lapse Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Time Lapse Calculator</h1>
+        <div class="form-group">
+            <label for="interval">Shooting Interval (seconds)</label>
+            <input type="number" id="interval" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="totalTime">Total Shooting Time (hours)</label>
+            <input type="number" id="totalTime" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="frameRate">Playback Frame Rate (fps)</label>
+            <input type="number" id="frameRate" step="0.01">
+        </div>
+        <button class="btn" onclick="calculateTimeLapse()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateTimeLapse() {
+            let interval = parseFloat(document.getElementById('interval').value);
+            let totalTime = parseFloat(document.getElementById('totalTime').value) * 3600; // Convert hours to seconds
+            let frameRate = parseFloat(document.getElementById('frameRate').value);
+
+            if (isNaN(interval) || isNaN(totalTime) || isNaN(frameRate) || interval <= 0 || totalTime <= 0 || frameRate <= 0) {
+                alert('Please enter valid values');
+                return;
+            }
+
+            // Calculate the total number of frames
+            let totalFrames = totalTime / interval;
+
+            // Calculate playback duration in seconds
+            let playbackDuration = totalFrames / frameRate;
+
+            // Convert playback duration to HH:MM:SS format
+            let hours = Math.floor(playbackDuration / 3600);
+            let minutes = Math.floor((playbackDuration % 3600) / 60);
+            let seconds = Math.floor(playbackDuration % 60);
+
+            document.getElementById('result').innerHTML = `
+                Total Frames: ${totalFrames.toFixed(0)}<br>
+                Playback Duration: ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}
+            `;
+        }
+    </script>
+</body>
+</html>

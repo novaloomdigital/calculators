@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIDR Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CIDR Calculator</h1>
+        <div class="form-group">
+            <label for="cidr">CIDR Notation (e.g., 192.168.0.0/24)</label>
+            <input type="text" id="cidr" placeholder="e.g., 192.168.0.0/24">
+        </div>
+        <button class="btn" onclick="calculateCIDR()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateCIDR() {
+            let cidr = document.getElementById('cidr').value;
+            let [ip, prefix] = cidr.split('/');
+            if (!ip || !prefix || prefix < 0 || prefix > 32) {
+                alert('Please enter a valid CIDR notation');
+                return;
+            }
+
+            // Convert IP to binary
+            let binaryIP = ip.split('.').map(octet => ('00000000' + parseInt(octet, 10).toString(2)).slice(-8)).join('');
+
+            // Calculate network and broadcast addresses
+            let networkBinary = binaryIP.slice(0, prefix) + '0'.repeat(32 - prefix);
+            let broadcastBinary = binaryIP.slice(0, prefix) + '1'.repeat(32 - prefix);
+
+            let networkAddress = binaryToIP(networkBinary);
+            let broadcastAddress = binaryToIP(broadcastBinary);
+            let numberOfHosts = Math.pow(2, 32 - prefix) - 2;
+
+            document.getElementById('result').innerHTML = `
+                Network Address: ${networkAddress}<br>
+                Broadcast Address: ${broadcastAddress}<br>
+                Number of Hosts: ${numberOfHosts}
+            `;
+        }
+
+        function binaryToIP(binary) {
+            return binary.match(/.{1,8}/g).map(b => parseInt(b, 2)).join('.');
+        }
+    </script>
+</body>
+</html>

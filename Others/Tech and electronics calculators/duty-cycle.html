@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duty Cycle Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Duty Cycle Calculator</h1>
+        <div class="form-group">
+            <label for="pulseWidth">Pulse Width (milliseconds)</label>
+            <input type="number" id="pulseWidth" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="period">Period (milliseconds)</label>
+            <input type="number" id="period" step="0.01">
+        </div>
+        <button class="btn" onclick="calculateDutyCycle()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateDutyCycle() {
+            let pulseWidth = parseFloat(document.getElementById('pulseWidth').value);
+            let period = parseFloat(document.getElementById('period').value);
+
+            if (isNaN(pulseWidth) || isNaN(period) || pulseWidth <= 0 || period <= 0) {
+                alert('Please enter valid values');
+                return;
+            }
+
+            // Calculate duty cycle as a percentage
+            let dutyCycle = (pulseWidth / period) * 100;
+
+            document.getElementById('result').innerHTML = `Duty Cycle: ${dutyCycle.toFixed(2)}%`;
+        }
+    </script>
+</body>
+</html>

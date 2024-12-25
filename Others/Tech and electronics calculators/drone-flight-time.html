@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drone Flight Time Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Drone Flight Time Calculator</h1>
+        <div class="form-group">
+            <label for="batteryCapacity">Battery Capacity (mAh)</label>
+            <input type="number" id="batteryCapacity" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="batteryVoltage">Battery Voltage (Volts)</label>
+            <input type="number" id="batteryVoltage" step="0.01" value="11.1"> <!-- Example for common LiPo battery voltage -->
+        </div>
+        <div class="form-group">
+            <label for="powerConsumption">Power Consumption (Watts)</label>
+            <input type="number" id="powerConsumption" step="0.01">
+        </div>
+        <button class="btn" onclick="calculateFlightTime()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateFlightTime() {
+            let batteryCapacity = parseFloat(document.getElementById('batteryCapacity').value);
+            let batteryVoltage = parseFloat(document.getElementById('batteryVoltage').value);
+            let powerConsumption = parseFloat(document.getElementById('powerConsumption').value);
+
+            if (isNaN(batteryCapacity) || isNaN(batteryVoltage) || isNaN(powerConsumption) || batteryCapacity <= 0 || batteryVoltage <= 0 || powerConsumption <= 0) {
+                alert('Please enter valid values');
+                return;
+            }
+
+            // Convert battery capacity from mAh to Wh
+            let capacityWh = (batteryCapacity * batteryVoltage) / 1000;
+
+            // Calculate flight time in hours
+            let flightTime = capacityWh / powerConsumption;
+
+            // Convert flight time to minutes
+            flightTime = flightTime * 60;
+
+            document.getElementById('result').innerHTML = `Estimated Flight Time: ${flightTime.toFixed(2)} minutes`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PCB Impedance Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PCB Impedance Calculator</h1>
+        <div class="form-group">
+            <label for="traceWidth">Trace Width (mm)</label>
+            <input type="number" id="traceWidth" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="traceThickness">Trace Thickness (mm)</label>
+            <input type="number" id="traceThickness" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="dielectricHeight">Dielectric Height (mm)</label>
+            <input type="number" id="dielectricHeight" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="dielectricConstant">Dielectric Constant (Er)</label>
+            <input type="number" id="dielectricConstant" step="0.01">
+        </div>
+        <button class="btn" onclick="calculateImpedance()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateImpedance() {
+            let traceWidth = parseFloat(document.getElementById('traceWidth').value);
+            let traceThickness = parseFloat(document.getElementById('traceThickness').value);
+            let dielectricHeight = parseFloat(document.getElementById('dielectricHeight').value);
+            let dielectricConstant = parseFloat(document.getElementById('dielectricConstant').value);
+
+            if (isNaN(traceWidth) || isNaN(traceThickness) || isNaN(dielectricHeight) || isNaN(dielectricConstant) ||
+                traceWidth <= 0 || traceThickness <= 0 || dielectricHeight <= 0 || dielectricConstant <= 0) {
+                alert('Please enter valid values');
+                return;
+            }
+
+            // Impedance calculation using microstrip formula
+            let impedance = (87 / Math.sqrt(dielectricConstant + 1.41)) * Math.log(5.98 * dielectricHeight / (0.8 * traceWidth + traceThickness));
+
+            document.getElementById('result').innerHTML = `Impedance: ${impedance.toFixed(2)} Ohms`;
+        }
+    </script>
+</body>
+</html>

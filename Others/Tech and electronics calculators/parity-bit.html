@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parity Bit Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Parity Bit Calculator</h1>
+        <div class="form-group">
+            <label for="binaryInput">Binary Input</label>
+            <input type="text" id="binaryInput" placeholder="Enter binary input (e.g., 1011)">
+        </div>
+        <div class="form-group">
+            <label for="parityType">Parity Type</label>
+            <select id="parityType">
+                <option value="even">Even Parity</option>
+                <option value="odd">Odd Parity</option>
+            </select>
+        </div>
+        <button class="btn" onclick="calculateParityBit()">Calculate Parity Bit</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateParityBit() {
+            let binaryInput = document.getElementById('binaryInput').value;
+            let parityType = document.getElementById('parityType').value;
+
+            if (!/^[01]+$/.test(binaryInput)) {
+                alert('Please enter a valid binary input');
+                return;
+            }
+
+            let onesCount = binaryInput.split('').filter(bit => bit === '1').length;
+            let parityBit;
+
+            if (parityType === 'even') {
+                parityBit = onesCount % 2 === 0 ? '0' : '1';
+            } else {
+                parityBit = onesCount % 2 === 0 ? '1' : '0';
+            }
+
+            document.getElementById('result').innerHTML = `Parity Bit: ${parityBit}`;
+        }
+    </script>
+</body>
+</html>

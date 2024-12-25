@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hamming Code Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hamming Code Calculator</h1>
+        <div class="form-group">
+            <label for="binaryInput">Binary Input</label>
+            <input type="text" id="binaryInput" placeholder="Enter binary input (e.g., 1011)">
+        </div>
+        <button class="btn" onclick="calculateHammingCode()">Calculate Hamming Code</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateHammingCode() {
+            let input = document.getElementById('binaryInput').value;
+            if (!/^[01]+$/.test(input)) {
+                alert('Please enter a valid binary input');
+                return;
+            }
+
+            // Calculate the Hamming code
+            let hammingCode = generateHammingCode(input);
+
+            document.getElementById('result').innerHTML = `Hamming Code: ${hammingCode}`;
+        }
+
+        function generateHammingCode(data) {
+            let dataBits = data.split('').map(Number);
+            let m = dataBits.length;
+            let r = 0;
+
+            while (Math.pow(2, r) < m + r + 1) {
+                r++;
+            }
+
+            let hammingCode = [];
+            let j = 0;
+            let k = 0;
+
+            for (let i = 1; i <= m + r; i++) {
+                if (Math.pow(2, j) === i) {
+                    hammingCode[i - 1] = 0;
+                    j++;
+                } else {
+                    hammingCode[i - 1] = dataBits[k];
+                    k++;
+                }
+            }
+
+            for (let i = 0; i < r; i++) {
+                let x = Math.pow(2, i);
+                for (let j = 1; j <= m + r; j++) {
+                    if (((j >> i) & 1) === 1) {
+                        if (j !== x) {
+                            hammingCode[x - 1] ^= hammingCode[j - 1];
+                        }
+                    }
+                }
+            }
+
+            return hammingCode.join('');
+        }
+    </script>
+</body>
+</html>

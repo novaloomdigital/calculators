@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resolution Scale Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Resolution Scale Calculator</h1>
+        <div class="form-group">
+            <label for="originalWidth">Original Width (pixels)</label>
+            <input type="number" id="originalWidth" step="1">
+        </div>
+        <div class="form-group">
+            <label for="originalHeight">Original Height (pixels)</label>
+            <input type="number" id="originalHeight" step="1">
+        </div>
+        <div class="form-group">
+            <label for="scaleFactor">Scale Factor (e.g., 0.5 for 50%, 2 for 200%)</label>
+            <input type="number" id="scaleFactor" step="0.01">
+        </div>
+        <button class="btn" onclick="calculateResolution()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateResolution() {
+            let originalWidth = parseInt(document.getElementById('originalWidth').value);
+            let originalHeight = parseInt(document.getElementById('originalHeight').value);
+            let scaleFactor = parseFloat(document.getElementById('scaleFactor').value);
+
+            if (isNaN(originalWidth) || isNaN(originalHeight) || isNaN(scaleFactor) || originalWidth <= 0 || originalHeight <= 0 || scaleFactor <= 0) {
+                alert('Please enter valid values');
+                return;
+            }
+
+            let newWidth = originalWidth * scaleFactor;
+            let newHeight = originalHeight * scaleFactor;
+
+            document.getElementById('result').innerHTML = `New Dimensions: ${newWidth.toFixed(2)} x ${newHeight.toFixed(2)} pixels`;
+        }
+    </script>
+</body>
+</html>

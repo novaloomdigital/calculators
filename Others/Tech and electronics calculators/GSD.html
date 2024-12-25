@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ground Sample Distance Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ground Sample Distance Calculator</h1>
+        <div class="form-group">
+            <label for="sensorWidth">Sensor Width (mm)</label>
+            <input type="number" id="sensorWidth" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="imageWidth">Image Width (pixels)</label>
+            <input type="number" id="imageWidth" step="1">
+        </div>
+        <div class="form-group">
+            <label for="flightHeight">Flight Height (meters)</label>
+            <input type="number" id="flightHeight" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="focalLength">Focal Length (mm)</label>
+            <input type="number" id="focalLength" step="0.01">
+        </div>
+        <button class="btn" onclick="calculateGSD()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateGSD() {
+            let sensorWidth = parseFloat(document.getElementById('sensorWidth').value);
+            let imageWidth = parseInt(document.getElementById('imageWidth').value);
+            let flightHeight = parseFloat(document.getElementById('flightHeight').value);
+            let focalLength = parseFloat(document.getElementById('focalLength').value);
+
+            if (isNaN(sensorWidth) || isNaN(imageWidth) || isNaN(flightHeight) || isNaN(focalLength) || sensorWidth <= 0 || imageWidth <= 0 || flightHeight <= 0 || focalLength <= 0) {
+                alert('Please enter valid values');
+                return;
+            }
+
+            // Calculate GSD (Ground Sample Distance)
+            let gsd = (sensorWidth * flightHeight * 1000) / (focalLength * imageWidth);
+
+            document.getElementById('result').innerHTML = `Ground Sample Distance: ${gsd.toFixed(2)} cm/pixel`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logic Gate Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Logic Gate Calculator</h1>
+        <div class="form-group">
+            <label for="inputA">Input A (0 or 1)</label>
+            <input type="number" id="inputA" min="0" max="1">
+        </div>
+        <div class="form-group">
+            <label for="inputB">Input B (0 or 1)</label>
+            <input type="number" id="inputB" min="0" max="1">
+        </div>
+        <div class="form-group">
+            <label for="gate">Logic Gate</label>
+            <select id="gate">
+                <option value="AND">AND</option>
+                <option value="OR">OR</option>
+                <option value="NOT">NOT</option>
+                <option value="NAND">NAND</option>
+                <option value="NOR">NOR</option>
+                <option value="XOR">XOR</option>
+                <option value="XNOR">XNOR</option>
+            </select>
+        </div>
+        <button class="btn" onclick="calculate()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculate() {
+            let inputA = parseInt(document.getElementById('inputA').value);
+            let inputB = parseInt(document.getElementById('inputB').value);
+            let gate = document.getElementById('gate').value;
+
+            if (isNaN(inputA) || isNaN(inputB) || (inputA !== 0 && inputA !== 1) || (inputB !== 0 && inputB !== 1)) {
+                alert('Please enter valid inputs (0 or 1)');
+                return;
+            }
+
+            let result;
+            switch (gate) {
+                case 'AND':
+                    result = inputA & inputB;
+                    break;
+                case 'OR':
+                    result = inputA | inputB;
+                    break;
+                case 'NOT':
+                    if (isNaN(inputA)) {
+                        alert('Please enter a valid input (0 or 1) for NOT gate');
+                        return;
+                    }
+                    result = ~inputA & 1;
+                    break;
+                case 'NAND':
+                    result = ~(inputA & inputB) & 1;
+                    break;
+                case 'NOR':
+                    result = ~(inputA | inputB) & 1;
+                    break;
+                case 'XOR':
+                    result = inputA ^ inputB;
+                    break;
+                case 'XNOR':
+                    result = ~(inputA ^ inputB) & 1;
+                    break;
+                default:
+                    alert('Invalid logic gate');
+                    return;
+            }
+
+            document.getElementById('result').innerHTML = `Result: ${result}`;
+        }
+    </script>
+</body>
+</html>

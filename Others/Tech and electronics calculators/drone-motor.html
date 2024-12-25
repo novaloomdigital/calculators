@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drone Motor Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Drone Motor Calculator</h1>
+        <div class="form-group">
+            <label for="droneWeight">Drone Weight (grams)</label>
+            <input type="number" id="droneWeight" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="numMotors">Number of Motors</label>
+            <input type="number" id="numMotors" step="1" value="4"> <!-- Example for quadcopter -->
+        </div>
+        <div class="form-group">
+            <label for="thrustToWeightRatio">Desired Thrust-to-Weight Ratio</label>
+            <input type="number" id="thrustToWeightRatio" step="0.01" value="2"> <!-- Example for good performance -->
+        </div>
+        <button class="btn" onclick="calculateMotorSpecs()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateMotorSpecs() {
+            let droneWeight = parseFloat(document.getElementById('droneWeight').value);
+            let numMotors = parseInt(document.getElementById('numMotors').value);
+            let thrustToWeightRatio = parseFloat(document.getElementById('thrustToWeightRatio').value);
+
+            if (isNaN(droneWeight) || isNaN(numMotors) || isNaN(thrustToWeightRatio) || droneWeight <= 0 || numMotors <= 0 || thrustToWeightRatio <= 0) {
+                alert('Please enter valid values');
+                return;
+            }
+
+            // Calculate the total thrust required
+            let totalThrust = droneWeight * thrustToWeightRatio;
+
+            // Calculate the thrust per motor
+            let thrustPerMotor = totalThrust / numMotors;
+
+            document.getElementById('result').innerHTML = `
+                Total Thrust Required: ${totalThrust.toFixed(2)} grams<br>
+                Thrust Per Motor: ${thrustPerMotor.toFixed(2)} grams
+            `;
+        }
+    </script>
+</body>
+</html>

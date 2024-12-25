@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PCB Trace Resistance Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PCB Trace Resistance Calculator</h1>
+        <div class="form-group">
+            <label for="traceLength">Trace Length (mm)</label>
+            <input type="number" id="traceLength" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="traceWidth">Trace Width (mm)</label>
+            <input type="number" id="traceWidth" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="traceThickness">Trace Thickness (oz)</label>
+            <input type="number" id="traceThickness" step="0.01">
+        </div>
+        <button class="btn" onclick="calculateResistance()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateResistance() {
+            let traceLength = parseFloat(document.getElementById('traceLength').value);
+            let traceWidth = parseFloat(document.getElementById('traceWidth').value);
+            let traceThickness = parseFloat(document.getElementById('traceThickness').value);
+
+            if (isNaN(traceLength) || isNaN(traceWidth) || isNaN(traceThickness) || traceLength <= 0 || traceWidth <= 0 || traceThickness <= 0) {
+                alert('Please enter valid values');
+                return;
+            }
+
+            // Convert trace thickness from oz to mm (1 oz/ft² = 0.0347 mm)
+            let traceThicknessMm = traceThickness * 0.0347;
+
+            // Calculate the cross-sectional area of the trace in square mm
+            let crossSectionalArea = traceWidth * traceThicknessMm;
+
+            // Resistivity of copper (ohm-mm²/m)
+            let resistivity = 0.017; // Ohm-mm²/m
+
+            // Calculate resistance using the formula R = (ρ * L) / A
+            let resistance = (resistivity * traceLength) / crossSectionalArea;
+
+            document.getElementById('result').innerHTML = `Trace Resistance: ${resistance.toFixed(6)} Ohms`;
+        }
+    </script>
+</body>
+</html>

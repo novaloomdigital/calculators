@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pi Attenuator Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pi Attenuator Calculator</h1>
+        <div class="form-group">
+            <label for="attenuation">Attenuation (dB)</label>
+            <input type="number" id="attenuation" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="impedance">Characteristic Impedance (Ohms)</label>
+            <input type="number" id="impedance" step="0.01">
+        </div>
+        <button class="btn" onclick="calculatePiAttenuator()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculatePiAttenuator() {
+            let attenuation = parseFloat(document.getElementById('attenuation').value);
+            let impedance = parseFloat(document.getElementById('impedance').value);
+
+            if (isNaN(attenuation) || isNaN(impedance) || attenuation <= 0 || impedance <= 0) {
+                alert('Please enter valid values');
+                return;
+            }
+
+            // Convert attenuation from dB to linear scale
+            let linearAttenuation = Math.pow(10, attenuation / 20);
+
+            // Calculate resistor values
+            let r1 = impedance * (linearAttenuation - 1) / (linearAttenuation + 1);
+            let r2 = impedance * Math.pow(linearAttenuation, 2) / (linearAttenuation * linearAttenuation - 1);
+
+            document.getElementById('result').innerHTML = `
+                Resistor R1: ${r1.toFixed(2)} Ohms<br>
+                Resistor R2: ${r2.toFixed(2)} Ohms
+            `;
+        }
+    </script>
+</body>
+</html>

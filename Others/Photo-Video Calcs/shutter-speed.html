@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shutter Speed Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Shutter Speed Calculator</h1>
+        <div class="form-group">
+            <label for="aperture">Aperture (f-stop)</label>
+            <input type="number" id="aperture" step="0.1">
+        </div>
+        <div class="form-group">
+            <label for="iso">ISO</label>
+            <input type="number" id="iso" step="1">
+        </div>
+        <div class="form-group">
+            <label for="light">Light Value (EV)</label>
+            <input type="number" id="light" step="0.1" value="12"> <!-- Example light value for daylight -->
+        </div>
+        <button class="btn" onclick="calculateShutterSpeed()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateShutterSpeed() {
+            let aperture = parseFloat(document.getElementById('aperture').value);
+            let iso = parseInt(document.getElementById('iso').value);
+            let lightValue = parseFloat(document.getElementById('light').value);
+
+            if (isNaN(aperture) || isNaN(iso) || isNaN(lightValue) || aperture <= 0 || iso <= 0) {
+                alert('Please enter valid values');
+                return;
+            }
+
+            // Calculate shutter speed using the exposure triangle formula
+            let shutterSpeed = (lightValue * (iso / 100)) / (aperture * aperture);
+
+            document.getElementById('result').innerHTML = `Shutter Speed: 1/${Math.round(shutterSpeed)} seconds`;
+        }
+    </script>
+</body>
+</html>

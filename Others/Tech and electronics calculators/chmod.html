@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chmod Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Chmod Calculator</h1>
+        <div class="form-group">
+            <label for="user">User (Owner)</label>
+            <input type="checkbox" id="uRead" value="4"> Read (r)<br>
+            <input type="checkbox" id="uWrite" value="2"> Write (w)<br>
+            <input type="checkbox" id="uExecute" value="1"> Execute (x)<br>
+        </div>
+        <div class="form-group">
+            <label for="group">Group</label>
+            <input type="checkbox" id="gRead" value="4"> Read (r)<br>
+            <input type="checkbox" id="gWrite" value="2"> Write (w)<br>
+            <input type="checkbox" id="gExecute" value="1"> Execute (x)<br>
+        </div>
+        <div class="form-group">
+            <label for="others">Others</label>
+            <input type="checkbox" id="oRead" value="4"> Read (r)<br>
+            <input type="checkbox" id="oWrite" value="2"> Write (w)<br>
+            <input type="checkbox" id="oExecute" value="1"> Execute (x)<br>
+        </div>
+        <button class="btn" onclick="calculateChmod()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateChmod() {
+            let user = (document.getElementById('uRead').checked ? 4 : 0) +
+                       (document.getElementById('uWrite').checked ? 2 : 0) +
+                       (document.getElementById('uExecute').checked ? 1 : 0);
+            let group = (document.getElementById('gRead').checked ? 4 : 0) +
+                        (document.getElementById('gWrite').checked ? 2 : 0) +
+                        (document.getElementById('gExecute').checked ? 1 : 0);
+            let others = (document.getElementById('oRead').checked ? 4 : 0) +
+                         (document.getElementById('oWrite').checked ? 2 : 0) +
+                         (document.getElementById('oExecute').checked ? 1 : 0);
+
+            let chmodValue = `${user}${group}${others}`;
+            let symbolicValue = `${document.getElementById('uRead').checked ? 'r' : '-'}${document.getElementById('uWrite').checked ? 'w' : '-'}${document.getElementById('uExecute').checked ? 'x' : '-'}${document.getElementById('gRead').checked ? 'r' : '-'}${document.getElementById('gWrite').checked ? 'w' : '-'}${document.getElementById('gExecute').checked ? 'x' : '-'}${document.getElementById('oRead').checked ? 'r' : '-'}${document.getElementById('oWrite').checked ? 'w' : '-'}${document.getElementById('oExecute').checked ? 'x' : '-'}`;
+
+            document.getElementById('result').innerHTML = `Chmod Value: ${chmodValue}<br>Symbolic Value: ${symbolicValue}`;
+        }
+    </script>
+</body>
+</html>
